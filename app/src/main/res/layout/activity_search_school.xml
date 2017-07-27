@@ -8,18 +8,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="20dip"
         android:background="#a0ffffff"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
-        android:layout_marginTop="20dip"
         android:paddingRight="10dp">
 
         <ImageView
             android:id="@+id/back_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_back"/>
+            android:src="@mipmap/icon_back" />
 
         <LinearLayout
             android:id="@+id/search_layout"
@@ -27,7 +27,7 @@
             android:layout_height="30dp"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:background="@drawable/shape_round_white"
+            android:background="@drawable/shape_round_gray"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="5dp"
@@ -36,7 +36,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/nav_icon_search"/>
+                android:src="@mipmap/nav_icon_search" />
 
             <EditText
                 android:id="@+id/search_content_et"
@@ -48,14 +48,14 @@
                 android:focusable="false"
                 android:gravity="center"
                 android:hint="请输入你要搜索的内容"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
             <ImageView
                 android:id="@+id/audio_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:src="@mipmap/nav_icon_voice"/>
+                android:src="@mipmap/nav_icon_voice" />
         </LinearLayout>
 
         <ImageView
@@ -63,13 +63,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:src="@mipmap/nav_icon_filter"/>
+            android:src="@mipmap/nav_icon_filter" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
-        android:background="@color/line_color"/>
+        android:background="@color/line_color" />
 
     <RadioGroup
         android:id="@+id/radio_group"
@@ -81,7 +81,7 @@
         <View
             android:layout_width="20dp"
             android:layout_height="1px"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent" />
 
         <RadioButton
             android:id="@+id/hot_school"
@@ -90,12 +90,18 @@
             android:layout_weight="1"
             android:button="@null"
             android:checked="true"
-            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/school_tab_selector"
             android:gravity="center"
-            android:text="热门院校"
-            android:textColor="@color/color_333"
-            android:textSize="14sp"/>
-
+            android:paddingRight="20dip"
+            android:text="排名"
+            android:textColor="@drawable/home_font_selector"
+            android:textSize="14sp" />
+        <View
+            android:layout_width="0.5dip"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2dip"
+            android:layout_marginBottom="2dip"
+            android:background="@color/line_color"></View>
         <RadioButton
             android:id="@+id/recommend_school"
             android:layout_width="0dp"
@@ -103,12 +109,19 @@
             android:layout_weight="1"
             android:button="@null"
             android:checked="false"
-            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/school_tab_selector"
             android:gravity="center"
-            android:text="推荐院校"
-            android:textColor="@color/color_333"
-            android:textSize="14sp"/>
-
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="录取率"
+            android:textColor="@drawable/home_font_selector"
+            android:textSize="14sp" />
+        <View
+            android:layout_width="0.5dip"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2dip"
+            android:layout_marginBottom="2dip"
+            android:background="@color/line_color"></View>
         <RadioButton
             android:id="@+id/offer_school"
             android:layout_width="0dp"
@@ -116,16 +129,17 @@
             android:layout_weight="1"
             android:button="@null"
             android:checked="false"
-            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/school_tab_selector"
             android:gravity="center"
-            android:text="Offer榜"
-            android:textColor="@color/color_333"
-            android:textSize="14sp"/>
+            android:paddingLeft="20dip"
+            android:text="奖学金"
+            android:textColor="@drawable/home_font_selector"
+            android:textSize="14sp" />
 
         <View
             android:layout_width="20dp"
             android:layout_height="1px"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent" />
 
     </RadioGroup>
 
@@ -135,53 +149,65 @@
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
+
         <View
             android:layout_width="20dp"
             android:layout_height="1px"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent" />
 
         <View
             android:id="@+id/line_hot_school"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="1dp"
-            android:background="@color/colorPrimary"
-            />
+            android:layout_weight="1"
+            android:background="@color/colorPrimary" />
 
         <View
             android:id="@+id/line_recommend"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="1dp"
-            android:visibility="invisible"
+            android:layout_weight="1"
             android:background="@color/colorPrimary"
-            />
+            android:visibility="invisible" />
 
         <View
             android:id="@+id/line_offer"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="1dp"
-            android:visibility="invisible"
+            android:layout_weight="1"
             android:background="@color/colorPrimary"
-            />
+            android:visibility="invisible" />
+
         <View
             android:layout_width="20dp"
             android:layout_height="1px"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
-        android:background="@color/line_color"/>
+        android:background="@color/line_color" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/school_list_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+
+        <com.likeit.a51scholarship.view.MyListview
+            android:id="@+id/school_list_listview"
+            android:layout_width="match_parent"
+            android:divider="@color/smssdk_white"
+            android:dividerHeight="10dp"
+            android:layout_height="match_parent"></com.likeit.a51scholarship.view.MyListview>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        />
+        android:layout_weight="1" />
 
 </LinearLayout>

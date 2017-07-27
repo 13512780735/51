@@ -148,7 +148,7 @@
         <activity
             android:name=".activitys.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyAppTheme"/>
+            android:theme="@style/MyAppTheme" />
         <activity
             android:name=".activitys.login.ForgetPasswdActivity"
             android:screenOrientation="portrait" />
@@ -201,7 +201,10 @@
         <activity android:name=".activitys.MessageActivity" />
         <activity android:name=".activitys.SearchSchoolActivity" />
         <activity android:name=".activitys.NewsListActivity" />
-        <activity android:name=".activitys.SchoolDetailActivity" />
+        <activity
+            android:name=".activitys.SchoolDetailActivity"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".activitys.WebActivity" />
         <activity android:name=".activitys.WebForNewsActivity" />
         <activity android:name=".activitys.WebHtmlActivity" />

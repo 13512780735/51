@@ -64,9 +64,11 @@
                     android:background="@null"
                     android:drawableRight="@mipmap/filter_right_bg"
                     android:padding="10dip"
+                    android:drawablePadding="5dip"
                     android:text="筛选"
                     android:textColor="@color/login_btn_bg_color"
                     android:textSize="14sp" />
+
             </RelativeLayout>
 
             <View

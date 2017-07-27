@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/school_listview_iv_school"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/test01"
+        android:divider="@color/smssdk_white"
+        android:scaleType="fitCenter" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/school_listview_tv_Chinese_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dip"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="bottom"
+                    android:text="XXXX"
+                    android:textSize="15sp"
+                    android:lines="1"
+                    />
+
+                <TextView
+                    android:id="@+id/school_listview_tv_English_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dip"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:text="XXXX"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical"
+                    android:lines="1"
+                    android:textColor="@color/defualt_textcolor_f" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/school_listview_bt_apply"
+                android:layout_width="80dip"
+                android:layout_height="30dip"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_round_login_btn_"
+                android:text="申请"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/school_listview_tv_rank01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/defualt_textcolor_d"
+                    android:textSize="14sp"
+                    android:text="US排名:" />
+
+                <TextView
+                    android:id="@+id/school_listview_tv_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="5dip"
+                    android:textColor="@color/holo_red_light"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:text="200"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/school_listview_tv_rank01" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/school_listview_tv_rate01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/defualt_textcolor_d"
+                    android:textSize="14sp"
+                    android:text="录取率:" />
+
+                <TextView
+                    android:id="@+id/school_listview_tv_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@+id/school_listview_tv_rate01"
+                    android:layout_marginLeft="5dip"
+                    android:textColor="@color/defualt_textcolor_g"
+                    android:lines="1"
+                    android:textSize="14sp"
+                    android:ellipsize="end"
+                    android:text="60%"  />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/school_listview_tv_scholarship01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/defualt_textcolor_d"
+                    android:textSize="14sp"
+                    android:text="奖学金:" />
+
+                <TextView
+                    android:id="@+id/school_listview_tv_scholarship"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@+id/school_listview_tv_scholarship01"
+                    android:layout_marginLeft="5dip"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:textSize="14sp"
+                    android:textColor="@color/defualt_textcolor_g"
+                    android:text="$6000" />
+            </RelativeLayout>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="@color/background_b"></View>
+    </LinearLayout>
+
+
+</LinearLayout>

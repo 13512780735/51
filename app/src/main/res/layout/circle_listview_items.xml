@@ -55,9 +55,13 @@
         android:layout_height="30dip"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_margin="10dip"
         android:background="@drawable/button_blue_bg"
         android:text="未关注"
+        android:layout_marginRight="10dip"
         android:textColor="@color/login_btn_bg_color"
+        android:shadowColor="#02B7FB"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="0"
         android:textSize="12sp" />
 </RelativeLayout>

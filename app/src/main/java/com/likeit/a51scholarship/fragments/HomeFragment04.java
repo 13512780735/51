@@ -16,6 +16,7 @@ import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.activitys.MainActivity;
 import com.likeit.a51scholarship.activitys.SearchInfoActivity;
 import com.likeit.a51scholarship.dialog.KefuDialog;
+import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.view.MyListview;
 
 import java.util.ArrayList;
@@ -107,6 +108,7 @@ public class HomeFragment04 extends BaseFragment implements View.OnClickListener
         simpleAdapter = new SimpleAdapter(getActivity(), dataList, R.layout.message_listview_chat_items, from, to);
         //配置适配器
         mListview.setAdapter(simpleAdapter);
+        ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
     }
 
     private void initListener() {
@@ -158,11 +160,13 @@ public class HomeFragment04 extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+        ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
         mPullToRefreshScrollView.onRefreshComplete();
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-
+        ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
+        mPullToRefreshScrollView.onRefreshComplete();
     }
 }

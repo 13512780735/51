@@ -65,6 +65,7 @@ android {
     }
 }
 
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -116,4 +117,5 @@ dependencies {
     compile 'net.fredericosilva:showTipsView:1.0.4'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile project(':PhotoViewlibrary')
 }
