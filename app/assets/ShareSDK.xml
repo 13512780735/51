@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DevInfor>
+
+    <ShareSDK AppKey="1b2bd24a56f24" />
+    <!-- 正式key1dde088d4aa4a" -->
+    <!-- 测试key330bf065e354 -->
+
+
+    <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
+
+    <QQ
+        AppId="1106052121"
+        AppKey="RFVR6AfdGKoJlmLS"
+        Enable="true"
+        Id="1"
+        RedirectUrl="http://www.sharesdk.cn"
+        ShareByAppClient="true"
+        SortId="1" />
+    <!-- 测试key="1135673861" AppSecret="98e8f9cab7a01618c64a115222b74d23" RedirectUrl="http://www.sharesdk.cn" -->
+    <!-- 正式key="3415952877"  AppSecret="fade15a705f79b10ae0bfef16f71a663" RedirectUrl="http://test.dd1760.com/DDHK/api/callback/weibo" -->
+
+    <SinaWeibo
+        AppKey="3415952877"
+        AppSecret="fade15a705f79b10ae0bfef16f71a663"
+        Enable="true"
+        Id="2"
+        RedirectUrl="http://test.dd1760.com/DDHK/api/callback/weibo"
+        ShareByAppClient="true"
+        SortId="2" />
+
+    <!-- 暂未使用自己的 -->
+    <!--正式环境：id:"wx307bf5fa134ffacd",secret:"c868f6f22fd0e3f187980ecdb5454cb8"-->
+    <Wechat
+        AppId="wx307bf5fa134ffacd"
+        AppSecret="c868f6f22fd0e3f187980ecdb5454cb8"
+        BypassApproval="false"
+        Enable="true"
+        Id="3"
+        SortId="3" />
+
+    <QZone
+        AppId="1106052121"
+        AppKey="RFVR6AfdGKoJlmLS"
+        Enable="true"
+        Id="4"
+        ShareByAppClient="true"
+        SortId="4" />
+
+    <!--
+         <WechatFavorite
+        AppId="wx27891f02149f28a4"
+        AppSecret="6a6ad735e6e22bf609d7ea86e48d6327"
+        BypassApproval="false"
+        Enable="true"
+        Id="5"
+        SortId="5" />
+
+
+
+
+
+
+    -->
+    <!-- 暂未使用自己的 -->
+
+    <WechatMoments
+        AppId="wx307bf5fa134ffacd"
+        AppSecret="c868f6f22fd0e3f187980ecdb5454cb8"
+        BypassApproval="false"
+        Enable="true"
+        Id="5"
+        SortId="5" />
+
+</DevInfor>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/main_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:checked="true"
+            android:drawableLeft="@drawable/selected_main_tab_school_butt"
+            android:drawablePadding="5dp"
+            android:text="院校选择"
+            android:textColor="@color/selected_main_tab_btn_txt"
+            android:textSize="14sp"/>
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="1px"
+            android:background="@android:color/transparent"/>
+
+        <RadioButton
+            android:id="@+id/radio_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:checked="false"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:drawableLeft="@drawable/selected_main_tab_news_butt"
+            android:drawablePadding="5dp"
+            android:text="头条资讯"
+            android:textColor="@color/selected_main_tab_btn_txt"
+            android:textSize="14sp"/>
+    </RadioGroup>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/line_school"
+            android:layout_width="85dp"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"
+            />
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="1px"
+            android:background="@android:color/transparent"/>
+
+        <View
+            android:id="@+id/line_news"
+            android:layout_width="85dp"
+            android:layout_height="1dp"
+            android:visibility="invisible"
+            android:background="@color/colorPrimary"
+            />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/line_color"/>
+
+</RelativeLayout>

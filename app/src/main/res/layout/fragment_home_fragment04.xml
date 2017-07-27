@@ -1,0 +1,42 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/defualt_window_background"
+    tools:context=".fragments.HomeFragment04">
+
+    <!-- TODO: Update blank fragment layout -->
+    <include layout="@layout/layout_header_with_back_img_switchbtn"></include>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/ll_message_scrollview"
+        android:layout_width="match_parent"
+        android:layout_marginTop="70dip"
+        android:layout_height="match_parent"
+        android:divider="@color/smssdk_white"
+        android:dividerHeight="5dp"
+        android:dividerPadding="2dip">
+
+        <com.likeit.a51scholarship.view.MyListview
+            android:id="@+id/ll_message_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.likeit.a51scholarship.view.MyListview>
+
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <ImageView
+            android:id="@+id/kefu_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="30dp"
+            android:src="@mipmap/icon_service" />
+    </RelativeLayout>
+</FrameLayout>

@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.likeit.a51scholarship.fragments.ShowFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/iv_show_bg_hightlight"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginTop="140dip"
+        android:src="@mipmap/menu_icon_school"
+        android:background="@drawable/show_bg_hightlight" />
+    <ImageView
+        android:id="@+id/id_iv_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_show_bg_hightlight"
+        android:layout_marginLeft="30dip"
+        android:layout_marginTop="5dip"
+        android:src="@mipmap/left_arrow"/>
+    <ImageView
+        android:id="@+id/id_iv_home_guide_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/id_iv_arrow"
+        android:src="@mipmap/home_guide_bg" />
+
+    <ImageView
+        android:id="@+id/id_iv_home_guide_bg01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dip"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/id_iv_home_guide_bg"
+        android:src="@mipmap/btn_iknow" />
+</RelativeLayout>

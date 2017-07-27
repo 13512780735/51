@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dip">
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="10dip"
+        android:src="@mipmap/icon_01_3x" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/iv_avatar"
+        android:padding="10dip">
+
+        <TextView
+            android:id="@+id/tv_school_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="留学英国"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_school_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_school_name"
+            android:layout_marginTop="8dip"
+            android:text="成员：666"
+            android:textColor="@color/defualt_textcolor_c"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_school_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_school_number"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dip"
+            android:layout_toRightOf="@+id/tv_school_number"
+            android:text="帖子：666"
+            android:textColor="@color/defualt_textcolor_c"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="80dip"
+        android:layout_height="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dip"
+        android:background="@drawable/button_blue_bg"
+        android:text="未关注"
+        android:textColor="@color/login_btn_bg_color"
+        android:textSize="12sp" />
+</RelativeLayout>

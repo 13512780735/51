@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="80dip"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="@dimen/width60"
+        android:layout_height="@dimen/width60"
+        android:layout_margin="10dip">
+
+        <com.likeit.a51scholarship.view.CircleImageView
+            android:id="@+id/iv_message_chat_avatar"
+            android:layout_width="@dimen/width60"
+            android:layout_height="@dimen/width60"
+            android:src="@mipmap/message_chat_avatar" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent">
+
+            <ImageView
+                android:id="@+id/iv_message_chat_v1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/message_chat_v1" />
+
+        </RelativeLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_margin="5dip"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/iv_message_chat_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:gravity="bottom"
+                android:lines="1"
+                android:text="Lana"
+                android:textColor="@color/defualt_textcolor_a" />
+
+            <TextView
+                android:id="@+id/tv_message_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="bottom"
+                android:text="2017-02-04"
+                android:textColor="@color/defualt_textcolor_d"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/iv_message_chat_message"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dip"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:lines="1"
+                android:text="我通过了你的好友验证请求，现在我们可以开始聊天了..."
+                android:textColor="@color/defualt_textcolor_d"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/fl_message_number"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/message_chat_number_bg"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="10sp"></TextView>
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

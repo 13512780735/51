@@ -1,0 +1,114 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/id_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:background="@color/defualt_window_background"
+    tools:context=".activitys.MainActivity">
+
+    <com.likeit.a51scholarship.view.NoScrollViewPager
+        android:id="@+id/home_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/defualt_window_background"
+        android:layout_weight="1"></com.likeit.a51scholarship.view.NoScrollViewPager>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/base_edit_input"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@+id/rgTools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbHome"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/home_selector"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="首页"
+                android:textColor="@drawable/home_font_selector"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbCircle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/circle_selector"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="圈子"
+                android:textColor="@drawable/home_font_selector"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbFind"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/find_selector"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="发现"
+                android:textColor="@drawable/home_font_selector"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbMessage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/message_selector"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="消息"
+                android:textColor="@drawable/home_font_selector"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbTool"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/tool_selector"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="工具"
+                android:textColor="@drawable/home_font_selector"
+                android:textSize="12sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/cricle_gridview_iv_Avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/icon_01_3x" />
+
+    <Button
+        android:id="@+id/cricle_gridview_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="30dip"
+        android:layout_below="@+id/cricle_gridview_iv_Avatar"
+        android:layout_centerHorizontal="true"
+        android:background="@null"
+        android:padding="5dip"
+        android:text=" 留学英国"
+        android:textColor="@color/defualt_textcolor_c"
+        android:textSize="12sp"
+        />
+
+<!--    <Button
+        android:id="@+id/cricle_gridview_tv_name01"
+        android:layout_width="wrap_content"
+        android:layout_height="30dip"
+        android:layout_below="@+id/cricle_gridview_iv_Avatar"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:drawablePadding="5dip"
+        android:padding="5dip"
+        android:drawableRight="@mipmap/wangsan_icon_right"
+        android:text=" 查看所有"
+        android:background="@null"
+        android:visibility="gone"
+        android:textColor="@color/defualt_textcolor_c"
+        android:textSize="12sp" />-->
+</RelativeLayout>

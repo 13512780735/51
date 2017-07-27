@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/defualt_window_background"
+    android:orientation="vertical"
+    tools:context=".fragments.HomeFragment05">
+
+    <!-- TODO: Update blank fragment layout -->
+    <include layout="@layout/layout_header_with_back_img" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/ll_tool_scrollview"
+        android:layout_width="match_parent"
+        android:paddingTop="20dip"
+        android:layout_height="match_parent"
+        android:divider="@color/smssdk_white">
+
+        <com.likeit.a51scholarship.view.MyGridView
+            android:id="@+id/ll_tools_gridview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:verticalSpacing="30dip"
+            android:numColumns="3"></com.likeit.a51scholarship.view.MyGridView>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+</LinearLayout>

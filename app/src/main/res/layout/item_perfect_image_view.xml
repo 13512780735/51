@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/prefer_img_w_h"
+    android:layout_height="@dimen/prefer_img_w_h"
+    android:scaleType="centerCrop"
+    android:layout_marginRight="5dp"
+/>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_header_with_back" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/icon_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/icon_phone" />
+
+        <TextView
+            android:id="@+id/phone_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/icon_phone"
+            android:layout_toRightOf="@+id/icon_phone"
+            android:text="手机号"
+            android:textColor="@color/defualt_textcolor"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/phone_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/phone_tv"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/icon_phone"
+            android:background="@null"
+            android:hint="请输入你的手机号"
+            android:inputType="number"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/phone_et"
+            android:layout_marginTop="4dp"
+            android:background="@color/line_color" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/icon_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/icon_code" />
+
+        <TextView
+            android:id="@+id/code_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/icon_code"
+            android:layout_toRightOf="@+id/icon_code"
+            android:text="验证码"
+            android:textColor="@color/defualt_textcolor"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/code_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/code_tv"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/icon_code"
+            android:background="@null"
+            android:hint="请获取验证码"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/send_code_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shape_round_send_code_btn_"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:text="发送验证码"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/code_et"
+            android:layout_marginTop="4dp"
+            android:background="@color/line_color" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/icon_passwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/icon_password" />
+
+        <TextView
+            android:id="@+id/passwd_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/icon_passwd"
+            android:layout_toRightOf="@+id/icon_passwd"
+            android:text="新密码"
+            android:textColor="@color/defualt_textcolor"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/passwd_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/passwd_tv"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/icon_passwd"
+            android:background="@null"
+            android:hint="结合数字、字母或符号、长度6-12位"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/passwd_et"
+            android:layout_marginTop="4dp"
+            android:background="@color/line_color" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/icon_repasswd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/icon_codeok" />
+
+        <TextView
+            android:id="@+id/repasswd_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/icon_repasswd"
+            android:layout_toRightOf="@+id/icon_repasswd"
+            android:text="确认新密码"
+            android:textColor="@color/defualt_textcolor"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/re_passwd_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/repasswd_tv"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/icon_repasswd"
+            android:background="@null"
+            android:hint="结合数字、字母或符号、长度6-12位"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/re_passwd_et"
+            android:layout_marginTop="4dp"
+            android:background="@color/line_color" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/ok_btn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_round_login_btn_"
+        android:gravity="center"
+        android:text="确认"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+</LinearLayout>

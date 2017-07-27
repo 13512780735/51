@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="D:\as\51\pulltorefreshlibrary\assets"/><source path="D:\as\51\pulltorefreshlibrary\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\as\51\pulltorefreshlibrary\build-types\debug\assets"/></dataSet></merger>

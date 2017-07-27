@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/defualt_window_background"
+    android:orientation="vertical"
+    tools:context=".fragments.HomeFragment02">
+
+    <!-- TODO: Update blank fragment layout -->
+    <include layout="@layout/layout_header_with_back_img" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/ll_circle_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/smssdk_white"
+        android:dividerHeight="5dp"
+        android:dividerPadding="2dip">
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#a0ffffff"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:padding="10dip"
+                android:text="我关注的圈子"
+                android:textSize="16sp" />
+
+            <com.likeit.a51scholarship.view.MyGridView
+                android:id="@+id/circle_gridview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="4"
+                android:verticalSpacing="10dip"></com.likeit.a51scholarship.view.MyGridView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dip"
+                android:background="@color/background_b"></View>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dip"
+                    android:text="全部圈子"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/ll_circle_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:drawableRight="@mipmap/filter_right_bg"
+                    android:padding="10dip"
+                    android:text="筛选"
+                    android:textColor="@color/login_btn_bg_color"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="@color/background_b"></View>
+
+            <com.likeit.a51scholarship.view.MyListview
+                android:id="@+id/circle_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+</LinearLayout>

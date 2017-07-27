@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_header"
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:background="@color/header_bg_color"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/header_line"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bgcolor" />
+
+    <ImageView
+        android:id="@+id/iv_header_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="5dip" />
+
+    <LinearLayout
+        android:layout_width="120dip"
+        android:layout_height="25dip"
+        android:layout_centerInParent="true"
+        android:background="@drawable/switchbtn_blue_bg"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_head_chat"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/switchbtn01_blue_bg"
+            android:text="聊天"
+            android:textColor="@color/white"
+
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_head_chat"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="聊天"
+            android:textColor="@color/login_btn_bg_color"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/bt_head_notice"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/switchbtn01_blue_bg"
+            android:text="通知"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_head_notice"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="通知"
+            android:textColor="@color/login_btn_bg_color" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_header_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:padding="5dip"
+        />
+
+    <TextView
+        android:id="@+id/tv_header_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:padding="5dip"
+        android:text="一键已读"
+        android:visibility="gone"
+        android:textColor="@color/login_btn_bg_color" />
+</RelativeLayout>

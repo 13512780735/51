@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomImageView">
+        <attr name="leftTopX" format="float" />
+        <attr name="leftTopY" format="float" />
+        <attr name="rightTopX" format="float" />
+        <attr name="rightTopY" format="float" />
+        <attr name="rightBottomX" format="float" />
+        <attr name="rightBottomY" format="float" />
+        <attr name="leftBottomX" format="float" />
+        <attr name="leftBottomY" format="float" />
+        <attr name="roundPx" format="float"/>
+    </declare-styleable>
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
+</resources>
