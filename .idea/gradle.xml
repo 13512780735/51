@@ -8,6 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/ExpandableTextView" />
             <option value="$PROJECT_DIR$/HightLight" />
             <option value="$PROJECT_DIR$/PhotoViewlibrary" />
             <option value="$PROJECT_DIR$/app" />

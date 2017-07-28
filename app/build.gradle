@@ -118,4 +118,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile project(':PhotoViewlibrary')
+    compile 'com.jaydenxiao:ExpandableTextView:1.0.0'
 }
