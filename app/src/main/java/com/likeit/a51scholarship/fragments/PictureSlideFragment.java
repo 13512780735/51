@@ -51,7 +51,7 @@ public class PictureSlideFragment extends Fragment {
         imageView = (ImageView) v.findViewById(R.id.iv_school_detail_pic);
         mAttacher = new PhotoViewAttacher(imageView);
 
-        Glide.with(getActivity()).load(url).crossFade().into(new GlideDrawableImageViewTarget(imageView) {
+        Glide.with(getActivity()).load(url).centerCrop().into(new GlideDrawableImageViewTarget(imageView) {
             @Override
             public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
                 super.onResourceReady(resource, animation);

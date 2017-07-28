@@ -3,5 +3,4 @@
 
     <item android:drawable="@drawable/arrow_down" android:state_checked="true"/>
     <item android:drawable="@drawable/arrow_up"/>
-
 </selector>

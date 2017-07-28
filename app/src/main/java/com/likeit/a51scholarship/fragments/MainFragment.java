@@ -100,13 +100,13 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         SchoolData = new ArrayList<HomeItemSchoolBean>();
         Intent intent = getActivity().getIntent();
         key = intent.getStringExtra("key");
-        Log.d("TAG","key-->"+key);
+        Log.d("TAG", "key-->" + key);
         initData();
         dialog.show();
         initView();
         initListener();
         if ("1".equals(key)) {
-            showCaseView();
+            //  showCaseView();
         } else return;
     }
 
@@ -296,9 +296,17 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String name = SchoolData.get(position).getName();
+                String en_name = SchoolData.get(position).getEn_name();
+                String img = SchoolData.get(position).getImg();
                 if (status == 1) {
-                    toActivity(SchoolDetailActivity.class);
-
+                    Intent intentSchoolDetail = new Intent();
+                    intentSchoolDetail.putExtra("key", "1");//英文名字
+                    intentSchoolDetail.putExtra("name", name);//英文名字
+                    intentSchoolDetail.putExtra("en_name",en_name);//中文名字
+                    intentSchoolDetail.putExtra("img",img);//图片
+                    intentSchoolDetail.setClass(getActivity(), SchoolDetailActivity.class);
+                    startActivity(intentSchoolDetail);
                 }
             }
         });
@@ -338,13 +346,19 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         mListView.setAdapter(schoolAdater);
         schoolAdater.notifyDataSetChanged();
         ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
+        mListView.post(new Runnable() {
+            @Override
+            public void run() {
+                iv_school_layout = findViewById(R.id.iv_school_layout);
+                iv_school_layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        addHightView();
+                        iv_school_layout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    }
+                });
+            }
+        });
     }
 
     public void onClick(View view) {

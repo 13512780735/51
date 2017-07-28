@@ -3,24 +3,95 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".activitys.SchoolDetailActivity">
 
     <include layout="@layout/layout_header_with_back_img" />
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/white">
+        android:layout_height="0dip"
+        android:layout_weight="1">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/layout_school_details"></include>
+                <include layout="@layout/layout_school_details_01"></include>
+                <include layout="@layout/layout_school_details_02"></include>
+            </LinearLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/icon_pinlun_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/icon_list_iv"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dip"
+                android:layout_marginRight="10dip"
+                android:src="@mipmap/icon_pinlun" />
+
+            <ImageView
+                android:id="@+id/icon_list_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/icon_up_iv"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dip"
+                android:layout_marginRight="10dip"
+                android:src="@mipmap/icon_list" />
+
+            <ImageView
+                android:id="@+id/icon_up_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dip"
+                android:layout_marginRight="10dip"
+                android:src="@mipmap/icon_up" />
+        </RelativeLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width40"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            style="@style/mycheckbox"
+            android:layout_weight="2"
+            android:background="@color/white"
+            android:text="收藏"
+            android:layout_marginLeft="20dip"
+            android:gravity="center"
+            android:paddingRight="10dip"
+            android:textColor="@drawable/home_font_selector"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <include layout="@layout/layout_school_details" ></include>
-        </LinearLayout>
-    </ScrollView>
+            android:layout_weight="7"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_xuexiaoshenqin" />
+    </LinearLayout>
 </LinearLayout>

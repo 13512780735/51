@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--录取与申请-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:text="录取与申请"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:text="录取数据"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/school_admit_number_tv01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="申请人数"
+                    android:textColor="@color/defualt_textcolor_d" />
+
+                <TextView
+                    android:id="@+id/school_admit_number_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_toRightOf="@+id/school_admit_number_tv01"
+                    android:text="34919" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/school_admit_rate_tv01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="录取率"
+                    android:textColor="@color/defualt_textcolor_d" />
+
+                <TextView
+                    android:id="@+id/school_admit_rate_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_toRightOf="@+id/school_admit_rate_tv01"
+                    android:text="5.8%" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip">
+
+            <TextView
+                android:id="@+id/school_enrollment_rate_tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="入学率"
+                android:textColor="@color/defualt_textcolor_d" />
+
+            <TextView
+                android:id="@+id/school_enrollment_rate_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@+id/school_enrollment_rate_tv01"
+                android:text="5.8%"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip">
+
+            <TextView
+                android:id="@+id/school_admit_GPA_tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GPA平均分"
+                android:textColor="@color/defualt_textcolor_d" />
+
+            <TextView
+                android:id="@+id/school_admit_GPA_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@+id/school_admit_GPA_tv01"
+                android:text="4" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip">
+
+            <TextView
+                android:id="@+id/school_SAT_admit_tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SAT录取区间值"
+                android:textColor="@color/defualt_textcolor_d" />
+
+            <TextView
+                android:id="@+id/school_SAT_admit_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@+id/school_SAT_admit_tv01"
+                android:text="" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip">
+
+            <TextView
+                android:id="@+id/school_math_SAT_tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SAT数学区间值"
+                android:textColor="@color/defualt_textcolor_d" />
+
+            <TextView
+                android:id="@+id/school_math_SAT_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@+id/school_math_SAT_tv01"
+                android:text="～0" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip">
+
+            <TextView
+                android:id="@+id/school_read_SAT_tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SAT批判性阅读区间值"
+                android:textColor="@color/defualt_textcolor_d" />
+
+            <TextView
+                android:id="@+id/school_read_SAT_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@+id/school_read_SAT_tv01"
+                android:text="～0" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip">
+
+            <TextView
+                android:id="@+id/school_admit_ACT_tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACT录取区间值"
+                android:textColor="@color/defualt_textcolor_d" />
+
+            <TextView
+                android:id="@+id/school_admit_ACT_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@+id/school_admit_ACT_tv01"
+                android:text="32～35" />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:text="新生高中生班级排名"
+            android:textStyle="bold"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip">
+
+            <TextView
+                android:id="@+id/school_class_rank_front10_tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="班级排名前10%学生比例"
+                android:textColor="@color/defualt_textcolor_d" />
+
+            <TextView
+                android:id="@+id/school_class_rank_front10_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@+id/school_class_rank_front10_tv01"
+                android:text="" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip">
+
+            <TextView
+                android:id="@+id/school_class_rank_front25_tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="班级排名前25%学生比例"
+                android:textColor="@color/defualt_textcolor_d" />
+
+            <TextView
+                android:id="@+id/school_class_rank_front25_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@+id/school_class_rank_front25_tv01"
+                android:text="" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip">
+
+            <TextView
+                android:id="@+id/school_class_rank_front50_tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="班级排名前50%学生比例"
+                android:textColor="@color/defualt_textcolor_d" />
+
+            <TextView
+                android:id="@+id/school_class_rank_front50_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@+id/school_class_rank_front50_tv01"
+                android:text="" />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dip">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="申请信息"
+            android:layout_margin="10dip"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/school_apply_abort_time_tv01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="申请截止日期"
+                    android:textColor="@color/defualt_textcolor_d" />
+
+                <TextView
+                    android:id="@+id/school_apply_abort_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_toRightOf="@+id/school_apply_abort_time_tv01"
+                    android:text="01-01" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/school_inform_time_tv01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="通知日期"
+                    android:textColor="@color/defualt_textcolor_d" />
+
+                <TextView
+                    android:id="@+id/school_inform_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_toRightOf="@+id/school_inform_time_tv01"
+                    android:text="02-20" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/school_if_EA_tv01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="是否有EA"
+                    android:textColor="@color/defualt_textcolor_d" />
+
+                <TextView
+                    android:id="@+id/school_if_EA_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_toRightOf="@+id/school_if_EA_tv01"
+                    android:text="是" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/school_EA_abort_time_tv01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EA截止日期"
+                    android:textColor="@color/defualt_textcolor_d" />
+
+                <TextView
+                    android:id="@+id/school_EA_abort_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_toRightOf="@+id/school_EA_abort_time_tv01"
+                    android:text="11-01" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/school_if_ED_tv01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="是否有ED"
+                    android:textColor="@color/defualt_textcolor_d" />
+
+                <TextView
+                    android:id="@+id/school_if_ED_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_toRightOf="@+id/school_if_ED_tv01"
+                    android:text="是" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/school_ED_abort_time_tv01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="录取率"
+                    android:textColor="@color/defualt_textcolor_d" />
+
+                <TextView
+                    android:id="@+id/school_ED_abort_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_toRightOf="@+id/school_ED_abort_time_tv01"
+                    android:text="5.8%" />
+            </RelativeLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/school_dual_rank_tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="是否双录取"
+                android:textColor="@color/defualt_textcolor_d" />
+
+            <TextView
+                android:id="@+id/school_dual_rank_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@+id/school_dual_rank_tv01"
+                android:text="否" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/school_apply_cost_tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="申请费"
+                android:textColor="@color/defualt_textcolor_d" />
+
+            <TextView
+                android:id="@+id/school_apply_cost_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@+id/school_apply_cost_tv01"
+                android:text="" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/school_apply_html_tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="申请网址"
+                android:textColor="@color/defualt_textcolor_d" />
+
+            <TextView
+                android:id="@+id/school_apply_html_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@+id/school_apply_html_tv01"
+                android:text="" />
+        </RelativeLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:text="申请材料"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/school_apply_data_tv"
+        android:layout_margin="10dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+</LinearLayout>
