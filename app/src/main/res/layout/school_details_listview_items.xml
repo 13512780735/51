@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="90dip"
+    android:layout_marginBottom="10dip"
+    android:layout_marginTop="10dip"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="2"
+        android:paddingTop="10dip"
+        android:orientation="horizontal">
+
+        <com.likeit.a51scholarship.view.CircleImageView
+            android:id="@+id/school_comment_avatar"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:src="@mipmap/test01" />
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dip"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/school_comment_name"
+                android:layout_width="wrap_content"
+                android:layout_height="20dip"
+                android:textColor="@color/defualt_textcolor_h"
+                android:text="XXXX" />
+
+            <TextView
+                android:id="@+id/school_comment_time"
+                android:layout_width="wrap_content"
+                android:layout_height="20dip"
+                android:textColor="@color/defualt_textcolor_d"
+                android:text="XXXX" />
+            <TextView
+                android:id="@+id/school_comment_details"
+                android:layout_width="wrap_content"
+                android:layout_height="0dip"
+                android:layout_marginTop="5dip"
+                android:layout_weight="1"
+                android:textColor="@color/defualt_textcolor_i"
+                android:text="XXXX" />
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dip"
+        android:layout_marginBottom="10dip"
+        android:visibility="gone">
+        <Button
+            android:id="@+id/school_comment_number_bt"
+            android:text="5"
+            android:textSize="12sp"
+            android:background="@null"
+            android:paddingLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:drawableLeft="@mipmap/btn_comment"
+            android:textColor="@color/defualt_textcolor_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"/>
+        <CheckBox
+            android:id="@+id/school_like_bt"
+            android:text="赞"
+            style="@style/schoollikecheckbox"
+            android:textSize="12sp"
+            android:textColor="@drawable/home_font_selector"
+            android:layout_toLeftOf="@+id/school_comment_number_bt"
+            android:layout_width="wrap_content"
+            android:paddingRight="20dip"
+            android:paddingLeft="10dip"
+            android:layout_marginLeft="5dip"
+            android:layout_centerInParent="true"
+            android:layout_height="match_parent"
+            />
+
+    </RelativeLayout>
+</LinearLayout>
+

@@ -7,21 +7,31 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.fragments.PictureSlideFragment;
 import com.likeit.a51scholarship.utils.AndroidWorkaround;
+import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.view.CircleImageView;
+import com.likeit.a51scholarship.view.MyListview;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,6 +69,8 @@ public class SchoolDetailActivity extends FragmentActivity {
     TextView gpaNumTv;
     @BindView(R.id.school_desc_tv)
     TextView schoolDescTv;
+    @BindView(R.id.school_details_scrollview)
+    PullToRefreshScrollView mPullToRefreshScrollView;
     //录取数据
     @BindView(R.id.school_admit_number_tv)
     TextView schoolAdmitNumberTv;
@@ -103,13 +115,26 @@ public class SchoolDetailActivity extends FragmentActivity {
     //申请材料
     @BindView(R.id.school_apply_data_tv)
     TextView schoolApplyDataTv;
-    //学术介绍-教师信息
 
+    //学术介绍-教师信息
+    //奖学金申请
+    @BindView(R.id.school_scholarship_tv)
+    TextView schoolScholarshipTv;
+    //校园印象列表
+    @BindView(R.id.school_details_listView)
+    MyListview mListView;
     private ArrayList<String> urlList;
     private SchoolDetailActivity mContext;
     private String name, en_name, img, key;
 
-
+    // 模拟评论数据
+    private List<Map<String, Object>> dataList;
+    private int[] icon = {R.mipmap.icon_01_3x, R.mipmap.icon_02_3x,
+            R.mipmap.icon_03_3x, R.mipmap.icon_04_3x};
+    private String[] iconName = {"Tom", "Lucy", "Lily", "Jim"};
+    private String[] iconTime = {"2017-01-05 20:20", "2017-02-05 20:20", "2017-03-05 23:20", "2017-05-05 10:20"};
+    private String[] iconDetails = {"不错！", "Is Very Good", "GoodMorning", "Hello"};
+    private SimpleAdapter simpleAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,6 +234,9 @@ public class SchoolDetailActivity extends FragmentActivity {
         /**
          * 奖学金申请
          */
+        schoolScholarshipTv.setText("1.平均发放奖学金(本科生)：44781美元。2.申请到奖学金的比例(本科生)：58%。" +
+                "提供的奖学金类型：Federal PELL;Federal SEOG;state scholarships/grants;private scholarships;" +
+                "college/university gift aid from institution funds.");
         /**
          * 学生数据
          */
@@ -221,6 +249,35 @@ public class SchoolDetailActivity extends FragmentActivity {
         /**
          * 校园印象
          */
+        mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
+        mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
+                mPullToRefreshScrollView.onRefreshComplete();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
+                mPullToRefreshScrollView.onRefreshComplete();
+            }
+        });
+        mPullToRefreshScrollView.getLoadingLayoutProxy().setLastUpdatedLabel(
+                "上次刷新时间");
+        mPullToRefreshScrollView.getLoadingLayoutProxy()
+                .setPullLabel("下拉刷新");
+        mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
+                "松开即可刷新");
+        //评论列表
+        dataList = new ArrayList<Map<String, Object>>();
+        getData();
+        String[] from = {"img", "name","time","details"};
+        int[] to = {R.id.school_comment_avatar, R.id.school_comment_name,R.id.school_comment_time,R.id.school_comment_details};
+        simpleAdapter = new SimpleAdapter(this, dataList, R.layout.school_details_listview_items, from, to);
+        //配置适配器
+        mListView.setAdapter(simpleAdapter);
+        ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
         viewPager.setAdapter(new PictureSlidePagerAdapter(getSupportFragmentManager()));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -237,6 +294,17 @@ public class SchoolDetailActivity extends FragmentActivity {
 
             }
         });
+    }  private List<Map<String, Object>> getData() {
+        for (int i = 0; i < icon.length; i++) {
+            Log.d("TAG", "" + icon.length);
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("img", icon[i]);
+            map.put("name", iconName[i]);
+            map.put("time", iconTime[i]);
+            map.put("details", iconDetails[i]);
+            dataList.add(map);
+        }
+        return dataList;
     }
 
 

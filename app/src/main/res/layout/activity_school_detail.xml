@@ -15,7 +15,8 @@
         android:layout_height="0dip"
         android:layout_weight="1">
 
-        <ScrollView
+        <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+            android:id="@+id/school_details_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white">
@@ -28,8 +29,10 @@
                 <include layout="@layout/layout_school_details"></include>
                 <include layout="@layout/layout_school_details_01"></include>
                 <include layout="@layout/layout_school_details_02"></include>
+                <include layout="@layout/layout_school_details_03"></include>
+                <include layout="@layout/layout_school_details_04"></include>
             </LinearLayout>
-        </ScrollView>
+        </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -66,10 +69,13 @@
                 android:src="@mipmap/icon_up" />
         </RelativeLayout>
     </FrameLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/background_b"></View>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/width40"
+        android:layout_height="40dip"
         android:background="@color/white"
         android:orientation="horizontal">
 

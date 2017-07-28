@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dip"
+        android:layout_marginBottom="10dip"
+        android:layout_marginTop="10dip"
+        android:background="@color/background_b"></View>
+
+    <TextView
+        android:id="@+id/school_effect_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:text="校园印象 (4)" />
+
+    <com.likeit.a51scholarship.view.MyListview
+        android:id="@+id/school_details_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dip"
+        android:divider="@color/background_b"
+        android:dividerHeight="1dip"></com.likeit.a51scholarship.view.MyListview>
+</LinearLayout>

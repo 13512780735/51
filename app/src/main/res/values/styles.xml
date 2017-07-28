@@ -46,4 +46,8 @@
     <style name="mycheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/school_collect_selector</item>
     </style>
+    <!--学校详情评论赞checkBox选择-->
+    <style name="schoollikecheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/school_details_like_selector</item>
+    </style>
 </resources>
