@@ -105,36 +105,13 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         dialog.show();
         initView();
         initListener();
-        if ("1".equals(key)) {
-            //  showCaseView();
-        } else return;
     }
 
-    private void showCaseView() {
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(300);
-                    iv_school_layout = findViewById(R.id.iv_school_layout);
-                    iv_school_layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                        @Override
-                        public void onGlobalLayout() {
-                            addHightView();
-                            iv_school_layout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                        }
-                    });
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
 
 
     private void addHightView() {
-        // 使用默认的设置
+        backgroundAlpha(0.5f);
         HighLight highLight = new HighLight(getActivity())
-                .anchor(getActivity().findViewById(R.id.id_content))
                 .setMyBroderType(HighLight.MyType.FULL_LINE) // 使用实线
                 .addHighLight(R.id.iv_school_layout, R.layout.info_up, new HighLight.OnPosCallback() {
                     @Override
@@ -303,8 +280,8 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                     Intent intentSchoolDetail = new Intent();
                     intentSchoolDetail.putExtra("key", "1");//英文名字
                     intentSchoolDetail.putExtra("name", name);//英文名字
-                    intentSchoolDetail.putExtra("en_name",en_name);//中文名字
-                    intentSchoolDetail.putExtra("img",img);//图片
+                    intentSchoolDetail.putExtra("en_name", en_name);//中文名字
+                    intentSchoolDetail.putExtra("img", img);//图片
                     intentSchoolDetail.setClass(getActivity(), SchoolDetailActivity.class);
                     startActivity(intentSchoolDetail);
                 }
@@ -325,6 +302,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
 //                      "refreshingLabel");
         mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
                 "松开即可刷新");
+        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, 0);
         mListView = findViewById(R.id.listView);
         schoolAdater = new HomeItemSchoolAdapter(getActivity(), SchoolData);
         userinfoImg = findViewById(R.id.userinfo_img);
@@ -355,6 +333,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                     public void onGlobalLayout() {
                         addHightView();
                         iv_school_layout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        backgroundAlpha(1f);
                     }
                 });
             }
@@ -437,5 +416,15 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 break;
         }
 
+    }
+    /**
+     * 设置添加屏幕的背景透明度
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha)
+    {
+        WindowManager.LayoutParams lp =getActivity().getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        getActivity().getWindow().setAttributes(lp);
     }
 }

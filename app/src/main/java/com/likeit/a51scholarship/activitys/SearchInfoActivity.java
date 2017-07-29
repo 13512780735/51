@@ -39,7 +39,6 @@ public class SearchInfoActivity extends Container {
                 onBackPressed();
                 break;
             case R.id.search_img:
-
                 break;
         }
     }

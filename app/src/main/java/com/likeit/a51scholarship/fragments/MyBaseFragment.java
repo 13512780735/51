@@ -8,10 +8,14 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.likeit.a51scholarship.app.MyApplication;
 import com.likeit.a51scholarship.utils.UtilPreference;
+
+import static com.likeit.a51scholarship.activitys.Container.setMiuiStatusBarDarkMode;
 
 
 /**
@@ -36,6 +40,11 @@ public abstract class MyBaseFragment extends Fragment {
         isInit = true;
         /**初始化的时候去加载数据**/
         isCanLoadData();
+        setMiuiStatusBarDarkMode(getActivity(), true);
+        Window window = getActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // 透明导航栏
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         return view;
     }
 

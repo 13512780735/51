@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.likeit.a51scholarship.activitys.SchoolCommentActivity">
+
+    <include layout="@layout/layout_header_with_back"></include>
+    <EditText
+        android:id="@+id/school_comment_editdetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:background="@drawable/base_edit_input"
+        android:textSize="12sp"
+        android:minLines="5"
+        android:hint="请输入评论内容"/>
+</LinearLayout>

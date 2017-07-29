@@ -9,6 +9,7 @@
         android:layout_height="10dip"
         android:layout_marginBottom="10dip"
         android:layout_marginTop="10dip"
+        android:visibility="gone"
         android:background="@color/background_b"></View>
 
     <TextView
@@ -16,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dip"
+        android:visibility="gone"
         android:text="校园印象 (4)" />
 
     <com.likeit.a51scholarship.view.MyListview
@@ -23,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dip"
+        android:visibility="gone"
         android:divider="@color/background_b"
         android:dividerHeight="1dip"></com.likeit.a51scholarship.view.MyListview>
 </LinearLayout>

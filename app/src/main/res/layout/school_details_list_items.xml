@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_height="60dip">
+    <View
+        android:layout_width="1dip"
+        android:layout_height="40dip"
+        android:layout_marginLeft="30dip"
+        android:background="@color/background_b"></View>
+    <CheckBox
+        android:id="@+id/school_details_listview_ck"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        style="@style/schoolListcheckbox"
+        android:background="@color/white"
+        android:text="院校概况"
+        android:layout_marginLeft="22dip"
+        android:paddingLeft="20dip"
+        android:textColor="@drawable/home_font_selector"
+        android:textSize="15sp" />
+</LinearLayout>

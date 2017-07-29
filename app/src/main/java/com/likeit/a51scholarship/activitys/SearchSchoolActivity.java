@@ -1,10 +1,12 @@
 package com.likeit.a51scholarship.activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -20,6 +22,7 @@ import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.utils.AndroidWorkaround;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.utils.MyActivityManager;
+import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.view.MyListview;
 
 import java.util.ArrayList;
@@ -119,6 +122,15 @@ public class SearchSchoolActivity extends Container {
         //配置适配器
         mListview.setAdapter(simpleAdapter);
         ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
+        mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intentDetails=new Intent();
+                intentDetails.putExtra("key","2");
+                intentDetails.setClass(mContext,SchoolDetailActivity.class);
+                startActivity(intentDetails);
+            }
+        });
     }
 
     private List<Map<String, Object>> getData() {

@@ -1,20 +1,30 @@
 package com.likeit.a51scholarship.activitys;
 
 import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.view.ViewGroup.LayoutParams;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
@@ -135,6 +145,10 @@ public class SchoolDetailActivity extends FragmentActivity {
     private String[] iconTime = {"2017-01-05 20:20", "2017-02-05 20:20", "2017-03-05 23:20", "2017-05-05 10:20"};
     private String[] iconDetails = {"不错！", "Is Very Good", "GoodMorning", "Hello"};
     private SimpleAdapter simpleAdapter;
+    //目录列表
+    private int from = 0;
+    private Window window;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,9 +158,9 @@ public class SchoolDetailActivity extends FragmentActivity {
         setContentView(main);
         mContext = this;
         setMiuiStatusBarDarkMode(this, true);
-        Window window = this.getWindow();
+        window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        // 透明导航栏
+       // 透明导航栏
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         if (AndroidWorkaround.checkDeviceHasNavigationBar(this)) {
             AndroidWorkaround.assistActivity(findViewById(android.R.id.content));
@@ -179,6 +193,11 @@ public class SchoolDetailActivity extends FragmentActivity {
             schoolNameTv.setText(name);
             schoolEsNameTv.setText(en_name);
             ImageLoader.getInstance().displayImage(img, schoolImgIv);
+        } else if ("2".equals(key)) {
+            tv_header.setText("美国德克萨斯州立大学 阿灵顿分校");
+            schoolNameTv.setText("美国德克萨斯州立大学 阿灵顿分校");
+            schoolEsNameTv.setText("The University of Texas  ARLNGTON");
+            schoolImgIv.setImageResource(R.mipmap.test01);
         }
         /**
          * 录取数据
@@ -272,8 +291,8 @@ public class SchoolDetailActivity extends FragmentActivity {
         //评论列表
         dataList = new ArrayList<Map<String, Object>>();
         getData();
-        String[] from = {"img", "name","time","details"};
-        int[] to = {R.id.school_comment_avatar, R.id.school_comment_name,R.id.school_comment_time,R.id.school_comment_details};
+        String[] from = {"img", "name", "time", "details"};
+        int[] to = {R.id.school_comment_avatar, R.id.school_comment_name, R.id.school_comment_time, R.id.school_comment_details};
         simpleAdapter = new SimpleAdapter(this, dataList, R.layout.school_details_listview_items, from, to);
         //配置适配器
         mListView.setAdapter(simpleAdapter);
@@ -294,7 +313,10 @@ public class SchoolDetailActivity extends FragmentActivity {
 
             }
         });
-    }  private List<Map<String, Object>> getData() {
+
+    }
+
+    private List<Map<String, Object>> getData() {
         for (int i = 0; i < icon.length; i++) {
             Log.d("TAG", "" + icon.length);
             Map<String, Object> map = new HashMap<String, Object>();
@@ -325,7 +347,9 @@ public class SchoolDetailActivity extends FragmentActivity {
         }
     }
 
-    @OnClick({R.id.iv_header_right, R.id.iv_header_left})
+    private PopupWindow popupWindow;
+
+    @OnClick({R.id.iv_header_right, R.id.iv_header_left, R.id.icon_up_iv, R.id.icon_list_iv, R.id.icon_pinlun_iv})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_header_left:
@@ -333,6 +357,127 @@ public class SchoolDetailActivity extends FragmentActivity {
                 break;
             case R.id.iv_header_right:
                 break;
+            case R.id.icon_pinlun_iv:
+                Intent intentComment = new Intent(this, SchoolCommentActivity.class);
+                startActivity(intentComment);
+                break;
+            case R.id.icon_list_iv:
+                from = Location.RIGHT.ordinal();
+                initPopupWindow();
+                break;
+            case R.id.icon_up_iv:
+                mPullToRefreshScrollView.getRefreshableView().scrollTo(0, 0);
+                break;
         }
+    }
+
+    private void initPopupWindow() {
+        DisplayMetrics metric = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metric);
+        int width = metric.widthPixels;     // 屏幕宽度（像素）
+        int height = metric.heightPixels;   // 屏幕高度（像素）
+        final View popupWindowView = getLayoutInflater().inflate(R.layout.school_details_menu_list, null);
+        //内容，高度，宽度
+        if (Location.BOTTOM.ordinal() == from) {
+            popupWindow = new PopupWindow(popupWindowView, height, LayoutParams.WRAP_CONTENT, true);
+        } else {
+            popupWindow = new PopupWindow(popupWindowView, LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT, true);
+        }
+        //动画效果
+        if (Location.RIGHT.ordinal() == from) {
+            popupWindow.setAnimationStyle(R.style.AnimationRightFade);
+        }
+
+        //菜单背景色
+        ColorDrawable dw = new ColorDrawable(0xffffffff);
+        popupWindow.setBackgroundDrawable(dw);
+        //宽度
+        popupWindow.setWidth(width / 2);
+        //高度
+        popupWindow.setHeight(height);
+        //显示位置
+        if (Location.RIGHT.ordinal() == from) {
+            popupWindow.showAtLocation(getLayoutInflater().inflate(R.layout.activity_school_detail, null), Gravity.RIGHT, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        }
+        //设置背景半透明
+        backgroundAlpha(0.5f);
+        //关闭事件
+        popupWindow.setOnDismissListener(new popupDismissListener());
+
+        popupWindowView.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                /*if( popupWindow!=null && popupWindow.isShowing()){
+                    popupWindow.dismiss();
+					popupWindow=null;
+				}*/
+                // 这里如果返回true的话，touch事件将被拦截
+                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+                return false;
+            }
+        });
+        final RadioGroup mRadiogroup = (RadioGroup) popupWindowView.findViewById(R.id.school_details_list_container);
+        mRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                switch (checkedId) {
+                    case R.id.school_details_list_rb01:
+                        popupWindow.dismiss();
+                        break;
+                    case R.id.school_details_list_rb02:
+                        break;
+                    case R.id.school_details_list_rb03:
+                        break;
+                    case R.id.school_details_list_rb04:
+                        break;
+                    case R.id.school_details_list_rb05:
+                        break;
+                    case R.id.school_details_list_rb06:
+                        break;
+                    case R.id.school_details_list_rb07:
+                        break;
+                    case R.id.school_details_list_rb08:
+                        break;
+
+                }
+            }
+        });
+    }
+
+    /**
+     * 添加新笔记时弹出的popWin关闭的事件，主要是为了将背景透明度改回来
+     */
+    class popupDismissListener implements PopupWindow.OnDismissListener {
+
+        @Override
+        public void onDismiss() {
+            backgroundAlpha(1f);
+        }
+
+    }
+
+    /**
+     * 设置添加屏幕的背景透明度
+     *
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        getWindow().setAttributes(lp);
+
+    }
+
+    /**
+     * 菜单弹出方向
+     */
+    public enum Location {
+
+        LEFT,
+        RIGHT,
+        TOP,
+        BOTTOM;
+
     }
 }

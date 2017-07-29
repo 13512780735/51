@@ -66,6 +66,7 @@ android {
 }
 
 
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -95,6 +96,7 @@ dependencies {
     //https://github.com/square/retrofit
     compile project(path: ':pulltorefreshlibrary')
     compile project(':HightLight')
+    compile project(':PhotoViewlibrary')
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
@@ -115,8 +117,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'net.fredericosilva:showTipsView:1.0.4'
+    compile 'com.jaydenxiao:ExpandableTextView:1.0.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile project(':PhotoViewlibrary')
-    compile 'com.jaydenxiao:ExpandableTextView:1.0.0'
 }

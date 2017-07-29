@@ -3,6 +3,7 @@
     android:id="@+id/id_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:background="@color/defualt_window_background"
     tools:context=".fragments.MainFragment">
