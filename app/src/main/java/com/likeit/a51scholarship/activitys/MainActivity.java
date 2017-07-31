@@ -169,7 +169,7 @@ public class MainActivity extends SlidingFragmentActivity implements ViewPager.O
                     firstTime = secondTime;
                     return true;
                 } else {
-                    MyActivityManager.getInstance().moveTaskToBack(mContext);// 不退出，后台运行
+                 //   MyActivityManager.getInstance().moveTaskToBack(mContext);// 不退出，后台运行
                 }
                 break;
         }

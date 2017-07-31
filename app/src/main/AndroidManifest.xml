@@ -204,12 +204,13 @@
         <activity
             android:name=".activitys.SchoolDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyAppTheme"/>
+            android:theme="@style/MyAppTheme" />
         <activity android:name=".activitys.WebActivity" />
         <activity android:name=".activitys.WebForNewsActivity" />
         <activity android:name=".activitys.WebHtmlActivity" />
         <activity android:name=".activitys.SendNewsActivity" />
-        <activity android:name=".activitys.SchoolCommentActivity"></activity>
+        <activity android:name=".activitys.SchoolCommentActivity" />
+        <activity android:name=".activitys.my_center.EditorCenterActivity"></activity>
     </application>
 
 </manifest>

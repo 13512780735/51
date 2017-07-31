@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
@@ -33,6 +34,7 @@ import com.likeit.a51scholarship.fragments.PictureSlideFragment;
 import com.likeit.a51scholarship.utils.AndroidWorkaround;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.utils.MyActivityManager;
+import com.likeit.a51scholarship.utils.UtilPreference;
 import com.likeit.a51scholarship.view.CircleImageView;
 import com.likeit.a51scholarship.view.MyListview;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -148,6 +150,22 @@ public class SchoolDetailActivity extends FragmentActivity {
     //目录列表
     private int from = 0;
     private Window window;
+    //点击菜单移到位置的点
+    @BindView(R.id.ll_school_admit)
+    LinearLayout llAdmit;
+    @BindView(R.id.school_staff_student_tv)
+    TextView tvStaff;
+    @BindView(R.id.ll_school_school_fee_tv)
+    TextView tvSchoolFee;
+    @BindView(R.id.ll_school_scholarship)
+    TextView tvSchoolScholarship;
+    @BindView(R.id.ll_school_number)
+    TextView tvSchoolNumber;
+    @BindView(R.id.ll_school_contact_way)
+    TextView tvSchoolContactWay;
+    private int top; //目录菜单位置
+    private int scrollViewHight;
+    private boolean ischecked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +178,7 @@ public class SchoolDetailActivity extends FragmentActivity {
         setMiuiStatusBarDarkMode(this, true);
         window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-       // 透明导航栏
+        // 透明导航栏
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         if (AndroidWorkaround.checkDeviceHasNavigationBar(this)) {
             AndroidWorkaround.assistActivity(findViewById(android.R.id.content));
@@ -185,6 +203,14 @@ public class SchoolDetailActivity extends FragmentActivity {
         urlList = new ArrayList<String>();
         Collections.addAll(urlList, urls);
         initData();
+        Runnable runnable = new Runnable() {
+
+            @Override
+            public void run() {
+                mPullToRefreshScrollView.scrollTo(0, 900);// 改变滚动条的位置
+            }
+        };
+        UtilPreference.saveString(mContext, "checked", "1");
     }
 
     private void initData() {
@@ -288,6 +314,7 @@ public class SchoolDetailActivity extends FragmentActivity {
                 .setPullLabel("下拉刷新");
         mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
                 "松开即可刷新");
+
         //评论列表
         dataList = new ArrayList<Map<String, Object>>();
         getData();
@@ -313,7 +340,6 @@ public class SchoolDetailActivity extends FragmentActivity {
 
             }
         });
-
     }
 
     private List<Map<String, Object>> getData() {
@@ -387,7 +413,9 @@ public class SchoolDetailActivity extends FragmentActivity {
         if (Location.RIGHT.ordinal() == from) {
             popupWindow.setAnimationStyle(R.style.AnimationRightFade);
         }
-
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getWindow().setAttributes(lp);
         //菜单背景色
         ColorDrawable dw = new ColorDrawable(0xffffffff);
         popupWindow.setBackgroundDrawable(dw);
@@ -417,28 +445,79 @@ public class SchoolDetailActivity extends FragmentActivity {
                 return false;
             }
         });
+        scrollViewHight = findViewById(R.id.ll_scrollview).getHeight();
         final RadioGroup mRadiogroup = (RadioGroup) popupWindowView.findViewById(R.id.school_details_list_container);
+        mRadiogroup.check(R.id.school_details_list_rb01);
+        String checked = UtilPreference.getStringValue(mContext, "checked");
+        if ("1".equals(checked)) {
+            mRadiogroup.check(R.id.school_details_list_rb01);
+        } else if ("2".equals(checked)) {
+            mRadiogroup.check(R.id.school_details_list_rb02);
+        } else if ("3".equals(checked)) {
+            mRadiogroup.check(R.id.school_details_list_rb03);
+        } else if ("4".equals(checked)) {
+            mRadiogroup.check(R.id.school_details_list_rb04);
+        } else if ("5".equals(checked)) {
+            mRadiogroup.check(R.id.school_details_list_rb05);
+        } else if ("6".equals(checked)) {
+            mRadiogroup.check(R.id.school_details_list_rb06);
+        } else if ("7".equals(checked)) {
+            mRadiogroup.check(R.id.school_details_list_rb07);
+        }
         mRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
                     case R.id.school_details_list_rb01:
+                        Log.d("TAG", "top-->" + top);
+                        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, 0);
+                        //popupWindow.dismiss();
+                        UtilPreference.saveString(mContext, "checked", "1");
                         popupWindow.dismiss();
                         break;
                     case R.id.school_details_list_rb02:
+                        top = llAdmit.getTop();
+                        Log.d("TAG", "top-->" + top);
+                        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, top);
+                        UtilPreference.saveString(mContext, "checked", "2");
+                        popupWindow.dismiss();
                         break;
                     case R.id.school_details_list_rb03:
+                        top = tvStaff.getTop();
+                        Log.d("TAG", "top-->" + top);
+                        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, top);
+                        UtilPreference.saveString(mContext, "checked", "3");
+                        popupWindow.dismiss();
                         break;
                     case R.id.school_details_list_rb04:
+                        top = tvSchoolFee.getTop();
+                        Log.d("TAG", "top-->" + top);
+                        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, top);
+                        UtilPreference.saveString(mContext, "checked", "4");
+                        popupWindow.dismiss();
                         break;
                     case R.id.school_details_list_rb05:
+                        top = tvSchoolScholarship.getTop();
+                        Log.d("TAG", "top-->" + top);
+                        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, top);
+                        UtilPreference.saveString(mContext, "checked", "5");
+                        popupWindow.dismiss();
                         break;
                     case R.id.school_details_list_rb06:
+                        top = tvSchoolNumber.getTop();
+                        Log.d("TAG", "top-->" + top);
+                        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, top);
+                        UtilPreference.saveString(mContext, "checked", "6");
+                        popupWindow.dismiss();
                         break;
                     case R.id.school_details_list_rb07:
+                        top = tvSchoolContactWay.getTop();
+                        Log.d("TAG", "top-->" + top);
+                        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, top);
+                        UtilPreference.saveString(mContext, "checked", "7");
+                        popupWindow.dismiss();
                         break;
-                    case R.id.school_details_list_rb08:
-                        break;
+
 
                 }
             }
@@ -453,6 +532,9 @@ public class SchoolDetailActivity extends FragmentActivity {
         @Override
         public void onDismiss() {
             backgroundAlpha(1f);
+            WindowManager.LayoutParams attr = getWindow().getAttributes();
+            attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().setAttributes(attr);
         }
 
     }

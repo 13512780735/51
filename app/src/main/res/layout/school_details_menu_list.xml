@@ -36,7 +36,6 @@
             android:layout_height="20dip"
             android:layout_marginLeft="22dip"
             android:button="@null"
-            android:checked="true"
             android:drawableLeft="@drawable/school_details_list_selector"
             android:drawablePadding="20dip"
             android:text="院校概况"

@@ -33,6 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dip"
                 android:layout_marginTop="10dip"
+                android:focusable="false"
                 android:layout_marginRight="10dip"
                 android:divider="@color/smssdk_white"
                 android:dividerHeight="5dip"></com.likeit.a51scholarship.view.MyListview>

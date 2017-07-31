@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.likeit.a51scholarship.activitys.my_center.EditorCenterActivity">
+
+    <include layout="@layout/layout_header_with_back"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dip"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1">
+            <com.likeit.a51scholarship.view.CircleImageView
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:src="@mipmap/btn_photo"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1">
+            <com.likeit.a51scholarship.view.CircleImageView
+                android:layout_width="80dip"
+                android:layout_height="80dip"
+                android:src="@mipmap/message_chat_avatar"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1">
+            <com.likeit.a51scholarship.view.CircleImageView
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:src="@mipmap/btn_logout"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+      >
+
+        <ImageView
+            android:id="@+id/icon_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_centerVertical="true"
+            android:padding="2dip"
+            android:src="@mipmap/icon_profile" />
+
+        <TextView
+            android:id="@+id/username_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/icon_user"
+            android:layout_toRightOf="@+id/icon_user"
+            android:text="用户名"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/username_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/username_tv"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/icon_user"
+            android:background="@null"
+            android:hint="请输入你的用户名"
+            android:textSize="12sp" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/username_et"
+            android:layout_marginTop="4dp"
+            android:background="@color/line_color" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+    <ImageView
+        android:id="@+id/icon_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/icon_phone_1"
+        android:layout_above="@+id/view"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/phone_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_toEndOf="@+id/icon_phone"
+        android:layout_toRightOf="@+id/icon_phone"
+        android:text="手机号"
+        android:textColor="@color/defualt_textcolor"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/phone_et"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/phone_tv"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/icon_phone"
+        android:background="@null"
+        android:hint="请输入你的手机号"
+        android:inputType="number"
+        android:textSize="12sp" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/phone_et"
+        android:layout_marginTop="4dp"
+        android:background="@color/line_color"
+        android:id="@+id/view" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/icon_birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/icon_birthday" />
+
+        <TextView
+            android:id="@+id/birthday_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="生日"
+            android:textColor="@color/defualt_textcolor"
+            android:textSize="14sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/birthday_et" />
+
+        <EditText
+            android:id="@+id/birthday_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/birthday_tv"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/icon_birthday"
+            android:background="@null"
+            android:hint="May 15，1984"
+            android:inputType="number"
+            android:textSize="12sp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/filter_right_bg"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/birthday_et"
+            android:layout_marginTop="4dp"
+            android:background="@color/line_color" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="10dip"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/icon_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_gender" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:text="您的性别"
+            android:textSize="14sp" />
+
+        <RadioGroup
+            android:id="@+id/sex_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/man_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="男"
+                android:checked="true"
+                android:textColor="@color/defualt_textcolor"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/woman_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="10dp"
+                android:text="女"
+                android:textColor="@color/defualt_textcolor"
+                android:textSize="12sp" />
+        </RadioGroup>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="8dp"
+        android:background="@color/line_color" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/icon_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/icon_adress_1" />
+
+        <TextView
+            android:id="@+id/address_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="所在国家城市"
+            android:textColor="@color/defualt_textcolor"
+            android:textSize="14sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/address_et" />
+
+        <EditText
+            android:id="@+id/address_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/address_tv"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/icon_address"
+            android:background="@null"
+            android:hint="中国，广东省，中山市"
+            android:inputType="number"
+            android:textSize="12sp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/filter_right_bg"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/address_et"
+            android:layout_marginTop="4dp"
+            android:background="@color/line_color" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/icon_education"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/icon_education" />
+
+        <TextView
+            android:id="@+id/education_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="学历成绩"
+            android:textColor="@color/defualt_textcolor"
+            android:textSize="14sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/education_et" />
+
+        <EditText
+            android:id="@+id/education_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/education_tv"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/icon_education"
+            android:background="@null"
+            android:hint="本科，CET"
+            android:inputType="number"
+            android:textSize="12sp" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/education_et"
+            android:layout_marginTop="4dp"
+            android:background="@color/line_color" />
+    </RelativeLayout>
+</LinearLayout>

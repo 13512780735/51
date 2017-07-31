@@ -13,6 +13,7 @@ import com.likeit.a51scholarship.activitys.login.LoginActivity;
 import com.likeit.a51scholarship.activitys.my_center.AboutActivity;
 import com.likeit.a51scholarship.activitys.my_center.CollectActivity;
 import com.likeit.a51scholarship.activitys.my_center.DianActivity;
+import com.likeit.a51scholarship.activitys.my_center.EditorCenterActivity;
 import com.likeit.a51scholarship.activitys.my_center.FeeBackActivity;
 import com.likeit.a51scholarship.activitys.my_center.InviteFriendsActivity;
 import com.likeit.a51scholarship.activitys.my_center.NearSeeActivity;
@@ -27,7 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment01 extends BaseFragment implements View.OnClickListener {
+public class HomeFragment01 extends MyBaseFragment implements View.OnClickListener {
     private ImageView userHeadImg;
     private TextView accountTv;
     private LinearLayout accountLayout;
@@ -106,30 +107,13 @@ public class HomeFragment01 extends BaseFragment implements View.OnClickListener
         aboutLayout.setOnClickListener(this);
         realLayout.setOnClickListener(this);
     }
-    @Override
-    public boolean haveEventBus() {
-        return true;
-    }
-
-    @Subscribe
-    public void handlerEvent(MainMessageEvent event) {
-        switch (event.getType()) {
-            case MainMessageEvent.OPEN_USERINFO:
-                break;
-            case MainMessageEvent.LOGIN_OUT:
-                ukey = "";
-                initUserInfo();
-                break;
-        }
-    }
-
-    private void initUserInfo() {
-    }
 
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.user_head_img:
+                toActivity(EditorCenterActivity.class);
+                break;
             case R.id.account_layout:
             case R.id.account_manager_layout:
                 if (!TextUtils.isEmpty(ukey)) {
@@ -146,28 +130,28 @@ public class HomeFragment01 extends BaseFragment implements View.OnClickListener
             case R.id.invite_layout:
                 toActivity(InviteFriendsActivity.class);
                 break;
-            case R.id.collect_layout:
+            case R.id.collect_layout: //我的收藏
                 toActivity(CollectActivity.class);
                 break;
-            case R.id.spent_layout:
+            case R.id.spent_layout://我的消费
                 toActivity(SpentActivity.class);
                 break;
-            case R.id.dian_layout:
+            case R.id.dian_layout://我的点数
                 toActivity(DianActivity.class);
                 break;
-            case R.id.near_see_layout:
+            case R.id.near_see_layout://最近观看
                 toActivity(NearSeeActivity.class);
                 break;
-            case R.id.open_layout:
+            case R.id.open_layout://开播提醒
                 toActivity(OpenActivity.class);
                 break;
-            case R.id.about_layout:
+            case R.id.about_layout://关于我们
                 toActivity(AboutActivity.class);
                 break;
-            case R.id.set_layout:
+            case R.id.set_layout://设置
                 toActivity(SetActivity.class);
                 break;
-            case R.id.feedback_layout:
+            case R.id.feedback_layout://意见反馈
                 toActivity(FeeBackActivity.class);
                 break;
         }

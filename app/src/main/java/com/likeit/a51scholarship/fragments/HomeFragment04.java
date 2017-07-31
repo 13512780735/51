@@ -1,6 +1,7 @@
 package com.likeit.a51scholarship.fragments;
 
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
@@ -61,6 +62,7 @@ public class HomeFragment04 extends BaseFragment implements View.OnClickListener
         initListener();
 
     }
+
 
     private List<Map<String, Object>> getData() {
         for (int i = 0; i < icon.length; i++) {

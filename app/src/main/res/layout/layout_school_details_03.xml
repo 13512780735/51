@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
     <View
         android:layout_width="match_parent"
@@ -12,6 +12,7 @@
         ></View>
 
     <TextView
+        android:id="@+id/ll_school_school_fee_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dip"
@@ -122,6 +123,7 @@
         android:layout_marginBottom="10dip"
         ></View>
     <TextView
+        android:id="@+id/ll_school_scholarship"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dip"
@@ -143,6 +145,7 @@
         ></View>
 
     <TextView
+        android:id="@+id/ll_school_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dip"
@@ -415,6 +418,7 @@
         android:layout_marginBottom="10dip"
         ></View>
     <TextView
+        android:id="@+id/ll_school_contact_way"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="联系方式"

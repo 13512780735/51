@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,10 +16,20 @@ import android.widget.Toast;
 
 
 import com.likeit.a51scholarship.R;
+import com.likeit.a51scholarship.activitys.MainActivity;
+import com.likeit.a51scholarship.utils.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.weyye.hipermission.HiPermission;
+import me.weyye.hipermission.PermissionCallback;
+import me.weyye.hipermission.PermissionItem;
+
+import static com.nostra13.universalimageloader.core.ImageLoader.TAG;
 
 
 public class KefuDialog extends Dialog {
@@ -76,6 +87,35 @@ public class KefuDialog extends Dialog {
                 intent.setData(data);
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(getContext(),"请授予拨打电话权限",Toast.LENGTH_SHORT).show();
+                    List<PermissionItem> permissions = new ArrayList<PermissionItem>();
+                    permissions.add(new PermissionItem(Manifest.permission.CALL_PHONE, "Call Phone", R.drawable.permission_ic_phone));
+                    HiPermission.create(getContext())
+                            .permissions(permissions)
+                            .msg("是否授予拨打电话权限")
+                            .animStyle(R.style.PermissionAnimModal)
+//                        .style(R.style.CusStyle)
+                            .checkMutiPermission(new PermissionCallback() {
+                                @Override
+                                public void onClose() {
+                                    Log.i(TAG, "onClose");
+                                    ToastUtil.showS(getContext(),"权限被拒绝");
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    ToastUtil.showS(getContext(),"权限已被开启");
+                                }
+
+                                @Override
+                                public void onDeny(String permission, int position) {
+                                    Log.i(TAG, "onDeny");
+                                }
+
+                                @Override
+                                public void onGuarantee(String permission, int position) {
+                                    Log.i(TAG, "onGuarantee");
+                                }
+                            });
                     return;
                 }
                 getContext().startActivity(intent);

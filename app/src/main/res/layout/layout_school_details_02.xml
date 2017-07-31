@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <View
         android:layout_width="match_parent"
         android:layout_height="10dip"
-        android:background="@color/background_b"
-        android:layout_marginTop="10dip"
         android:layout_marginBottom="10dip"
-        ></View>
+        android:layout_marginTop="10dip"
+        android:background="@color/background_b"></View>
+
     <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="学术介绍"
-    android:textStyle="bold"
-    android:layout_margin="10dip"
-    android:textSize="16sp"/>
+        android:id="@+id/school_staff_student_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:text="学术介绍"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="教师信息"
-        android:textStyle="bold"
         android:layout_margin="10dip"
-        />
+        android:text="教师信息"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,6 +75,7 @@
                 android:text="1152" />
         </RelativeLayout>
     </LinearLayout>
+
     <RelativeLayout
 
         android:layout_width="match_parent"
@@ -93,39 +97,46 @@
             android:layout_toRightOf="@+id/school_faculty_tv01"
             android:text="958" />
     </RelativeLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="毕业率"
         android:layout_margin="10dip"
-        android:textStyle="bold"/>
+        android:text="毕业率"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dip"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="4年-86%"/>
+            android:text="4年-86%" />
+
         <TextView
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="5年-96%"/>
+            android:text="5年-96%" />
+
         <TextView
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="6年-98%"/>
+            android:text="6年-98%" />
     </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dip"
         android:text="专业设置"
-        android:textStyle="bold"
-        android:layout_margin="10dip"/>
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -149,9 +160,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
-                android:textColor="@color/login_btn_bg_color"
                 android:layout_toRightOf="@+id/school_bachelor_tv01"
-                android:text="43" />
+                android:text="43"
+                android:textColor="@color/login_btn_bg_color" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -172,9 +183,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
                 android:layout_toRightOf="@+id/school_master_tv01"
-                android:textColor="@color/login_btn_bg_color"
-                android:text="61" />
+                android:text="61"
+                android:textColor="@color/login_btn_bg_color" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="wrap_content"
@@ -192,51 +204,57 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
-                android:textColor="@color/login_btn_bg_color"
                 android:layout_toRightOf="@+id/school_doctor_tv01"
-                android:text="6" />
+                android:text="6"
+                android:textColor="@color/login_btn_bg_color" />
         </RelativeLayout>
     </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dip"
-        android:textStyle="bold"
-        android:text="本科最受欢迎的5个专业"/>
+        android:text="本科最受欢迎的5个专业"
+        android:textStyle="bold" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:layout_marginTop="8dip"
-        android:text="Computer science"/>
+        android:text="Computer science" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:layout_marginTop="8dip"
-        android:text="History"/>
+        android:text="History" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:layout_marginTop="8dip"
-        android:text="Biology/Biological Sciences,General"/>
+        android:text="Biology/Biological Sciences,General" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:layout_marginTop="8dip"
-        android:text="Physics"/>
+        android:text="Physics" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:layout_marginTop="8dip"
-        android:text="Mathematics"/>
+        android:text="Mathematics" />
 
 </LinearLayout>
