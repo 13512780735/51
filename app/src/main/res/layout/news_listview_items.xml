@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dip"
+    android:layout_margin="10dip"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:lines="2"
+            android:text="牛津布鲁克斯大学2017年奖学金开发申请 7 月截止"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="留学圈"
+                android:gravity="center_vertical"
+                android:textColor="@color/login_btn_bg_color"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="阅读520"
+                android:layout_marginLeft="20dip"
+                android:textColor="@color/defualt_textcolor_d"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="20分钟前"
+                android:layout_marginLeft="20dip"
+                android:textColor="@color/defualt_textcolor_d"/>
+            <Button
+                android:layout_width="50dip"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:background="@null"
+                android:text="14"
+                android:textColor="@color/defualt_textcolor_d"
+                android:textSize="14sp"
+                android:layout_marginLeft="10dip"
+                android:drawableLeft="@mipmap/icon_comment"
+                android:src="@mipmap/icon_more"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:src="@mipmap/icon_more"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="80dip"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/test02" />
+</LinearLayout>
