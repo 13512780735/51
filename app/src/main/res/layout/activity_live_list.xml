@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/defualt_window_background"
-    android:clipToPadding="true"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
-
-
+    android:orientation="vertical"
+    tools:context="com.likeit.a51scholarship.activitys.LiveListActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/defulat_top_bar_height"
+        android:layout_marginTop="20dip"
         android:background="@color/backage_color">
 
         <ImageView
@@ -37,7 +34,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:text="资讯"
+            android:text="直播"
             android:textColor="@android:color/black"
             android:textSize="@dimen/defulat_txt_size" />
 
@@ -50,35 +47,22 @@
             android:layout_marginRight="10dp"
             android:padding="5dip"
             android:src="@mipmap/nav_icon_search_sel" />
-
-        <ImageView
-            android:id="@+id/top_bar_edit_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@id/top_bar_right_img"
-            android:padding="5dip"
-            android:src="@mipmap/news_icon_edit" />
     </RelativeLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/defulat_stroke_height"
         android:background="@color/line_color" />
     <com.likeit.a51scholarship.view.SlidingTabLayout
-        android:id="@+id/sliding_tabs"
+        android:id="@+id/liveList_sliding_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:translationZ="1dp"
         android:background="#ffffff"/>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+        android:id="@+id/liveList_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
         android:background="@android:color/white" />
-
-
 </LinearLayout>

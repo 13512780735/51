@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.likeit.a51scholarship.activitys.CourseListActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/defulat_top_bar_height"
+        android:layout_marginTop="20dip"
+        android:background="@color/backage_color">
+
+        <ImageView
+            android:id="@+id/top_bar_back_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            android:src="@mipmap/icon_back" />
+
+        <TextView
+            android:id="@+id/top_bar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:freezesText="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="课程库"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/defulat_txt_size" />
+
+        <ImageView
+            android:id="@+id/top_bar_right_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:padding="5dip"
+            android:src="@mipmap/nav_icon_search_sel" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/defulat_stroke_height"
+        android:background="@color/line_color" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/hot_school"
+            android:layout_width="40dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableRight="@drawable/live_tab_selector"
+            android:gravity="center"
+            android:paddingRight="5dip"
+            android:text="全部类别"
+            android:textColor="@drawable/home_font_selector"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0.5dip"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dip"
+            android:layout_marginTop="2dip"
+            android:background="@color/line_color"></View>
+
+        <RadioButton
+            android:id="@+id/recommend_school"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            android:text="最新"
+            android:textColor="@drawable/home_font_selector"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0.5dip"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dip"
+            android:layout_marginTop="2dip"
+            android:background="@color/line_color"></View>
+
+        <RadioButton
+            android:id="@+id/offer_school"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            android:text="最热"
+            android:textColor="@drawable/home_font_selector"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0.5dip"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dip"
+            android:layout_marginTop="2dip"
+            android:background="@color/line_color"></View>
+
+        <RadioButton
+            android:id="@+id/live_rbfree"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            android:text="免费"
+            android:textColor="@drawable/home_font_selector"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0.5dip"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dip"
+            android:layout_marginTop="2dip"
+            android:background="@color/line_color"></View>
+
+        <RadioButton
+            android:id="@+id/live_rbpay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            android:text="付费"
+            android:textColor="@drawable/home_font_selector"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="1px"
+            android:background="@android:color/transparent" />
+    </RadioGroup>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/course_scrollview"
+        android:layout_width="match_parent"
+        android:background="@color/background_b"
+        android:layout_height="match_parent">
+
+        <com.likeit.a51scholarship.view.MyListview
+            android:id="@+id/course_listview"
+            android:padding="10dip"
+            android:divider="@color/background_b"
+            android:dividerHeight="10dip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.likeit.a51scholarship.view.MyListview>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+
+</LinearLayout>

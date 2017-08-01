@@ -210,7 +210,28 @@
         <activity android:name=".activitys.WebHtmlActivity" />
         <activity android:name=".activitys.SendNewsActivity" />
         <activity android:name=".activitys.SchoolCommentActivity" />
-        <activity android:name=".activitys.my_center.EditorCenterActivity"></activity>
+        <activity
+            android:name=".activitys.my_center.EditorCenterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.newsfragment.NewsDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.LiveListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.CourseListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity android:name=".activitys.AnswersActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme"/>
+        <activity android:name=".activitys.AskActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme"></activity>
     </application>
 
 </manifest>

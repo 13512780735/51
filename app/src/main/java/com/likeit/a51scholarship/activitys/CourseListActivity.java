@@ -1,9 +1,7 @@
-package com.likeit.a51scholarship.activitys.newsfragment;
-
+package com.likeit.a51scholarship.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,7 +11,7 @@ import android.widget.SimpleAdapter;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.a51scholarship.R;
-import com.likeit.a51scholarship.fragments.BaseFragment;
+import com.likeit.a51scholarship.activitys.newsfragment.NewsDetailsActivity;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.view.MyListview;
 
@@ -22,38 +20,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class NewFragment01 extends BaseFragment implements
-        PullToRefreshBase.OnRefreshListener2<ScrollView>{
 
+public class CourseListActivity extends Container implements
+        PullToRefreshBase.OnRefreshListener2<ScrollView> {
+    @BindView(R.id.course_scrollview)
     PullToRefreshScrollView mPullToRefreshScrollView;
-    // 图片封装为一个数组
-    private int[] icon = {R.mipmap.test02, R.mipmap.test02,
-            R.mipmap.test02, R.mipmap.test02, R.mipmap.test02};
-    private String[] iconName = {"牛津布鲁克斯大学2017年奖学金开发申请 7 月截止", "牛津布鲁克斯大学2017年奖学金开发申请 7 月截止",
-            "牛津布鲁克斯大学2017年奖学金开发申请 7 月截止", "牛津布鲁克斯大学2017年奖学金开发申请 7 月截止", "牛津布鲁克斯大学2017年奖学金开发申请 7 月截止"};
-    private String[] iconReadNumber = {"阅读520", "阅读560", "阅读500", "阅读560", "阅读500"};
-    private String[] iconReadTime = {"20分钟前", "10分钟前", "30分钟前", "10分钟前", "30分钟前"};
-    private String[] iconCommmentNumber = {"14", "23", "55", "2", "54"};
+    @BindView(R.id.course_listview)
+    MyListview mListview;
     private SimpleAdapter simpleAdapter;
     private List<Map<String, Object>> dataList;
-    private MyListview mListview;
+    // 图片封装为一个数组
+    private int[] icon = {R.mipmap.course_test_bg, R.mipmap.course_test_bg,
+            R.mipmap.course_test_bg, R.mipmap.course_test_bg, R.mipmap.course_test_bg};
+    private String[] iconName = {"托福名师讲解，高效提分", "托福名师讲解，高效提分",
+            "托福名师讲解，高效提分", "托福名师讲解，高效提分", "托福名师讲解，高效提分"};
+    private String[] iconTime = {"5课时，177分钟", "5课时，177分钟", "5课时，177分钟", "5课时，177分钟", "5课时，177分钟"};
 
     @Override
-    protected int setContentView() {
-        return R.layout.fragment_new_fragment01;
-    }
-
-    @Override
-    protected void lazyLoad() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_course_list);
+        ButterKnife.bind(this);
         initView();
     }
 
     private void initView() {
-        mPullToRefreshScrollView = findViewById(R.id.news_header_scrollview);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setOnRefreshListener(this);
         mPullToRefreshScrollView.getLoadingLayoutProxy().setLastUpdatedLabel(
@@ -64,46 +59,49 @@ public class NewFragment01 extends BaseFragment implements
 //                      "refreshingLabel");
         mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
                 "松开即可刷新");
-        mListview = findViewById(R.id.news_header_listview);
         /**
          * 消息
          */
         dataList = new ArrayList<Map<String, Object>>();
         getData();
-        String[] from = {"img","name", "readNumber","readTime","commentNumber"};
-        int[] to = {R.id.live_list_item_bg, R.id.live_list_item_result_tv, R.id.live_list_item_time_tv,
-                R.id.iv_live_avatar,R.id.live_name_tv,R.id.live_speciality_tv};
-        simpleAdapter = new SimpleAdapter(getActivity(), dataList, R.layout.news_listview_items, from, to);
+        String[] from = {"img", "name", "readTime"};
+        int[] to = {R.id.course_listview_avatar, R.id.course_listview_name, R.id.course_listview_time};
+        simpleAdapter = new SimpleAdapter(mContext, dataList, R.layout.course_listview_items, from, to);
         //配置适配器
         mListview.setAdapter(simpleAdapter);
         ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intentNewDetails=new Intent(getActivity(),NewsDetailsActivity.class);
+                Intent intentNewDetails = new Intent(mContext, NewsDetailsActivity.class);
                 startActivity(intentNewDetails);
             }
         });
     }
+
     private List<Map<String, Object>> getData() {
         for (int i = 0; i < icon.length; i++) {
             Log.d("TAG", "" + icon.length);
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("img", icon[i]);
             map.put("name", iconName[i]);
-            map.put("readNumber", iconReadNumber[i]);
-            map.put("readTime", iconReadTime[i]);
-            map.put("commentNumber", iconCommmentNumber[i]);
+            map.put("readTime", iconTime[i]);
             dataList.add(map);
         }
         return dataList;
     }
-    public static NewFragment01 newInstance(String text) {
-        Bundle args = new Bundle();
-        args.putString("text", text);
-        NewFragment01 fragment = new NewFragment01();
-        fragment.setArguments(args);
-        return fragment;
+
+    @OnClick({R.id.top_bar_back_img, R.id.top_bar_right_img})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.top_bar_back_img:
+                onBackPressed();
+                break;
+            case R.id.top_bar_right_img:
+                toActivity(SearchInfoActivity.class);
+                break;
+        }
+
     }
 
     @Override

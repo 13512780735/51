@@ -28,13 +28,22 @@
          <include layout="@layout/fragment_home_head" />
 
             <com.likeit.a51scholarship.view.MyListview
-                android:id="@+id/listView"
+                android:id="@+id/listView01"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dip"
                 android:layout_marginTop="10dip"
                 android:focusable="false"
                 android:layout_marginRight="10dip"
+                android:divider="@color/smssdk_white"
+                android:dividerHeight="5dip"></com.likeit.a51scholarship.view.MyListview>
+            <com.likeit.a51scholarship.view.MyListview
+                android:id="@+id/listView02"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dip"
+                android:focusable="false"
+                android:visibility="gone"
                 android:divider="@color/smssdk_white"
                 android:dividerHeight="5dip"></com.likeit.a51scholarship.view.MyListview>
         </LinearLayout>

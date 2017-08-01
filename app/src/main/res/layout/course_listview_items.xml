@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="90dip"
+    android:background="@color/white"
+    android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/course_listview_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/course_test_bg"/>
+    <LinearLayout
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="10dip"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/course_listview_name"
+            android:layout_width="wrap_content"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:text="托福名师讲解，高效提分"
+            android:gravity="center_vertical"
+            android:textSize="16sp"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dip"
+            android:gravity="center_vertical"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/course_listview_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@mipmap/course_time_img"
+                android:text="5课时，177分钟"
+                android:drawablePadding="5dip"
+                android:textColor="@color/defualt_textcolor_d"/>
+            <Button
+
+                android:layout_width="60dip"
+                android:layout_height="25dip"
+                android:layout_alignParentRight="true"
+                android:text="免费"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:textColor="@color/login_btn_bg_color"
+                android:background="@drawable/button_blue_bg"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
