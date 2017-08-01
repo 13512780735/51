@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
+import android.widget.SimpleAdapter;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
@@ -26,12 +27,16 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.a51scholarship.R;
+import com.likeit.a51scholarship.activitys.AnswersActivity;
+import com.likeit.a51scholarship.activitys.CourseListActivity;
+import com.likeit.a51scholarship.activitys.LiveListActivity;
 import com.likeit.a51scholarship.activitys.MainActivity;
 import com.likeit.a51scholarship.activitys.MessageActivity;
 import com.likeit.a51scholarship.activitys.NewsListActivity;
 import com.likeit.a51scholarship.activitys.SchoolDetailActivity;
 import com.likeit.a51scholarship.activitys.SearchInfoActivity;
 import com.likeit.a51scholarship.activitys.SearchSchoolActivity;
+import com.likeit.a51scholarship.activitys.newsfragment.NewsDetailsActivity;
 import com.likeit.a51scholarship.adapters.HomeItemSchoolAdapter;
 import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.dialog.KefuDialog;
@@ -49,7 +54,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -86,6 +93,17 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
     private View line_school, line_news;
     private int status = 1;  // 判断是院校选择还是资讯选择 ，1为院校、2为资讯
     private String key;  //判断是否显示指示层
+    // 图片封装为一个数组
+    private int[] icon = {R.mipmap.test02, R.mipmap.test02,
+            R.mipmap.test02, R.mipmap.test02, R.mipmap.test02};
+    private String[] iconName = {"牛津布鲁克斯大学2017年奖学金开发申请 7 月截止", "牛津布鲁克斯大学2017年奖学金开发申请 7 月截止",
+            "牛津布鲁克斯大学2017年奖学金开发申请 7 月截止", "牛津布鲁克斯大学2017年奖学金开发申请 7 月截止", "牛津布鲁克斯大学2017年奖学金开发申请 7 月截止"};
+    private String[] iconReadNumber = {"阅读520", "阅读560", "阅读500", "阅读560", "阅读500"};
+    private String[] iconReadTime = {"20分钟前", "10分钟前", "30分钟前", "10分钟前", "30分钟前"};
+    private String[] iconCommmentNumber = {"14", "23", "55", "2", "54"};
+    private SimpleAdapter simpleAdapter;
+    private List<Map<String, Object>> dataList;
+    private MyListview mListView02;
 
     @Override
     protected int setContentView() {
@@ -287,6 +305,13 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 }
             }
         });
+        mListView02.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intentNewDetails=new Intent(getActivity(),NewsDetailsActivity.class);
+                startActivity(intentNewDetails);
+            }
+        });
     }
 
     private void initView() {
@@ -303,7 +328,8 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
                 "松开即可刷新");
         mPullToRefreshScrollView.getRefreshableView().scrollTo(0, 0);
-        mListView = findViewById(R.id.listView);
+        mListView = findViewById(R.id.listView01);
+        mListView02 = findViewById(R.id.listView02);
         schoolAdater = new HomeItemSchoolAdapter(getActivity(), SchoolData);
         userinfoImg = findViewById(R.id.userinfo_img);
         searchContentEt = findViewById(R.id.search_content_et);
@@ -338,6 +364,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 });
             }
         });
+
     }
 
     public void onClick(View view) {
@@ -352,7 +379,6 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 toActivity(SearchInfoActivity.class);
                 break;
             case R.id.message_img:
-                toActivity(MessageActivity.class);
                 break;
             case R.id.kefu_service:
                 KefuDialog kefuDialog = new KefuDialog(getContext());
@@ -366,10 +392,13 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 toActivity(NewsListActivity.class);
                 break;
             case R.id.look_live:
+                toActivity(LiveListActivity.class);
                 break;
             case R.id.online_layout:
+                toActivity(CourseListActivity.class);
                 break;
             case R.id.aq_layout:
+                toActivity(AnswersActivity.class);
                 break;
         }
     }
@@ -390,32 +419,60 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
     public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
         switch (checkedId) {
             case R.id.radio_school:
-                //mListView.removeAllViews();
+                mListView02.setVisibility(View.GONE);
+                mListView.setVisibility(View.VISIBLE);
+                dataList.clear();
+                simpleAdapter.notifyDataSetChanged();
                 status = 1;
                 getListData();
                 line_news.setVisibility(View.GONE);
                 line_school.setVisibility(View.VISIBLE);
-                schoolAdater.addAll(SchoolData, true);
                 schoolAdater.notifyDataSetChanged();
+                schoolAdater.addAll(SchoolData, true);
+                Log.d("TAG","SchoolData-->"+SchoolData);
                 ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
                 mPullToRefreshScrollView.onRefreshComplete();
                 radio_school.setChecked(true);
                 radio_news.setChecked(false);
                 break;
             case R.id.radio_news:
+                mListView.setVisibility(View.GONE);
+                mListView02.setVisibility(View.VISIBLE);
                 status = 2;
                 line_news.setVisibility(View.VISIBLE);
                 line_school.setVisibility(View.GONE);
-                getListData();
-                schoolAdater.addAll(SchoolData, true);
-                schoolAdater.notifyDataSetChanged();
-                ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
-                mPullToRefreshScrollView.onRefreshComplete();
+            //   getListData();
+//                schoolAdater.addAll(SchoolData, true);
+//                schoolAdater.notifyDataSetChanged();
+//                ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
+//                mPullToRefreshScrollView.onRefreshComplete();
                 radio_news.setChecked(true);
                 radio_school.setChecked(false);
+                dataList = new ArrayList<Map<String, Object>>();
+                getData();
+                String[] from = {"name","readNumber", "readTime","commentNumber","img"};
+                int[] to = {R.id.new_name, R.id.news_read_number, R.id.news_read_time, R.id.news_comment_number,R.id.imageView_avatar};
+                simpleAdapter = new SimpleAdapter(getActivity(), dataList, R.layout.news_listview_items, from, to);
+                Log.d("TAG","dataList-->"+dataList);
+                //配置适配器
+                mListView02.setAdapter(simpleAdapter);
+                ListScrollUtil.setListViewHeightBasedOnChildren(mListView02);
                 break;
         }
 
+    }
+    private List<Map<String, Object>> getData() {
+        for (int i = 0; i < icon.length; i++) {
+            Log.d("TAG", "" + icon.length);
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("img", icon[i]);
+            map.put("name", iconName[i]);
+            map.put("readNumber", iconReadNumber[i]);
+            map.put("readTime", iconReadTime[i]);
+            map.put("commentNumber", iconCommmentNumber[i]);
+            dataList.add(map);
+        }
+        return dataList;
     }
     /**
      * 设置添加屏幕的背景透明度
