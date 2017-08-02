@@ -4,7 +4,98 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="20dip"
     tools:context="com.likeit.a51scholarship.activitys.AnswersActivity">
-    <include layout="@layout/layout_header_with_back_img_switchbtn01"></include>
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dip"
+        android:background="@color/header_bg_color"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/header_line"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/bgcolor" />
+
+        <ImageView
+            android:id="@+id/iv_header_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="5dip"
+            />
+
+        <RadioGroup
+            android:id="@+id/answers_rgTools"
+            android:layout_width="wrap_content"
+            android:layout_height="24dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/switchbtn_blue_bg"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/answers_rbIssue"
+                android:layout_width="62dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/answers_tab_selector"
+                android:button="@null"
+                android:checked="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="问题"
+                android:textColor="@drawable/answeers_font_selector"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/answers_rbSenior"
+                android:layout_width="62dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/answers_tab_selector"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:text="学长"
+                android:textColor="@drawable/answeers_font_selector"
+                android:textSize="14sp" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_header_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/iv_header_right01"
+                android:padding="5dip"
+                android:src="@mipmap/icon_issue" />
+
+            <ImageView
+                android:id="@+id/iv_header_right01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dip"
+                android:src="@mipmap/nav_icon_search_sel" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <com.likeit.a51scholarship.view.NoScrollViewPager
+        android:id="@+id/answers_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/defualt_window_background"
+        android:layout_weight="1"></com.likeit.a51scholarship.view.NoScrollViewPager>
+
 </LinearLayout>

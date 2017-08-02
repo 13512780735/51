@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,7 +30,7 @@ import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.utils.ToastUtil;
 
 @SuppressLint("HandlerLeak")
-public class Container extends Activity {
+public class Container extends AppCompatActivity {
     protected final static int DATA_LOAD_ING = 0x001;
     protected final static int DATA_LOAD_COMPLETE = 0x002;
     protected final static int DATA_LOAD_FAIL = 0x003;
@@ -63,7 +64,11 @@ public class Container extends Activity {
         if (AndroidWorkaround.checkDeviceHasNavigationBar(this)) {
             AndroidWorkaround.assistActivity(findViewById(android.R.id.content));
         }
-
+        if (AndroidWorkaround.checkDeviceHasNavigationBar(this)) {
+            AndroidWorkaround.assistActivity(findViewById(android.R.id.content));
+        }
+        //setContentView(R.layout.activity_school_detail);
+        MyActivityManager.getInstance().addActivity(this);
     }
 
     public static boolean setMiuiStatusBarDarkMode(Activity activity, boolean darkmode) {

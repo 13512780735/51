@@ -52,7 +52,7 @@ import butterknife.OnClick;
 import static com.likeit.a51scholarship.activitys.Container.setMiuiStatusBarDarkMode;
 
 
-public class SchoolDetailActivity extends FragmentActivity {
+public class SchoolDetailActivity extends Container {
     @BindView(R.id.iv_header_left)
     ImageView iv_header_left;
     @BindView(R.id.iv_header_right)
@@ -136,7 +136,6 @@ public class SchoolDetailActivity extends FragmentActivity {
     @BindView(R.id.school_details_listView)
     MyListview mListView;
     private ArrayList<String> urlList;
-    private SchoolDetailActivity mContext;
     private String name, en_name, img, key;
 
     // 模拟评论数据
@@ -170,20 +169,7 @@ public class SchoolDetailActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View main = getLayoutInflater().from(this).inflate(R.layout.activity_school_detail, null);
-        main.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        MyActivityManager.getInstance().addActivity(this);
-        setContentView(main);
-        mContext = this;
-        setMiuiStatusBarDarkMode(this, true);
-        window = this.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        // 透明导航栏
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        if (AndroidWorkaround.checkDeviceHasNavigationBar(this)) {
-            AndroidWorkaround.assistActivity(findViewById(android.R.id.content));
-        }
-        //setContentView(R.layout.activity_school_detail);
+        setContentView(R.layout.activity_school_detail);
         MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
         Intent intent = getIntent();

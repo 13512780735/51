@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dip"
+    android:background="@color/white"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="@dimen/width80"
+        android:layout_height="@dimen/width80"
+        android:layout_margin="10dip">
+
+        <com.likeit.a51scholarship.view.CircleImageView
+            android:id="@+id/answers_senior_avatar"
+            android:layout_width="@dimen/width80"
+            android:layout_height="@dimen/width80"
+            android:src="@mipmap/message_chat_avatar" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent">
+
+            <ImageView
+                android:id="@+id/iv_message_chat_v1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/message_chat_v1" />
+        </RelativeLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_margin="10dip"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dip"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/answers_senior_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Lana" />
+
+            <TextView
+                android:id="@+id/answers_senior_address"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/answers_senior_name"
+                android:layout_marginLeft="10dip"
+                android:textColor="@color/defualt_textcolor_d"
+                android:text="美国" />
+
+            <TextView
+                android:id="@+id/answers_senior_states"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textColor="@color/defualt_textcolor_d"
+                android:layout_toRightOf="@+id/answers_senior_address"
+                android:layout_marginLeft="10dip"
+                android:text="在读" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/answers_senior_school"
+            android:layout_width="wrap_content"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="迈阿密大学" />
+
+        <TextView
+            android:id="@+id/answers_senior_major"
+            android:layout_width="wrap_content"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@color/defualt_textcolor_d"
+            android:text="医学|本科" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/answers_senior_add_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:background="@null"
+        android:drawableTop="@mipmap/add_friend"
+        android:text="添加好友"
+        android:textColor="@color/login_btn_bg_color"
+        android:textSize="14sp" />
+</LinearLayout>

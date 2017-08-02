@@ -7,6 +7,8 @@
         android:id="@+id/iv_school_detail_pic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:onClick="false"
+        android:clickable="false"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop" />
 </LinearLayout>

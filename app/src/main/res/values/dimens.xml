@@ -36,6 +36,8 @@
     <dimen name="width60">60dp</dimen>
     <dimen name="width55">55dp</dimen>
     <dimen name="width40">40dp</dimen>
+    <dimen name="width45">45dp</dimen>
+    <dimen name="width50">50dp</dimen>
 
     <!-- sina weibo sdk -->
     <dimen name="dialog_left_margin">10dp</dimen>

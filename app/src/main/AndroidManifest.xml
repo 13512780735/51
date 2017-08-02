@@ -151,13 +151,16 @@
             android:theme="@style/MyAppTheme" />
         <activity
             android:name=".activitys.login.ForgetPasswdActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
         <activity
             android:name=".activitys.login.RegisterActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
         <activity
             android:name=".activitys.Container"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
         <activity
             android:name=".activitys.login.SplashActivity"
             android:screenOrientation="portrait"
@@ -175,9 +178,18 @@
             android:name=".activitys.login.GuideActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
-        <activity android:name=".activitys.login.BaseActivity" />
-        <activity android:name=".activitys.login.UploadImgActivity" />
-        <activity android:name=".activitys.login.PerfectFirstActivity" />
+        <activity
+            android:name=".activitys.login.BaseActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.login.UploadImgActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.login.PerfectFirstActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
         <activity
             android:name="cn.finalteam.rxgalleryfinal.ui.activity.MediaActivity"
             android:screenOrientation="portrait"
@@ -187,29 +199,86 @@
             android:keepScreenOn="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activitys.my_center.UserInfoActivity" />
-        <activity android:name=".activitys.my_center.InviteFriendsActivity" />
-        <activity android:name=".activitys.my_center.CollectActivity" />
-        <activity android:name=".activitys.my_center.SpentActivity" />
-        <activity android:name=".activitys.my_center.DianActivity" />
-        <activity android:name=".activitys.my_center.NearSeeActivity" />
-        <activity android:name=".activitys.my_center.OpenActivity" />
-        <activity android:name=".activitys.my_center.AboutActivity" />
-        <activity android:name=".activitys.my_center.SetActivity" />
-        <activity android:name=".activitys.my_center.FeeBackActivity" />
-        <activity android:name=".activitys.SearchInfoActivity" />
-        <activity android:name=".activitys.MessageActivity" />
-        <activity android:name=".activitys.SearchSchoolActivity" />
-        <activity android:name=".activitys.NewsListActivity" />
+        <activity
+            android:name=".activitys.my_center.UserInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.my_center.InviteFriendsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.my_center.CollectActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.my_center.SpentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.my_center.DianActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.my_center.NearSeeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.my_center.OpenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.my_center.AboutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.my_center.SetActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.my_center.FeeBackActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.SearchInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.MessageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.SearchSchoolActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.NewsListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
         <activity
             android:name=".activitys.SchoolDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
-        <activity android:name=".activitys.WebActivity" />
-        <activity android:name=".activitys.WebForNewsActivity" />
-        <activity android:name=".activitys.WebHtmlActivity" />
-        <activity android:name=".activitys.SendNewsActivity" />
-        <activity android:name=".activitys.SchoolCommentActivity" />
+        <activity
+            android:name=".activitys.WebActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.WebForNewsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.WebHtmlActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.SendNewsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.SchoolCommentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
         <activity
             android:name=".activitys.my_center.EditorCenterActivity"
             android:screenOrientation="portrait"
@@ -226,10 +295,16 @@
             android:name=".activitys.CourseListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
-        <activity android:name=".activitys.AnswersActivity"
+        <activity
+            android:name=".activitys.AnswersActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyAppTheme"/>
-        <activity android:name=".activitys.AskActivity"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.AskActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.answersfragment.AnswersUserDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme"></activity>
     </application>

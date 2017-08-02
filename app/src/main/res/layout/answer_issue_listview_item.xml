@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="140dip"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="10dip">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="3"
+        android:orientation="horizontal">
+
+        <com.likeit.a51scholarship.view.CircleImageView
+            android:id="@+id/answers_issue_avatar"
+            android:layout_width="@dimen/width45"
+            android:layout_height="@dimen/width45"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/message_chat_avatar" />
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_margin="10dip"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/answers_issue_name"
+                android:layout_width="wrap_content"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="风中的小鸟"
+                android:textColor="@color/login_btn_bg_color" />
+
+            <TextView
+                android:id="@+id/answers_issue_time"
+                android:layout_width="wrap_content"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="50分钟前"
+                android:textColor="@color/defualt_textcolor_d" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/answers_issue_live01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/switchbtn_blue_bg"
+            android:paddingBottom="2dip"
+            android:paddingLeft="8dip"
+            android:paddingRight="8dip"
+            android:paddingTop="2dip"
+            android:text="海外生活"
+            android:textColor="@color/login_btn_bg_color"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/answers_issue_live02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/switchbtn_blue_bg"
+            android:paddingBottom="2dip"
+            android:paddingLeft="8dip"
+            android:paddingRight="8dip"
+            android:paddingTop="2dip"
+            android:text="加拿大"
+            android:textColor="@color/login_btn_bg_color"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/answers_issue_details"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="目前大四，留学加拿大需要准备什么呢？" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="2"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/answers_issue_like_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/tab_btn_like_selected"
+            android:drawablePadding="5dip"
+            android:gravity="center_vertical"
+            android:text="9,999"
+            android:textColor="@color/defualt_textcolor_d" />
+
+        <TextView
+            android:id="@+id/answers_issue_commnent_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dip"
+            android:layout_toRightOf="@+id/answers_issue_like_number"
+            android:drawableLeft="@mipmap/tab_btn_comment"
+            android:drawablePadding="5dip"
+            android:gravity="center_vertical"
+            android:text="15"
+            android:textColor="@color/defualt_textcolor_d" />
+        />
+
+        <TextView
+            android:id="@+id/answers_issue_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:drawableLeft="@mipmap/answer_answer_bg"
+            android:drawablePadding="5dip"
+            android:gravity="center_vertical"
+            android:text="回答"
+            android:textColor="@color/login_btn_bg_color" />
+        />
+    </RelativeLayout>
+</LinearLayout>

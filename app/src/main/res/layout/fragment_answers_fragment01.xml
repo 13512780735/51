@@ -1,0 +1,96 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.likeit.a51scholarship.activitys.answersfragment.AnswersFragment01">
+
+    <RadioGroup
+        android:id="@+id/radio_group_answers_issue"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="5dp"
+            android:layout_height="1px"
+            android:background="@android:color/transparent" />
+        <RadioButton
+            android:id="@+id/country_answers_issue"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableRight="@drawable/answers_tab_down_selector"
+            android:gravity="center"
+            android:paddingRight="20dip"
+            android:text="国家"
+            android:textColor="@drawable/home_font_selector"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0.5dip"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dip"
+            android:layout_marginTop="2dip"
+            android:background="@color/line_color"></View>
+
+        <RadioButton
+            android:id="@+id/heat_answers_issue"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:paddingRight="20dip"
+            android:checked="false"
+            android:drawableRight="@drawable/answers_tab_down_selector"
+            android:gravity="center"
+            android:text="热度"
+            android:textColor="@drawable/home_font_selector"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0.5dip"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dip"
+            android:layout_marginTop="2dip"
+            android:background="@color/line_color"></View>
+
+        <RadioButton
+            android:id="@+id/sort_answers_issue"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableRight="@drawable/answers_tab_down_selector"
+            android:checked="false"
+            android:gravity="center"
+            android:text="分类"
+            android:paddingRight="20dip"
+            android:textColor="@drawable/home_font_selector"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="1px"
+            android:background="@android:color/transparent" />
+    </RadioGroup>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/defulat_stroke_height"
+        android:background="@color/line_color" />
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/answer_issue_scrollview"
+        android:layout_width="match_parent"
+        android:background="@color/background_b"
+        android:layout_height="match_parent">
+
+        <com.likeit.a51scholarship.view.MyListview
+            android:id="@+id/answer_issue_listview"
+            android:divider="@color/background_b"
+            android:dividerHeight="10dip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.likeit.a51scholarship.view.MyListview>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+</LinearLayout>

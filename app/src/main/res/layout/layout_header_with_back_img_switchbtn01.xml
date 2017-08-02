@@ -20,55 +20,37 @@
         android:layout_centerVertical="true"
         android:padding="5dip" />
 
-    <LinearLayout
-        android:layout_width="120dip"
-        android:layout_height="25dip"
+    <RadioGroup
+        android:layout_width="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/switchbtn_blue_bg"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/bt_head_chat"
-            android:layout_width="0dip"
+        android:orientation="horizontal"
+        android:layout_height="24dip">
+        <RadioButton
+            android:layout_width="62dip"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/switchbtn01_blue_bg"
+            android:button="@null"
             android:text="问题"
-            android:textColor="@color/white"
-
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tv_head_chat"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="问题"
-            android:textColor="@color/login_btn_bg_color"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/bt_head_notice"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/switchbtn01_blue_bg"
-            android:text="学长"
-            android:textColor="@color/white"
             android:textSize="14sp"
-
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/tv_head_notice"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:background="@drawable/answers_tab_selector"
             android:gravity="center"
+            android:clickable="true"
+            android:checked="true"
+            android:textColor="@drawable/answeers_font_selector"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:layout_width="62dip"
+            android:layout_height="match_parent"
+            android:button="@null"
             android:text="学长"
-            android:textColor="@color/login_btn_bg_color" />
-    </LinearLayout>
+            android:gravity="center"
+            android:background="@drawable/answers_tab_selector"
+            android:checked="false"
+            android:textSize="14sp"
+            android:textColor="@drawable/answeers_font_selector"
+            android:layout_weight="1"/>
+
+    </RadioGroup>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
