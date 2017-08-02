@@ -49,6 +49,7 @@ public class PictureSlideFragment extends Fragment {
         View v = inflater.inflate(R.layout.school_detail_adv_items, container, false);
 
         imageView = (ImageView) v.findViewById(R.id.iv_school_detail_pic);
+        imageView.setOnClickListener(null);
         mAttacher = new PhotoViewAttacher(imageView);
         mAttacher.setOnPhotoTapListener(null);
         mAttacher.setOnDoubleTapListener(null);
