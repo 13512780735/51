@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ScrollView;
-import android.widget.SimpleAdapter;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
@@ -28,9 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -55,14 +52,16 @@ public class NewFragment01 extends BaseFragment implements
         dialog = new ProgressDialog(getActivity());
         dialog.setMessage("Loading...");
         NewsData = new ArrayList<HomeItemNewsBean>();
+        newAdapter = new HomeItemNewsAdapter(getActivity(), NewsData);
         initData();
+        dialog.show();
         initView();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
+        //refresh();
     }
 
     private void refresh() {
@@ -98,7 +97,7 @@ public class NewFragment01 extends BaseFragment implements
                             NewsData.add(homeItemNewsBean);
                         }
                         Log.d("TAG", "HomeSchool-->" + NewsData);
-                        // newAdapter.addAll(NewsData, false);
+                       //newAdapter.addAll(NewsData, false);
                         newAdapter.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {
@@ -133,8 +132,8 @@ public class NewFragment01 extends BaseFragment implements
         mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
                 "松开即可刷新");
         mListview = findViewById(R.id.news_header_listview);
-        newAdapter = new HomeItemNewsAdapter(getActivity(), NewsData);
-
+        newAdapter.addAll(NewsData,true);
+        newAdapter.notifyDataSetChanged();
         mListview.setAdapter(newAdapter);
         ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -146,13 +145,6 @@ public class NewFragment01 extends BaseFragment implements
         });
     }
 
-    public static NewFragment01 newInstance(String text) {
-        Bundle args = new Bundle();
-        args.putString("text", text);
-        NewFragment01 fragment = new NewFragment01();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
