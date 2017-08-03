@@ -37,12 +37,15 @@ import com.likeit.a51scholarship.activitys.SchoolDetailActivity;
 import com.likeit.a51scholarship.activitys.SearchInfoActivity;
 import com.likeit.a51scholarship.activitys.SearchSchoolActivity;
 import com.likeit.a51scholarship.activitys.newsfragment.NewsDetailsActivity;
+import com.likeit.a51scholarship.adapters.HomeItemNewsAdapter;
 import com.likeit.a51scholarship.adapters.HomeItemSchoolAdapter;
 import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.dialog.KefuDialog;
 import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.model.HomeADlistBean;
+import com.likeit.a51scholarship.model.HomeItemNewsBean;
 import com.likeit.a51scholarship.model.HomeItemSchoolBean;
+import com.likeit.a51scholarship.utils.JSONUtils;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.view.MyListview;
@@ -85,6 +88,8 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
     private MyListview mListView;
     private List<HomeItemSchoolBean> SchoolData;
     private HomeItemSchoolAdapter schoolAdater;
+    private List<HomeItemNewsBean> NewsData;
+    private HomeItemNewsAdapter newAdapter;
     private RadioButton radio_school;
     private RadioButton radio_news;
     private RadioGroup main_radio_group;
@@ -93,17 +98,8 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
     private View line_school, line_news;
     private int status = 1;  // 判断是院校选择还是资讯选择 ，1为院校、2为资讯
     private String key;  //判断是否显示指示层
-    // 图片封装为一个数组
-    private int[] icon = {R.mipmap.test02, R.mipmap.test02,
-            R.mipmap.test02, R.mipmap.test02, R.mipmap.test02};
-    private String[] iconName = {"牛津布鲁克斯大学2017年奖学金开发申请 7 月截止", "牛津布鲁克斯大学2017年奖学金开发申请 7 月截止",
-            "牛津布鲁克斯大学2017年奖学金开发申请 7 月截止", "牛津布鲁克斯大学2017年奖学金开发申请 7 月截止", "牛津布鲁克斯大学2017年奖学金开发申请 7 月截止"};
-    private String[] iconReadNumber = {"阅读520", "阅读560", "阅读500", "阅读560", "阅读500"};
-    private String[] iconReadTime = {"20分钟前", "10分钟前", "30分钟前", "10分钟前", "30分钟前"};
-    private String[] iconCommmentNumber = {"14", "23", "55", "2", "54"};
-    private SimpleAdapter simpleAdapter;
-    private List<Map<String, Object>> dataList;
     private MyListview mListView02;
+
 
     @Override
     protected int setContentView() {
@@ -116,6 +112,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         dialog.setMessage("Loading...");
         ADListData = new ArrayList<HomeADlistBean>();
         SchoolData = new ArrayList<HomeItemSchoolBean>();
+        NewsData = new ArrayList<HomeItemNewsBean>();
         Intent intent = getActivity().getIntent();
         key = intent.getStringExtra("key");
         Log.d("TAG", "key-->" + key);
@@ -124,7 +121,6 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         initView();
         initListener();
     }
-
 
 
     private void addHightView() {
@@ -187,6 +183,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
             }
         });
         getListData();
+        // getListNew();
         dialog.show();
     }
 
@@ -252,7 +249,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                             SchoolData.add(homeItemSchoolBean);
                         }
                         Log.d("TAG", "HomeSchool-->" + SchoolData);
-                        schoolAdater.addAll(SchoolData, false);
+                       // schoolAdater.addAll(SchoolData, false);
                         schoolAdater.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {
@@ -308,7 +305,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         mListView02.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intentNewDetails=new Intent(getActivity(),NewsDetailsActivity.class);
+                Intent intentNewDetails = new Intent(getActivity(), NewsDetailsActivity.class);
                 startActivity(intentNewDetails);
             }
         });
@@ -331,6 +328,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         mListView = findViewById(R.id.listView01);
         mListView02 = findViewById(R.id.listView02);
         schoolAdater = new HomeItemSchoolAdapter(getActivity(), SchoolData);
+        newAdapter = new HomeItemNewsAdapter(getActivity(), NewsData);
         userinfoImg = findViewById(R.id.userinfo_img);
         searchContentEt = findViewById(R.id.search_content_et);
         audioIcon = findViewById(R.id.audio_icon);
@@ -419,68 +417,104 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
     public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
         switch (checkedId) {
             case R.id.radio_school:
+                schoolAdater.addAll(SchoolData, true);
+                schoolAdater.notifyDataSetChanged();
                 mListView02.setVisibility(View.GONE);
                 mListView.setVisibility(View.VISIBLE);
-                dataList.clear();
-                simpleAdapter.notifyDataSetChanged();
                 status = 1;
                 getListData();
                 line_news.setVisibility(View.GONE);
                 line_school.setVisibility(View.VISIBLE);
-                schoolAdater.notifyDataSetChanged();
-                schoolAdater.addAll(SchoolData, true);
-                Log.d("TAG","SchoolData-->"+SchoolData);
+//                schoolAdater.notifyDataSetChanged();
+//                schoolAdater.addAll(SchoolData, true);
+//                Log.d("TAG", "SchoolData-->" + SchoolData);
                 ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
                 mPullToRefreshScrollView.onRefreshComplete();
                 radio_school.setChecked(true);
                 radio_news.setChecked(false);
                 break;
             case R.id.radio_news:
+                newAdapter.addAll(NewsData, true);
+                newAdapter.notifyDataSetChanged();
+                newAdapter.notifyDataSetChanged();
                 mListView.setVisibility(View.GONE);
                 mListView02.setVisibility(View.VISIBLE);
                 status = 2;
+                getListNew();
                 line_news.setVisibility(View.VISIBLE);
                 line_school.setVisibility(View.GONE);
-            //   getListData();
-//                schoolAdater.addAll(SchoolData, true);
-//                schoolAdater.notifyDataSetChanged();
-//                ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
-//                mPullToRefreshScrollView.onRefreshComplete();
+//                newAdapter.addAll(NewsData, true);
+//                newAdapter.notifyDataSetChanged();
+                mPullToRefreshScrollView.onRefreshComplete();
                 radio_news.setChecked(true);
                 radio_school.setChecked(false);
-                dataList = new ArrayList<Map<String, Object>>();
-                getData();
-                String[] from = {"name","readNumber", "readTime","commentNumber","img"};
-                int[] to = {R.id.new_name, R.id.news_read_number, R.id.news_read_time, R.id.news_comment_number,R.id.imageView_avatar};
-                simpleAdapter = new SimpleAdapter(getActivity(), dataList, R.layout.news_listview_items, from, to);
-                Log.d("TAG","dataList-->"+dataList);
                 //配置适配器
-                mListView02.setAdapter(simpleAdapter);
+                mListView02.setAdapter(newAdapter);
                 ListScrollUtil.setListViewHeightBasedOnChildren(mListView02);
                 break;
         }
 
     }
-    private List<Map<String, Object>> getData() {
-        for (int i = 0; i < icon.length; i++) {
-            Log.d("TAG", "" + icon.length);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("img", icon[i]);
-            map.put("name", iconName[i]);
-            map.put("readNumber", iconReadNumber[i]);
-            map.put("readTime", iconReadTime[i]);
-            map.put("commentNumber", iconCommmentNumber[i]);
-            dataList.add(map);
-        }
-        return dataList;
+
+    private void getListNew() {
+        String url = AppConfig.LIKEIT_NEWS;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                dialog.dismiss();
+                // Log.d("TAG", "HomeSchool-->" + response);
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    String code = obj.optString("code");
+                    String message = obj.optString("message");
+                    if ("1".equals(code)) {
+                        JSONArray newData = obj.optJSONArray("data");
+                        for (int i = 0; i < newData.length(); i++) {
+                            JSONObject jsonObject = newData.optJSONObject(i);
+                            HomeItemNewsBean homeItemNewsBean = new HomeItemNewsBean();
+                            homeItemNewsBean.setId(jsonObject.optString("id"));
+                            homeItemNewsBean.setAuthor(jsonObject.optString("author"));
+                            homeItemNewsBean.setTitle(jsonObject.optString("title"));
+                            homeItemNewsBean.setDescription(jsonObject.optString("description"));
+                            homeItemNewsBean.setInterval(jsonObject.optString("interval"));
+                            homeItemNewsBean.setView(jsonObject.optString("view"));
+                            homeItemNewsBean.setComment(jsonObject.optString("comment"));
+                            NewsData.add(homeItemNewsBean);
+                        }
+                        Log.d("TAG", "HomeSchool-->" + NewsData);
+                       // newAdapter.addAll(NewsData, false);
+                        newAdapter.notifyDataSetChanged();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void failed(Throwable e) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dialog.dismiss();
+            }
+        });
+
     }
+
+
     /**
      * 设置添加屏幕的背景透明度
+     *
      * @param bgAlpha
      */
-    public void backgroundAlpha(float bgAlpha)
-    {
-        WindowManager.LayoutParams lp =getActivity().getWindow().getAttributes();
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
         lp.alpha = bgAlpha; //0.0-1.0
         getActivity().getWindow().setAttributes(lp);
     }

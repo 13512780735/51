@@ -10,6 +10,7 @@
         android:layout_width="0dip"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:layout_marginRight="10dip"
         android:orientation="vertical">
 
         <TextView
@@ -28,6 +29,7 @@
             android:layout_weight="1"
             android:orientation="horizontal">
             <TextView
+                android:id="@+id/new_author"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="留学圈"
@@ -39,7 +41,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="阅读520"
-                android:layout_marginLeft="20dip"
+                android:drawablePadding="5dip"
+                android:layout_marginLeft="10dip"
                 android:textColor="@color/defualt_textcolor_d"/>
             <TextView
                 android:id="@+id/news_read_time"
@@ -47,26 +50,28 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="20分钟前"
-                android:layout_marginLeft="20dip"
+                android:layout_marginLeft="10dip"
                 android:textColor="@color/defualt_textcolor_d"/>
-            <Button
+            <TextView
                 android:id="@+id/news_comment_number"
                 android:layout_width="50dip"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
-                android:background="@null"
                 android:focusable="false"
-                android:text="14"
                 android:textColor="@color/defualt_textcolor_d"
                 android:textSize="14sp"
-                android:layout_marginLeft="20dip"
+                android:layout_marginLeft="10dip"
+                android:gravity="center_vertical"
+                android:drawablePadding="5dip"
+                android:text="111"
                 android:drawableLeft="@mipmap/icon_comment"
-                android:src="@mipmap/icon_more"/>
+               />
             <ImageView
+                android:id="@+id/new_share"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
-                android:src="@mipmap/icon_more"/>
+              />
 
         </LinearLayout>
     </LinearLayout>

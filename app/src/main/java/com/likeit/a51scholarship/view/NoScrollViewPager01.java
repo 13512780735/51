@@ -7,15 +7,15 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class NoScrollViewPager extends ViewPager {
+public class NoScrollViewPager01 extends ViewPager {
 	private boolean noScroll = true; // true 代表不能滑动 //false 代表能滑动
 
-	public NoScrollViewPager(Context context, AttributeSet attrs) {
+	public NoScrollViewPager01(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
 	}
 
-	public NoScrollViewPager(Context context) {
+	public NoScrollViewPager01(Context context) {
 		super(context);
 	}
 
@@ -53,5 +53,20 @@ public class NoScrollViewPager extends ViewPager {
 	public void setCurrentItem(int item) {
 		super.setCurrentItem(item, false);// 表示切换的时候，不需要切换时间。
 	}
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
+		int height = 0;
+		for (int i = 0; i < getChildCount(); i++) {
+			View child = getChildAt(i);
+			child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+			int h = child.getMeasuredHeight();
+			if (h > height)
+				height = h;
+		}
+
+		heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+	}
 }

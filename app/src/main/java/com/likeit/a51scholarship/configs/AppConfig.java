@@ -19,4 +19,6 @@ public class AppConfig {
     public static final String LIKEIT_ADLIST = SERVER_API + "/api/index/adlist";
     //首页学校推荐
     public static final String LIKEIT_SCHOOL= SERVER_API + "/api/index/school";
+    //首页学校資訊
+    public static final String LIKEIT_NEWS= SERVER_API + "/api/index/news";
 }

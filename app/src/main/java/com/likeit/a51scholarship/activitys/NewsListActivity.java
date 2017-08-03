@@ -2,6 +2,7 @@ package com.likeit.a51scholarship.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -11,6 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.likeit.a51scholarship.R;
+import com.likeit.a51scholarship.activitys.newsfragment.NewFragment01;
+import com.likeit.a51scholarship.activitys.userdetailsfragment.UserDetailsFragment01;
+import com.likeit.a51scholarship.activitys.userdetailsfragment.UserDetailsFragment02;
+import com.likeit.a51scholarship.adapters.AnswersUserDetailsTabAdapter;
 import com.likeit.a51scholarship.adapters.NewTabAdapter;
 import com.likeit.a51scholarship.utils.AndroidWorkaround;
 import com.likeit.a51scholarship.utils.MyActivityManager;
@@ -39,9 +44,11 @@ public class NewsListActivity extends FragmentActivity {
     SlidingTabLayout slidingTabLayout;
     @BindView(R.id.viewpager)
     ViewPager viewpager;
-    String[] names = {"头条", "热点", "视频", "留学", "社会", "奇闻"};
+    private String[] titles=new String[]{"头条", "热点", "视频", "留学", "社会", "奇闻"};
     private NewsListActivity mContext;
     private Window window;
+    private NewTabAdapter adapter;
+    private List<Fragment> fragments=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,16 +74,21 @@ public class NewsListActivity extends FragmentActivity {
 
     private void initView() {
 
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < names.length; i++) {
-            list.add(names[i].toString());
-        }
 
-        viewpager.setAdapter(new NewTabAdapter(getSupportFragmentManager(), list));
+        fragments.add(new NewFragment01());
+        fragments.add(new NewFragment01());
+        fragments.add(new NewFragment01());
+        fragments.add(new NewFragment01());
+        fragments.add(new NewFragment01());
+        fragments.add(new NewFragment01());
+        adapter=new NewTabAdapter(getSupportFragmentManager(),titles,fragments);
+        viewpager.setAdapter(adapter);
         slidingTabLayout.setCustomTabView(R.layout.custom_tab_view, R.id.tab_item);
         slidingTabLayout.setTabTitleTextSize(14);//标题字体大小
         slidingTabLayout.setTitleTextColor(this.getResources().getColor(R.color.login_btn_bg_color), this.getResources().getColor(R.color.defualt_textcolor_d));//标题字体颜色
-        slidingTabLayout.setTabStripWidth(50);//滑动条宽度
+        WindowManager wm = this.getWindowManager();
+        int width = wm.getDefaultDisplay().getWidth();
+        slidingTabLayout.setTabStripWidth(width/(titles.length+1));//滑动条宽度
         slidingTabLayout.setSelectedIndicatorColors(this.getResources().getColor(R.color.login_btn_bg_color));//滑动条颜色
         slidingTabLayout.setDistributeEvenly(false); //均匀平铺选项卡
         slidingTabLayout.setViewPager(viewpager);

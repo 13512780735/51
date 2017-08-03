@@ -44,8 +44,8 @@
                 android:layout_marginTop="10dip"
                 android:focusable="false"
                 android:visibility="gone"
-                android:divider="@color/smssdk_white"
-                android:dividerHeight="5dip"></com.likeit.a51scholarship.view.MyListview>
+                android:divider="@color/line_color"
+                android:dividerHeight="2dip"></com.likeit.a51scholarship.view.MyListview>
         </LinearLayout>
 
 

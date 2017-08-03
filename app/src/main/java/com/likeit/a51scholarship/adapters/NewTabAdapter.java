@@ -14,25 +14,27 @@ import com.likeit.a51scholarship.activitys.newsfragment.NewFragment01;
 import java.util.List;
 
 public class NewTabAdapter extends FragmentPagerAdapter {
-    private List<String> list;
+    private List<Fragment> fragments;
+    private String[] titles;
 
-    public NewTabAdapter(FragmentManager fm, List<String> list) {
+    public NewTabAdapter(FragmentManager fm, String[] titles,List<Fragment> fragments) {
         super(fm);
-        this.list = list;
+        this.titles = titles;
+        this.fragments = fragments;
     }
-
     @Override
     public Fragment getItem(int position) {
-        return NewFragment01.newInstance(list.get(position));
+
+        return fragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return fragments.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return list.get(position);
+        return titles[position];
     }
 }
