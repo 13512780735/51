@@ -8,11 +8,11 @@
     <ImageView
         android:id="@+id/school_listview_iv_school"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dip"
         android:adjustViewBounds="true"
         android:src="@mipmap/test01"
         android:divider="@color/smssdk_white"
-        android:scaleType="fitCenter" />
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:layout_width="match_parent"

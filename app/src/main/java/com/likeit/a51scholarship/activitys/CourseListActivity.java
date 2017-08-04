@@ -7,13 +7,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.a51scholarship.R;
-import com.likeit.a51scholarship.activitys.newsfragment.NewsDetailsActivity;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.view.MyListview;
+import com.likeit.a51scholarship.view.expandtabview.ExpandTabView;
+import com.likeit.a51scholarship.view.expandtabview.ViewMiddle;
+import com.tencent.smtt.sdk.TbsVideo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,8 +34,12 @@ public class CourseListActivity extends Container implements
     PullToRefreshScrollView mPullToRefreshScrollView;
     @BindView(R.id.course_listview)
     MyListview mListview;
+    @BindView(R.id.expandtab_view)
+    ExpandTabView expandTabView;
     private SimpleAdapter simpleAdapter;
     private List<Map<String, Object>> dataList;
+    private ArrayList<View> mViewArray = new ArrayList<View>();
+    private ViewMiddle viewMiddle;
     // 图片封装为一个数组
     private int[] icon = {R.mipmap.course_test_bg, R.mipmap.course_test_bg,
             R.mipmap.course_test_bg, R.mipmap.course_test_bg, R.mipmap.course_test_bg};
@@ -46,9 +53,32 @@ public class CourseListActivity extends Container implements
         setContentView(R.layout.activity_course_list);
         ButterKnife.bind(this);
         initView();
+        initVaule();
+        initListener();
     }
 
+    private void initListener() {
+        viewMiddle.setOnSelectListener(new ViewMiddle.OnSelectListener() {
+
+            @Override
+            public void getValue(String showText) {
+
+                onRefresh(viewMiddle,showText);
+
+            }
+        });
+
+    }
+
+    private void initVaule() {
+        mViewArray.add(viewMiddle);
+        ArrayList<String> mTextArray = new ArrayList<String>();
+        mTextArray.add("全部类别");
+        expandTabView.setValue(mTextArray, mViewArray);
+    }
+    String videoUrl = "http://bvideo.spriteapp.cn/video/2016/0704/577a4c29e1f14_wpd.mp4";
     private void initView() {
+        viewMiddle = new ViewMiddle(this);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setOnRefreshListener(this);
         mPullToRefreshScrollView.getLoadingLayoutProxy().setLastUpdatedLabel(
@@ -73,8 +103,9 @@ public class CourseListActivity extends Container implements
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intentNewDetails = new Intent(mContext, NewsDetailsActivity.class);
+                Intent intentNewDetails = new Intent(mContext, CourseDetailsActivity.class);
                 startActivity(intentNewDetails);
+               // openVideo(videoUrl);
             }
         });
     }
@@ -114,5 +145,40 @@ public class CourseListActivity extends Container implements
     public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
         ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
         mPullToRefreshScrollView.onRefreshComplete();
+    }
+    private void onRefresh(View view, String showText) {
+
+        expandTabView.onPressBack();
+//        int position = getPositon(view);
+//        if (position >= 0 && !expandTabView.getTitle(position).equals(showText)) {
+//            expandTabView.setTitle(showText, position);
+//        }
+        Toast.makeText(mContext, showText, Toast.LENGTH_SHORT).show();
+
+    }
+
+    private int getPositon(View tView) {
+        for (int i = 0; i < mViewArray.size(); i++) {
+            if (mViewArray.get(i) == tView) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (!expandTabView.onPressBack()) {
+            finish();
+        }
+    }
+    private void openVideo(String videoUrl) {
+        // TODO Auto-generated method stub
+        if(TbsVideo.canUseTbsPlayer(getApplicationContext())){
+            TbsVideo.openVideo(getApplicationContext(), videoUrl);
+        }else{
+
+        }
     }
 }

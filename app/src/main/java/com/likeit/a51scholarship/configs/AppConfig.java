@@ -21,4 +21,6 @@ public class AppConfig {
     public static final String LIKEIT_SCHOOL= SERVER_API + "/api/index/school";
     //首页学校資訊
     public static final String LIKEIT_NEWS= SERVER_API + "/api/index/news";
+    //院校列表接口
+    public static final String LIKEIT_SCHOOL_LIST= SERVER_API + "/api/school/getlist";
 }

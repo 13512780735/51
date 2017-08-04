@@ -19,11 +19,21 @@ import android.widget.SimpleAdapter;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.a51scholarship.R;
+import com.likeit.a51scholarship.adapters.SchoolListAdapter;
+import com.likeit.a51scholarship.configs.AppConfig;
+import com.likeit.a51scholarship.http.HttpUtil;
+import com.likeit.a51scholarship.model.HomeItemNewsBean;
+import com.likeit.a51scholarship.model.SchoolListBean;
 import com.likeit.a51scholarship.utils.AndroidWorkaround;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.view.MyListview;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,17 +76,8 @@ public class SearchSchoolActivity extends Container {
     PullToRefreshScrollView mPullToRefreshScrollView;
     @BindView(R.id.school_list_listview)
     MyListview mListview;
-    private List<Map<String, Object>> dataList;
-    // 图片封装为一个数组
-    private int[] icon = {R.mipmap.test01, R.mipmap.test01,
-            R.mipmap.test01};
-    private String[] iconNameCH = {"美国德克萨斯州立大学 阿灵顿分校", "卡迪夫学院", "巴斯学院"};
-    private String[] iconNameEN = {"The University of Texas  ARLNGTON", "Cardiff Sixth Form College",
-            "Bath Academy"};
-    private String[] iconRank = {"200", "150", "120"};
-    private String[] iconRate = {"60%", "55%", "62%"};
-    private String[] iconSchoolShip = {"$6000", "$6500", "$5500"};
-    private SimpleAdapter simpleAdapter;
+    private List<SchoolListBean> schoolData;
+    private SchoolListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +85,61 @@ public class SearchSchoolActivity extends Container {
        setContentView(R.layout.activity_search_school);
         MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
+        schoolData=new ArrayList<SchoolListBean>();
+        initData();
+        showProgress("Loading...");
         initView();
     }
+
+    private void initData() {
+        String url = AppConfig.LIKEIT_SCHOOL_LIST;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                disShowProgress();
+                // Log.d("TAG", "HomeSchool-->" + response);
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    String code = obj.optString("code");
+                    String message = obj.optString("message");
+                    if ("1".equals(code)) {
+                        JSONArray newData = obj.optJSONArray("data");
+                        for (int i = 0; i < newData.length(); i++) {
+                            JSONObject jsonObject = newData.optJSONObject(i);
+                            SchoolListBean schoolListBean = new SchoolListBean();
+                            schoolListBean.setId(jsonObject.optString("id"));
+                            schoolListBean.setName(jsonObject.optString("name"));
+                            schoolListBean.setEn_name(jsonObject.optString("en_name"));
+                            schoolListBean.setCountry_name(jsonObject.optString("country_name"));
+                            schoolListBean.setRanking(jsonObject.optString("ranking"));
+                            schoolListBean.setRate(jsonObject.optString("rate"));
+                            schoolListBean.setScholarship(jsonObject.optString("scholarship"));
+                            schoolListBean.setImg(jsonObject.optString("img"));
+                            schoolData.add(schoolListBean);
+                        }
+                        Log.d("TAG", "HomeSchool-->" + schoolData);
+                        //newAdapter.addAll(NewsData, false);
+                        adapter.notifyDataSetChanged();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void failed(Throwable e) {
+                disShowProgress();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                disShowProgress();
+            }
+        });    }
 
     private void initView() {
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
@@ -108,45 +162,34 @@ public class SearchSchoolActivity extends Container {
                 .setPullLabel("下拉刷新");
         mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
                 "松开即可刷新");
-        /**
-         * 消息
-         */
-        dataList = new ArrayList<Map<String, Object>>();
-        getData();
-        String[] from = {"img", "name_ch", "name_eng", "rank", "rate", "scholarship"};
-        int[] to = {R.id.school_listview_iv_school, R.id.school_listview_tv_Chinese_name, R.id.school_listview_tv_English_name,
-                R.id.school_listview_tv_rank,
-                R.id.school_listview_tv_rate,
-                R.id.school_listview_tv_scholarship};
-        simpleAdapter = new SimpleAdapter(this, dataList, R.layout.school_listview_items, from, to);
-        //配置适配器
-        mListview.setAdapter(simpleAdapter);
+        adapter=new SchoolListAdapter(mContext,schoolData);
+        adapter.addAll(schoolData,true);
+        adapter.notifyDataSetChanged();
+        mListview.setAdapter(adapter);
         ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intentDetails=new Intent();
-                intentDetails.putExtra("key","2");
-                intentDetails.setClass(mContext,SchoolDetailActivity.class);
-                startActivity(intentDetails);
+                String name = schoolData.get(position).getName();
+                String en_name = schoolData.get(position).getEn_name();
+                String img = schoolData.get(position).getImg();
+                Intent intentSchoolDetail = new Intent();
+                intentSchoolDetail.putExtra("name", name);//英文名字
+                intentSchoolDetail.putExtra("en_name", en_name);//中文名字
+                intentSchoolDetail.putExtra("img", img);//图片
+                intentSchoolDetail.setClass(mContext, SchoolDetailActivity.class);
+                startActivity(intentSchoolDetail);
             }
         });
+       adapter.setOnApplyClickListener(new SchoolListAdapter.onSchoolApplyClickListener() {
+           @Override
+           public void onApplyClick(int i) {
+               ToastUtil.showS(mContext,"申请成功！");
+           }
+       });
     }
 
-    private List<Map<String, Object>> getData() {
-        for (int i = 0; i < icon.length; i++) {
-            Log.d("TAG", "" + icon.length);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("img", icon[i]);
-            map.put("name_ch", iconNameCH[i]);
-            map.put("name_eng", iconNameEN[i]);
-            map.put("rank", iconRank[i]);
-            map.put("rate", iconRate[i]);
-            map.put("scholarship", iconSchoolShip[i]);
-            dataList.add(map);
-        }
-        return dataList;
-    }
+
 
     @OnClick({R.id.back_img, R.id.audio_icon, R.id.search_layout, R.id.message_img})
     public void onClick(View view) {

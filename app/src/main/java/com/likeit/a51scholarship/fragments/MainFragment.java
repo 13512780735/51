@@ -293,7 +293,6 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 String img = SchoolData.get(position).getImg();
                 if (status == 1) {
                     Intent intentSchoolDetail = new Intent();
-                    intentSchoolDetail.putExtra("key", "1");//英文名字
                     intentSchoolDetail.putExtra("name", name);//英文名字
                     intentSchoolDetail.putExtra("en_name", en_name);//中文名字
                     intentSchoolDetail.putExtra("img", img);//图片

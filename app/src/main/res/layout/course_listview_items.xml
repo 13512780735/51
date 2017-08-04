@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="90dip"
     android:background="@color/white"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal">
     <ImageView
         android:id="@+id/course_listview_avatar"

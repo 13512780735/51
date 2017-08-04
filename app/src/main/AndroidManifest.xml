@@ -306,7 +306,13 @@
         <activity
             android:name=".activitys.answersfragment.AnswersUserDetailsActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.CourseDetailsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/MyAppTheme"></activity>
+
+
     </application>
 
 </manifest>

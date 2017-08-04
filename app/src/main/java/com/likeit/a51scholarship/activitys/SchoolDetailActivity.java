@@ -173,7 +173,6 @@ public class SchoolDetailActivity extends Container {
         MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        key = intent.getStringExtra("key");//从首页中文名字
         name = intent.getStringExtra("name");//从首页中文名字
         en_name = intent.getStringExtra("en_name");//从首页英文名字
         img = intent.getStringExtra("img");//图片
@@ -200,17 +199,10 @@ public class SchoolDetailActivity extends Container {
     }
 
     private void initData() {
-        if ("1".equals(key)) {
-            tv_header.setText(name);
-            schoolNameTv.setText(name);
-            schoolEsNameTv.setText(en_name);
-            ImageLoader.getInstance().displayImage(img, schoolImgIv);
-        } else if ("2".equals(key)) {
-            tv_header.setText("美国德克萨斯州立大学 阿灵顿分校");
-            schoolNameTv.setText("美国德克萨斯州立大学 阿灵顿分校");
-            schoolEsNameTv.setText("The University of Texas  ARLNGTON");
-            schoolImgIv.setImageResource(R.mipmap.test01);
-        }
+        tv_header.setText(name);
+        schoolNameTv.setText(name);
+        schoolEsNameTv.setText(en_name);
+        ImageLoader.getInstance().displayImage(img, schoolImgIv);
         /**
          * 录取数据
          */

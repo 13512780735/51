@@ -28,6 +28,7 @@ import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.utils.AndroidWorkaround;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.utils.ToastUtil;
+import com.likeit.a51scholarship.utils.UtilPreference;
 
 @SuppressLint("HandlerLeak")
 public class Container extends AppCompatActivity {
@@ -46,6 +47,7 @@ public class Container extends AppCompatActivity {
      * 加载等待效果
      */
     public ProgressDialog progress;
+    public String ukey;
 
     /**
      * 初始化创建
@@ -69,6 +71,7 @@ public class Container extends AppCompatActivity {
         }
         //setContentView(R.layout.activity_school_detail);
         MyActivityManager.getInstance().addActivity(this);
+        ukey = UtilPreference.getStringValue(this, "ukey");
     }
 
     public static boolean setMiuiStatusBarDarkMode(Activity activity, boolean darkmode) {
