@@ -8,15 +8,17 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/ExpandableTextView" />
             <option value="$PROJECT_DIR$/HightLight" />
             <option value="$PROJECT_DIR$/PhotoViewlibrary" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/baseapp_module" />
             <option value="$PROJECT_DIR$/imagecycleviewlib-release" />
             <option value="$PROJECT_DIR$/kkeventbus_module" />
+            <option value="$PROJECT_DIR$/lib" />
             <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/pulltorefreshlibrary" />
+            <option value="$PROJECT_DIR$/shareLibrary" />
+            <option value="$PROJECT_DIR$/wkvideoplayer" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

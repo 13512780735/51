@@ -1,12 +1,10 @@
 package com.likeit.a51scholarship.activitys;
 
 import android.content.Intent;
-import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -31,13 +29,15 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.fragments.PictureSlideFragment;
-import com.likeit.a51scholarship.utils.AndroidWorkaround;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.utils.UtilPreference;
 import com.likeit.a51scholarship.view.CircleImageView;
 import com.likeit.a51scholarship.view.MyListview;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.xyzlf.share.library.bean.ShareEntity;
+import com.xyzlf.share.library.interfaces.ShareConstant;
+import com.xyzlf.share.library.util.ShareUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,8 +48,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.likeit.a51scholarship.activitys.Container.setMiuiStatusBarDarkMode;
+import jaydenxiao.com.expandabletextview.ExpandableTextView;
 
 
 public class SchoolDetailActivity extends Container {
@@ -80,7 +79,7 @@ public class SchoolDetailActivity extends Container {
     @BindView(R.id.gpa_num_tv)
     TextView gpaNumTv;
     @BindView(R.id.school_desc_tv)
-    TextView schoolDescTv;
+    ExpandableTextView schoolDescTv;
     @BindView(R.id.school_details_scrollview)
     PullToRefreshScrollView mPullToRefreshScrollView;
     //录取数据
@@ -203,12 +202,14 @@ public class SchoolDetailActivity extends Container {
         schoolNameTv.setText(name);
         schoolEsNameTv.setText(en_name);
         ImageLoader.getInstance().displayImage(img, schoolImgIv);
-        /**
+
+        schoolAdmitNumberTv.setText("34919");  /**
          * 录取数据
          */
-        schoolDescTv.setText("美国德州大学(共十五分校) 阿灵顿分校商学所在美国高等" +
-                "教育发展已有一百年以上的历史，是一所综合教学及研究的高等学府以商业教育最为出名。");
-        schoolAdmitNumberTv.setText("34919");
+        schoolDescTv.setText("美国德州大学(共十五分校) 阿灵顿分校商学所在美国高等教育发展已有一百年以上的历史，是一所综合教学及研究的高等学府以商业教育最为出名。" +
+                "美国德州大学(共十五分校) 阿灵顿分校商学所在美国高等教育发展已有一百年以上的历史，是一所综合教学及研究的高等学府以商业教育最为出名。" +
+                "美国德州大学(共十五分校) 阿灵顿分校商学所在美国高等教育发展已有一百年以上的历史，是一所综合教学及研究的高等学府以商业教育最为出名。");
+
         schoolAdmitRateTv.setText("5.8%");
         schoolAdmitGPATv.setText("4");
         schoolSATAdmitTv.setText("～0");
@@ -360,6 +361,7 @@ public class SchoolDetailActivity extends Container {
                 onBackPressed();
                 break;
             case R.id.iv_header_right:
+                showShareDialog();
                 break;
             case R.id.icon_pinlun_iv:
                 Intent intentComment = new Intent(this, SchoolCommentActivity.class);
@@ -373,6 +375,13 @@ public class SchoolDetailActivity extends Container {
                 mPullToRefreshScrollView.getRefreshableView().scrollTo(0, 0);
                 break;
         }
+    }
+
+    private void showShareDialog() {
+        ShareEntity testBean = new ShareEntity("我是标题", "我是内容，描述内容。");
+        testBean.setUrl("https://www.baidu.com"); //分享链接
+        testBean.setImgUrl("https://www.baidu.com/img/bd_logo1.png");
+        ShareUtil.showShareDialog(this, testBean, ShareConstant.REQUEST_CODE);
     }
 
     private void initPopupWindow() {

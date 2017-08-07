@@ -1,21 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.likeit.a51scholarship.activitys.CourseDetailsActivity">
 
-    <FrameLayout android:layout_height="match_parent"
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/course_details_scrollview"
         android:layout_width="match_parent"
-        android:id="@+id/frame_web_video"></FrameLayout>
+        android:layout_marginTop="20dip"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/black"
+                android:minHeight="220dp">
+
+                <ImageView
+                    android:id="@+id/play_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/biz_video_list_play_icon_big" />
+
+                <com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer
+                    android:id="@+id/video_player_item_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:visibility="gone"></com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer>
+
+            </FrameLayout>
+            <com.likeit.a51scholarship.view.SlidingTabLayout
+                android:id="@+id/course_details_sliding_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:translationZ="1dp" />
+
+            <com.likeit.a51scholarship.view.NoScrollViewPager01
+                android:id="@+id/course_details_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white" />
+
+        </LinearLayout>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 
 
-    <com.likeit.a51scholarship.view.videoview.utils.X5WebView
+    <RelativeLayout
+        android:id="@+id/rl_header"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/web_filechooser">
+        android:layout_height="50dp"
+        android:layout_marginTop="20dip"
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
 
 
-    </com.likeit.a51scholarship.view.videoview.utils.X5WebView>
+        <ImageView
+            android:id="@+id/iv_header_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/course_arrow_left"
+            android:padding="5dip" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:maxLength="8"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_title" />
+
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -128,6 +128,23 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             -->
+
+            <meta-data
+                android:name="tencent_qq_appid"
+                android:value=""/>
+
+            <meta-data
+                android:name="weixin_key"
+                android:value=""/>
+
+            <meta-data
+                android:name="sina_weibo_redirecturi"
+                android:value="" />
+
+            <meta-data
+                android:name="sina_weibo_key"
+                android:value="" />
+
         </activity>
 
         <!--
@@ -138,11 +155,36 @@
 		并获取各种UI来自定义这个页面的行为。
         -->
         <!-- 调用新浪原生SDK，需要注册的回调activity -->
-        <intent-filter>
-            <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+        <!-- 微信分享注册 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
+
+        <!-- QQ SDK 需要註冊Activity -->
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent222222" />
+                <!-- 100380359 100381104 222222 -->
+            </intent-filter>
+        </activity>
+        <!-- 分享 -->
+
 
         <!-- ShareSDK 结束 -->
         <activity

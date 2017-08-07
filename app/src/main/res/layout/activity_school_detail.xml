@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="200dip">
@@ -104,11 +106,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="0dip"
@@ -195,11 +197,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="0dip"
@@ -232,10 +234,12 @@
 
                         </LinearLayout>
                     </LinearLayout>
+
                     <View
                         android:layout_width="20dip"
                         android:layout_height="match_parent"
                         android:background="@color/white"></View>
+
                     <LinearLayout
                         android:layout_width="0dip"
                         android:layout_height="match_parent"
@@ -395,8 +399,7 @@
                         android:layout_weight="1"
                         android:text="学生人数"
                         android:textColor="@color/color_999"
-                        android:textSize="14sp"
-                        />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -404,8 +407,7 @@
                         android:layout_weight="1"
                         android:text="30000"
                         android:textColor="@color/defualt_textcolor"
-                        android:textSize="14sp"
-                        />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <TextView
@@ -414,28 +416,29 @@
                     android:layout_marginLeft="10dp"
                     android:text="学校简介"
                     android:textColor="@color/color_333"
+                    android:textSize="14sp"
                     android:textStyle="bold"
-                    android:textSize="14sp" />
 
-                <TextView
+
+                    />
+
+                <jaydenxiao.com.expandabletextview.ExpandableTextView
                     android:id="@+id/school_desc_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:lines="3"
-                    android:ellipsize="end"
-                    android:textColor="@color/color_999"
-                    android:textSize="12sp" />
-                <TextView
-                    android:id="@+id/school_desc_move_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:padding="10dip"
-                    android:textColor="@color/login_btn_bg_color"
-                    android:text="查看更多"/>
+                    android:padding="8dp"
+                    app:animDuration="200"
+                    app:collapseDrawable="@drawable/icon_down_arrow"
+                    app:collapseExpandGrarity="right"
+                    app:collapseExpandTextColor="@color/main_color"
+                    app:contentTextColor="@color/gray"
+                    app:contentTextSize="14sp"
+                    app:expandDrawable="@drawable/icon_up_arrow"
+                    app:maxCollapsedLines="3"
+                    app:textCollapse="@string/collapse"
+                    >
+
+                </jaydenxiao.com.expandabletextview.ExpandableTextView>
 
                 <!--录取与申请-->
                 <LinearLayout
@@ -637,17 +640,20 @@
                             android:text="32～35" />
                     </RelativeLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dip"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dip"
                         android:text="新生高中生班级排名"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -668,6 +674,7 @@
                             android:layout_toRightOf="@+id/school_class_rank_front10_tv01"
                             android:text="" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -688,6 +695,7 @@
                             android:layout_toRightOf="@+id/school_class_rank_front25_tv01"
                             android:text="" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -709,17 +717,19 @@
                             android:text="" />
                     </RelativeLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="10dip">
+                    android:layout_marginTop="10dip"
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="申请信息"
                         android:layout_margin="10dip"
-                        android:textStyle="bold"/>
+                        android:text="申请信息"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -829,6 +839,7 @@
                             android:layout_width="0dip"
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
+
                             <TextView
                                 android:id="@+id/school_if_ED_tv01"
                                 android:layout_width="wrap_content"
@@ -867,6 +878,7 @@
                                 android:text="" />
                         </RelativeLayout>
                     </LinearLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -887,6 +899,7 @@
                             android:layout_toRightOf="@+id/school_dual_rank_tv01"
                             android:text="否" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -907,6 +920,7 @@
                             android:layout_toRightOf="@+id/school_apply_cost_tv01"
                             android:text="" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -925,22 +939,24 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dip"
                             android:layout_toRightOf="@+id/school_apply_html_tv01"
-                            android:textColor="@color/login_btn_bg_color"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/login_btn_bg_color" />
                     </RelativeLayout>
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dip"
                     android:text="申请材料"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/school_apply_data_tv"
-                    android:layout_margin="10dip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    />
+                    android:layout_margin="10dip" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dip"
@@ -1193,13 +1209,13 @@
                     android:layout_marginRight="10dip"
                     android:layout_marginTop="8dip"
                     android:text="Mathematics" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dip"
-                    android:background="@color/background_b"
-                    android:layout_marginTop="10dip"
                     android:layout_marginBottom="10dip"
-                    ></View>
+                    android:layout_marginTop="10dip"
+                    android:background="@color/background_b"></View>
 
                 <TextView
                     android:id="@+id/ll_school_school_fee_tv"
@@ -1207,8 +1223,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dip"
                     android:text="费用"
-                    android:textStyle="bold"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -1257,6 +1274,7 @@
                             android:text="$15381" />
                     </RelativeLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -1305,34 +1323,36 @@
                             android:text="$5858" />
                     </RelativeLayout>
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dip"
-                    android:background="@color/background_b"
-                    android:layout_marginTop="10dip"
                     android:layout_marginBottom="10dip"
-                    ></View>
+                    android:layout_marginTop="10dip"
+                    android:background="@color/background_b"></View>
+
                 <TextView
                     android:id="@+id/ll_school_scholarship"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dip"
                     android:text="奖学金申请"
-                    android:textStyle="bold"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/school_scholarship_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dip"
-                    android:text=""/>
+                    android:text="" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dip"
-                    android:background="@color/background_b"
-                    android:layout_marginTop="10dip"
                     android:layout_marginBottom="10dip"
-                    ></View>
+                    android:layout_marginTop="10dip"
+                    android:background="@color/background_b"></View>
 
                 <TextView
                     android:id="@+id/ll_school_number"
@@ -1340,8 +1360,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dip"
                     android:text="学生数据"
-                    android:textStyle="bold"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -1390,18 +1411,19 @@
                             android:text="52:48" />
                     </RelativeLayout>
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="种族构成"
-                    android:layout_margin="10dip"/>
+                    android:layout_margin="10dip"
+                    android:text="种族构成" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:layout_marginTop="8dip"
-                    >
+                    android:layout_marginTop="8dip">
 
                     <TextView
                         android:id="@+id/school_race_tv01_01"
@@ -1418,13 +1440,13 @@
                         android:layout_toRightOf="@+id/school_race_tv01_01"
                         android:text="7%" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:layout_marginTop="8dip"
-                    >
+                    android:layout_marginTop="8dip">
 
                     <TextView
                         android:id="@+id/school_race_tv02_01"
@@ -1441,13 +1463,13 @@
                         android:layout_toRightOf="@+id/school_race_tv02_01"
                         android:text="7%" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:layout_marginTop="8dip"
-                    >
+                    android:layout_marginTop="8dip">
 
                     <TextView
                         android:id="@+id/school_race_tv03_01"
@@ -1464,13 +1486,13 @@
                         android:layout_toRightOf="@+id/school_race_tv03_01"
                         android:text="19%" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:layout_marginTop="8dip"
-                    >
+                    android:layout_marginTop="8dip">
 
                     <TextView
                         android:id="@+id/school_race_tv04_01"
@@ -1487,13 +1509,13 @@
                         android:layout_toRightOf="@+id/school_race_tv04_01"
                         android:text="2%" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:layout_marginTop="8dip"
-                    >
+                    android:layout_marginTop="8dip">
 
                     <TextView
                         android:id="@+id/school_race_tv05_01"
@@ -1510,13 +1532,13 @@
                         android:layout_toRightOf="@+id/school_race_tv05_01"
                         android:text="11%" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:layout_marginTop="8dip"
-                    >
+                    android:layout_marginTop="8dip">
 
                     <TextView
                         android:id="@+id/school_race_tv06_01"
@@ -1533,13 +1555,13 @@
                         android:layout_toRightOf="@+id/school_race_tv06_01"
                         android:text="10%" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:layout_marginTop="8dip"
-                    >
+                    android:layout_marginTop="8dip">
 
                     <TextView
                         android:id="@+id/school_race_tv07_01"
@@ -1556,13 +1578,13 @@
                         android:layout_toRightOf="@+id/school_race_tv07_01"
                         android:text="1%" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:layout_marginTop="8dip"
-                    >
+                    android:layout_marginTop="8dip">
 
                     <TextView
                         android:id="@+id/school_race_tv08_01"
@@ -1579,11 +1601,11 @@
                         android:layout_toRightOf="@+id/school_race_tv08_01"
                         android:text="44%" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dip"
-                    >
+                    android:layout_margin="10dip">
 
                     <TextView
                         android:id="@+id/school_race_tv09_01"
@@ -1600,28 +1622,29 @@
                         android:layout_toRightOf="@+id/school_race_tv09_01"
                         android:text="1%" />
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dip"
-                    android:background="@color/background_b"
-                    android:layout_marginTop="10dip"
                     android:layout_marginBottom="10dip"
-                    ></View>
+                    android:layout_marginTop="10dip"
+                    android:background="@color/background_b"></View>
+
                 <TextView
                     android:id="@+id/ll_school_contact_way"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dip"
                     android:text="联系方式"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_margin="10dip"/>
+                    android:textStyle="bold" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:layout_marginTop="8dip"
-                    >
+                    android:layout_marginTop="8dip">
 
                     <TextView
                         android:id="@+id/school_html_tv01"
@@ -1635,17 +1658,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
-                        android:textColor="@color/login_btn_bg_color"
                         android:layout_toRightOf="@+id/school_html_tv01"
-                        android:text="https://college.harvard.edu" />
+                        android:text="https://college.harvard.edu"
+                        android:textColor="@color/login_btn_bg_color" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:layout_marginTop="8dip"
-                    >
+                    android:layout_marginTop="8dip">
 
                     <TextView
                         android:id="@+id/school_phone_tv01"
@@ -1659,17 +1682,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
-                        android:textColor="@color/login_btn_bg_color"
                         android:layout_toRightOf="@+id/school_phone_tv01"
-                        android:text="001-617-495-1551" />
+                        android:text="001-617-495-1551"
+                        android:textColor="@color/login_btn_bg_color" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:layout_marginTop="8dip"
-                    >
+                    android:layout_marginTop="8dip">
 
                     <TextView
                         android:id="@+id/school_e_mail_tv01"
@@ -1683,17 +1706,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
-                        android:textColor="@color/login_btn_bg_color"
                         android:layout_toRightOf="@+id/school_e_mail_tv01"
-                        android:text="intladm@fas.harvard.edu" />
+                        android:text="intladm@fas.harvard.edu"
+                        android:textColor="@color/login_btn_bg_color" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:layout_marginTop="8dip"
-                    >
+                    android:layout_marginTop="8dip">
 
                     <TextView
                         android:id="@+id/school_address_tv01"
@@ -1707,9 +1730,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
-                        android:textColor="@color/login_btn_bg_color"
                         android:layout_toRightOf="@+id/school_address_tv01"
-                        android:text="Undergraduate Admissions Office,86 Brattle St..." />
+                        android:text="Undergraduate Admissions Office,86 Brattle St..."
+                        android:textColor="@color/login_btn_bg_color" />
                 </RelativeLayout>
                 <!--<include layout="@layout/layout_school_details"></include>-->
                 <!--<include layout="@layout/layout_school_details_01"></include>-->
@@ -1731,8 +1754,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="10dip"
                 android:layout_marginRight="10dip"
-                android:visibility="gone"
-                android:src="@mipmap/icon_pinlun" />
+                android:src="@mipmap/icon_pinlun"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/icon_list_iv"
@@ -1755,10 +1778,12 @@
                 android:src="@mipmap/icon_up" />
         </RelativeLayout>
     </FrameLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dip"
         android:background="@color/background_b"></View>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dip"
@@ -1766,15 +1791,15 @@
         android:orientation="horizontal">
 
         <CheckBox
+            style="@style/mycheckbox"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            style="@style/mycheckbox"
+            android:layout_marginLeft="20dip"
             android:layout_weight="2"
             android:background="@color/white"
-            android:text="收藏"
-            android:layout_marginLeft="20dip"
             android:gravity="center"
             android:paddingRight="10dip"
+            android:text="收藏"
             android:textColor="@drawable/home_font_selector"
             android:textSize="15sp" />
 

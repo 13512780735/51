@@ -16,7 +16,6 @@ import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.view.MyListview;
 import com.likeit.a51scholarship.view.expandtabview.ExpandTabView;
 import com.likeit.a51scholarship.view.expandtabview.ViewMiddle;
-import com.tencent.smtt.sdk.TbsVideo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -173,12 +172,5 @@ public class CourseListActivity extends Container implements
             finish();
         }
     }
-    private void openVideo(String videoUrl) {
-        // TODO Auto-generated method stub
-        if(TbsVideo.canUseTbsPlayer(getApplicationContext())){
-            TbsVideo.openVideo(getApplicationContext(), videoUrl);
-        }else{
 
-        }
-    }
 }
