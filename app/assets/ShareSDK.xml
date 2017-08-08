@@ -38,14 +38,14 @@
         Id="3"
         SortId="3" />
 
-    <QZone
+   <!-- <QZone
         AppId="1106052121"
         AppKey="RFVR6AfdGKoJlmLS"
         Enable="true"
         Id="4"
         ShareByAppClient="true"
         SortId="4" />
-
+-->
     <!--
          <WechatFavorite
         AppId="wx27891f02149f28a4"

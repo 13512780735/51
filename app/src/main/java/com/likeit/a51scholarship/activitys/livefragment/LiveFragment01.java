@@ -74,8 +74,7 @@ public class LiveFragment01 extends BaseFragment  implements
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intentNewDetails=new Intent(getActivity(),NewsDetailsActivity.class);
-                startActivity(intentNewDetails);
+              toActivity(LiveDetailsActivity.class);
             }
         });
     }

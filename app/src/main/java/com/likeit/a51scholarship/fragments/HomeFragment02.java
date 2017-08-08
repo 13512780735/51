@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.a51scholarship.R;
+import com.likeit.a51scholarship.activitys.CircleDetailsActivity;
 import com.likeit.a51scholarship.activitys.MainActivity;
 import com.likeit.a51scholarship.activitys.SearchInfoActivity;
 import com.likeit.a51scholarship.adapters.CircleGridViewAdapter;
@@ -140,6 +141,12 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
         simpleAdapter = new SimpleAdapter(getActivity(), dataList, R.layout.cricle_gridview_items, from, to);
         //配置适配器
         mGridView.setAdapter(simpleAdapter);
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                toActivity(CircleDetailsActivity.class);
+            }
+        });
         /**
          * 全部圈子
          */
@@ -154,6 +161,12 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
 //        mGridviewAdapter = new CircleGridViewAdapter(getActivity(), dataList);
 //        mGridviewAdapter.notifyDataSetChanged();
         ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                toActivity(CircleDetailsActivity.class);
+            }
+        });
 
     }
 

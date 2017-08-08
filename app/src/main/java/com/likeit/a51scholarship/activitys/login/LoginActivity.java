@@ -24,13 +24,27 @@ import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.utils.UtilPreference;
+
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.wechat.friends.Wechat;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements PlatformActionListener, Handler.Callback {
+    private static final int MSG_AUTH_CANCEL = 1;
+    private static final int MSG_AUTH_ERROR = 2;
+    private static final int MSG_AUTH_COMPLETE = 3;
+
+
     @BindView(R.id.username_et)
     EditText usernameEt;
     @BindView(R.id.passwd_et)
@@ -130,10 +144,19 @@ public class LoginActivity extends BaseActivity {
                 sendCode();
                 break;
             case R.id.login_wechat:
+                // 微信登录
+                Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
+                authorize(wechat);
+                // ToastUtil.showL(this, "微信登录");
                 break;
             case R.id.login_qq:
+                // QQ登录
+                Platform qzone = ShareSDK.getPlatform(QQ.NAME);
+                authorize(qzone);
                 break;
             case R.id.login_weibo:
+                Platform sina = ShareSDK.getPlatform(SinaWeibo.NAME);
+                authorize(sina);
                 break;
         }
     }
@@ -282,5 +305,116 @@ public class LoginActivity extends BaseActivity {
         SMSSDK.registerEventHandler(eh); //注册短信回调
 
         SMSSDK.getVerificationCode("86", phoneNum);
+    }
+
+    // 执行授权,获取用户信息
+    // 文档：http://wiki.mob.com/Android_%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E8%B5%84%E6%96%99
+    private void authorize(Platform plat) {
+
+        plat.setPlatformActionListener(this);
+        // 关闭SSO授权
+        //plat.SSOSetting(true);
+        plat.SSOSetting(false);
+        // plat.authorize();
+        plat.showUser(null);
+    }
+
+    @SuppressWarnings("unchecked")
+    public boolean handleMessage(Message msg) {
+        switch (msg.what) {
+            case MSG_AUTH_CANCEL: {
+                // 取消授权
+                disShowProgress();
+                ToastUtil.showL(this, "取消授权");
+                // ToastUtil.showL(this, getString(R.string.auth_cancel));
+                Log.d("TAG", msg.toString());
+            }
+            break;
+            case MSG_AUTH_ERROR: {
+                disShowProgress();
+                // 授权失败
+                Log.d("TAG", "授权失败");
+                ToastUtil.showL(this, "授权失败");
+                // ToastUtil.showL(this, getString(R.string.auth_error));
+                Log.d("TAG", msg.toString());
+            }
+            break;
+            case MSG_AUTH_COMPLETE: {
+                disShowProgress();
+                // 授权成功
+                // ToastUtil.showL(this, "授权成功");
+                Log.d("TAG", msg.toString());
+                Log.d("TAG", "授权成功");
+                // ToastUtil.showL(this, getString(R.string.auth_complete));
+                Log.d("数据2：", msg.toString());
+                Object[] objs = (Object[]) msg.obj;
+                Log.d("数据2：", objs.toString());
+                String platform = (String) objs[0];
+                HashMap<String, Object> res = (HashMap<String, Object>) objs[1];
+                // Log.e("TAG", "授权返回的信息1：" + JSON.toJSONString(objs[1]));
+                Log.e("TAG", QQ.NAME + "授权返回的信息2：" + platform);
+                if (res != null) {
+                    if (platform.equals(QQ.NAME)) {
+//                        // QQ认证回调
+//                        userRegister(QQ.NAME, (String) res.get("nickname"),
+//                                (String) res.get("nickname"),
+//                                (String) res.get("figureurl_qq_1"));
+//                        Log.d("TAG",
+//                                QQ.NAME + (String) res.get("nickname")
+//                                        + (String) res.get("nickname")
+//                                        + (String) res.get("figureurl_qq_1"));
+//                        showProgress("Loading...");
+//
+//                    } else if (platform.equals(SinaWeibo.NAME)) {
+//                        // 新浪微博认证回调
+//                        userRegister(SinaWeibo.NAME, (String) res.get("name"),
+//                                (String) res.get("idstr"),
+//                                (String) res.get("avatar_hd"));
+//                        showProgress("Loading...");
+//                    } else if (platform.equals(Wechat.NAME)) {
+//                        // 微信认证回调
+//                        userRegister(Wechat.NAME, (String) res.get("nickname"),
+//                                (String) res.get("unionid"),
+//                                (String) res.get("headimgurl"));
+//                        showProgress("Loading...");
+                    }
+
+                } else {
+                    ToastUtil.showL(this, "获取用户信息失败！");
+                }
+            }
+            break;
+        }
+        return false;
+    }
+
+    @Override
+    public void onCancel(Platform platform, int action) {
+        if (action == Platform.ACTION_USER_INFOR) {
+            handler.sendEmptyMessage(MSG_AUTH_CANCEL);
+            Log.d("TAG", platform.toString());
+        }
+    }
+
+    // 获得第三方帐号资料
+    @Override
+    public void onComplete(Platform platform, int action, HashMap<String, Object> res) {
+        if (action == Platform.ACTION_USER_INFOR) {
+            Message msg = new Message();
+            Log.d("TAG", platform.toString());
+            Log.d("数据：", res.toString());
+            msg.what = MSG_AUTH_COMPLETE;
+            msg.obj = new Object[]{platform.getName(), res};
+            handler.sendMessage(msg);
+        }
+    }
+
+    @Override
+    public void onError(Platform platform, int action, Throwable t) {
+        if (action == Platform.ACTION_USER_INFOR) {
+            handler.sendEmptyMessage(MSG_AUTH_ERROR);
+            Log.d("TAG", t.toString());
+        }
+        t.printStackTrace();
     }
 }

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.likeit.a51scholarship.activitys.CircleDetailsActivity">
+
+    <include layout="@layout/layout_header_with_back"></include>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/circle_details_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dip"
+                android:orientation="vertical">
+
+                <com.likeit.a51scholarship.view.CircleImageView
+                    android:id="@+id/circle_details_avatar"
+                    android:layout_width="60dip"
+                    android:layout_height="60dip"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dip"
+                    android:src="@mipmap/icon_01_3x" />
+
+                <TextView
+                    android:id="@+id/circle_details_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dip"
+                    android:text="留学美国"
+                    android:textSize="16sp" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/circle_details_posts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="帖子:99"
+                        android:textColor="@color/defualt_textcolor_d" />
+
+                    <TextView
+                        android:id="@+id/circle_details_membership"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:layout_toRightOf="@+id/circle_details_posts"
+                        android:text="成员数:199"
+                        android:textColor="@color/defualt_textcolor_d" />
+                </RelativeLayout>
+                />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dip">
+
+                    <Button
+                        android:id="@+id/circle_details_attention"
+                        android:layout_width="80dip"
+                        android:layout_height="35dip"
+                        android:background="@drawable/btn_blue_bg02"
+                        android:text="关注"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/circle_details_Posted"
+                        android:layout_width="80dip"
+                        android:layout_height="35dip"
+                        android:layout_marginLeft="10dip"
+                        android:layout_toRightOf="@+id/circle_details_attention"
+                        android:background="@drawable/button_blue_bg"
+                        android:drawableLeft="@mipmap/news_icon_edit01"
+                        android:paddingLeft="10dip"
+                        android:paddingRight="10dip"
+                        android:text="发帖"
+                        android:textColor="@color/login_btn_bg_color"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="@color/line_color"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dip"
+                    android:text="圈子简介" />
+
+                <jaydenxiao.com.expandabletextview.ExpandableTextView
+                    android:id="@+id/circle_details_desc_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    app:animDuration="200"
+                    app:collapseDrawable="@drawable/icon_down_arrow"
+                    app:collapseExpandGrarity="right"
+                    app:collapseExpandTextColor="@color/main_color"
+                    app:contentTextColor="@color/gray"
+                    app:contentTextSize="14sp"
+                    app:expandDrawable="@drawable/icon_up_arrow"
+                    app:maxCollapsedLines="1"
+                    app:textCollapse="@string/collapse"></jaydenxiao.com.expandabletextview.ExpandableTextView>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dip"
+                android:background="@color/line_color"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.likeit.a51scholarship.view.SlidingTabLayout
+                    android:id="@+id/circle_details_sliding_tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:translationZ="1dp" />
+
+                <com.likeit.a51scholarship.view.NoScrollViewPager01
+                    android:id="@+id/circle_details_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+</LinearLayout>

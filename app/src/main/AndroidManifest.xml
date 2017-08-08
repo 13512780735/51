@@ -105,7 +105,21 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         -->
         <!-- 微信分享回调 -->
-
+        <!--
+        <activity
+            android:name="cn.sharesdk.framework.ShareSDKUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        -->
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -129,22 +143,6 @@
             </intent-filter>
             -->
 
-            <meta-data
-                android:name="tencent_qq_appid"
-                android:value=""/>
-
-            <meta-data
-                android:name="weixin_key"
-                android:value=""/>
-
-            <meta-data
-                android:name="sina_weibo_redirecturi"
-                android:value="" />
-
-            <meta-data
-                android:name="sina_weibo_key"
-                android:value="" />
-
         </activity>
 
         <!--
@@ -162,27 +160,6 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-
-        <!-- QQ SDK 需要註冊Activity -->
-        <activity
-            android:name="com.tencent.connect.common.AssistActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="behind"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <activity
-            android:name="com.tencent.tauth.AuthActivity"
-            android:launchMode="singleTask"
-            android:noHistory="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="tencent222222" />
-                <!-- 100380359 100381104 222222 -->
-            </intent-filter>
-        </activity>
         <!-- 分享 -->
 
 
@@ -352,9 +329,14 @@
         <activity
             android:name=".activitys.CourseDetailsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".activitys.CircleDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" />
+        <activity android:name=".activitys.livefragment.LiveDetailsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme"></activity>
-
-
     </application>
 
 </manifest>

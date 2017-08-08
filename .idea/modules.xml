@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/51.iml" filepath="$PROJECT_DIR$/51.iml" />
       <module fileurl="file://$PROJECT_DIR$/HightLight/HightLight.iml" filepath="$PROJECT_DIR$/HightLight/HightLight.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OneKeyShare/OneKeyShare.iml" filepath="$PROJECT_DIR$/OneKeyShare/OneKeyShare.iml" />
       <module fileurl="file://$PROJECT_DIR$/PhotoViewlibrary/PhotoViewlibrary.iml" filepath="$PROJECT_DIR$/PhotoViewlibrary/PhotoViewlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/baseapp_module/baseapp_module.iml" filepath="$PROJECT_DIR$/baseapp_module/baseapp_module.iml" />
@@ -12,7 +13,6 @@
       <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/pulltorefreshlibrary/pulltorefreshlibrary.iml" filepath="$PROJECT_DIR$/pulltorefreshlibrary/pulltorefreshlibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/shareLibrary/shareLibrary.iml" filepath="$PROJECT_DIR$/shareLibrary/shareLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/wkvideoplayer/wkvideoplayer.iml" filepath="$PROJECT_DIR$/wkvideoplayer/wkvideoplayer.iml" />
     </modules>
   </component>

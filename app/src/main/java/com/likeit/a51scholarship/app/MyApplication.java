@@ -11,7 +11,6 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.likeit.a51scholarship.R;
 
 import cn.sharesdk.framework.ShareSDK;
-import cn.smssdk.SMSSDK;
 
 
 public class MyApplication extends Application {
@@ -56,7 +55,8 @@ public class MyApplication extends Application {
 
     private void initMob() {
         ShareSDK.initSDK(this);
-        SMSSDK.initSDK(this, "1b2bd24a56f24", "Secret:c6970e8b5b801e120f01656349a20e08");
+       // ShareSDK.i
+      //  SMSSDK.initSDK(this, "1b2bd24a56f24", "Secret:c6970e8b5b801e120f01656349a20e08");
     }
 
 

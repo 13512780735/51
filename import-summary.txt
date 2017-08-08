@@ -1,51 +1,83 @@
 ECLIPSE ANDROID PROJECT IMPORT SUMMARY
 ======================================
 
+ * Project
+   ShareSDK:C:\Users\Administrator\Desktop\ShareSDK-Android-3.0.1-fa90961b6a0aa9
+   a667d14b3ecb3e203b\v3.0.1\ShareSDK for Android\Libs\MainLibs\.classpath:
+   Could not resolve source path src in project ShareSDK: ignored. The project
+   may not compile if the given source path provided source code.
+
+
 Ignored Files:
 --------------
 The following files were *not* copied into the new Gradle project; you
 should evaluate whether these are still needed in your project and if
 so manually move them:
 
-* LICENSE.txt
-* library.iml
-* pom.xml
-
-Replaced Jars with Dependencies:
---------------------------------
-The importer recognized the following .jar files as third party
-libraries and replaced them with Gradle dependencies instead. This has
-the advantage that more explicit version information is known, and the
-libraries can be updated automatically. However, it is possible that
-the .jar file in your project was of an older version than the
-dependency we picked, which could render the project not compileable.
-You can disable the jar replacement in the import wizard and try again:
-
-android-support-v4.jar => com.android.support:support-v4:18.+
+* build.xml
+* proguard-project.txt
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => slidingmenu_library\src\main\AndroidManifest.xml
-* assets\ => slidingmenu_library\src\main\assets
-* res\ => slidingmenu_library\src\main\res\
-* src\ => slidingmenu_library\src\main\java\
-
-Missing Android Support Repository:
------------------------------------
-Some useful libraries, such as the Android Support Library, are
-installed from a special Maven repository, which should be installed
-via the SDK manager.
-
-It looks like this library is missing from your SDK installation at:
-null
-
-To install it, open the SDK manager, and in the Extras category,
-select "Android Support Repository". You may also want to install the
-"Google Repository" if you want to use libraries like Google Play
-Services.
+* AndroidManifest.xml => shareSDK\src\main\AndroidManifest.xml
+* libs\arm64-v8a\libweibosdkcore.so => shareSDK\src\main\jniLibs\arm64-v8a\libweibosdkcore.so
+* libs\armeabi-v7a\libweibosdkcore.so => shareSDK\src\main\jniLibs\armeabi-v7a\libweibosdkcore.so
+* libs\armeabi\libweibosdkcore.so => shareSDK\src\main\jniLibs\armeabi\libweibosdkcore.so
+* libs\mips64\libweibosdkcore.so => shareSDK\src\main\jniLibs\mips64\libweibosdkcore.so
+* libs\mips\libweibosdkcore.so => shareSDK\src\main\jniLibs\mips\libweibosdkcore.so
+* libs\MobCommons-2017.0801.1522.jar => shareSDK\libs\MobCommons-2017.0801.1522.jar
+* libs\MobTools-2017.0801.1522.jar => shareSDK\libs\MobTools-2017.0801.1522.jar
+* libs\ShareSDK-Alipay-3.0.1.jar => shareSDK\libs\ShareSDK-Alipay-3.0.1.jar
+* libs\ShareSDK-Alipay-Core-3.0.1.jar => shareSDK\libs\ShareSDK-Alipay-Core-3.0.1.jar
+* libs\ShareSDK-Alipay-Moments-3.0.1.jar => shareSDK\libs\ShareSDK-Alipay-Moments-3.0.1.jar
+* libs\ShareSDK-Core-3.0.1.jar => shareSDK\libs\ShareSDK-Core-3.0.1.jar
+* libs\ShareSDK-Dingding-3.0.1.jar => shareSDK\libs\ShareSDK-Dingding-3.0.1.jar
+* libs\ShareSDK-Douban-3.0.1.jar => shareSDK\libs\ShareSDK-Douban-3.0.1.jar
+* libs\ShareSDK-Dropbox-3.0.1.jar => shareSDK\libs\ShareSDK-Dropbox-3.0.1.jar
+* libs\ShareSDK-Email-3.0.1.jar => shareSDK\libs\ShareSDK-Email-3.0.1.jar
+* libs\ShareSDK-Evernote-3.0.1.jar => shareSDK\libs\ShareSDK-Evernote-3.0.1.jar
+* libs\ShareSDK-Facebook-3.0.1.jar => shareSDK\libs\ShareSDK-Facebook-3.0.1.jar
+* libs\ShareSDK-FacebookMessenger-3.0.1.jar => shareSDK\libs\ShareSDK-FacebookMessenger-3.0.1.jar
+* libs\ShareSDK-Flickr-3.0.1.jar => shareSDK\libs\ShareSDK-Flickr-3.0.1.jar
+* libs\ShareSDK-Foursquare-3.0.1.jar => shareSDK\libs\ShareSDK-Foursquare-3.0.1.jar
+* libs\ShareSDK-GooglePlus-3.0.1.jar => shareSDK\libs\ShareSDK-GooglePlus-3.0.1.jar
+* libs\ShareSDK-Instagram-3.0.1.jar => shareSDK\libs\ShareSDK-Instagram-3.0.1.jar
+* libs\ShareSDK-Instapaper-3.0.1.jar => shareSDK\libs\ShareSDK-Instapaper-3.0.1.jar
+* libs\ShareSDK-KaiXin-3.0.1.jar => shareSDK\libs\ShareSDK-KaiXin-3.0.1.jar
+* libs\ShareSDK-Kakao-Core-3.0.1.jar => shareSDK\libs\ShareSDK-Kakao-Core-3.0.1.jar
+* libs\ShareSDK-KakaoStory-3.0.1.jar => shareSDK\libs\ShareSDK-KakaoStory-3.0.1.jar
+* libs\ShareSDK-KakaoTalk-3.0.1.jar => shareSDK\libs\ShareSDK-KakaoTalk-3.0.1.jar
+* libs\ShareSDK-Line-3.0.1.jar => shareSDK\libs\ShareSDK-Line-3.0.1.jar
+* libs\ShareSDK-Linkedin-3.0.1.jar => shareSDK\libs\ShareSDK-Linkedin-3.0.1.jar
+* libs\ShareSDK-Meipai-3.0.1.jar => shareSDK\libs\ShareSDK-Meipai-3.0.1.jar
+* libs\ShareSDK-Mingdao-3.0.1.jar => shareSDK\libs\ShareSDK-Mingdao-3.0.1.jar
+* libs\ShareSDK-Pinterest-3.0.1.jar => shareSDK\libs\ShareSDK-Pinterest-3.0.1.jar
+* libs\ShareSDK-Pocket-3.0.1.jar => shareSDK\libs\ShareSDK-Pocket-3.0.1.jar
+* libs\ShareSDK-QQ-3.0.1.jar => shareSDK\libs\ShareSDK-QQ-3.0.1.jar
+* libs\ShareSDK-QZone-3.0.1.jar => shareSDK\libs\ShareSDK-QZone-3.0.1.jar
+* libs\ShareSDK-Renren-3.0.1.jar => shareSDK\libs\ShareSDK-Renren-3.0.1.jar
+* libs\ShareSDK-ShortMessage-3.0.1.jar => shareSDK\libs\ShareSDK-ShortMessage-3.0.1.jar
+* libs\ShareSDK-SinaWeibo-3.0.1.jar => shareSDK\libs\ShareSDK-SinaWeibo-3.0.1.jar
+* libs\ShareSDK-TencentWeibo-3.0.1.jar => shareSDK\libs\ShareSDK-TencentWeibo-3.0.1.jar
+* libs\ShareSDK-Tumblr-3.0.1.jar => shareSDK\libs\ShareSDK-Tumblr-3.0.1.jar
+* libs\ShareSDK-Twitter-3.0.1.jar => shareSDK\libs\ShareSDK-Twitter-3.0.1.jar
+* libs\ShareSDK-VKontakte-3.0.1.jar => shareSDK\libs\ShareSDK-VKontakte-3.0.1.jar
+* libs\ShareSDK-Wechat-3.0.1.jar => shareSDK\libs\ShareSDK-Wechat-3.0.1.jar
+* libs\ShareSDK-Wechat-Core-3.0.1.jar => shareSDK\libs\ShareSDK-Wechat-Core-3.0.1.jar
+* libs\ShareSDK-Wechat-Favorite-3.0.1.jar => shareSDK\libs\ShareSDK-Wechat-Favorite-3.0.1.jar
+* libs\ShareSDK-Wechat-Moments-3.0.1.jar => shareSDK\libs\ShareSDK-Wechat-Moments-3.0.1.jar
+* libs\ShareSDK-WhatsApp-3.0.1.jar => shareSDK\libs\ShareSDK-WhatsApp-3.0.1.jar
+* libs\ShareSDK-Yixin-3.0.1.jar => shareSDK\libs\ShareSDK-Yixin-3.0.1.jar
+* libs\ShareSDK-Yixin-Core-3.0.1.jar => shareSDK\libs\ShareSDK-Yixin-Core-3.0.1.jar
+* libs\ShareSDK-Yixin-Moments-3.0.1.jar => shareSDK\libs\ShareSDK-Yixin-Moments-3.0.1.jar
+* libs\ShareSDK-YouDao-3.0.1.jar => shareSDK\libs\ShareSDK-YouDao-3.0.1.jar
+* libs\ShareSDK-Youtube-3.0.1.jar => shareSDK\libs\ShareSDK-Youtube-3.0.1.jar
+* libs\x86\libweibosdkcore.so => shareSDK\src\main\jniLibs\x86\libweibosdkcore.so
+* libs\x86_64\libweibosdkcore.so => shareSDK\src\main\jniLibs\x86_64\libweibosdkcore.so
+* res\ => shareSDK\src\main\res\
 
 Next Steps:
 -----------
