@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -21,10 +22,12 @@ import com.likeit.a51scholarship.activitys.Container;
 import com.likeit.a51scholarship.activitys.userdetailsfragment.UserDetailsFragment01;
 import com.likeit.a51scholarship.activitys.userdetailsfragment.UserDetailsFragment02;
 import com.likeit.a51scholarship.adapters.AnswersUserDetailsTabAdapter;
+import com.likeit.a51scholarship.adapters.LiveDetailsPageAdapter;
 import com.likeit.a51scholarship.view.NoScrollViewPager01;
 import com.likeit.a51scholarship.view.SlidingTabLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,13 +46,11 @@ public class LiveDetailsActivity extends Container implements View.OnClickListen
     ImageView ivLeft;
     @BindView(R.id.live_details_scrollview)
     PullToRefreshScrollView mPullToRefreshScrollView;
-    @BindView(R.id.live_details_sliding_tabs)
-    SlidingTabLayout slidingTabLayout;
+    @BindView(R.id.live_details_tabs)
+    TabLayout mTabLayout;
     @BindView(R.id.live_details_viewpager)
     NoScrollViewPager01 viewpager;
-    private String[] titles = new String[]{"聊天", "排行", "介绍","成员"};
-    private List<Fragment> fragments = new ArrayList<>();
-    private AnswersUserDetailsTabAdapter adapter;
+    private List<String> mDatas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,43 +73,22 @@ public class LiveDetailsActivity extends Container implements View.OnClickListen
 //                      "refreshingLabel");
         mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
                 "松开即可刷新");
+        //设置TabLayout的模式
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        mTabLayout.setupWithViewPager(viewpager);
+        mDatas = new ArrayList<String>(Arrays.asList("聊天", "排行", "介绍", "成员"));
+        List<Fragment> mfragments = new ArrayList<Fragment>();
+        mfragments.add(new UserDetailsFragment01());
+        mfragments.add(new UserDetailsFragment02());
+        mfragments.add(new LiveDetailsFragment01());
+        mfragments.add(new UserDetailsFragment02());
+        //Toast.makeText(this,mDatas.toString(),Toast.LENGTH_SHORT).show();
+        viewpager.setAdapter(new LiveDetailsPageAdapter(getSupportFragmentManager(), mfragments, mDatas));
+        viewpager.setCurrentItem(2);
 
-        fragments.add(new UserDetailsFragment01());
-        fragments.add(new UserDetailsFragment02());
-        fragments.add(new LiveDetailsFragment01());
-        fragments.add(new UserDetailsFragment02());
-        adapter = new AnswersUserDetailsTabAdapter(getSupportFragmentManager(), titles, fragments);
-        viewpager.setAdapter(adapter);
-        viewpager.setNoScroll(false);
-        viewpager.setCurrentItem(2,true);
-        slidingTabLayout.setCustomTabView(R.layout.custom_tab_view, R.id.tab_item);
-        slidingTabLayout.setTabTitleTextSize(14);//标题字体大小
-        slidingTabLayout.setTitleTextColor(this.getResources().getColor(R.color.login_btn_bg_color), this.getResources().getColor(R.color.defualt_textcolor_d));//标题字体颜色
-        WindowManager wm = this.getWindowManager();
-        int width = wm.getDefaultDisplay().getWidth();
-        slidingTabLayout.setTabStripWidth(width / (titles.length + 1));//滑动条宽度
-        slidingTabLayout.setSelectedIndicatorColors(this.getResources().getColor(R.color.login_btn_bg_color));//滑动条颜色
-        slidingTabLayout.setDistributeEvenly(true); //均匀平铺选项卡
-        slidingTabLayout.setViewPager(viewpager);
-        slidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
-    @OnClick({R.id.iv_header_left, R.id.play_btn,R.id.iv_header_right})
+    @OnClick({R.id.iv_header_left, R.id.play_btn, R.id.iv_header_right})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_header_left:
@@ -126,6 +106,7 @@ public class LiveDetailsActivity extends Container implements View.OnClickListen
                 break;
         }
     }
+
     private void share() {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权

@@ -2,6 +2,7 @@ package com.likeit.a51scholarship.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -12,16 +13,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.likeit.a51scholarship.R;
+import com.likeit.a51scholarship.activitys.livefragment.LiveDetailsFragment01;
 import com.likeit.a51scholarship.activitys.newsfragment.NewFragment01;
 import com.likeit.a51scholarship.activitys.userdetailsfragment.UserDetailsFragment01;
 import com.likeit.a51scholarship.activitys.userdetailsfragment.UserDetailsFragment02;
 import com.likeit.a51scholarship.adapters.AnswersUserDetailsTabAdapter;
+import com.likeit.a51scholarship.adapters.LiveDetailsPageAdapter;
 import com.likeit.a51scholarship.adapters.NewTabAdapter;
 import com.likeit.a51scholarship.utils.AndroidWorkaround;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.view.SlidingTabLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,14 +45,12 @@ public class NewsListActivity extends FragmentActivity {
     @BindView(R.id.top_bar_edit_img)
     ImageView topBarEditImg;
     @BindView(R.id.sliding_tabs)
-    SlidingTabLayout slidingTabLayout;
+    TabLayout mTabLayout;
     @BindView(R.id.viewpager)
     ViewPager viewpager;
-    private String[] titles=new String[]{"头条", "热点", "视频", "留学", "社会", "奇闻"};
     private NewsListActivity mContext;
     private Window window;
-    private NewTabAdapter adapter;
-    private List<Fragment> fragments=new ArrayList<>();
+    private List<String> mDatas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,23 +77,20 @@ public class NewsListActivity extends FragmentActivity {
     private void initView() {
 
 
-        fragments.add(new NewFragment01());
-        fragments.add(new NewFragment01());
-        fragments.add(new NewFragment01());
-        fragments.add(new NewFragment01());
-        fragments.add(new NewFragment01());
-        fragments.add(new NewFragment01());
-        adapter=new NewTabAdapter(getSupportFragmentManager(),titles,fragments);
-        viewpager.setAdapter(adapter);
-        slidingTabLayout.setCustomTabView(R.layout.custom_tab_view, R.id.tab_item);
-        slidingTabLayout.setTabTitleTextSize(14);//标题字体大小
-        slidingTabLayout.setTitleTextColor(this.getResources().getColor(R.color.login_btn_bg_color), this.getResources().getColor(R.color.defualt_textcolor_d));//标题字体颜色
-        WindowManager wm = this.getWindowManager();
-        int width = wm.getDefaultDisplay().getWidth();
-        slidingTabLayout.setTabStripWidth(width/(titles.length+1));//滑动条宽度
-        slidingTabLayout.setSelectedIndicatorColors(this.getResources().getColor(R.color.login_btn_bg_color));//滑动条颜色
-        slidingTabLayout.setDistributeEvenly(false); //均匀平铺选项卡
-        slidingTabLayout.setViewPager(viewpager);
+        //设置TabLayout的模式
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        mTabLayout.setupWithViewPager(viewpager);
+        mDatas = new ArrayList<String>(Arrays.asList("头条", "热点", "视频", "留学", "社会", "奇闻"));
+        List<Fragment> mfragments = new ArrayList<Fragment>();
+        mfragments.add(new NewFragment01());
+        mfragments.add(new NewFragment01());
+        mfragments.add(new NewFragment01());
+        mfragments.add(new NewFragment01());
+        mfragments.add(new NewFragment01());
+        mfragments.add(new NewFragment01());
+        //Toast.makeText(this,mDatas.toString(),Toast.LENGTH_SHORT).show();
+        viewpager.setAdapter(new LiveDetailsPageAdapter(getSupportFragmentManager(), mfragments, mDatas));
+        viewpager.setCurrentItem(0);
     }
 
 

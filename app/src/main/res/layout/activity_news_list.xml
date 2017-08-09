@@ -66,12 +66,16 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/defulat_stroke_height"
         android:background="@color/line_color" />
-    <com.likeit.a51scholarship.view.SlidingTabLayout
+
+    <android.support.design.widget.TabLayout
         android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:translationZ="1dp"
-        android:background="#ffffff"/>
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/login_btn_bg_color"
+        app:tabIndicatorHeight="2dp"
+        app:tabSelectedTextColor="@color/login_btn_bg_color"
+        app:tabTextColor="@color/defualt_textcolor_d" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

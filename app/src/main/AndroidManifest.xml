@@ -81,6 +81,32 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar">
 
+        <!-- 环信 -->
+        <!-- 设置环信应用的AppKey -->
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="wbteam#51scholarship" />
+        <!-- 声明SDK所需的service SDK核心功能 -->
+        <service
+            android:name="com.hyphenate.chat.EMChatService"
+            android:exported="true" />
+        <service
+            android:name="com.hyphenate.chat.EMJobService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <!-- 声明SDK所需的receiver -->
+        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+            <!-- 可选filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
         <!-- Bugly -->
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
@@ -97,29 +123,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
         <!-- ShareSDK 开始 -->
-        <!--
-             <activity
-            android:name="cn.sharesdk.framework.ShareSDKUIShell"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        -->
-        <!-- 微信分享回调 -->
-        <!--
-        <activity
-            android:name="cn.sharesdk.framework.ShareSDKUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
-            <intent-filter>
-                <data android:scheme="tencent100371282" />
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        -->
+
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -144,16 +148,6 @@
             -->
 
         </activity>
-
-        <!--
-			AuthorizeAdapter继承自
-			cn.sharesdk.framework. authorize.AuthorizeAdapter，
-			可以监听到页面的生命周期，也能获取页面的各种UI控件。
-			开发者可以通过继承AuthorizeAdapter，重写其方法，
-		并获取各种UI来自定义这个页面的行为。
-        -->
-        <!-- 调用新浪原生SDK，需要注册的回调activity -->
-        <!-- 微信分享注册 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -334,9 +328,13 @@
             android:name=".activitys.CircleDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
-        <activity android:name=".activitys.livefragment.LiveDetailsActivity"
+        <activity
+            android:name=".activitys.livefragment.LiveDetailsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyAppTheme"></activity>
+            android:theme="@style/MyAppTheme" />
+        <activity android:name=".activitys.livefragment.LiveDetails01Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyAppTheme" ></activity>
     </application>
 
 </manifest>

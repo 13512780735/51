@@ -1,1 +1,1 @@
-include ':app', ':baseapp_module', ':kkeventbus_module', ':imagecycleviewlib-release', ':library', ':pulltorefreshlibrary', ':HightLight', ':PhotoViewlibrary', ':lib', ':wkvideoplayer', ':OneKeyShare'
+include ':app', ':baseapp_module', ':kkeventbus_module', ':imagecycleviewlib-release', ':pulltorefreshlibrary', ':HightLight', ':PhotoViewlibrary', ':lib', ':wkvideoplayer', ':OneKeyShare', ':library', ':ulive-android-sdk', ':easeui'

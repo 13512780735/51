@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,18 +39,22 @@
 
             </FrameLayout>
 
-            <com.likeit.a51scholarship.view.SlidingTabLayout
-                android:id="@+id/live_details_sliding_tabs"
+            <android.support.design.widget.TabLayout
+                android:id="@+id/live_details_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:translationZ="1dp" />
+                android:background="@color/white"
+                app:tabIndicatorColor="@color/login_btn_bg_color"
+                app:tabIndicatorHeight="2dp"
+                app:tabSelectedTextColor="@color/login_btn_bg_color"
+                app:tabTextColor="@color/defualt_textcolor_d" />
 
             <com.likeit.a51scholarship.view.NoScrollViewPager01
                 android:id="@+id/live_details_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white" />
+
 
         </LinearLayout>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
@@ -80,6 +85,7 @@
             android:maxLength="8"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_title" />
+
         <ImageView
             android:id="@+id/iv_header_right"
             android:layout_width="wrap_content"
@@ -88,8 +94,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:padding="8dip"
-            android:src="@mipmap/icon_share01"
-            />
+            android:src="@mipmap/icon_share01" />
 
     </RelativeLayout>
 
