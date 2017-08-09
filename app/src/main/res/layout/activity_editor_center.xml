@@ -168,15 +168,16 @@
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/birthday_et" />
 
-        <EditText
+        <TextView
             android:id="@+id/birthday_et"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_below="@+id/birthday_tv"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/icon_birthday"
-            android:background="@null"
-            android:hint="May 15，1984"
+            android:text="May 15，1984"
+            android:gravity="center_vertical"
+            android:textColor="@color/defualt_textcolor_d"
             android:inputType="number"
             android:textSize="12sp" />
         <ImageView
@@ -276,15 +277,16 @@
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/address_et" />
 
-        <EditText
+        <TextView
             android:id="@+id/address_et"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_below="@+id/address_tv"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/icon_address"
-            android:background="@null"
-            android:hint="中国，广东省，中山市"
+            android:text="中国，广东省，中山市"
+            android:gravity="center_vertical"
+            android:textColor="@color/defualt_textcolor_d"
             android:inputType="number"
             android:textSize="12sp" />
         <ImageView
