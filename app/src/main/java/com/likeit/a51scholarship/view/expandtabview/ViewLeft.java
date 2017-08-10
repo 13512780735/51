@@ -14,8 +14,8 @@ import com.likeit.a51scholarship.R;
 public class ViewLeft extends RelativeLayout implements ViewBaseAction{
 
 	private ListView mListView;
-	private final String[] items = new String[] { "item1", "item2", "item3", "item4", "item5", "item6" };//显示字段
-	private final String[] itemsVaule = new String[] { "1", "2", "3", "4", "5", "6" };//隐藏id
+	private final String[] items = new String[] { "美国", "英国", "加拿大", "澳大利亚"};//显示字段
+	private final String[] itemsVaule = new String[] { "1", "2", "3", "4"};//隐藏id
 	private OnSelectListener mOnSelectListener;
 	private TextAdapter adapter;
 	private String mDistance;
@@ -45,7 +45,7 @@ public class ViewLeft extends RelativeLayout implements ViewBaseAction{
 		mContext = context;
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.view_distance, this, true);
-		setBackgroundDrawable(getResources().getDrawable(R.drawable.choosearea_bg_mid));
+		setBackgroundDrawable(getResources().getDrawable(R.color.white));
 		mListView = (ListView) findViewById(R.id.listView);
 		adapter = new TextAdapter(context, items, R.drawable.choose_item_right, R.drawable.choose_eara_item_selector);
 		adapter.setTextSize(17);

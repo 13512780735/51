@@ -161,7 +161,7 @@ public class ExpandTabView extends LinearLayout implements OnDismissListener {
 		if (popupWindow.getContentView() != mViewArray.get(position)) {
 			popupWindow.setContentView(mViewArray.get(position));
 		}
-		popupWindow.showAsDropDown(this, 0, 0);
+		popupWindow.showAsDropDown(this, 0, 2);
 	}
 
 	/**

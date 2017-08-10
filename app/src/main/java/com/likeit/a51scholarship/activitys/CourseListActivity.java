@@ -15,6 +15,7 @@ import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.view.MyListview;
 import com.likeit.a51scholarship.view.expandtabview.ExpandTabView;
+import com.likeit.a51scholarship.view.expandtabview.ViewLeft;
 import com.likeit.a51scholarship.view.expandtabview.ViewMiddle;
 
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class CourseListActivity extends Container implements
     private String[] iconName = {"托福名师讲解，高效提分", "托福名师讲解，高效提分",
             "托福名师讲解，高效提分", "托福名师讲解，高效提分", "托福名师讲解，高效提分"};
     private String[] iconTime = {"5课时，177分钟", "5课时，177分钟", "5课时，177分钟", "5课时，177分钟", "5课时，177分钟"};
+    private ViewLeft viewLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,8 @@ public class CourseListActivity extends Container implements
     }
 
     private void initVaule() {
-        mViewArray.add(viewMiddle);
+     mViewArray.add(viewMiddle);
+       // mViewArray.add(viewLeft);
         ArrayList<String> mTextArray = new ArrayList<String>();
         mTextArray.add("全部类别");
         expandTabView.setValue(mTextArray, mViewArray);
@@ -78,6 +81,7 @@ public class CourseListActivity extends Container implements
     String videoUrl = "http://bvideo.spriteapp.cn/video/2016/0704/577a4c29e1f14_wpd.mp4";
     private void initView() {
         viewMiddle = new ViewMiddle(this);
+        viewLeft = new ViewLeft(this);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setOnRefreshListener(this);
         mPullToRefreshScrollView.getLoadingLayoutProxy().setLastUpdatedLabel(

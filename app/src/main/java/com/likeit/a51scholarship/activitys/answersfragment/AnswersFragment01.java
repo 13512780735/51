@@ -6,8 +6,11 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
@@ -16,19 +19,23 @@ import com.likeit.a51scholarship.activitys.newsfragment.NewsDetailsActivity;
 import com.likeit.a51scholarship.fragments.BaseFragment;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.view.MyListview;
+import com.likeit.a51scholarship.view.expandtabview.ExpandTabView;
+import com.likeit.a51scholarship.view.expandtabview.ViewLeft;
+import com.likeit.a51scholarship.view.expandtabview.ViewLeft01;
+import com.likeit.a51scholarship.view.expandtabview.ViewLeft02;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AnswersFragment01 extends BaseFragment
-        implements
-        PullToRefreshBase.OnRefreshListener2<ScrollView> {
+public class AnswersFragment01 extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<ScrollView> {
 
 
     private PullToRefreshScrollView mPullToRefreshScrollView;
@@ -39,12 +46,18 @@ public class AnswersFragment01 extends BaseFragment
     private int[] icon = {R.mipmap.message_chat_avatar, R.mipmap.message_chat_avatar,
             R.mipmap.message_chat_avatar, R.mipmap.message_chat_avatar, R.mipmap.message_chat_avatar};
     private String[] iconName = {"Lana", "Tom", "Jim", "Lucy", "LiLy"};
-    private String[] iconTime= {"50分钟前", "50分钟前", "50分钟前", "50分钟前", "50分钟前"};
+    private String[] iconTime = {"50分钟前", "50分钟前", "50分钟前", "50分钟前", "50分钟前"};
     private String[] iconDetails = {"目前大四，留学加拿大需要准备什么呢？", "目前大四，留学加拿大需要准备什么呢？",
             "目前大四，留学加拿大需要准备什么呢？", "目前大四，留学加拿大需要准备什么呢？", "目前大四，留学加拿大需要准备什么呢？"};
-    private String[] iconLikeNumber= {"9,999", "9,999", "9,999", "9,999", "9,999"};
+    private String[] iconLikeNumber = {"9,999", "9,999", "9,999", "9,999", "9,999"};
     private String[] iconCommnentNumber = {"15", "15", "15", "15", "15"};
-
+    private RadioGroup mRadioGroup;
+    private RadioButton mRadioButton01,mRadioButton02,mRadioButton03;
+    private ViewLeft viewLeft;
+    private ArrayList<View> mViewArray = new ArrayList<View>();
+    ExpandTabView expandTabView;
+    private ViewLeft01 viewLeft01;
+    private ViewLeft02 viewLeft02;
 
     @Override
     protected int setContentView() {
@@ -54,9 +67,56 @@ public class AnswersFragment01 extends BaseFragment
     @Override
     protected void lazyLoad() {
         initView();
+        initVaule();
+        initListener();
+    }
+
+    private void initListener() {
+        viewLeft.setOnSelectListener(new ViewLeft.OnSelectListener() {
+            @Override
+            public void getValue(String distance, String showText) {
+                onRefresh(viewLeft,showText);
+            }
+        });
+        viewLeft01.setOnSelectListener(new ViewLeft01.OnSelectListener() {
+            @Override
+            public void getValue(String distance, String showText) {
+                onRefresh(viewLeft01,showText);
+            }
+        });
+        viewLeft02.setOnSelectListener(new ViewLeft02.OnSelectListener() {
+            @Override
+            public void getValue(String distance, String showText) {
+                onRefresh(viewLeft02,showText);
+            }
+        });
+
+    }
+
+    private void initVaule() {
+        mViewArray.add(viewLeft);
+        mViewArray.add(viewLeft01);
+        mViewArray.add(viewLeft02);
+        // mViewArray.add(viewLeft);
+        ArrayList<String> mTextArray = new ArrayList<String>();
+        mTextArray.add("国家");
+        mTextArray.add("学位");
+        mTextArray.add("专业");
+        expandTabView.setValue(mTextArray, mViewArray);
+//        expandTabView.setTitle(viewLeft.getShowText(), 0);
+//        expandTabView.setTitle(viewLeft01.getShowText(), 1);
+//        expandTabView.setTitle(viewLeft02.getShowText(), 2);
     }
 
     private void initView() {
+        viewLeft = new ViewLeft(getActivity());
+        viewLeft01 = new ViewLeft01(getActivity());
+        viewLeft02 = new ViewLeft02(getActivity());
+        expandTabView=findViewById(R.id.expandtab_view);
+//        mRadioGroup=findViewById(R.id.radio_group_answers_issue);
+//        mRadioButton01=findViewById(R.id.country_answers_issue);
+//        mRadioButton02=findViewById(R.id.heat_answers_issue);
+//        mRadioButton03=findViewById(R.id.sort_answers_issue);
         mPullToRefreshScrollView = findViewById(R.id.answer_issue_scrollview);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setOnRefreshListener(this);
@@ -88,6 +148,19 @@ public class AnswersFragment01 extends BaseFragment
                 startActivity(intentNewDetails);
             }
         });
+//        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+//                switch (checkedId){
+//                    case R.id.country_answers_issue:
+//                        break;
+//                    case R.id.heat_answers_issue:
+//                        break;
+//                    case R.id.sort_answers_issue:
+//                        break;
+//                }
+//            }
+//        });
     }
 
     private List<Map<String, Object>> getData() {
@@ -116,4 +189,32 @@ public class AnswersFragment01 extends BaseFragment
         ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
         mPullToRefreshScrollView.onRefreshComplete();
     }
+    private void onRefresh(View view, String showText) {
+
+        expandTabView.onPressBack();
+//        int position = getPositon(view);
+//        if (position >= 0 && !expandTabView.getTitle(position).equals(showText)) {
+//            expandTabView.setTitle(showText, position);
+//        }
+        Toast.makeText(getActivity(), showText, Toast.LENGTH_SHORT).show();
+
+    }
+
+    private int getPositon(View tView) {
+        for (int i = 0; i < mViewArray.size(); i++) {
+            if (mViewArray.get(i) == tView) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+//    @Override
+//    public void onBackPressed() {
+//
+//        if (!expandTabView.onPressBack()) {
+//            finish();
+//        }
+//    }
+
 }

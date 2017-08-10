@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.likeit.a51scholarship.dateutils.DateSelectActivity">
+
+    <cn.aigestudio.datepicker.views.DatePicker
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+        android:id="@+id/ddhk_hotel_indent_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+/>
+</RelativeLayout>

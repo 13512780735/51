@@ -18,7 +18,7 @@ public class ViewMiddle extends LinearLayout implements ViewBaseAction {
 	
 	private ListView regionListView;
 	private ListView plateListView;
-	private ArrayList<String> groups = new ArrayList<String>();
+	private ArrayList<String> groups;
 	private LinkedList<String> childrenItem = new LinkedList<String>();
 	private SparseArray<LinkedList<String>> children = new SparseArray<LinkedList<String>>();
 	private TextAdapter plateListViewAdapter;
@@ -71,13 +71,16 @@ public class ViewMiddle extends LinearLayout implements ViewBaseAction {
 		plateListView = (ListView) findViewById(R.id.listView2);
 		setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.choosearea_bg_left));
+		String[] data01={"托福","雅思","托福","雅思","托福","雅思","托福","雅思"};
+		String[] data02={"新托福","新雅思","新托福","新雅思","新托福","新雅思","新托福","新雅思"};
+		groups = new ArrayList<String>();
 
-		for(int i=0;i<10;i++){
-			groups.add(i+"行");
+		for(int i=0;i<data01.length;i++){
+			groups.add("托福"+i);
 			LinkedList<String> tItem = new LinkedList<String>();
-			for(int j=0;j<15;j++){
+			for(int j=0;j<data02.length;j++){
 				
-				tItem.add(i+"行"+j+"列");
+				tItem.add("新托福"+j);
 				
 			}
 			children.put(i, tItem);
