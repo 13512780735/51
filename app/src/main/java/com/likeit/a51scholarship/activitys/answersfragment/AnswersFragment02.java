@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
@@ -16,6 +17,10 @@ import com.likeit.a51scholarship.activitys.newsfragment.NewsDetailsActivity;
 import com.likeit.a51scholarship.fragments.BaseFragment;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.view.MyListview;
+import com.likeit.a51scholarship.view.expandtabview.ExpandTabView;
+import com.likeit.a51scholarship.view.expandtabview.ViewLeft;
+import com.likeit.a51scholarship.view.expandtabview.ViewLeft01;
+import com.likeit.a51scholarship.view.expandtabview.ViewLeft02;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +47,11 @@ public class AnswersFragment02 extends BaseFragment  implements
     private String[] iconState = {"在读", "在读", "在读", "在读", "在读"};
     private String[] iconSchool = {"迈阿密大学", "迈阿密大学", "迈阿密大学", "迈阿密大学", "迈阿密大学"};
     private String[] iconMajor = {"医学|本科", "医学|本科", "医学|本科", "医学|本科", "医学|本科"};
+    private ViewLeft viewLeft;
+    private ArrayList<View> mViewArray = new ArrayList<View>();
+    ExpandTabView expandTabView;
+    private ViewLeft01 viewLeft01;
+    private ViewLeft02 viewLeft02;
     @Override
     protected int setContentView() {
         return R.layout.fragment_answers_fragment02;
@@ -50,9 +60,50 @@ public class AnswersFragment02 extends BaseFragment  implements
     @Override
     protected void lazyLoad() {
         initView();
+        //initVaule();
+        //initListener();
+    }
+    private void initListener() {
+        viewLeft.setOnSelectListener(new ViewLeft.OnSelectListener() {
+            @Override
+            public void getValue(String distance, String showText) {
+                onRefresh(viewLeft,showText);
+            }
+        });
+        viewLeft01.setOnSelectListener(new ViewLeft01.OnSelectListener() {
+            @Override
+            public void getValue(String distance, String showText) {
+                onRefresh(viewLeft01,showText);
+            }
+        });
+        viewLeft02.setOnSelectListener(new ViewLeft02.OnSelectListener() {
+            @Override
+            public void getValue(String distance, String showText) {
+                onRefresh(viewLeft02,showText);
+            }
+        });
+
     }
 
+    private void initVaule() {
+        mViewArray.add(viewLeft);
+        mViewArray.add(viewLeft01);
+        mViewArray.add(viewLeft02);
+        // mViewArray.add(viewLeft);
+        ArrayList<String> mTextArray = new ArrayList<String>();
+        mTextArray.add("国家");
+        mTextArray.add("学位");
+        mTextArray.add("专业");
+        expandTabView.setValue(mTextArray, mViewArray);
+//        expandTabView.setTitle(viewLeft.getShowText(), 0);
+//        expandTabView.setTitle(viewLeft01.getShowText(), 1);
+//        expandTabView.setTitle(viewLeft02.getShowText(), 2);
+    }
     private void initView() {
+        viewLeft = new ViewLeft(getActivity());
+        viewLeft01 = new ViewLeft01(getActivity());
+        viewLeft02 = new ViewLeft02(getActivity());
+        expandTabView=findViewById(R.id.expandtab_view01);
         mPullToRefreshScrollView = findViewById(R.id.answer_senior_scrollview);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setOnRefreshListener(this);
@@ -110,4 +161,31 @@ public class AnswersFragment02 extends BaseFragment  implements
         ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
         mPullToRefreshScrollView.onRefreshComplete();
     }
+    private void onRefresh(View view, String showText) {
+
+        expandTabView.onPressBack();
+//        int position = getPositon(view);
+//        if (position >= 0 && !expandTabView.getTitle(position).equals(showText)) {
+//            expandTabView.setTitle(showText, position);
+//        }
+        Toast.makeText(getActivity(), showText, Toast.LENGTH_SHORT).show();
+
+    }
+
+    private int getPositon(View tView) {
+        for (int i = 0; i < mViewArray.size(); i++) {
+            if (mViewArray.get(i) == tView) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+//    @Override
+//    public void onBackPressed() {
+//
+//        if (!expandTabView.onPressBack()) {
+//            finish();
+//        }
+//    }
 }
