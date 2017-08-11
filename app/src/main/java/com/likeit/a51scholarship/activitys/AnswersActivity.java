@@ -74,8 +74,6 @@ public class AnswersActivity extends FragmentActivity implements ViewPager.OnPag
         adapter = new AnswersViewPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(adapter);
         mViewPager.setOnPageChangeListener(this);
-        mViewPager.setCurrentItem(0);
-        mViewPager.setOffscreenPageLimit(0);
         rgTools.setOnCheckedChangeListener(this);
     }
 

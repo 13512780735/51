@@ -67,8 +67,8 @@ public class AnswersFragment01 extends BaseFragment implements PullToRefreshBase
     @Override
     protected void lazyLoad() {
         initView();
-       initVaule();
-        initListener();
+      initVaule();
+       initListener();
     }
 
     private void initListener() {
@@ -100,14 +100,19 @@ public class AnswersFragment01 extends BaseFragment implements PullToRefreshBase
     }
 
     private void initVaule() {
+        ArrayList<String> mTextArray = new ArrayList<String>();
+        expandTabView.removeAllViews();
+        mViewArray.clear();
+        mTextArray.clear();
         mViewArray.add(viewLeft);
         mViewArray.add(viewLeft01);
         mViewArray.add(viewLeft02);
         // mViewArray.add(viewLeft);
-        ArrayList<String> mTextArray = new ArrayList<String>();
+
         mTextArray.add("国家");
         mTextArray.add("热度");
         mTextArray.add("分类");
+
         expandTabView.setValue(mTextArray, mViewArray);
 //        expandTabView.setTitle(viewLeft.getShowText(), 0);
 //        expandTabView.setTitle(viewLeft01.getShowText(), 1);

@@ -60,8 +60,8 @@ public class AnswersFragment02 extends BaseFragment  implements
     @Override
     protected void lazyLoad() {
         initView();
-        //initVaule();
-        //initListener();
+       initVaule();
+       initListener();
     }
     private void initListener() {
         viewLeft.setOnSelectListener(new ViewLeft.OnSelectListener() {
@@ -86,11 +86,14 @@ public class AnswersFragment02 extends BaseFragment  implements
     }
 
     private void initVaule() {
+        ArrayList<String> mTextArray = new ArrayList<String>();
+        expandTabView.removeAllViews();
+        mViewArray.clear();
+        mTextArray.clear();
         mViewArray.add(viewLeft);
         mViewArray.add(viewLeft01);
         mViewArray.add(viewLeft02);
         // mViewArray.add(viewLeft);
-        ArrayList<String> mTextArray = new ArrayList<String>();
         mTextArray.add("国家");
         mTextArray.add("学位");
         mTextArray.add("专业");
