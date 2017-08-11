@@ -8,11 +8,13 @@ import android.widget.TextView;
 import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.activitys.Container;
 import com.likeit.a51scholarship.activitys.SendNewsActivity;
+import com.likeit.a51scholarship.view.expandtabview.ExpandTabView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.sharesdk.onekeyshare.OnekeyShare;
+import jaydenxiao.com.expandabletextview.ExpandableTextView;
 
 
 public class NewsDetailsActivity extends Container {
@@ -22,6 +24,8 @@ public class NewsDetailsActivity extends Container {
     ImageView ivRight;
     @BindView(R.id.tv_header)
     TextView tvHeader;
+    @BindView(R.id.new_details_desc_tv)
+    ExpandableTextView newDetailsDescTv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +38,9 @@ public class NewsDetailsActivity extends Container {
         tvHeader.setText("资讯详情页");
         ivRight.setImageResource(R.mipmap.icon_edit);
         ivLeft.setImageResource(R.mipmap.icon_back);
+        newDetailsDescTv.setText("   人寰的期末周终于过去，我跟几个朋友也约着来了一场说走就走的旅行，大家决定去费城和首都华盛顿玩几天。着两所城市都是在美东地区" +
+                "，离纽约的距离不远，气候、温度都差不多。费城，美国曾经的首都，独立宣言的诞生地；华盛顿特区，现在美利坚合众国的首都，有着“博物馆之城”美名" +
+                "。美国历史虽短，但是这两座城市都在其...");
     }
     @OnClick({R.id.iv_header_right,R.id.iv_header_left,R.id.new_details_share})
     public void onClick(View view){
