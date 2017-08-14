@@ -173,6 +173,7 @@ public class RegisterActivity extends Container {
                         JSONObject data = obj.getJSONObject("data");
                         String ukey = data.optString("ukey");
                         ToastUtil.showS(mContext, message);
+                        signup();//环信注册
                         toActivityFinish(LoginActivity.class);
                     } else {
                         ToastUtil.showS(mContext, message);
@@ -195,6 +196,14 @@ public class RegisterActivity extends Container {
                 super.onFinish();
             }
         });
+    }
+
+    private void signup() {
+//        try {
+//            EMClient.getInstance().createAccount(username, passwd);//同步方法
+//        } catch (HyphenateException e) {
+//            e.printStackTrace();
+//        }
     }
 
     class TimeCount extends CountDownTimer {

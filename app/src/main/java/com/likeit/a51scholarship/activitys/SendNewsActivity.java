@@ -1,7 +1,6 @@
 package com.likeit.a51scholarship.activitys;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -22,12 +21,6 @@ import com.likeit.a51scholarship.imageutil.custom.GridAdapter;
 import com.likeit.a51scholarship.imageutil.custom.PhotoSystemOrShoot;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.utils.ToastUtil;
-import com.yanzhenjie.alertdialog.AlertDialog;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.PermissionNo;
-import com.yanzhenjie.permission.PermissionYes;
-import com.yanzhenjie.permission.Rationale;
-import com.yanzhenjie.permission.RationaleListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,42 +134,6 @@ public class SendNewsActivity extends Container {
         }
     }
 
-    @PermissionYes(300)
-    private void getPermissionYes(List<String> grantedPermissions) {
-        // Successfully.
-
-    }
-
-    @PermissionNo(300)
-    private void getPermissionNo(List<String> deniedPermissions) {
-        // Failure.
-    }
-    /**
-     * Rationale支持，这里自定义对话框。
-     */
-    private RationaleListener rationaleListener = new RationaleListener() {
-        @Override
-        public void showRequestPermissionRationale(int i, final Rationale rationale) {
-            // 自定义对话框。
-            AlertDialog.newBuilder(mContext)
-                    .setTitle("请求权限")
-                    .setMessage("请求权限")
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                            rationale.resume();
-                        }
-                    })
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                            rationale.cancel();
-                        }
-                    }).show();
-        }
-    };
 
     @OnClick({R.id.backBtn, R.id.tv_right, R.id.photo_im, R.id.camear_im, R.id.label_im})
     public void onClick(View view) {

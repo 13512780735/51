@@ -30,23 +30,15 @@
     <uses-permission android:name="com.kugou.permission.ACCESS_DOWNLOAD_MANAGER" />
     <uses-permission android:name="com.kugou.permission.ACCESS_DOWNLOAD_MANAGER_ADVANCED" />
     <uses-permission android:name="com.kugou.permission.SEND_DOWNLOAD_COMPLETED_INTENTS" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <!-- 保存资源到SD卡 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <permission android:name="android.permission.WRITE_MEDIA_STORAGE" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -81,7 +73,6 @@
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
 
-        <!-- 环信 -->
 
 
         <!-- Bugly -->
