@@ -64,6 +64,12 @@ android {
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_7
     }
+    sourceSets {
+        main {
+            // 设置Jni so文件路径 如果有jniLibs目录就不需要设置，好像手动创建的 jniLibs目录无效
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 
@@ -125,4 +131,5 @@ dependencies {
     compile 'cn.aigestudio.datepicker:DatePicker:2.2.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile project(path: ':easeui')
 }
