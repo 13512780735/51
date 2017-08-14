@@ -235,7 +235,6 @@ public class SendNewsActivity extends Container {
     }
 
     private void send() {
-
         String title = titleEt.getText().toString();
         String content = contentEt.getText().toString();
         if (TextUtils.isEmpty(title) || TextUtils.isEmpty(content)) {
