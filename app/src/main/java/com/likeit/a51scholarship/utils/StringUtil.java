@@ -20,7 +20,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringUtil {
+public class  StringUtil {
 
 	@SuppressWarnings("unused")
 	private static final String TAG = StringUtil.class.getSimpleName();
