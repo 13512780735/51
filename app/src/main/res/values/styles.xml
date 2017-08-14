@@ -90,4 +90,9 @@
     <style name="urm_tv">
         <item name="android:textSize">18sp</item>
     </style>
+    <!-- popup选择获取图片对的途径 -->
+    <style name="popup_select_way">
+        <item name="android:windowEnterAnimation">@anim/popup_enter_up</item>
+        <item name="android:windowExitAnimation">@anim/popup_out_down</item>
+    </style>
 </resources>

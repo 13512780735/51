@@ -53,25 +53,6 @@ public class KefuDialog extends Dialog {
         setContentView(R.layout.dialog_kefu_service);
         ButterKnife.bind(this, getWindow().getDecorView());
 
-//        findViewById(R.id.kefu_phone).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Intent.ACTION_CALL);
-//                Uri data = Uri.parse("tel:" + "0760-88288601");
-//                intent.setData(data);
-//                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-//                    Toast.makeText(getContext(),"请授予拨打电话权限",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                getContext().startActivity(intent);
-//            }
-//        });
-//        findViewById(R.id.close_img).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dismiss();
-//            }
-//        });
 
     }
 
