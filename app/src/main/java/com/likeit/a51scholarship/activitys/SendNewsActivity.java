@@ -98,19 +98,19 @@ public class SendNewsActivity extends Container {
                         .thumbnailScale(0.85f)
                         .imageEngine(new GlideEngine())
                         .forResult(REQUEST_CODE_CHOOSE);
-                Toast.makeText(mContext, "remainNum" + remainNum, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(mContext, "remainNum" + remainNum, Toast.LENGTH_SHORT).show();
 
 //                list.add(new ImageBean("http://pic78.huitu.com/res/20160604/1029007_20160604114552332126_1.jpg"));
             }
 
             @Override
             public void picOnClickListener(List<ImageShowPickerBean> list, int position, int remainNum) {
-                Toast.makeText(mContext, list.size() + "========" + position + "remainNum" + remainNum, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, list.size() + "========" + position + "remainNum" + remainNum, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void delOnClickListener(int position, int remainNum) {
-                Toast.makeText(mContext, "delOnClickListenerremainNum" + remainNum, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(mContext, "delOnClickListenerremainNum" + remainNum, Toast.LENGTH_SHORT).show();
             }
         });
         pickerView.show();
