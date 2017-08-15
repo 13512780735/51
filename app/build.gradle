@@ -78,7 +78,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile files('libs/libammsdk.jar')
     compile files('libs/SMSSDK-1.1.0.jar')
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
 

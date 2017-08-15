@@ -74,6 +74,26 @@
         android:theme="@style/MyAppTheme">
 
 
+        <!-- 设置环信应用的 appkey 换成自己的-->
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="yiyuan558#quanzi"/>
+        <!-- 声明sdk所需的service SDK核心功能-->
+        <service
+            android:name="com.hyphenate.chat.EMChatService"
+            android:exported="true"/>
+        <!-- 声明sdk所需的receiver -->
+        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+            <!-- 可选filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+            </intent-filter>
+        </receiver>
 
         <!-- Bugly -->
         <activity
@@ -298,7 +318,7 @@
             android:theme="@style/MyAppTheme" />
         <activity
             android:name=".activitys.livefragment.LiveDetailsActivity"
-            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/MyAppTheme" />
         <activity
             android:name=".activitys.livefragment.LiveDetails01Activity"
@@ -308,9 +328,6 @@
             android:name=".dateutils.DateSelectActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
-        <activity android:name=".activitys.ImageLoadActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/MyAppTheme"></activity>
     </application>
 
 </manifest>

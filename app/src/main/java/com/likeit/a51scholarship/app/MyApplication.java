@@ -81,7 +81,7 @@ public class MyApplication extends Application {
         }
 
          //调用初始化方法初始化sdk
-        EMClient.getInstance().init(mContext, initOptions());
+     EMClient.getInstance().init(mContext, initOptions());
 
         //设置开启debug模式
        EMClient.getInstance().setDebugMode(true);
