@@ -98,19 +98,19 @@ public class GuideActivity extends BaseActivity implements View.OnClickListener 
         switch (view.getId()) {
             case R.id.guide_tvbrow:
                 Intent intent01 = new Intent(mContext, MainActivity.class);
-                String ukey="tvx2kTyMEZX5fm*gdspXeLD6GXZkpki9";
-                UtilPreference.saveString(mContext, "ukey", ukey);
-                intent01.putExtra("key","1");
+                UtilPreference.saveString(mContext, "isLogin", "1");
                 startActivity(intent01);
                 finish();
                 break;
             case R.id.guide_tvLogin:
                 Intent intent02 = new Intent(mContext, LoginActivity.class);
+                UtilPreference.saveString(mContext, "isLogin", "2");
                 startActivity(intent02);
                 finish();
                 break;
             case R.id.guide_tvRegister:
                 Intent intent03 = new Intent(mContext, RegisterActivity.class);
+
                 startActivity(intent03);
                 finish();
                 break;

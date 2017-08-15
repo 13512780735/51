@@ -1,5 +1,6 @@
 package com.likeit.a51scholarship.activitys.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -109,6 +110,8 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
         }
     };
     private String  phoneNum, name, passwd;
+    private String is_first;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -260,7 +263,9 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                     if ("1".equals(code)) {
                         JSONObject data = obj.optJSONObject("data");
                         String ukey = data.optString("ukey");
+                       is_first=data.optString("is_first");
                         UtilPreference.saveString(mContext, "ukey", ukey);
+                        UtilPreference.saveString(mContext, "is_first", is_first);
                         // toActivity(UploadImgActivity.class);
 
                         runOnUiThread(new Runnable() {

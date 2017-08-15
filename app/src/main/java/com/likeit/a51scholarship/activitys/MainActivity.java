@@ -1,6 +1,7 @@
 package com.likeit.a51scholarship.activitys;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
@@ -56,20 +57,6 @@ public class MainActivity extends SlidingFragmentActivity implements ViewPager.O
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_main);
-//        View main = getLayoutInflater().from(this).inflate(R.layout.activity_main, null);
-//        main.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-//        MyActivityManager.getInstance().addActivity(this);
-//
-//        setContentView(main);
-//        mContext = this;
-//        setMiuiStatusBarDarkMode(this, true);
-//        Window window = this.getWindow();
-//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        // 透明导航栏
-//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//        if (AndroidWorkaround.checkDeviceHasNavigationBar(this)) {
-//            AndroidWorkaround.assistActivity(findViewById(android.R.id.content));
-//        }
         ButterKnife.bind(this);
         initView();
         initMenu();

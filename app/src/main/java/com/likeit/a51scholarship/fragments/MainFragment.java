@@ -48,6 +48,7 @@ import com.likeit.a51scholarship.model.HomeItemSchoolBean;
 import com.likeit.a51scholarship.utils.JSONUtils;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.utils.ToastUtil;
+import com.likeit.a51scholarship.utils.UtilPreference;
 import com.likeit.a51scholarship.view.MyListview;
 import com.loopj.android.http.RequestParams;
 import com.renj.hightlight.HighLight;
@@ -97,7 +98,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
     private View iv_school_layout;
     private View line_school, line_news;
     private int status = 1;  // 判断是院校选择还是资讯选择 ，1为院校、2为资讯
-    private String key;  //判断是否显示指示层
+    private String is_first;  //判断是否显示指示层
     private MyListview mListView02;
 
 
@@ -113,9 +114,8 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         ADListData = new ArrayList<HomeADlistBean>();
         SchoolData = new ArrayList<HomeItemSchoolBean>();
         NewsData = new ArrayList<HomeItemNewsBean>();
-        Intent intent = getActivity().getIntent();
-        key = intent.getStringExtra("key");
-        Log.d("TAG", "key-->" + key);
+        is_first = UtilPreference.getStringValue(getActivity(),"is_first");
+        Log.d("TAG", "key-->" + is_first);
         initData();
         dialog.show();
         initView();
@@ -347,20 +347,25 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         mListView.setAdapter(schoolAdater);
         schoolAdater.notifyDataSetChanged();
         ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
-        mListView.post(new Runnable() {
-            @Override
-            public void run() {
-                iv_school_layout = findViewById(R.id.iv_school_layout);
-                iv_school_layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        addHightView();
-                        iv_school_layout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                        backgroundAlpha(1f);
-                    }
-                });
-            }
-        });
+        if("1".equals(is_first)){
+            mListView.post(new Runnable() {
+                @Override
+                public void run() {
+                    iv_school_layout = findViewById(R.id.iv_school_layout);
+                    iv_school_layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            addHightView();
+                            iv_school_layout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                            backgroundAlpha(1f);
+                        }
+                    });
+                }
+            });
+        }else{
+            return;
+        }
+
 
     }
 
@@ -458,7 +463,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
     private void getListNew() {
         String url = AppConfig.LIKEIT_NEWS;
         RequestParams params = new RequestParams();
-        params.put("ukey", ukey);
+       // params.put("ukey", ukey);
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {

@@ -22,6 +22,7 @@ import com.likeit.a51scholarship.activitys.my_center.SetActivity;
 import com.likeit.a51scholarship.activitys.my_center.SpentActivity;
 import com.likeit.a51scholarship.activitys.my_center.UserInfoActivity;
 import com.likeit.a51scholarship.event.MainMessageEvent;
+import com.likeit.a51scholarship.utils.UtilPreference;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -54,6 +55,7 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
     private LinearLayout feedBackLyout;
     private LinearLayout inviteLayout;
     private LinearLayout realLayout;
+    private String isLogin;
 
 
     @Override
@@ -63,6 +65,7 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
 
     @Override
     protected void lazyLoad() {
+       isLogin= UtilPreference.getStringValue(getActivity(),"isLogin");
         initView();
     }
 
