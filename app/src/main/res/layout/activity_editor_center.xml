@@ -40,7 +40,9 @@
             android:gravity="center"
             android:layout_weight="1">
             <com.likeit.a51scholarship.view.CircleImageView
+                android:id="@+id/editorCenter_iv_logout"
                 android:layout_width="60dip"
+                android:onClick="onClick"
                 android:layout_height="60dip"
                 android:src="@mipmap/btn_logout"/>
         </RelativeLayout>

@@ -16,7 +16,6 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // setContentView(R.layout.activity_splash);
-
         View main = getLayoutInflater().from(this).inflate(R.layout.activity_splash, null);
         main.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         MyActivityManager.getInstance().addActivity(this);

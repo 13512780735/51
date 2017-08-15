@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 import com.likeit.a51scholarship.R;
 import com.loopj.android.http.RequestParams;
 
@@ -27,6 +29,7 @@ import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.utils.ToastUtil;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -78,24 +81,26 @@ public class RegisterActivity extends Container {
                 }
             }
         });
-        EventHandler eh = new EventHandler() {
 
-            @Override
-            public void afterEvent(int event, int result, Object data) {
-                Message msg = new Message();
-                msg.arg1 = event;
-                msg.arg2 = result;
-                msg.obj = data;
-                mHandler.sendMessage(msg);
-            }
 
-        };
-        SMSSDK.registerEventHandler(eh);
+//        EventHandler eh = new EventHandler() {
+//
+//            @Override
+//            public void afterEvent(int event, int result, Object data) {
+//                Message msg = new Message();
+//                msg.arg1 = event;
+//                msg.arg2 = result;
+//                msg.obj = data;
+//                mHandler.sendMessage(msg);
+//            }
+//
+//        };
+        // SMSSDK.registerEventHandler(eh);
     }
 
 
     private void sendCode() {
-        phoneNum = phoneEt.getText().toString().trim();
+
         if (TextUtils.isEmpty(phoneNum)) {
             ToastUtil.showS(mContext, "请输入手机号码");
             return;
@@ -127,6 +132,7 @@ public class RegisterActivity extends Container {
     }
 
     private void register() {
+        phoneNum = phoneEt.getText().toString().trim();
         code = codeEt.getText().toString().trim();
         passwd = passwdEt.getText().toString().trim();
         username = usernameEt.getText().toString().trim();
@@ -148,7 +154,8 @@ public class RegisterActivity extends Container {
             ToastUtil.showS(mContext, "请输入姓名");
             return;
         }
-        SMSSDK.submitVerificationCode("86", phoneNum, code);
+        // SMSSDK.submitVerificationCode("86", phoneNum, code);
+        signup();
     }
 
     private void Register() {
@@ -163,7 +170,7 @@ public class RegisterActivity extends Container {
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
-               // Log.d("TAG", "register-->" + response);
+                // Log.d("TAG", "register-->" + response);
                 disShowProgress();
                 try {
                     JSONObject obj = new JSONObject(response);
@@ -173,7 +180,7 @@ public class RegisterActivity extends Container {
                         JSONObject data = obj.getJSONObject("data");
                         String ukey = data.optString("ukey");
                         ToastUtil.showS(mContext, message);
-                        signup();//环信注册
+
                         toActivityFinish(LoginActivity.class);
                     } else {
                         ToastUtil.showS(mContext, message);
@@ -198,12 +205,30 @@ public class RegisterActivity extends Container {
         });
     }
 
+    //环信注册
     private void signup() {
-//        try {
-//            EMClient.getInstance().createAccount(username, passwd);//同步方法
-//        } catch (HyphenateException e) {
-//            e.printStackTrace();
-//        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    EMClient.getInstance().createAccount(phoneNum, passwd);//同步方法
+                    Log.d("TAG","注册成功！");
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Register();
+                        }
+                    });
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                    Log.d("TAG","注册失敗！");
+                }
+            }
+        }).start();
+
+
+
     }
 
     class TimeCount extends CountDownTimer {
@@ -239,7 +264,7 @@ public class RegisterActivity extends Container {
                         System.out.println("--------result" + event);
                         //短信注册成功后，返回MainActivity,然后提示新好友
                         if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//提交验证码成功
-                            // Toast.makeText(getApplicationContext(), "提交验证码成功", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "提交验证码成功"+data.toString(), Toast.LENGTH_SHORT).show();
                             Register();
                             showProgress("Loading...");
                         } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {

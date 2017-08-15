@@ -13,7 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.likeit.a51scholarship.R;
+import com.likeit.a51scholarship.activitys.MainActivity;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
@@ -105,7 +108,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
             }
         }
     };
-    private String phoneNum, name, passwd;
+    private String  phoneNum, name, passwd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -161,10 +164,31 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
         }
     }
 
+    private void signin() {
+        EMClient.getInstance().login(name, passwd, new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                Log.d("TAG", "EM登录成功");
+                toActivityFinish(MainActivity.class);
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                // ToastUtil.showS(mContext,"EM登录失败");
+                Log.d("TAG","EM登录失败");
+            }
+
+            @Override
+            public void onProgress(int i, String s) {
+
+            }
+        });
+    }
+
     private void login() {
         phoneNum = phoneEt.getText().toString().trim();
-        name = usernameEt.getText().toString();
-        passwd = passwdEt.getText().toString();
+        name = usernameEt.getText().toString().trim();
+        passwd = passwdEt.getText().toString().trim();
         if (account_login) {
             if (TextUtils.isEmpty(name) || TextUtils.isEmpty(passwd)) {
                 showToast("请填写账号或密码");
@@ -237,8 +261,15 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                         JSONObject data = obj.optJSONObject("data");
                         String ukey = data.optString("ukey");
                         UtilPreference.saveString(mContext, "ukey", ukey);
-                        toActivity(UploadImgActivity.class);
-                        //toActivityFinish(MainActivity.class);
+                        // toActivity(UploadImgActivity.class);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //环信登录
+                                signin();
+                            }
+                        });
                     } else {
                         ToastUtil.showS(mContext, message);
                     }

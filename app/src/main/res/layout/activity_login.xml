@@ -183,7 +183,6 @@
                 android:layout_toRightOf="@+id/icon_user"
                 android:background="@null"
                 android:hint="@string/user_input_hint"
-                android:inputType="phone"
                 android:textSize="12sp" />
 
 

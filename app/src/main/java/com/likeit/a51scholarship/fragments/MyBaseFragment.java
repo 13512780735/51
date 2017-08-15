@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.likeit.a51scholarship.app.MyApplication;
+import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.utils.UtilPreference;
 
 import static com.likeit.a51scholarship.activitys.Container.setMiuiStatusBarDarkMode;
@@ -40,6 +41,7 @@ public abstract class MyBaseFragment extends Fragment {
         isInit = true;
         /**初始化的时候去加载数据**/
         isCanLoadData();
+        MyActivityManager.getInstance().addActivity(getActivity());
         setMiuiStatusBarDarkMode(getActivity(), true);
         Window window = getActivity().getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
