@@ -37,7 +37,7 @@ public abstract class MyBaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(setContentView(), container, false);
-        ukey = UtilPreference.getStringValue(getActivity(), "ukey");
+
         isInit = true;
         /**初始化的时候去加载数据**/
         isCanLoadData();
@@ -47,6 +47,7 @@ public abstract class MyBaseFragment extends Fragment {
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // 透明导航栏
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        ukey = UtilPreference.getStringValue(getActivity(), "ukey");
         return view;
     }
 

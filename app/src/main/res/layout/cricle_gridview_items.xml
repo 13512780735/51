@@ -24,7 +24,7 @@
         android:textSize="12sp"
         />
 
-<!--    <Button
+    <Button
         android:id="@+id/cricle_gridview_tv_name01"
         android:layout_width="wrap_content"
         android:layout_height="30dip"
@@ -38,5 +38,5 @@
         android:background="@null"
         android:visibility="gone"
         android:textColor="@color/defualt_textcolor_c"
-        android:textSize="12sp" />-->
+        android:textSize="12sp" />
 </RelativeLayout>

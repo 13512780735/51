@@ -51,7 +51,7 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button01"
         android:layout_width="80dip"
         android:layout_height="30dip"
         android:layout_alignParentRight="true"
@@ -61,8 +61,20 @@
         android:layout_marginRight="10dip"
         android:textColor="@color/login_btn_bg_color"
         android:shadowColor="#02B7FB"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="0"
+        android:visibility="gone"
+        android:textSize="12sp" />
+    <Button
+        android:id="@+id/button02"
+        android:layout_width="80dip"
+        android:layout_height="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/button_drak_bg"
+        android:text="已关注"
+        android:layout_marginRight="10dip"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:shadowColor="@color/defualt_textcolor_d"
+
         android:textSize="12sp" />
 </RelativeLayout>

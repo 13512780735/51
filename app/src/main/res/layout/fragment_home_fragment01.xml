@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@android:color/white"
+    android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="10dp"
     android:paddingTop="20dp">
@@ -12,15 +12,17 @@
         android:id="@+id/user_head_img"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@mipmap/default_user_head" />
+        android:src="@mipmap/icon_tuichudenglu" />
 
     <ImageView
+        android:id="@+id/user_edit_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/user_head_img"
         android:layout_toLeftOf="@+id/account_manager_layout"
         android:layout_toStartOf="@+id/account_manager_layout"
-        android:src="@mipmap/icon_edit" />
+        android:src="@mipmap/icon_edit"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/account_layout"
@@ -36,16 +38,27 @@
             android:id="@+id/account_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="尚未登录"
-            android:textColor="@color/login_btn_bg_color"
+            android:text="点击登录"
+            android:textColor="@color/smssdk_black"
+
             android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/account_tv01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/login_btn_bg_color"
+            android:visibility="gone"
+            android:textSize="14sp"
+        />
 
         <ImageView
             android:id="@+id/real_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/icon_real" />
+            android:src="@mipmap/icon_real"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
@@ -63,16 +76,10 @@
             android:id="@+id/account_manager_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="账户管理"
+            android:text="开启更多精彩功能"
             android:textColor="@color/color_999"
             android:textSize="12sp" />
 
-        <ImageView
-            android:id="@+id/go_account_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:src="@mipmap/wangsan_icon_right" />
     </LinearLayout>
 
     <View
@@ -115,8 +122,8 @@
                 android:layout_width="5dp"
                 android:layout_height="5dp"
                 android:layout_marginLeft="5dp"
-                android:visibility="invisible"
-                android:background="@drawable/shape_round_yellow" />
+                android:background="@drawable/shape_round_yellow"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="0dp"
@@ -153,8 +160,8 @@
                 android:layout_width="5dp"
                 android:layout_height="5dp"
                 android:layout_marginLeft="5dp"
-                android:visibility="invisible"
-                android:background="@drawable/shape_round_yellow" />
+                android:background="@drawable/shape_round_yellow"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/collect_num_tv"
@@ -192,8 +199,8 @@
                 android:layout_width="5dp"
                 android:layout_height="5dp"
                 android:layout_marginLeft="5dp"
-                android:visibility="invisible"
-                android:background="@drawable/shape_round_yellow" />
+                android:background="@drawable/shape_round_yellow"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/spent_num_tv"
@@ -230,8 +237,8 @@
                 android:layout_width="5dp"
                 android:layout_height="5dp"
                 android:layout_marginLeft="5dp"
-                android:visibility="invisible"
-                android:background="@drawable/shape_round_yellow" />
+                android:background="@drawable/shape_round_yellow"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="0dp"
@@ -267,8 +274,8 @@
                 android:layout_width="5dp"
                 android:layout_height="5dp"
                 android:layout_marginLeft="5dp"
-                android:visibility="invisible"
-                android:background="@drawable/shape_round_yellow" />
+                android:background="@drawable/shape_round_yellow"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="0dp"
@@ -305,8 +312,8 @@
                 android:layout_width="5dp"
                 android:layout_height="5dp"
                 android:layout_marginLeft="5dp"
-                android:visibility="invisible"
-                android:background="@drawable/shape_round_yellow" />
+                android:background="@drawable/shape_round_yellow"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/open_num_tv"
@@ -343,8 +350,8 @@
                 android:layout_width="5dp"
                 android:layout_height="5dp"
                 android:layout_marginLeft="5dp"
-                android:visibility="invisible"
-                android:background="@drawable/shape_round_yellow" />
+                android:background="@drawable/shape_round_yellow"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="0dp"
@@ -352,9 +359,9 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:text=""
-                android:visibility="invisible"
                 android:textColor="@color/color_333"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <LinearLayout
@@ -381,8 +388,8 @@
                 android:layout_width="5dp"
                 android:layout_height="5dp"
                 android:layout_marginLeft="5dp"
-                android:visibility="invisible"
-                android:background="@drawable/shape_round_yellow" />
+                android:background="@drawable/shape_round_yellow"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="0dp"
@@ -390,9 +397,9 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:text=""
-                android:visibility="invisible"
                 android:textColor="@color/color_333"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <View
@@ -400,7 +407,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="#C0c0C0"/>
+            android:background="#C0c0C0" />
 
         <LinearLayout
             android:id="@+id/set_layout"
@@ -426,8 +433,8 @@
                 android:layout_width="5dp"
                 android:layout_height="5dp"
                 android:layout_marginLeft="5dp"
-                android:visibility="invisible"
-                android:background="@drawable/shape_round_yellow" />
+                android:background="@drawable/shape_round_yellow"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="0dp"
@@ -435,9 +442,9 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:text=""
-                android:visibility="invisible"
                 android:textColor="@color/color_333"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <LinearLayout
@@ -463,9 +470,9 @@
             <View
                 android:layout_width="5dp"
                 android:layout_height="5dp"
-                android:visibility="invisible"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/shape_round_yellow" />
+                android:background="@drawable/shape_round_yellow"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="0dp"
@@ -473,11 +480,10 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:text=""
-                android:visibility="invisible"
                 android:textColor="@color/color_333"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="invisible" />
         </LinearLayout>
-
 
 
     </LinearLayout>

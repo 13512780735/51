@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.hyphenate.chat.EMClient;
 import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.activitys.Container;
+import com.likeit.a51scholarship.activitys.login.GuideActivity;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.view.CircleImageView;
 
@@ -66,8 +67,8 @@ public class EditorCenterActivity extends Container {
                 EMClient.getInstance().logout(true);
                 Log.d("TAG","EM成功退出");
                 // MyActivityManager.getInstance().logout(mContext);
-                MyActivityManager.getInstance().appExit(mContext);
-
+                //MyActivityManager.getInstance().appExit(mContext);
+                toActivityFinish(GuideActivity.class);
                 break;
         }
     }

@@ -1,8 +1,10 @@
 package com.likeit.a51scholarship.fragments;
 
 
+import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,10 +23,17 @@ import com.likeit.a51scholarship.activitys.my_center.OpenActivity;
 import com.likeit.a51scholarship.activitys.my_center.SetActivity;
 import com.likeit.a51scholarship.activitys.my_center.SpentActivity;
 import com.likeit.a51scholarship.activitys.my_center.UserInfoActivity;
+import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.event.MainMessageEvent;
+import com.likeit.a51scholarship.http.HttpUtil;
+import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.utils.UtilPreference;
+import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +41,7 @@ import org.greenrobot.eventbus.Subscribe;
 public class HomeFragment01 extends MyBaseFragment implements View.OnClickListener {
     private ImageView userHeadImg;
     private TextView accountTv;
+    private TextView accountTv01;
     private LinearLayout accountLayout;
     private TextView accountManagerTv;
     private LinearLayout accountManagerLayout;
@@ -55,7 +65,16 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
     private LinearLayout feedBackLyout;
     private LinearLayout inviteLayout;
     private LinearLayout realLayout;
+    private ImageView userEditorImg;
+    /**
+     * 判断用户是否登录
+     * 0.代表登录用户
+     * 1.代表未登录用户
+     */
     private String isLogin;
+    private ProgressDialog dialog;
+    //数据获取
+    private String nickName, headImg, mobile;
 
 
     @Override
@@ -65,14 +84,92 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
 
     @Override
     protected void lazyLoad() {
-       isLogin= UtilPreference.getStringValue(getActivity(),"isLogin");
         initView();
+        dialog = new ProgressDialog(getActivity());
+        dialog.setMessage("Loading...");
+        isLogin = UtilPreference.getStringValue(getActivity(), "isLogin");
+        Log.d("TAG", "isLogin-->" + isLogin);
+        if ("0".equals(isLogin)) {
+            //获取用户信息
+            initUser();
+            dialog.show();
+
+        } else {
+            return;
+        }
+
+    }
+
+    private void initUser() {
+        String url = AppConfig.LIKEIT_GET_INFO;
+        ukey = UtilPreference.getStringValue(getActivity(), "ukey");
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                dialog.dismiss();
+                Log.d("TAG", "用户信息-->" + response + "ukey-->" + ukey);
+                try {
+                    JSONObject object = new JSONObject(response);
+                    String code = object.optString("code");
+                    String message = object.optString("message");
+                    JSONObject data=object.optJSONObject("data");
+                    Log.d("TAG",data.toString());
+                    if ("1".equals(code)) {
+                        nickName = data.optString("nickname");
+                        headImg = data.optString("headimg");
+                        mobile = data.optString("mobile");
+                        Log.d("TAG","mobile3-->"+mobile);
+                        userInfo();
+                    }else{
+                        ToastUtil.showS(getActivity(),message);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Throwable e) {
+                dialog.dismiss();
+                ToastUtil.showS(getActivity(), "获取用户信息失败！");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    private void userInfo() {
+        if ("0".equals(isLogin)) {
+            userEditorImg.setVisibility(View.VISIBLE);
+            realImg.setVisibility(View.VISIBLE);
+            accountTv.setVisibility(View.GONE);
+            accountTv01.setVisibility(View.VISIBLE);
+            Log.d("TAG","mobile2-->"+mobile);
+            accountTv01.setText(mobile);
+            //ImageLoader.getInstance().displayImage("", userHeadImg);
+            userHeadImg.setImageResource(R.mipmap.icon_03_3x);
+            userHeadImg.setOnClickListener(this);
+        } else {
+            accountManagerLayout.setOnClickListener(this);
+            accountLayout.setOnClickListener(this);
+
+        }
     }
 
 
     private void initView() {
+
         userHeadImg = findViewById(R.id.user_head_img);
+        userEditorImg = findViewById(R.id.user_edit_iv);
         accountTv = findViewById(R.id.account_tv);
+        accountTv01 = findViewById(R.id.account_tv01);
         accountLayout = findViewById(R.id.account_layout);
         accountManagerTv = findViewById(R.id.account_manager_tv);
         accountManagerLayout = findViewById(R.id.account_manager_layout);
@@ -92,12 +189,10 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
         setLayout = findViewById(R.id.set_layout);
         realImg = findViewById(R.id.real_img);
         realLayout = findViewById(R.id.real_layout);
-        goAccountImg = findViewById(R.id.go_account_img);
         feedBackLyout = findViewById(R.id.feedback_layout);
         inviteLayout = findViewById(R.id.invite_layout);
-        userHeadImg.setOnClickListener(this);
-        accountLayout.setOnClickListener(this);
-        accountManagerLayout.setOnClickListener(this);
+        Log.d("TAG","mobile1-->"+mobile);
+
         collectLayout.setOnClickListener(this);
         spentLayout.setOnClickListener(this);
         dianLayout.setOnClickListener(this);
@@ -119,12 +214,8 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
                 break;
             case R.id.account_layout:
             case R.id.account_manager_layout:
-                if (!TextUtils.isEmpty(ukey)) {
-                    toActivity(UserInfoActivity.class);
-                } else {
-                    toActivity(LoginActivity.class);
-                    getActivity().finish();
-                }
+                toActivity(LoginActivity.class);
+                getActivity().finish();
                 break;
 //            case R.id.account_layout:
 //            case R.id.account_manager_layout:

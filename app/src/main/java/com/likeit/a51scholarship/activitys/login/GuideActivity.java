@@ -104,7 +104,7 @@ public class GuideActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.guide_tvLogin:
                 Intent intent02 = new Intent(mContext, LoginActivity.class);
-                UtilPreference.saveString(mContext, "isLogin", "2");
+                UtilPreference.saveString(mContext, "isLogin", "0");
                 startActivity(intent02);
                 finish();
                 break;

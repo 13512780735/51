@@ -109,7 +109,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
             }
         }
     };
-    private String  phoneNum, name, passwd;
+    private String phoneNum, name, passwd;
     private String is_first;
 
 
@@ -178,7 +178,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
             @Override
             public void onError(int i, String s) {
                 // ToastUtil.showS(mContext,"EM登录失败");
-                Log.d("TAG","EM登录失败");
+                Log.d("TAG", "EM登录失败");
             }
 
             @Override
@@ -186,6 +186,15 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String name1 = UtilPreference.getStringValue(mContext, "name");
+        String passwd1 = UtilPreference.getStringValue(mContext, "passwd");
+        usernameEt.setText(name1);
+        passwdEt.setText(passwd1);
     }
 
     private void login() {
@@ -263,9 +272,11 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                     if ("1".equals(code)) {
                         JSONObject data = obj.optJSONObject("data");
                         String ukey = data.optString("ukey");
-                       is_first=data.optString("is_first");
+                        is_first = data.optString("is_first");
                         UtilPreference.saveString(mContext, "ukey", ukey);
                         UtilPreference.saveString(mContext, "is_first", is_first);
+                        UtilPreference.saveString(mContext, "name", name);
+                        UtilPreference.saveString(mContext, "passwd", passwd);
                         // toActivity(UploadImgActivity.class);
 
                         runOnUiThread(new Runnable() {

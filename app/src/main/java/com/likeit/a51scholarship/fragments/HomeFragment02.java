@@ -24,10 +24,24 @@ import com.likeit.a51scholarship.activitys.CircleDetailsActivity;
 import com.likeit.a51scholarship.activitys.MainActivity;
 import com.likeit.a51scholarship.activitys.SearchInfoActivity;
 import com.likeit.a51scholarship.adapters.CircleGridViewAdapter;
+import com.likeit.a51scholarship.adapters.CricleListViewAdapter;
+import com.likeit.a51scholarship.adapters.GroupListFilterAdapter;
+import com.likeit.a51scholarship.adapters.SimleAdapter01;
+import com.likeit.a51scholarship.configs.AppConfig;
+import com.likeit.a51scholarship.http.HttpUtil;
+import com.likeit.a51scholarship.model.circle_model.FollowCircleModel;
+import com.likeit.a51scholarship.model.circle_model.GroupListFilterModel;
+import com.likeit.a51scholarship.model.circle_model.GroupListModel;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.utils.ToastUtil;
+import com.likeit.a51scholarship.utils.UtilPreference;
 import com.likeit.a51scholarship.view.MyGridView;
 import com.likeit.a51scholarship.view.MyListview;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,21 +65,19 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
     private CircleGridViewAdapter mGridviewAdapter;
     private List<Map<String, Object>> dataList;
     private List<Map<String, Object>> dataList01;
-    // 图片封装为一个数组
-    private int[] icon = {R.mipmap.icon_01_3x, R.mipmap.icon_02_3x,
-            R.mipmap.icon_03_3x, R.mipmap.icon_04_3x, R.mipmap.icon_05_3x,
-            R.mipmap.icon_06_3x, R.mipmap.icon_07_3x};
-    private String[] iconName = {"留学英国", "留学美国", "留学加拿大", "澳大利亚", "托福考试", "IELTS考试", "CRE考试"};
-    private String[] iconNumber = {"成员：66666", "成员：66666", "成员：66666", "成员：66666", "成员：66666", "成员：66666", "成员：66666"};
-    private String[] iconTopic = {"帖子：66666", "帖子：66666", "帖子：66666", "帖子：66666", "帖子：66666", "帖子：66666", "帖子：66666"};
-    private SimpleAdapter simpleAdapter;
-    private SimpleAdapter simpleAdapter01;
     private PullToRefreshScrollView mPullToRefreshScrollView;
     private Button ll_circle_filter;  //筛选
     private View layoutMenu;
     private ListView popMenuList;
-    private List<String> listMenu;
+    private List<GroupListFilterModel> listMenu;
     private PopupWindow popMenu;
+    String tid;
+    private List<FollowCircleModel> followCircleData;
+    private List<GroupListModel> groupListData;
+    private CricleListViewAdapter mGroupListAdapter;
+    private CircleGridViewAdapter mFollowCircleAdapter;
+    private String gid;
+    private GroupListFilterAdapter adapter;
 
     @Override
     protected int setContentView() {
@@ -74,41 +86,186 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
 
     @Override
     protected void lazyLoad() {
+        tid = "0";
         dialog = new ProgressDialog(getActivity());
         dialog.setMessage("Loading...");
         // 图片封装为一个数组
-
         //circleGridViewData = new ArrayList<CircleGridViewBean>();
-
-        //dialog.show();
+        followCircleData = new ArrayList<FollowCircleModel>();
+        groupListData = new ArrayList<GroupListModel>();
+        listMenu = new ArrayList<GroupListFilterModel>();//筛选数据
+        //获取关注的圈子
+        getFollowCircleData();
+        //获取全部圈子列表
+        getGroupListData();
+        //筛选数据
+        getFilterData();
+        dialog.show();
         initView();
         initListener();
 
     }
 
-    private List<Map<String, Object>> getData() {
-        for (int i = 0; i < icon.length; i++) {
-            Log.d("TAG", "" + icon.length);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("img", icon[i]);
-            map.put("name", iconName[i]);
-            dataList.add(map);
-        }
-        return dataList;
+    private void getFilterData() {
+        String url = AppConfig.LIKEIT_GROUP_GETTYPE;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                try {
+                    JSONObject object = new JSONObject(response);
+                    String code = object.optString("code");
+                    String message = object.optString("message");
+                    if ("1".equals(code)) {
+                        JSONArray data = object.optJSONArray("data");
+                        for (int i = 0; i < data.length(); i++) {
+                            JSONObject obj = data.optJSONObject(i);
+                            GroupListFilterModel mGroupListFilterModel = new GroupListFilterModel();
+                            mGroupListFilterModel.setTid(obj.optString("tid"));
+                            mGroupListFilterModel.setTitle(obj.optString("title"));
+                            listMenu.add(mGroupListFilterModel);
+                        }
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        ToastUtil.showS(getActivity(), message);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Throwable e) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+            }
+        });
+
     }
 
-    private List<Map<String, Object>> getData01() {
-        for (int i = 0; i < icon.length; i++) {
-            Log.d("TAG", "" + icon.length);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("img", icon[i]);
-            map.put("name", iconName[i]);
-            map.put("number", iconNumber[i]);
-            map.put("topic", iconTopic[i]);
-            dataList01.add(map);
-        }
-        return dataList01;
+    @Override
+    public void onResume() {
+        super.onResume();
+        // refresh();
     }
+
+    private void refresh() {
+        //获取关注的圈子
+        mFollowCircleAdapter.addAll(followCircleData, true);
+        getFollowCircleData();
+        mFollowCircleAdapter.notifyDataSetChanged();
+        //获取全部圈子列表
+        mGroupListAdapter.addAll(groupListData, true);
+        getGroupListData();
+        mGroupListAdapter.notifyDataSetChanged();
+
+    }
+
+    private void getFollowCircleData() {
+        Log.d("TAG", "ukey-->" + ukey);
+        String url = AppConfig.LIKEIT_GET_GROUP;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                Log.d("TAG", "关注的圈子-->" + response);
+                try {
+                    JSONObject object = new JSONObject(response);
+                    String code = object.optString("code");
+                    String message = object.optString("message");
+                    if ("1".equals(code)) {
+                        JSONArray data = object.optJSONArray("data");
+                        for (int i = 0; i < data.length(); i++) {
+                            FollowCircleModel mFollowCircleModel = new FollowCircleModel();
+                            JSONObject obj = data.optJSONObject(i);
+                            mFollowCircleModel.setId(obj.optString("id"));
+                            mFollowCircleModel.setTitle(obj.optString("title"));
+                            mFollowCircleModel.setDetail(obj.optString("detail"));
+                            mFollowCircleModel.setLogo(obj.optString("logo"));
+                            mFollowCircleModel.setMember_num(obj.optString("member_num"));
+                            mFollowCircleModel.setPost_num(obj.optString("post_num"));
+                            followCircleData.add(mFollowCircleModel);
+                        }
+                        mFollowCircleAdapter.notifyDataSetChanged();
+                    } else {
+                        ToastUtil.showS(getActivity(), message);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void failed(Throwable e) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    private void getGroupListData() {
+        String url = AppConfig.LIKEIT_GROUP_LIST;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        params.put("tid", tid);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                Log.d("TAG", "圈子列表-->" + response);
+                dialog.dismiss();
+                try {
+                    JSONObject object = new JSONObject(response);
+                    String code = object.optString("code");
+                    String message = object.optString("message");
+                    if ("1".equals(code)) {
+                        JSONArray data = object.optJSONArray("data");
+                        for (int i = 0; i < data.length(); i++) {
+                            GroupListModel mGroupListModel = new GroupListModel();
+                            JSONObject obj = data.optJSONObject(i);
+                            mGroupListModel.setId(obj.optString("id"));
+                            mGroupListModel.setTitle(obj.optString("title"));
+                            mGroupListModel.setDetail(obj.optString("detail"));
+                            mGroupListModel.setLogo(obj.optString("logo"));
+                            mGroupListModel.setMember_num(obj.optString("member_num"));
+                            mGroupListModel.setPost_num(obj.optString("post_num"));
+                            mGroupListModel.setIsfollow(obj.optString("isfollow"));
+                            groupListData.add(mGroupListModel);
+                        }
+                        mGroupListAdapter.notifyDataSetChanged();
+                    } else {
+                        ToastUtil.showS(getActivity(), message);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Throwable e) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dialog.dismiss();
+            }
+        });
+    }
+
 
     private void initView() {
         mPullToRefreshScrollView = findViewById(R.id.ll_circle_scrollview);
@@ -134,13 +291,9 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
         /**
          * 关注的圈子
          */
-        dataList = new ArrayList<Map<String, Object>>();
-        getData();
-        String[] from = {"img", "name"};
-        int[] to = {R.id.cricle_gridview_iv_Avatar, R.id.cricle_gridview_tv_name};
-        simpleAdapter = new SimpleAdapter(getActivity(), dataList, R.layout.cricle_gridview_items, from, to);
-        //配置适配器
-        mGridView.setAdapter(simpleAdapter);
+        mFollowCircleAdapter = new CircleGridViewAdapter(getActivity(), followCircleData);
+        mGridView.setAdapter(mFollowCircleAdapter);
+        mFollowCircleAdapter.notifyDataSetChanged();
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -150,16 +303,10 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
         /**
          * 全部圈子
          */
-        dataList01 = new ArrayList<Map<String, Object>>();
-        getData01();
-        String[] from01 = {"img", "name", "number", "topic"};
-        int[] to01 = {R.id.iv_avatar, R.id.tv_school_name, R.id.tv_school_number, R.id.tv_school_topic};
-        simpleAdapter01 = new SimpleAdapter(getActivity(), dataList01, R.layout.circle_listview_items, from01, to01);
+        mGroupListAdapter = new CricleListViewAdapter(getActivity(), groupListData);
         //配置适配器
-        mListView.setAdapter(simpleAdapter01);
-//        mGridView.setAdapter(mGridviewAdapter);
-//        mGridviewAdapter = new CircleGridViewAdapter(getActivity(), dataList);
-//        mGridviewAdapter.notifyDataSetChanged();
+        mListView.setAdapter(mGroupListAdapter);
+        mGroupListAdapter.notifyDataSetChanged();
         ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -167,7 +314,54 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
                 toActivity(CircleDetailsActivity.class);
             }
         });
+        mGroupListAdapter.setOnEnFollowClickListener(new CricleListViewAdapter.onBtnEnFollowClickListener() {
+            @Override
+            public void onEnFollowClick(int i) {
+                gid = groupListData.get(i).getId();
+                ToastUtil.showS(getActivity(), i + "");
+                refreshList();
+            }
+        });
+        mGroupListAdapter.setOnFollowClickListener(new CricleListViewAdapter.onBtnFollowClickListener() {
+            @Override
+            public void onFollowClick(int i) {
+                gid = groupListData.get(i).getId();
+                ToastUtil.showS(getActivity(), i + "");
+                refreshList();
+            }
+        });
 
+    }
+
+    private void refreshList() {
+        String url = AppConfig.LIKEIT_GROUP_FOLLOW_GROUP;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        params.put("gid", gid);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                try {
+                    JSONObject object = new JSONObject(response);
+                    String code = object.optString("code");
+                    String message = object.optString("message");
+                    if ("1".equals(code)) {
+                        ToastUtil.showS(getActivity(), message);
+                        refresh();
+                        mPullToRefreshScrollView.onRefreshComplete();
+                    } else {
+                        ToastUtil.showS(getActivity(), message);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Throwable e) {
+
+            }
+        });
     }
 
     private void initListener() {
@@ -207,19 +401,14 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
                     R.layout.operationinto_popmenulist, null);
             popMenuList = (ListView) layoutMenu
                     .findViewById(R.id.menulist);
-            listMenu = new ArrayList<String>();
-            listMenu.add("国家交流群组");
-            listMenu.add("学校交流群组");
-            listMenu.add("国家交流群组");
-            listMenu.add("学校交流群组");
-            listMenu.add("全部群组");
-            // 创建ArrayAdapter
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                    getActivity(),
-                    android.R.layout.simple_list_item_1, listMenu);
-            // 绑定适配器
-            popMenuList.setAdapter(arrayAdapter);
 
+            // 创建ArrayAdapter
+            adapter = new GroupListFilterAdapter(
+                    getActivity(),
+                    listMenu);
+            // 绑定适配器
+            popMenuList.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
             // 点击listview中item的处理
             popMenuList
                     .setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -228,20 +417,21 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
                         public void onItemClick(AdapterView<?> parent,
                                                 View view, int position, long id) {
                             // 改变顶部对应TextView值
-                            String strItem = listMenu.get(position);
+                            tid = listMenu.get(position).getTid();
                             //tvGender.setText(strItem);
-                            ToastUtil.showS(getActivity(), strItem);
+                            //ToastUtil.showS(getActivity(), strItem);
                             // 隐藏弹出窗口
                             if (popMenu != null && popMenu.isShowing()) {
                                 popMenu.dismiss();
                             }
+                            refresh();
                         }
                     });
 
             // 创建弹出窗口
             // 窗口内容为layoutLeft，里面包含一个ListView
             // 窗口宽度跟tvLeft一样
-            popMenu = new PopupWindow(layoutMenu, ll_circle_filter.getWidth() * 3/2,
+            popMenu = new PopupWindow(layoutMenu, ll_circle_filter.getWidth() * 3 / 2,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             popMenu.setBackgroundDrawable(getResources().getDrawable(
                     R.drawable.filter_bg));

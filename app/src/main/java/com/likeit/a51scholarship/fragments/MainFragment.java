@@ -115,7 +115,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         SchoolData = new ArrayList<HomeItemSchoolBean>();
         NewsData = new ArrayList<HomeItemNewsBean>();
         is_first = UtilPreference.getStringValue(getActivity(),"is_first");
-        Log.d("TAG", "key-->" + is_first);
+        Log.d("TAG", "is_first-->" + is_first);
         initData();
         dialog.show();
         initView();
@@ -145,7 +145,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
-                // Log.d("TAG", "Home-->" + response);
+              Log.d("TAG", "Home-->" + response);
                 dialog.dismiss();
                 try {
                     JSONObject obj = new JSONObject(response);
@@ -231,7 +231,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
             @Override
             public void success(String response) {
                 dialog.dismiss();
-                // Log.d("TAG", "HomeSchool-->" + response);
+                 Log.d("TAG", "HomeSchool-->" + response);
                 try {
                     JSONObject obj = new JSONObject(response);
                     String code = obj.optString("code");
