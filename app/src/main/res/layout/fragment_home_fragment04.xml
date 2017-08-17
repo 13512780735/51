@@ -8,21 +8,22 @@
     <!-- TODO: Update blank fragment layout -->
     <include layout="@layout/layout_header_with_back_img_switchbtn"></include>
 
-    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
-        android:id="@+id/ll_message_scrollview"
-        android:layout_width="match_parent"
-        android:layout_marginTop="70dip"
-        android:layout_height="match_parent"
-        android:divider="@color/smssdk_white"
-        android:dividerHeight="5dp"
-        android:dividerPadding="2dip">
-
-        <com.likeit.a51scholarship.view.MyListview
+        <com.likeit.a51scholarship.view.NoScrollViewPager
+            android:id="@+id/message_viewpager"
+            android:layout_width="match_parent"
+            android:layout_marginTop="50dip"
+            android:layout_height="match_parent"
+            android:divider="@color/smssdk_white"
+            android:background="@color/defualt_window_background"
+            android:layout_weight="1"></com.likeit.a51scholarship.view.NoScrollViewPager>
+   <!--     <com.likeit.a51scholarship.view.MyListview
             android:id="@+id/ll_message_listview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.likeit.a51scholarship.view.MyListview>
+            android:layout_height="match_parent">
 
-    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+        </com.likeit.a51scholarship.view.MyListview>-->
+
 
     <RelativeLayout
         android:layout_width="match_parent"

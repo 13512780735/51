@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\as\\51\\easeui\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w820dp-v13\\values-w820dp-v13.xml",
+        "outputFile": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w820dp-v13\\values-w820dp-v13.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 108
                 },
                 "from": {
-                    "file": "D:\\as\\51\\easeui\\src\\main\\res\\values-w820dp\\ease_dimens.xml",
+                    "file": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\src\\main\\res\\values-w820dp\\ease_dimens.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,

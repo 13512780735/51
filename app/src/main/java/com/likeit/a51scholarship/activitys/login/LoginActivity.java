@@ -18,6 +18,9 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.activitys.MainActivity;
+import com.likeit.a51scholarship.app.MyApplication;
+import com.likeit.a51scholarship.chat.message.db.DemoDBManager;
+import com.likeit.a51scholarship.chat.message.widget.DemoHelper;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
@@ -109,7 +112,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
             }
         }
     };
-    private String phoneNum, name, passwd;
+    private String phoneNum, currentUsername, passwd;
     private String is_first;
 
 
@@ -168,10 +171,16 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
     }
 
     private void signin() {
-        EMClient.getInstance().login(name, passwd, new EMCallBack() {
+        EMClient.getInstance().login(currentUsername, passwd, new EMCallBack() {
             @Override
             public void onSuccess() {
                 Log.d("TAG", "EM登录成功");
+                EMClient.getInstance().groupManager().loadAllGroups();
+                EMClient.getInstance().chatManager().loadAllConversations();
+                // update current user's display name for APNs
+                boolean updatenick = EMClient.getInstance().pushManager().updatePushNickname(
+                        MyApplication.currentUserNick.trim());
+                DemoHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
                 toActivityFinish(MainActivity.class);
             }
 
@@ -199,10 +208,10 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
 
     private void login() {
         phoneNum = phoneEt.getText().toString().trim();
-        name = usernameEt.getText().toString().trim();
+        currentUsername = usernameEt.getText().toString().trim();
         passwd = passwdEt.getText().toString().trim();
         if (account_login) {
-            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(passwd)) {
+            if (TextUtils.isEmpty(currentUsername) || TextUtils.isEmpty(passwd)) {
                 showToast("请填写账号或密码");
                 return;
             }
@@ -258,7 +267,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
     private void Login() {
         String url = AppConfig.LIKEIT_LOGIN;
         RequestParams params = new RequestParams();
-        params.put("mobile", name);
+        params.put("mobile", currentUsername);
         params.put("password", passwd);
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
@@ -275,8 +284,13 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                         is_first = data.optString("is_first");
                         UtilPreference.saveString(mContext, "ukey", ukey);
                         UtilPreference.saveString(mContext, "is_first", is_first);
-                        UtilPreference.saveString(mContext, "name", name);
+                        UtilPreference.saveString(mContext, "name", currentUsername);
                         UtilPreference.saveString(mContext, "passwd", passwd);
+                        DemoDBManager.getInstance().closeDB();
+
+                        // reset current user name before login
+                        DemoHelper.getInstance().setCurrentUserName(currentUsername);
+
                         // toActivity(UploadImgActivity.class);
 
                         runOnUiThread(new Runnable() {

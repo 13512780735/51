@@ -24,50 +24,43 @@
         android:layout_width="120dip"
         android:layout_height="25dip"
         android:layout_centerInParent="true"
-        android:background="@drawable/switchbtn_blue_bg"
         android:orientation="horizontal">
+        <RadioGroup
+            android:id="@+id/message_rgTools"
+            android:layout_width="wrap_content"
+            android:layout_height="24dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/switchbtn_blue_bg"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/bt_head_chat"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/switchbtn01_blue_bg"
-            android:text="聊天"
-            android:textColor="@color/white"
+            <RadioButton
+                android:id="@+id/bt_head_chat"
+                android:layout_width="62dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/answers_tab_selector"
+                android:button="@null"
+                android:checked="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="聊天"
+                android:textColor="@drawable/answeers_font_selector"
+                android:textSize="14sp" />
 
-            android:textSize="14sp" />
+            <RadioButton
+                android:id="@+id/bt_head_notice"
+                android:layout_width="62dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/answers_tab_selector"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:text="通知"
+                android:textColor="@drawable/answeers_font_selector"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/tv_head_chat"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="聊天"
-            android:textColor="@color/login_btn_bg_color"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/bt_head_notice"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/switchbtn01_blue_bg"
-            android:text="通知"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/tv_head_notice"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="通知"
-            android:textColor="@color/login_btn_bg_color" />
+        </RadioGroup>
     </LinearLayout>
 
     <ImageView

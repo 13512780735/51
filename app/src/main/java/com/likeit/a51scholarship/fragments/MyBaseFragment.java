@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.hyphenate.easeui.EaseUI;
 import com.likeit.a51scholarship.app.MyApplication;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.utils.UtilPreference;
@@ -91,6 +92,12 @@ public abstract class MyBaseFragment extends Fragment {
         isLoad = false;
 
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        EaseUI.getInstance().getNotifier().reset();
+//    }
 
     protected void showToast(String message) {
         if (!TextUtils.isEmpty(message)) {

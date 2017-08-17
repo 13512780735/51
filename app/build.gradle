@@ -70,7 +70,19 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
 }
+
+
+
+
+
 
 
 dependencies {
@@ -104,6 +116,8 @@ dependencies {
     compile files('libs/MobTools-2017.0801.1522.jar')
     compile files('libs/MobCommons-2017.0801.1522.jar')
     compile files('libs/MobLogCollector.jar')
+    compile files('libs/umeng-analytics-v5.2.4.jar')
+    compile files('libs/umeng-update-v2.6.0.1.jar')
     compile 'com.jaydenxiao:ExpandableTextView:1.0.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -130,5 +144,7 @@ dependencies {
     compile 'cn.aigestudio.datepicker:DatePicker:2.2.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile project(path: ':easeui')
+    compile 'com.parse:parse-android:1.13.1'
+    compile project(':easeui')
+    compile project(':redpacketlibrary')
 }

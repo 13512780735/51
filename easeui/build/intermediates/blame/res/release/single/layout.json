@@ -12,20 +12,20 @@
         "source": "D:\\as\\51\\easeui\\src\\main\\res\\layout\\ease_row_expression.xml"
     },
     {
-        "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\ease_widget_chat_input_menu.xml",
-        "source": "D:\\as\\51\\easeui\\src\\main\\res\\layout\\ease_widget_chat_input_menu.xml"
-    },
-    {
-        "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\ease_row_received_message.xml",
-        "source": "D:\\as\\51\\easeui\\src\\main\\res\\layout\\ease_row_received_message.xml"
+        "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_singlechoice_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\layout\\select_dialog_singlechoice_material.xml"
     },
     {
         "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media_narrow.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\layout\\notification_template_big_media_narrow.xml"
     },
     {
-        "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_singlechoice_material.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\layout\\select_dialog_singlechoice_material.xml"
+        "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\ease_row_received_message.xml",
+        "source": "D:\\as\\51\\easeui\\src\\main\\res\\layout\\ease_row_received_message.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\ease_widget_chat_input_menu.xml",
+        "source": "D:\\as\\51\\easeui\\src\\main\\res\\layout\\ease_widget_chat_input_menu.xml"
     },
     {
         "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\abc_search_view.xml",

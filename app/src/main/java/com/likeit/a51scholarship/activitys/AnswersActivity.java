@@ -112,5 +112,5 @@ public class AnswersActivity extends FragmentActivity implements ViewPager.OnPag
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
         mViewPager.setCurrentItem(group.indexOfChild(group.findViewById(checkedId)), false);
-    }
+}
 }

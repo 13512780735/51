@@ -27,5 +27,8 @@
     <string name="share_qzone">调用QZone分享</string>
 
     <string name="share_bigimage">分享大图</string>
-
+    <!--聊天-->
+    <string name="emojicon_test_name">Test</string>
+    <string name="at_your_in_group">%s @ you in group chat</string>
+    <string name="msg_recall_by_user">This message has been recalled by %1$s</string>
 </resources>
