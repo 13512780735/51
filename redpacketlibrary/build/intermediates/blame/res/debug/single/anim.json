@@ -1,19 +1,35 @@
 [
     {
-        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\push_bottom_out.xml",
-        "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\push_bottom_out.xml"
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\slide_out_to_right.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\slide_out_to_right.xml"
     },
     {
         "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\slide_out_to_right.xml",
         "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\slide_out_to_right.xml"
     },
     {
-        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\hold.xml",
-        "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\hold.xml"
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_slide_in_bottom.xml"
     },
     {
         "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\push_top_in2.xml",
         "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\push_top_in2.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\push_top_out2.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\push_top_out2.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\push_top_in.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\push_top_in.xml"
     },
     {
         "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_enter.xml",
@@ -28,32 +44,28 @@
         "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\voice_to_icon.xml"
     },
     {
-        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_fade_out.xml"
-    },
-    {
-        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_popup_exit.xml"
-    },
-    {
         "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\slide_out_to_left.xml",
         "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\slide_out_to_left.xml"
     },
     {
-        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\head_in.xml",
-        "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\head_in.xml"
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\slide_out_to_left.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\slide_out_to_left.xml"
     },
     {
-        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_slide_in_bottom.xml"
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_popup_enter.xml"
     },
     {
-        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_fade_in.xml"
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\slide_in_from_left.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\slide_in_from_left.xml"
     },
     {
-        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_slide_out_bottom.xml"
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
     },
     {
         "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\slide_in_from_left.xml",
@@ -64,16 +76,12 @@
         "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\fade_out.xml"
     },
     {
-        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\push_top_in.xml",
-        "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\push_top_in.xml"
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\push_top_out.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\push_top_out.xml"
     },
     {
         "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
-    },
-    {
-        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_slide_out_top.xml"
     },
     {
         "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\slide_in_from_right.xml",
@@ -82,6 +90,10 @@
     {
         "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\fade_in.xml",
         "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\fade_in.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\head_in.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\head_in.xml"
     },
     {
         "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\head_out.xml",
@@ -96,12 +108,108 @@
         "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\push_top_out.xml"
     },
     {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\fade_out.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\fade_out.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\voice_to_icon.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\voice_to_icon.xml"
+    },
+    {
         "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\push_top_out2.xml",
         "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\push_top_out2.xml"
     },
     {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\slide_in_from_right.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\slide_in_from_right.xml"
+    },
+    {
         "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\push_bottom_in.xml",
         "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\push_bottom_in.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\push_bottom_out.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\push_bottom_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\hold.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\hold.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\fade_in.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\fade_in.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\hold.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\hold.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\head_in.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\head_in.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\push_top_in2.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\push_top_in2.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\push_bottom_out.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\push_bottom_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\head_out.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\head_out.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\push_top_in.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\easeui\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\push_top_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\push_bottom_in.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\push_bottom_in.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\voice_from_icon.xml",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\anim\\voice_from_icon.xml"
     },
     {
         "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\anim\\voice_from_icon.xml",

@@ -3691,17 +3691,11 @@ containing a value of this type.
         public static int DialogTitleStyle=0x7f0700cb;
         public static int DividerStyle=0x7f0700cc;
         public static int DividerStyleNoHead=0x7f0700cd;
-        /**  模糊 
-         */
         public static int HeadScale=0x7f0700ce;
         public static int LoadingProgressStyle=0x7f0700cf;
         public static int MyAlertDialog=0x7f0700d0;
         public static int MyDialogStyle=0x7f0700d1;
-        /**  模糊 
-         */
         public static int MyDialogStyleBottom=0x7f0700d2;
-        /**  模糊 
-         */
         public static int MyDialogStyleTop=0x7f0700d3;
         public static int Platform_AppCompat=0x7f07001a;
         public static int Platform_AppCompat_Light=0x7f07001b;

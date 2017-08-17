@@ -13,6 +13,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.activitys.MainActivity;
 import com.likeit.a51scholarship.activitys.SearchInfoActivity;
+import com.likeit.a51scholarship.chat.message.ui.GroupsActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,6 +88,7 @@ public class HomeFragment03 extends BaseFragment implements View.OnClickListener
                 mainActivity.refresh();
                 break;
             case R.id.ll_find_grounp:
+                toActivity(GroupsActivity.class);
                 break;
             case R.id.ll_find_new_friend:
                 break;

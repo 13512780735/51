@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Users\Administrator\Desktop\easemob-sdk-3.3.4_r1\examples\ChatDemoUI3.0\redpacketlibrary\src\main\shaders"/></dataSet><dataSet config="debug"><source path="C:\Users\Administrator\Desktop\easemob-sdk-3.3.4_r1\examples\ChatDemoUI3.0\redpacketlibrary\build-types\debug\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\as\51\redpacketlibrary\src\main\shaders"/></dataSet><dataSet config="debug"><source path="D:\as\51\redpacketlibrary\build-types\debug\shaders"/></dataSet></merger>

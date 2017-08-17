@@ -4,6 +4,14 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_dark.xml"
     },
     {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_dark.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_dark.xml"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_light.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_light.xml"
+    },
+    {
         "merged": "C:\\Users\\Administrator\\Desktop\\easemob-sdk-3.3.4_r1\\examples\\ChatDemoUI3.0\\redpacketlibrary\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_light.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_light.xml"
     }
