@@ -54,14 +54,17 @@
     <style name="schoolListcheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/school_details_list_selector</item>
     </style>
+
     <style name="AnimationRightFade">
         <item name="android:windowEnterAnimation">@anim/in_righttoleft</item>
         <item name="android:windowExitAnimation">@anim/out_lefttoright</item>
     </style>
+
     <style name="PopupWindowAnimation">
         <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
         <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
     </style>
+
     <style name="AnimTop" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/push_top_in</item>
         <item name="android:windowExitAnimation">@anim/push_top_out</item>
@@ -95,4 +98,8 @@
         <item name="android:windowEnterAnimation">@anim/popup_enter_up</item>
         <item name="android:windowExitAnimation">@anim/popup_out_down</item>
     </style>
+
+    <style name="MyAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="MyAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

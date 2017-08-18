@@ -1,6 +1,7 @@
 package com.likeit.a51scholarship.fragments;
 
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +14,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.activitys.MainActivity;
 import com.likeit.a51scholarship.activitys.SearchInfoActivity;
+import com.likeit.a51scholarship.chat.message.ui.ChatActivity;
 import com.likeit.a51scholarship.chat.message.ui.GroupsActivity;
+import com.likeit.a51scholarship.chat.message.widget.Constant;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,6 +96,11 @@ public class HomeFragment03 extends BaseFragment implements View.OnClickListener
             case R.id.ll_find_new_friend:
                 break;
             case R.id.ll_find_friend:
+//                Intent intent = new Intent(getActivity(), ChatActivity.class);
+//                // it is group chat
+//                intent.putExtra("chatType", Constant.CHATTYPE_GROUP);
+//                intent.putExtra("userId", groupAdapter.getItem(position - 3).getGroupId());
+//                startActivityForResult(intent, 0);
                 break;
             case R.id.ll_find_kefu:
                 break;

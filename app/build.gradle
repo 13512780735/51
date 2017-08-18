@@ -29,7 +29,25 @@ android {
             dirs 'libs'
         }
     }
-/*    buildTypes {
+    // 签名配置
+    signingConfigs {
+
+        release {
+            storeFile file("D:\\51key.jks")
+            storePassword "123456"
+            keyAlias "key"
+            keyPassword "123456"
+
+        }
+
+        debug {
+            storeFile file("D:\\51key.jks")
+            storePassword "123456"
+            keyAlias "key"
+            keyPassword "123456"
+        }
+    }
+    buildTypes {
         debug {
             signingConfig signingConfigs.debug
             ndk {
@@ -45,22 +63,6 @@ android {
             }
         }
     }
-
-    sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['src']
-            resources.srcDirs = ['src']
-            aidl.srcDirs = ['src']
-            renderscript.srcDirs = ['src']
-            res.srcDirs = ['res']
-            assets.srcDirs = ['assets']
-        }
-
-        // Move the tests to tests/java, tests/res, etc...
-        instrumentTest.setRoot('tests')
-        debug.setRoot('build-types/debug')
-    }*/
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_7
     }
@@ -69,6 +71,9 @@ android {
             // 设置Jni so文件路径 如果有jniLibs目录就不需要设置，好像手动创建的 jniLibs目录无效
             jniLibs.srcDirs = ['libs']
         }
+        instrumentTest.setRoot('tests')
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
     }
     lintOptions {
         checkReleaseBuilds false
@@ -78,15 +83,6 @@ android {
     }
 
 }
-
-
-
-
-
-
-
-
-
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')

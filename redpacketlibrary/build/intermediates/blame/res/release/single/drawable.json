@@ -40,10 +40,6 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\drawable\\abc_dialog_material_background.xml"
     },
     {
-        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\release\\drawable\\ease_chat_location_selector.xml",
-        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\drawable\\ease_chat_location_selector.xml"
-    },
-    {
         "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_check_material.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\drawable\\abc_btn_check_material.xml"
     },

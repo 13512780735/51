@@ -4,14 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="#f2f0eb" >
+    android:background="@color/common_bg" >
 
     <com.hyphenate.easeui.widget.EaseTitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        hyphenate:titleBarLeftImage="@drawable/ease_mm_title_back" />
-
+        android:layout_marginTop="20dip"
+        android:layout_height="50dip"
+        hyphenate:titleBarLeftImage="@drawable/em_mm_title_back" />
+<View
+    android:layout_width="match_parent"
+    android:layout_below="@+id/title_bar"
+    android:layout_height="1dip"
+    android:background="@color/divider_list"></View>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -184,10 +184,6 @@
         "source": "D:\\as\\51\\easeui\\src\\main\\res\\drawable\\ease_btn_cancel_bj.xml"
     },
     {
-        "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\drawable\\ease_chat_location_selector.xml",
-        "source": "D:\\as\\51\\easeui\\src\\main\\res\\drawable\\ease_chat_location_selector.xml"
-    },
-    {
         "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\drawable\\ease_search_clear.xml",
         "source": "D:\\as\\51\\easeui\\src\\main\\res\\drawable\\ease_search_clear.xml"
     },

@@ -111,7 +111,7 @@
     <string name="Whether_to_send">是否发送？</string>
     <string name="add_friend">添加好友</string>
     <string name="add_public_chat_room">添加聊天室</string>
-    <string name="add_public_group_chat">添加公开群</string>
+    <string name="add_public_group_chat">添加新群</string>
     <string name="address_book">通讯录</string>
     <string name="agree">同意</string>
     <string name="all_members">所有成员</string>
@@ -124,6 +124,7 @@
     <string name="attach_take_pic">拍照</string>
     <string name="attach_video">视频</string>
     <string name="attach_video_call">视频通话</string>
+    <string name="attach_voice">语音</string>
     <string name="attach_voice_call">语音电话</string>
     <string name="back">返回</string>
     <string name="be_removing">正在移出……</string>

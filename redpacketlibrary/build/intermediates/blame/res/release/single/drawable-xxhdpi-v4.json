@@ -44,6 +44,10 @@
         "source": "D:\\as\\51\\redpacketlibrary\\res\\drawable-xxhdpi\\em_red_packet_ack_message_icon.png"
     },
     {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\icon_back.png",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\drawable-xxhdpi-v4\\icon_back.png"
+    },
+    {
         "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\em_red_packet_chatfrom_bg_focused.9.png",
         "source": "D:\\as\\51\\redpacketlibrary\\res\\drawable-xxhdpi\\em_red_packet_chatfrom_bg_focused.9.png"
     },
@@ -214,6 +218,10 @@
     {
         "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\rp_pop_bg.9.png",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\1c047e3613c74ba58c729f9cfcee5640ba6851e1\\output\\res\\drawable-xxhdpi-v4\\rp_pop_bg.9.png"
+    },
+    {
+        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\em_mm_title_back.png",
+        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\drawable-xxhdpi-v4\\em_mm_title_back.png"
     },
     {
         "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_textfield_default_mtrl_alpha.9.png",

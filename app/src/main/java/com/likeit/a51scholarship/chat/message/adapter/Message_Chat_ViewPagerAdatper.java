@@ -4,9 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.likeit.a51scholarship.activitys.answersfragment.AnswersFragment01;
-import com.likeit.a51scholarship.activitys.answersfragment.AnswersFragment02;
-import com.likeit.a51scholarship.chat.message.message_chat_list.ChatFragment;
+import com.likeit.a51scholarship.chat.message.message_chat_list.ConversationFragment;
 import com.likeit.a51scholarship.chat.message.message_chat_list.MessageFragment;
 
 import java.util.ArrayList;
@@ -21,7 +19,7 @@ public class Message_Chat_ViewPagerAdatper extends FragmentPagerAdapter {
     public Message_Chat_ViewPagerAdatper(FragmentManager fm) {
         super(fm);
         frList = new ArrayList<Fragment>();
-        frList.add(new ChatFragment());
+        frList.add(new ConversationFragment());
         frList.add(new MessageFragment());
 
 

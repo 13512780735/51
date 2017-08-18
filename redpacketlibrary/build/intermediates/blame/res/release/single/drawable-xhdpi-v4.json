@@ -12,10 +12,6 @@
         "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\ease_new_friends_icon.png"
     },
     {
-        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\ease_chat_location_pressed.png",
-        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\ease_chat_location_pressed.png"
-    },
-    {
         "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\drawable-xhdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
     },
@@ -202,10 +198,6 @@
     {
         "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\abc_list_divider_mtrl_alpha.9.png",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\drawable-xhdpi-v4\\abc_list_divider_mtrl_alpha.9.png"
-    },
-    {
-        "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\ease_chat_location_normal.png",
-        "source": "D:\\as\\51\\easeui\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\ease_chat_location_normal.png"
     },
     {
         "merged": "D:\\as\\51\\redpacketlibrary\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\ease_chatting_biaoqing_btn_enable.png",

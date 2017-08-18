@@ -12,6 +12,7 @@
     <string name="attach_take_pic">拍照</string>
     <string name="attach_location">位置</string>
     <string name="attach_video">视频</string>
+    <string name="attach_voice">语音</string>
     <string name="attach_file">文件</string>
     <string name="attach_voice_call">语音电话</string>
     <string name="attach_video_call">视频通话</string>
@@ -91,7 +92,7 @@
     <string name="Not_Set">未设置</string>
     <string name="Upload_the_log">上传日志中</string>
     <string name="The_new_group_chat">新建群组</string>
-    <string name="add_public_group_chat">添加公开群</string>
+    <string name="add_public_group_chat">添加新群</string>
     <string name="add_public_chat_room">添加聊天室</string>
     <string name="group_name">群聊名称</string>
     <string name="Group_chat_profile">群聊简介</string>

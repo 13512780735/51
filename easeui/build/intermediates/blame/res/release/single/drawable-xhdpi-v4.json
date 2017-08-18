@@ -88,20 +88,12 @@
         "source": "D:\\as\\51\\easeui\\src\\main\\res\\drawable-xhdpi\\ease_chat_image_normal.png"
     },
     {
-        "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\ease_chat_location_normal.png",
-        "source": "D:\\as\\51\\easeui\\src\\main\\res\\drawable-xhdpi\\ease_chat_location_normal.png"
-    },
-    {
         "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\ease_blue_add.png",
         "source": "D:\\as\\51\\easeui\\src\\main\\res\\drawable-xhdpi\\ease_blue_add.png"
     },
     {
         "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\ease_chat_press_speak_btn_normal.9.png",
         "source": "D:\\as\\51\\easeui\\src\\main\\res\\drawable-xhdpi\\ease_chat_press_speak_btn_normal.9.png"
-    },
-    {
-        "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\ease_chat_location_pressed.png",
-        "source": "D:\\as\\51\\easeui\\src\\main\\res\\drawable-xhdpi\\ease_chat_location_pressed.png"
     },
     {
         "merged": "D:\\as\\51\\easeui\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\ease_chat_send_btn_pressed.9.png",

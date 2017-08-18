@@ -62,7 +62,20 @@
     <uses-permission android:name="com.hyphenate.chatuidemo.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.hyphenate.chatuidemo.permission.MIPUSH_RECEIVE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
+    <permission
+        android:name="com.hyphenate.chatuidemo.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.hyphenate.chatuidemo.permission.C2D_MESSAGE" />
+
+    <permission
+        android:name="com.hyphenate.chatuidemo.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signatureOrSystem" />
+
+    <uses-permission android:name="com.hyphenate.chatuidemo.permission.MIPUSH_RECEIVE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -185,7 +198,7 @@
         <!-- 设置环信应用的appkey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="yiyuan558#quanzi" />
+            android:value="easemob-demo#chatdemoui" />
         <!-- 声明sdk所需的service -->
         <service
             android:name="com.hyphenate.chat.EMChatService"
@@ -463,24 +476,44 @@
             android:name=".dateutils.DateSelectActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
-        <activity android:name=".chat.message.ui.VideoCallActivity"
+        <activity
+            android:name=".chat.message.ui.VideoCallActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/MyAppTheme"/>
-        <activity android:name=".chat.message.ui.VoiceCallActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/horizontal_slide"/>
+        <activity
+            android:name=".chat.message.ui.VoiceCallActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyAppTheme"/>
-        <activity android:name=".chat.message.ui.ChatActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/nornal_style"/>
+        <activity
+            android:name=".chat.message.ui.ChatActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyAppTheme"/>
-        <activity android:name=".chat.message.ui.GroupsActivity"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".chat.message.ui.GroupsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyAppTheme"/>
-        <activity android:name=".chat.message.ui.NewGroupActivity"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".chat.message.ui.NewGroupActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyAppTheme"/>
-        <activity android:name=".chat.message.ui.PublicGroupsActivity"
+            android:theme="@style/MyAppTheme" />
+        <activity
+            android:name=".chat.message.ui.PublicGroupsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyAppTheme"></activity>
+            android:theme="@style/MyAppTheme" />
+        <activity android:name=".chat.message.ui.GroupPickContactsActivity" />
+        <activity android:name=".chat.message.ui.GroupSimpleDetailActivity" />
+        <activity android:name=".chat.message.ui.PublicGroupsSeachActivity" />
+        <activity android:name=".chat.message.ui.PickAtUserActivity" />
+        <activity android:name=".chat.message.ui.ContextMenuActivity" />
+        <activity android:name=".chat.message.ui.ForwardMessageActivity" />
+        <activity android:name=".chat.message.ui.GroupDetailsActivity" />
+        <activity android:name=".chat.message.ui.ChatRoomDetailsActivity" />
+        <activity android:name=".chat.message.ui.ImageGridActivity" />
+        <activity android:name=".chat.message.ui.UserProfileActivity" />
+        <activity android:name=".chat.message.ui.CallActivity"></activity>
     </application>
 
 </manifest>
