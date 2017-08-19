@@ -63,19 +63,8 @@
     <uses-permission android:name="com.hyphenate.chatuidemo.permission.MIPUSH_RECEIVE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
-    <permission
-        android:name="com.hyphenate.chatuidemo.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-
-    <uses-permission android:name="com.hyphenate.chatuidemo.permission.C2D_MESSAGE" />
-
-    <permission
-        android:name="com.hyphenate.chatuidemo.permission.MIPUSH_RECEIVE"
-        android:protectionLevel="signatureOrSystem" />
-
-    <uses-permission android:name="com.hyphenate.chatuidemo.permission.MIPUSH_RECEIVE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -195,10 +184,11 @@
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- my-key:yiyuan558#quanzi -->
+        <!-- ease-key:easemob-demo#chatdemoui -->
         <!-- 设置环信应用的appkey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="easemob-demo#chatdemoui" />
+            android:value="yiyuan558#quanzi" />
         <!-- 声明sdk所需的service -->
         <service
             android:name="com.hyphenate.chat.EMChatService"
@@ -479,14 +469,14 @@
         <activity
             android:name=".chat.message.ui.VideoCallActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            android:theme="@style/horizontal_slide"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
         <activity
             android:name=".chat.message.ui.VoiceCallActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            android:theme="@style/nornal_style"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/nornal_style" />
         <activity
             android:name=".chat.message.ui.ChatActivity"
             android:screenOrientation="portrait"
@@ -513,7 +503,9 @@
         <activity android:name=".chat.message.ui.ChatRoomDetailsActivity" />
         <activity android:name=".chat.message.ui.ImageGridActivity" />
         <activity android:name=".chat.message.ui.UserProfileActivity" />
-        <activity android:name=".chat.message.ui.CallActivity"></activity>
+        <activity android:name=".chat.message.ui.CallActivity" />
+        <activity android:name=".chat.message.ui.FriendActivity" />
+        <activity android:name=".chat.message.ui.AddContactActivity"></activity>
     </application>
 
 </manifest>

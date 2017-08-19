@@ -93,6 +93,7 @@ public class EaseContactListFragment extends EaseBaseFragment {
         //search
         query = (EditText) getView().findViewById(R.id.query);
         clearSearch = (ImageButton) getView().findViewById(R.id.search_clear);
+        query.setVisibility(View.GONE);
     }
 
     @Override

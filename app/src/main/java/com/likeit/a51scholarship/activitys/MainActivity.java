@@ -57,6 +57,7 @@ public class MainActivity extends SlidingFragmentActivity implements ViewPager.O
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_main);
+        MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
         initView();
         initMenu();

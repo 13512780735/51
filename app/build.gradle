@@ -35,7 +35,7 @@ android {
         release {
             storeFile file("D:\\51key.jks")
             storePassword "123456"
-            keyAlias "key"
+            keyAlias "key0"
             keyPassword "123456"
 
         }
@@ -43,7 +43,7 @@ android {
         debug {
             storeFile file("D:\\51key.jks")
             storePassword "123456"
-            keyAlias "key"
+            keyAlias "key0"
             keyPassword "123456"
         }
     }
@@ -84,12 +84,15 @@ android {
 
 }
 
+
+
+
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile files('libs/SMSSDK-1.1.0.jar')
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
 
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0

@@ -2,17 +2,21 @@ package com.likeit.a51scholarship.activitys.my_center;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.activitys.Container;
 import com.likeit.a51scholarship.activitys.login.GuideActivity;
+import com.likeit.a51scholarship.chat.message.widget.DemoHelper;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.view.CircleImageView;
 
@@ -41,6 +45,7 @@ public class EditorCenterActivity extends Container {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor_center);
+        MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
         initView();
     }
@@ -64,13 +69,49 @@ public class EditorCenterActivity extends Container {
                 showDialog(DATE_DIALOG);
                 break;
             case R.id.editorCenter_iv_logout:
+                logout();
                 EMClient.getInstance().logout(true);
                 Log.d("TAG","EM成功退出");
                 // MyActivityManager.getInstance().logout(mContext);
                 //MyActivityManager.getInstance().appExit(mContext);
-                toActivityFinish(GuideActivity.class);
+//                toActivityFinish(GuideActivity.class);
+//                MyActivityManager.getInstance().finishAllActivity();
                 break;
         }
+    }
+
+    private void logout() {
+        DemoHelper.getInstance().logout(true,new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+               runOnUiThread(new Runnable() {
+                    public void run() {
+                        // show login screen
+                        toActivityFinish(GuideActivity.class);
+                        MyActivityManager.getInstance().finishAllActivity();
+
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        Toast.makeText(mContext, "unbind devicetokens failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     @Override
