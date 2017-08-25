@@ -2,6 +2,7 @@ package com.likeit.a51scholarship.fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.activitys.login.LoginActivity;
 import com.likeit.a51scholarship.activitys.my_center.AboutActivity;
@@ -26,6 +28,8 @@ import com.likeit.a51scholarship.activitys.my_center.UserInfoActivity;
 import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.event.MainMessageEvent;
 import com.likeit.a51scholarship.http.HttpUtil;
+import com.likeit.a51scholarship.model.UserInfo;
+import com.likeit.a51scholarship.model.UserInfoBean;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.utils.UtilPreference;
 import com.loopj.android.http.RequestParams;
@@ -75,6 +79,7 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
     private ProgressDialog dialog;
     //数据获取
     private String nickName, headImg, mobile;
+    private UserInfoBean userInfobean;
 
 
     @Override
@@ -114,16 +119,14 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
                     JSONObject object = new JSONObject(response);
                     String code = object.optString("code");
                     String message = object.optString("message");
-                    JSONObject data=object.optJSONObject("data");
-                    Log.d("TAG",data.toString());
+                    JSONObject data = object.optJSONObject("data");
+                    Log.d("TAG", data.toString());
                     if ("1".equals(code)) {
-                        nickName = data.optString("nickname");
-                        headImg = data.optString("headimg");
-                        mobile = data.optString("mobile");
-                        Log.d("TAG","mobile3-->"+mobile);
+                        userInfobean = JSON.parseObject(String.valueOf(data), UserInfoBean.class);
+                        Log.d("TAG", "mobile3-->" + userInfobean.getNickname());
                         userInfo();
-                    }else{
-                        ToastUtil.showS(getActivity(),message);
+                    } else {
+                        ToastUtil.showS(getActivity(), message);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -151,10 +154,10 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
             realImg.setVisibility(View.VISIBLE);
             accountTv.setVisibility(View.GONE);
             accountTv01.setVisibility(View.VISIBLE);
-            Log.d("TAG","mobile2-->"+mobile);
-            accountTv01.setText(mobile);
-            //ImageLoader.getInstance().displayImage("", userHeadImg);
-            userHeadImg.setImageResource(R.mipmap.icon_03_3x);
+            Log.d("TAG", "mobile2-->" + userInfobean.getMobile());
+            accountTv01.setText(userInfobean.getMobile());
+            ImageLoader.getInstance().displayImage(userInfobean.getHeadimg(), userHeadImg);
+            //userHeadImg.setImageResource(R.mipmap.icon_03_3x);
             userHeadImg.setOnClickListener(this);
         } else {
             accountManagerLayout.setOnClickListener(this);
@@ -191,7 +194,7 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
         realLayout = findViewById(R.id.real_layout);
         feedBackLyout = findViewById(R.id.feedback_layout);
         inviteLayout = findViewById(R.id.invite_layout);
-        Log.d("TAG","mobile1-->"+mobile);
+        Log.d("TAG", "mobile1-->" + mobile);
 
         collectLayout.setOnClickListener(this);
         spentLayout.setOnClickListener(this);
@@ -210,7 +213,10 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.user_head_img:
-                toActivity(EditorCenterActivity.class);
+                // toActivity(EditorCenterActivity.class);
+                Intent intentEdit = new Intent(getActivity(), EditorCenterActivity.class);
+                    intentEdit.putExtra("userInfoBean", userInfobean);
+                startActivity(intentEdit);
                 break;
             case R.id.account_layout:
             case R.id.account_manager_layout:

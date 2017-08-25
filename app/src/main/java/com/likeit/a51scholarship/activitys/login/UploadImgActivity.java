@@ -11,12 +11,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.likeit.a51scholarship.R;
+import com.likeit.a51scholarship.configs.AppConfig;
+import com.likeit.a51scholarship.http.HttpUtil;
+import com.likeit.a51scholarship.utils.ToastUtil;
+import com.loopj.android.http.RequestParams;
 import com.pk4pk.baseappmoudle.utils.FileUtil;
 
 import java.io.File;
 
 import com.likeit.a51scholarship.activitys.Container;
 import com.likeit.a51scholarship.utils.MyActivityManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -84,8 +92,6 @@ public class UploadImgActivity extends Container {
     }
 
 
-
-
     private void uploadFileBase64(String filePath) {
         if (filePath == null || TextUtils.isEmpty(filePath)) {
             showToast("圖片不存在");
@@ -101,27 +107,35 @@ public class UploadImgActivity extends Container {
         try {
             String base64Token = Base64.encodeToString(FileUtil.getFileToByte(file), Base64.DEFAULT);//  编码后
 //            String  base64Token = Base64.encodeToString(bytes, Base64.DEFAULT);//  编码后
-            Log.d("TAG","base64Token-->>"+base64Token);
-//            Logger.d("base64Token  start");
-//            Logger.d("base64Token  :" + base64Token);
-//            Logger.d("base64Token  end");
-//            HttpMethods.getInstance().uploadFileBase64(new MySubscriber<UploadImgEntity>(this) {
-//
-//                @Override
-//                public void onHttpCompleted(HttpResult<UploadImgEntity> httpResult) {
-//                    if (httpResult.isStatus()) {
-//                        showToast("上傳成功");
-//                        Glide.with(context).load(MyApiService.IMG_BASE_URL2+ httpResult.getData().getHeadimg()).into(headImg);
-//                    } else {
-//                        showToast(httpResult.getMsg());
-//                    }
-//                }
-//
-//                @Override
-//                public void onHttpError(Throwable e) {
-//
-//                }
-//            }, ukey, base64Token);
+            Log.d("TAG", "base64Token-->>" + base64Token);
+            String url = AppConfig.LIKEIT_UPIMG;
+            RequestParams params = new RequestParams();
+            params.put("ukey", ukey);
+            params.put("pic", base64Token);
+            HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+                @Override
+                public void success(String response) {
+                    Log.e("TAG", response);
+                    try {
+                        JSONObject obj = new JSONObject(response);
+                        String code = obj.optString("code");
+                        String message = obj.optString("message");
+                        if ("1".equals(code)) {
+                            ToastUtil.showS(mContext, message);
+                        } else {
+                            ToastUtil.showS(mContext, message);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void failed(Throwable e) {
+                    ToastUtil.showS(mContext,"网络异常！");
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }

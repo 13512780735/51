@@ -1,10 +1,12 @@
 package com.likeit.a51scholarship.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/8/16.
  */
 
-public class UserInfoBean {
+public class UserInfoBean implements Serializable {
 
     /**
      * nickname : 留学

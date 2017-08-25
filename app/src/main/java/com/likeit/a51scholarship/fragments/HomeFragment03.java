@@ -17,7 +17,9 @@ import com.likeit.a51scholarship.activitys.SearchInfoActivity;
 import com.likeit.a51scholarship.chat.message.ui.ChatActivity;
 import com.likeit.a51scholarship.chat.message.ui.FriendActivity;
 import com.likeit.a51scholarship.chat.message.ui.GroupsActivity;
+import com.likeit.a51scholarship.chat.message.ui.NewFriendsMsgActivity;
 import com.likeit.a51scholarship.chat.message.widget.Constant;
+import com.likeit.a51scholarship.dialog.KefuDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,6 +97,7 @@ public class HomeFragment03 extends BaseFragment implements View.OnClickListener
                 toActivity(GroupsActivity.class);
                 break;
             case R.id.ll_find_new_friend:
+                toActivity(NewFriendsMsgActivity.class);
                 break;
             case R.id.ll_find_friend:
                 toActivity(FriendActivity.class);
@@ -105,6 +108,8 @@ public class HomeFragment03 extends BaseFragment implements View.OnClickListener
  //               startActivityForResult(intent, 0);
                 break;
             case R.id.ll_find_kefu:
+                KefuDialog kefuDialog = new KefuDialog(getContext());
+                kefuDialog.show();
                 break;
             case R.id.ll_find_serve:
                 break;

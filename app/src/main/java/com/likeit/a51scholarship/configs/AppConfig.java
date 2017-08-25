@@ -23,6 +23,8 @@ public class AppConfig {
     public static final String LIKEIT_GET_GROUP = SERVER_API + "/api/member/get_group";
     //广告
     public static final String LIKEIT_ADLIST = SERVER_API + "/api/index/adlist";
+    //上传头像接口
+    public static final String LIKEIT_UPIMG= SERVER_API + "/api/member/upimg_base64";
     /**
      * 院校
      */

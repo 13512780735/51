@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.activitys.Container;
 import com.likeit.a51scholarship.activitys.login.GuideActivity;
 import com.likeit.a51scholarship.chat.message.widget.DemoHelper;
+import com.likeit.a51scholarship.model.UserInfoBean;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.view.CircleImageView;
 
@@ -34,12 +36,21 @@ public class EditorCenterActivity extends Container {
     TextView tvRight;
     @BindView(R.id.iv_birthday_arrow)
     ImageView rlBirthday;
+    @BindView(R.id.address_et)
+    TextView tvAddress;
     @BindView(R.id.birthday_et)
     TextView tvBirthday;
     @BindView(R.id.editorCenter_iv_logout)
     CircleImageView ivLogout;
+    @BindView(R.id.username_et)
+    EditText edName;
+    @BindView(R.id.phone_et)
+    EditText edPhone;
+    @BindView(R.id.education_et)
+    EditText edEducation;
     final int DATE_DIALOG = 1;
     int mYear, mMonth, mDay;
+    private UserInfoBean userInfoBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +58,7 @@ public class EditorCenterActivity extends Container {
         setContentView(R.layout.activity_editor_center);
         MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
+        userInfoBean = (UserInfoBean) getIntent().getSerializableExtra("userInfoBean");
         initView();
     }
 
@@ -57,9 +69,13 @@ public class EditorCenterActivity extends Container {
         mYear = ca.get(Calendar.YEAR);
         mMonth = ca.get(Calendar.MONTH);
         mDay = ca.get(Calendar.DAY_OF_MONTH);
+        edName.setText(userInfoBean.getNickname());
+        edPhone.setText(userInfoBean.getMobile());
+        tvBirthday.setText(userInfoBean.getBirthday());
+        tvAddress.setText(userInfoBean.getPos_province()+userInfoBean.getCountry());
     }
 
-    @OnClick({R.id.backBtn, R.id.iv_birthday_arrow,R.id.editorCenter_iv_logout})
+    @OnClick({R.id.backBtn, R.id.iv_birthday_arrow, R.id.editorCenter_iv_logout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.backBtn:
@@ -70,8 +86,8 @@ public class EditorCenterActivity extends Container {
                 break;
             case R.id.editorCenter_iv_logout:
                 logout();
-                EMClient.getInstance().logout(true);
-                Log.d("TAG","EM成功退出");
+                //  EMClient.getInstance().logout(true);
+                Log.d("TAG", "EM成功退出");
                 // MyActivityManager.getInstance().logout(mContext);
                 //MyActivityManager.getInstance().appExit(mContext);
 //                toActivityFinish(GuideActivity.class);
@@ -81,11 +97,11 @@ public class EditorCenterActivity extends Container {
     }
 
     private void logout() {
-        DemoHelper.getInstance().logout(true,new EMCallBack() {
+        DemoHelper.getInstance().logout(true, new EMCallBack() {
 
             @Override
             public void onSuccess() {
-               runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     public void run() {
                         // show login screen
                         toActivityFinish(GuideActivity.class);

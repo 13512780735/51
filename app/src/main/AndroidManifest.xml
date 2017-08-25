@@ -188,7 +188,7 @@
         <!-- 设置环信应用的appkey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="yiyuan558#quanzi" />
+            android:value="wbteam#51scholarship" />
         <!-- 声明sdk所需的service -->
         <service
             android:name="com.hyphenate.chat.EMChatService"
@@ -505,7 +505,8 @@
         <activity android:name=".chat.message.ui.UserProfileActivity" />
         <activity android:name=".chat.message.ui.CallActivity" />
         <activity android:name=".chat.message.ui.FriendActivity" />
-        <activity android:name=".chat.message.ui.AddContactActivity"></activity>
+        <activity android:name=".chat.message.ui.AddContactActivity" />
+        <activity android:name=".chat.message.ui.NewFriendsMsgActivity"></activity>
     </application>
 
 </manifest>

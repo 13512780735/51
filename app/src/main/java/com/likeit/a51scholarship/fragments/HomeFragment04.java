@@ -48,15 +48,6 @@ public class HomeFragment04 extends BaseFragment implements View.OnClickListener
     private RadioGroup rg_message;
     private NoScrollViewPager viewpage_message;
     private Message_Chat_ViewPagerAdatper adapter;
-    //  private List<Map<String, Object>> dataList;
-//    // 图片封装为一个数组
-//    private int[] icon = {R.mipmap.message_chat_avatar, R.mipmap.message_chat_avatar,
-//            R.mipmap.message_chat_avatar};
-//    private String[] iconName = {"Lana", "Lili", "Sina"};
-//    private String[] iconMessage = {"我通过了你的好友验证请求，现在我们可以开始聊天了...", "我通过了你的好友验证请求，现在我们可以开始聊天了...",
-//            "我通过了你的好友验证请求，现在我们可以开始聊天了..."};
-//    private String[] iconTime = {"2017-05-11", "2017-05-18", "2017-05-22"};
-//    private SimpleAdapter simpleAdapter;
 
 
     @Override
@@ -72,32 +63,10 @@ public class HomeFragment04 extends BaseFragment implements View.OnClickListener
     }
 
 
-//    private List<Map<String, Object>> getData() {
-//        for (int i = 0; i < icon.length; i++) {
-//            Log.d("TAG", "" + icon.length);
-//            Map<String, Object> map = new HashMap<String, Object>();
-//            map.put("img", icon[i]);
-//            map.put("name", iconName[i]);
-//            map.put("message", iconMessage[i]);
-//            map.put("time", iconTime[i]);
-//            dataList.add(map);
-//        }
-//        return dataList;
-//    }
+
 
     private void initView() {
-//        mPullToRefreshScrollView = findViewById(R.id.ll_message_scrollview);
-//        mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
-//        mPullToRefreshScrollView.setOnRefreshListener(this);
-//        mPullToRefreshScrollView.getLoadingLayoutProxy().setLastUpdatedLabel(
-//                "上次刷新时间");
-//        mPullToRefreshScrollView.getLoadingLayoutProxy()
-//                .setPullLabel("下拉刷新");
-////          mPullRefreshScrollView.getLoadingLayoutProxy().setRefreshingLabel(
-////                      "refreshingLabel");
-//        mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
-//                "松开即可刷新");
-//        mListview = findViewById(R.id.ll_message_listview);
+
         rg_message=findViewById(R.id.message_rgTools);
         viewpage_message=findViewById(R.id.message_viewpager);
         iv_header_left = findViewById(R.id.iv_header_left);

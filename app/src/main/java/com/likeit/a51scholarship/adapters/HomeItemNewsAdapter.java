@@ -1,19 +1,13 @@
 package com.likeit.a51scholarship.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.model.HomeItemNewsBean;
-import com.likeit.a51scholarship.model.HomeItemSchoolBean;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.List;
 

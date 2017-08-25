@@ -12,6 +12,8 @@
         android:layout_height="@dimen/height_top_bar"
         android:background="@color/common_bg"
         android:layout_marginTop="20dip"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:gravity="center_vertical">
 
         <include layout="@layout/ease_commom_back_btn" />

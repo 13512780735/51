@@ -182,6 +182,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                         MyApplication.currentUserNick.trim());
                 DemoHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
                 toActivityFinish(MainActivity.class);
+               // toActivity(UploadImgActivity.class);
             }
 
             @Override
@@ -291,7 +292,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                         // reset current user name before login
                         DemoHelper.getInstance().setCurrentUserName(currentUsername);
 
-                        // toActivity(UploadImgActivity.class);
+                        //
 
                         runOnUiThread(new Runnable() {
                             @Override
