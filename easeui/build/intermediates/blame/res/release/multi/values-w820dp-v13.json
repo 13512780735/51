@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\as\\20170829\\51\\easeui\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-w820dp-v13\\values-w820dp-v13.xml",
+        "outputFile": "F:\\51\\20170814\\51_20170830\\easeui\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-w820dp-v13\\values-w820dp-v13.xml",
         "map": [
             {
                 "to": {
@@ -11,13 +11,13 @@
                     "endOffset": 108
                 },
                 "from": {
-                    "file": "D:\\as\\20170829\\51\\easeui\\src\\main\\res\\values-w820dp\\ease_dimens.xml",
+                    "file": "F:\\51\\20170814\\51_20170830\\easeui\\src\\main\\res\\values-w820dp\\ease_dimens.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
-                        "startOffset": 305,
+                        "startOffset": 312,
                         "endColumn": 57,
-                        "endOffset": 358
+                        "endOffset": 365
                     }
                 }
             }

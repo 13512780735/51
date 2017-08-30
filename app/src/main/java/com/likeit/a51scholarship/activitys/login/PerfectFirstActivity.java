@@ -6,30 +6,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.likeit.a51scholarship.R;
-import com.likeit.a51scholarship.activitys.SchoolApplyActivity;
-import com.likeit.a51scholarship.adapters.SchoolApplyAddressAdapter;
-import com.likeit.a51scholarship.adapters.SchoolApplyPlanTimeAdapter;
-import com.likeit.a51scholarship.adapters.SchoolApplyStageAdapter;
+import com.likeit.a51scholarship.activitys.Container;
+import com.likeit.a51scholarship.activitys.MainActivity;
 import com.likeit.a51scholarship.adapters.userapply.UserApplyDistrictAdapter;
 import com.likeit.a51scholarship.adapters.userapply.UserApplyEducationAdapter;
 import com.likeit.a51scholarship.adapters.userapply.UserApplyPlanTimeAdapter;
@@ -39,40 +32,25 @@ import com.likeit.a51scholarship.imageutil.custom.CommandPhotoUtil01;
 import com.likeit.a51scholarship.imageutil.custom.CustomScrollGridView;
 import com.likeit.a51scholarship.imageutil.custom.GridAdapter01;
 import com.likeit.a51scholarship.imageutil.custom.PhotoSystemOrShoot;
-import com.likeit.a51scholarship.model.schoolapply.AreaBean;
-import com.likeit.a51scholarship.model.schoolapply.PlanTimeBean;
-import com.likeit.a51scholarship.model.schoolapply.StageBean;
 import com.likeit.a51scholarship.model.userapply.UserDistrictBean;
 import com.likeit.a51scholarship.model.userapply.UserEducationBean;
 import com.likeit.a51scholarship.model.userapply.UserPlanTimeBean;
+import com.likeit.a51scholarship.utils.MyActivityManager;
+import com.likeit.a51scholarship.utils.StringUtil;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.loopj.android.http.RequestParams;
-import com.pk4pk.baseappmoudle.utils.DateUtil;
-import com.pk4pk.baseappmoudle.utils.FileUtil;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.likeit.a51scholarship.activitys.Container;
-import com.likeit.a51scholarship.activitys.MainActivity;
-import com.likeit.a51scholarship.utils.MyActivityManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.finalteam.rxgalleryfinal.RxGalleryFinal;
-import cn.finalteam.rxgalleryfinal.imageloader.ImageLoaderType;
-import cn.finalteam.rxgalleryfinal.rxbus.RxBusResultSubscriber;
-import cn.finalteam.rxgalleryfinal.rxbus.event.ImageRadioResultEvent;
-import cn.finalteam.rxgalleryfinal.utils.Logger;
 
 public class PerfectFirstActivity extends Container {
     @BindView(R.id.tv_right)
@@ -175,6 +153,9 @@ public class PerfectFirstActivity extends Container {
     private UserApplyDistrictAdapter adapter2;
     private UserApplyPlanTimeAdapter adapter3;
     private String stageid;
+    private String country_id;
+    private String education_id;
+    private String whichid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -352,13 +333,16 @@ public class PerfectFirstActivity extends Container {
                                 backgroundAlpha(1f);
                             }
                             if ("1".equals(tag)) {
+                                education_id=educationData.get(position).getId();
                                 tvXueli.setText(educationData.get(position).getName());
                             } else if ("2".equals(tag)) {
                                 stageid = districtData.get(position).getId();
                                 tvWhere.setText(districtData.get(position).getName());
                             } else if ("3".equals(tag)) {
+                                country_id=districtData.get(position).getId();
                                 tvWhereCountry.setText(districtData.get(position).getName());
                             } else if ("4".equals(tag)) {
+                                whichid=educationData.get(position).getId();
                                 tvWhichDegree.setText(educationData.get(position).getName());
                             } else if ("5".equals(tag)) {
                                 tvStayTime.setText(planTimeData.get(position).getName());
@@ -481,12 +465,87 @@ public class PerfectFirstActivity extends Container {
     }
 
     private void offerData() {
+
+        if (StringUtil.isBlank(tvXueli.getText().toString())) {
+            ToastUtil.showS(mContext, "请选择学历");
+        } else if (StringUtil.isBlank(tvWhere.getText().toString())) {
+            ToastUtil.showS(mContext, "请选择地区");
+
+        } else if (StringUtil.isBlank(tvWhichDegree.getText().toString())) {
+            ToastUtil.showS(mContext, "请选择学位");
+
+        } else if (StringUtil.isBlank(tvWhereCountry.getText().toString())) {
+            ToastUtil.showS(mContext, "请选择留学国家");
+
+        } else if (StringUtil.isBlank(tvStayTime.getText().toString())) {
+            ToastUtil.showS(mContext, "请选择留学时间");
+        } else if (StringUtil.isBlank(etGpa.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入GPA分数");
+        } else if (StringUtil.isBlank(etToefl.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入托福分数");
+        } else if (StringUtil.isBlank(etYasi.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入雅思分数");
+        } else if (StringUtil.isBlank(etToeic.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入托业分数");
+        } else if (StringUtil.isBlank(etOther.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入其他成绩类型、分数");
+        } else if (StringUtil.isBlank(etChineseName.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入中文名字");
+        } else if (StringUtil.isBlank(etEnglishName.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入英文名字");
+        } else if (StringUtil.isBlank(tvDate.getText().toString())) {
+            ToastUtil.showS(mContext, "请选择出生日期");
+        } else if (StringUtil.isBlank(etEmail.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入邮箱");
+        } else if (StringUtil.isBlank(etPhone.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入手机");
+        }
         String url = AppConfig.LIKEIT_MEMBER_EDIT_INFO;
         RequestParams params = new RequestParams();
+        params.put("ukey",ukey);
+        params.put("country",stageid);
+       // params.put("province",ukey);
+        params.put("education",education_id);
+        params.put("school",etSchool.getText().toString());
+        params.put("professional",tvProfess.getText().toString());
+        params.put("want_country",country_id);
+        params.put("want_education",whichid);
+        params.put("want_time",tvStayTime.getText().toString());
+        params.put("score_GPA",etGpa.getText().toString());
+        params.put("score_TOEFL",etToefl.getText().toString());
+        params.put("score_IELTS",etYasi.getText().toString());
+        params.put("score_TOEIC",etToeic.getText().toString());
+//        params.put("score_SAT",ukey);
+//        params.put("score_SSAT",ukey);
+//        params.put("score_ACT",ukey);
+//        params.put("score_GRE",ukey);
+//        params.put("score_GMAT",ukey);
+        params.put("score_other",etOther.getText().toString());
+        params.put("nickname_cn",etChineseName.getText().toString());
+        params.put("nickname_en",etEnglishName.getText().toString());
+        params.put("birthday",tvDate.getText().toString());
+        params.put("email",etEmail.getText().toString());
+        params.put("mobile",etPhone.getText().toString());
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
-
+                Log.d("TAG",response);
+                try {
+                    JSONObject obj=new JSONObject(response);
+                    String code=obj.optString("code");
+                    String message=obj.optString("message");
+                    if("1".equals(code)){
+                        ToastUtil.showS(mContext,message);
+                        toActivityFinish(MainActivity.class);
+                        Intent intent = new Intent(mContext, MainActivity.class);
+                        startActivity(intent);
+                        MyActivityManager.getInstance().finishAllActivity();
+                    }else{
+                        ToastUtil.showS(mContext,message);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

@@ -15,21 +15,19 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
 import com.likeit.a51scholarship.R;
-import com.likeit.a51scholarship.utils.UtilPreference;
-import com.loopj.android.http.RequestParams;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.likeit.a51scholarship.activitys.Container;
 import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.utils.ToastUtil;
+import com.likeit.a51scholarship.utils.UtilPreference;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,19 +82,19 @@ public class RegisterActivity extends Container {
         });
 
 
-//        EventHandler eh = new EventHandler() {
-//
-//            @Override
-//            public void afterEvent(int event, int result, Object data) {
-//                Message msg = new Message();
-//                msg.arg1 = event;
-//                msg.arg2 = result;
-//                msg.obj = data;
-//                mHandler.sendMessage(msg);
-//            }
-//
-//        };
-        // SMSSDK.registerEventHandler(eh);
+        EventHandler eh = new EventHandler() {
+
+            @Override
+            public void afterEvent(int event, int result, Object data) {
+                Message msg = new Message();
+                msg.arg1 = event;
+                msg.arg2 = result;
+                msg.obj = data;
+                mHandler.sendMessage(msg);
+            }
+
+        };
+        SMSSDK.registerEventHandler(eh);
     }
 
 
@@ -137,25 +135,30 @@ public class RegisterActivity extends Container {
         code = codeEt.getText().toString().trim();
         passwd = passwdEt.getText().toString().trim();
         username = usernameEt.getText().toString().trim();
+        if (TextUtils.isEmpty(phoneNum)) {
+            ToastUtil.showS(mContext, "请输入手机号码");
+            return;
+        }
+        if (TextUtils.isEmpty(code)) {
+            ToastUtil.showS(mContext, "请输入验证码");
+            return;
+        }
+        SMSSDK.submitVerificationCode("86", phoneNum, code);
+        if (TextUtils.isEmpty(passwd)) {
+            ToastUtil.showS(mContext, "请输入密码");
+            return;
+        }
 
+        if (TextUtils.isEmpty(username)) {
+            ToastUtil.showS(mContext, "请输入姓名");
+            return;
+        }
         if (TextUtils.isEmpty(sex)) {
             ToastUtil.showS(mContext, "请选择性别");
             return;
         }
 
-        if (TextUtils.isEmpty(phoneNum)) {
-            ToastUtil.showS(mContext, "请输入手机号码");
-            return;
-        }
-        if (TextUtils.isEmpty(passwd)) {
-            ToastUtil.showS(mContext, "请输入密码");
-            return;
-        }
-        if (TextUtils.isEmpty(username)) {
-            ToastUtil.showS(mContext, "请输入姓名");
-            return;
-        }
-        // SMSSDK.submitVerificationCode("86", phoneNum, code);
+
         signup();
     }
 

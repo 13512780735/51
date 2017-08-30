@@ -1,6 +1,5 @@
 package com.likeit.a51scholarship.activitys.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
@@ -22,16 +20,15 @@ import com.likeit.a51scholarship.activitys.MainActivity;
 import com.likeit.a51scholarship.app.MyApplication;
 import com.likeit.a51scholarship.chat.message.db.DemoDBManager;
 import com.likeit.a51scholarship.chat.message.widget.DemoHelper;
-import com.loopj.android.http.RequestParams;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.utils.UtilPreference;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -182,12 +179,12 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 boolean updatenick = EMClient.getInstance().pushManager().updatePushNickname(
                         MyApplication.currentUserNick.trim());
                 DemoHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
-                toActivityFinish(UploadImgActivity.class);
-//                if("0".equals(is_first)){
-//                    toActivityFinish(MainActivity.class);
-//                }else{
-//                    toActivityFinish(UploadImgActivity.class);
-//                }
+    //            toActivityFinish(UploadImgActivity.class);
+                if("0".equals(is_first)){
+                    toActivityFinish(MainActivity.class);
+                }else{
+                    toActivityFinish(UploadImgActivity.class);
+                }
             }
 
             @Override

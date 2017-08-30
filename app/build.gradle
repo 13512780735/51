@@ -30,39 +30,39 @@ android {
         }
     }
 //    // 签名配置
-    signingConfigs {
-
-        release {
-            storeFile file("D:\\51key.jks")
-            storePassword "123456"
-            keyAlias "key0"
-            keyPassword "123456"
-
-        }
-
-        debug {
-            storeFile file("D:\\51key.jks")
-            storePassword "123456"
-            keyAlias "key0"
-            keyPassword "123456"
-        }
-    }
-    buildTypes {
-        debug {
-            signingConfig signingConfigs.debug
-            ndk {
-                abiFilters "arm64-v8a", "armeabi", "armeabi-v7a", "x86", "x86_64"//动态库强制只编译filters中的
-            }
-        }
-        release {
-            signingConfig signingConfigs.release
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            ndk {
-                abiFilters "arm64-v8a", "armeabi", "armeabi-v7a", "x86", "x86_64"//动态库强制只编译filters中的
-            }
-        }
-    }
+//    signingConfigs {
+//
+//        release {
+//            storeFile file("D:\\51key.jks")
+//            storePassword "123456"
+//            keyAlias "key0"
+//            keyPassword "123456"
+//
+//        }
+//
+//        debug {
+//            storeFile file("D:\\51key.jks")
+//            storePassword "123456"
+//            keyAlias "key0"
+//            keyPassword "123456"
+//        }
+//    }
+//    buildTypes {
+//        debug {
+//            signingConfig signingConfigs.debug
+//            ndk {
+//                abiFilters "arm64-v8a", "armeabi", "armeabi-v7a", "x86", "x86_64"//动态库强制只编译filters中的
+//            }
+//        }
+//        release {
+//            signingConfig signingConfigs.release
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            ndk {
+//                abiFilters "arm64-v8a", "armeabi", "armeabi-v7a", "x86", "x86_64"//动态库强制只编译filters中的
+//            }
+//        }
+//    }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_7
     }
