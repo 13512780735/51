@@ -246,6 +246,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                             homeItemSchoolBean.setId(jsonObject.optString("id"));
                             homeItemSchoolBean.setImg(jsonObject.optString("img"));
                             homeItemSchoolBean.setName(jsonObject.optString("name"));
+                            homeItemSchoolBean.setCountry_id(jsonObject.optString("country_id"));
                             SchoolData.add(homeItemSchoolBean);
                         }
                         Log.d("TAG", "HomeSchool-->" + SchoolData);
@@ -292,12 +293,14 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 String en_name = SchoolData.get(position).getEn_name();
                 String img = SchoolData.get(position).getImg();
                 String sid=SchoolData.get(position).getId();
+                String country_id=SchoolData.get(position).getCountry_id();
                 if (status == 1) {
                     Intent intentSchoolDetail = new Intent();
                     intentSchoolDetail.putExtra("name", name);//英文名字
                     intentSchoolDetail.putExtra("en_name", en_name);//中文名字
                     intentSchoolDetail.putExtra("img", img);//图片
                     intentSchoolDetail.putExtra("sid", sid);//图片
+                    intentSchoolDetail.putExtra("country_id", country_id);//图片
                     intentSchoolDetail.setClass(getActivity(), SchoolDetailActivity.class);
                     startActivity(intentSchoolDetail);
                 }

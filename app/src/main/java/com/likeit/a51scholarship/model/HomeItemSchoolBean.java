@@ -5,17 +5,20 @@ package com.likeit.a51scholarship.model;
  */
 
 public class HomeItemSchoolBean {
+
     /**
-     * id : 4
-     * name : 学院1
-     * en_name : school1
-     * country_name : 英国
-     * img : /Uploads/Picture/2017-02-25/58b10b3059455.jpg
+     * id : 5
+     * name : 美国威斯康星协和大学
+     * en_name : Concordia University Wisconsin
+     * country_id : 4
+     * country_name : 美国
+     * img : http://liuxueapp.wbteam.cn//Uploads/Picture/2017-03-21/58d0cbb31355e.jpg
      */
 
     private String id;
     private String name;
     private String en_name;
+    private String country_id;
     private String country_name;
     private String img;
 
@@ -43,6 +46,14 @@ public class HomeItemSchoolBean {
         this.en_name = en_name;
     }
 
+    public String getCountry_id() {
+        return country_id;
+    }
+
+    public void setCountry_id(String country_id) {
+        this.country_id = country_id;
+    }
+
     public String getCountry_name() {
         return country_name;
     }
@@ -57,17 +68,5 @@ public class HomeItemSchoolBean {
 
     public void setImg(String img) {
         this.img = img;
-    }
-
-
-    @Override
-    public String toString() {
-        return "IndexSchoolEntity{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", en_name='" + en_name + '\'' +
-                ", country_name='" + country_name + '\'' +
-                ", img='" + img + '\'' +
-                '}';
     }
 }

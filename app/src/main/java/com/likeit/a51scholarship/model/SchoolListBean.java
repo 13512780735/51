@@ -6,25 +6,32 @@ package com.likeit.a51scholarship.model;
 
 public class SchoolListBean {
 
+
     /**
-     * id : 5
-     * name : 美国威斯康星协和大学
-     * en_name : Concordia University Wisconsin
-     * country_name : 美国
-     * ranking : 54
-     * rate : 100.00
-     * scholarship : 52222.00
-     * img : http://liuxueapp.wbteam.cn//Uploads/Picture/2017-03-21/58d0cbb31355e.jpg
+     * id : 13
+     * name : 东英吉利大学牛顿A-level
+     * en_name : UEA Newton A-Leven
+     * country_id : 1
+     * country_name : 英国
+     * ranking : 0
+     * rate : 0%
+     * scholarship : $0
+     * img : http://liuxueapp.wbteam.cn//Uploads/Picture/2017-03-28/58da293c5c9c1.png
+     * img_width : 275
+     * img_height : 137
      */
 
     private String id;
     private String name;
     private String en_name;
+    private String country_id;
     private String country_name;
     private String ranking;
     private String rate;
     private String scholarship;
     private String img;
+    private String img_width;
+    private String img_height;
 
     public String getId() {
         return id;
@@ -48,6 +55,14 @@ public class SchoolListBean {
 
     public void setEn_name(String en_name) {
         this.en_name = en_name;
+    }
+
+    public String getCountry_id() {
+        return country_id;
+    }
+
+    public void setCountry_id(String country_id) {
+        this.country_id = country_id;
     }
 
     public String getCountry_name() {
@@ -88,5 +103,21 @@ public class SchoolListBean {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getImg_width() {
+        return img_width;
+    }
+
+    public void setImg_width(String img_width) {
+        this.img_width = img_width;
+    }
+
+    public String getImg_height() {
+        return img_height;
+    }
+
+    public void setImg_height(String img_height) {
+        this.img_height = img_height;
     }
 }

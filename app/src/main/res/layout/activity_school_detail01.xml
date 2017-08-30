@@ -513,6 +513,7 @@
             android:textSize="15sp" />
 
         <ImageView
+            android:id="@+id/school_details_apply"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="7"

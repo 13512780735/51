@@ -118,6 +118,7 @@ public class SearchSchoolActivity extends Container {
                             schoolListBean.setRate(jsonObject.optString("rate"));
                             schoolListBean.setScholarship(jsonObject.optString("scholarship"));
                             schoolListBean.setImg(jsonObject.optString("img"));
+                            schoolListBean.setCountry_id(jsonObject.optString("country_id"));
                             schoolData.add(schoolListBean);
                         }
                         Log.d("TAG", "HomeSchool-->" + schoolData);
@@ -188,7 +189,13 @@ public class SearchSchoolActivity extends Container {
         adapter.setOnApplyClickListener(new SchoolListAdapter.onSchoolApplyClickListener() {
             @Override
             public void onApplyClick(int i) {
-                    ToastUtil.showS(mContext, "申请成功！");
+                    //ToastUtil.showS(mContext, "申请成功！");
+                Intent intent=new Intent(mContext,SchoolApplyActivity.class);
+                intent.putExtra("name",schoolData.get(i).getName());
+                intent.putExtra("address",schoolData.get(i).getCountry_name());
+                intent.putExtra("country_id",schoolData.get(i).getCountry_id());
+                intent.putExtra("sid",schoolData.get(i).getId());
+                startActivity(intent);
             }
         });
     }

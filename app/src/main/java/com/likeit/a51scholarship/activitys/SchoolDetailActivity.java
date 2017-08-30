@@ -148,6 +148,7 @@ public class SchoolDetailActivity extends Container {
     private int selectPosition = 0;//用于记录用户选择的变量
     private TextView et;
     private int hight01;
+    private String country_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,6 +161,7 @@ public class SchoolDetailActivity extends Container {
         en_name = intent.getStringExtra("en_name");//从首页英文名字
         img = intent.getStringExtra("img");//图片
         sid = intent.getStringExtra("sid");//院校ID
+        country_id = intent.getStringExtra("country_id");//院校ID
         iv_header_left.setImageResource(R.mipmap.icon_back);
         iv_header_right.setImageResource(R.mipmap.icon_share);
         initLogo();
@@ -326,7 +328,7 @@ public class SchoolDetailActivity extends Container {
 
     private PopupWindow popupWindow;
 
-    @OnClick({R.id.iv_header_right, R.id.iv_header_left, R.id.icon_up_iv, R.id.icon_list_iv, R.id.icon_pinlun_iv})
+    @OnClick({R.id.iv_header_right, R.id.iv_header_left, R.id.icon_up_iv, R.id.icon_list_iv, R.id.icon_pinlun_iv, R.id.school_details_apply})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_header_left:
@@ -345,6 +347,14 @@ public class SchoolDetailActivity extends Container {
                 break;
             case R.id.icon_up_iv:
                 mPullToRefreshScrollView.getRefreshableView().scrollTo(0, 0);
+                break;
+            case R.id.school_details_apply:
+                Intent intentApply = new Intent(mContext, SchoolApplyActivity.class);
+                intentApply.putExtra("name",mSchoolDetailsBean.getSchool_info().getName());
+                intentApply.putExtra("address",mSchoolDetailsBean.getSchool_info().getCountry_name());
+                intentApply.putExtra("sid",mSchoolDetailsBean.getSchool_info().getId());
+                intentApply.putExtra("country_id",country_id);
+                startActivity(intentApply);
                 break;
         }
     }
@@ -448,11 +458,11 @@ public class SchoolDetailActivity extends Container {
                     popupWindow.dismiss();
                     mPullToRefreshScrollView.getRefreshableView().scrollTo(0, 0);
                 } else {
-                    View listItem = mListview.getChildAt(position-1);
+                    View listItem = mListview.getChildAt(position - 1);
                     hight01 = listItem.getMeasuredHeight();
                     int hight = mLinearLayout.getHeight();
                     Log.d("TAG", "Top-->" + top);
-                    mPullToRefreshScrollView.getRefreshableView().scrollTo(0, hight01 * (position - 1) + hight );
+                    mPullToRefreshScrollView.getRefreshableView().scrollTo(0, hight01 * (position - 1) + hight);
 
                 }
             }

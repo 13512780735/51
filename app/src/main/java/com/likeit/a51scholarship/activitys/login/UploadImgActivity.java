@@ -1,5 +1,7 @@
 package com.likeit.a51scholarship.activitys.login;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -15,6 +17,7 @@ import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.pk4pk.baseappmoudle.utils.FileUtil;
 
 import java.io.File;
@@ -85,6 +88,8 @@ public class UploadImgActivity extends Container {
                         //图片选择结果
                         String cropPath = imageRadioResultEvent.getResult().getCropPath();
                         Logger.d("cropPath :" + cropPath);
+                        Bitmap bm = BitmapFactory.decodeFile(cropPath);
+                        headImg.setImageBitmap(bm);
                         uploadFileBase64(cropPath);
                     }
                 })
@@ -108,36 +113,42 @@ public class UploadImgActivity extends Container {
             String base64Token = Base64.encodeToString(FileUtil.getFileToByte(file), Base64.DEFAULT);//  编码后
 //            String  base64Token = Base64.encodeToString(bytes, Base64.DEFAULT);//  编码后
             Log.d("TAG", "base64Token-->>" + base64Token);
-            String url = AppConfig.LIKEIT_UPIMG;
-            RequestParams params = new RequestParams();
-            params.put("ukey", ukey);
-            params.put("pic", base64Token);
-            HttpUtil.post(url, params, new HttpUtil.RequestListener() {
-                @Override
-                public void success(String response) {
-                    Log.e("TAG", response);
-                    try {
-                        JSONObject obj = new JSONObject(response);
-                        String code = obj.optString("code");
-                        String message = obj.optString("message");
-                        if ("1".equals(code)) {
-                            ToastUtil.showS(mContext, message);
-                        } else {
-                            ToastUtil.showS(mContext, message);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void failed(Throwable e) {
-                    ToastUtil.showS(mContext,"网络异常！");
-                }
-            });
-
+            upLoad(base64Token);
+            showProgress("Loading...");
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void upLoad(String base64Token) {
+        String url = AppConfig.LIKEIT_UPIMG;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        params.put("pic", base64Token);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                disShowProgress();
+                Log.e("TAG", response);
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    String code = obj.optString("code");
+                    String message = obj.optString("message");
+                    if ("1".equals(code)) {
+                        ToastUtil.showS(mContext, message);
+                    } else {
+                        ToastUtil.showS(mContext, message);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Throwable e) {
+                disShowProgress();
+                ToastUtil.showS(mContext,"网络异常！");
+            }
+        });
     }
 }

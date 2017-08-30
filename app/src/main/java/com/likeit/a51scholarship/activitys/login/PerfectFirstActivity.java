@@ -5,23 +5,51 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.likeit.a51scholarship.R;
+import com.likeit.a51scholarship.activitys.SchoolApplyActivity;
+import com.likeit.a51scholarship.adapters.SchoolApplyAddressAdapter;
+import com.likeit.a51scholarship.adapters.SchoolApplyPlanTimeAdapter;
+import com.likeit.a51scholarship.adapters.SchoolApplyStageAdapter;
+import com.likeit.a51scholarship.configs.AppConfig;
+import com.likeit.a51scholarship.http.HttpUtil;
+import com.likeit.a51scholarship.imageutil.custom.CommandPhotoUtil01;
+import com.likeit.a51scholarship.imageutil.custom.CustomScrollGridView;
+import com.likeit.a51scholarship.imageutil.custom.GridAdapter01;
+import com.likeit.a51scholarship.imageutil.custom.PhotoSystemOrShoot;
+import com.likeit.a51scholarship.model.schoolapply.AreaBean;
+import com.likeit.a51scholarship.model.schoolapply.PlanTimeBean;
+import com.likeit.a51scholarship.model.schoolapply.StageBean;
+import com.likeit.a51scholarship.model.userapply.UserDistrictBean;
+import com.likeit.a51scholarship.model.userapply.UserEducationBean;
+import com.likeit.a51scholarship.model.userapply.UserPlanTimeBean;
+import com.likeit.a51scholarship.utils.ToastUtil;
+import com.loopj.android.http.RequestParams;
 import com.pk4pk.baseappmoudle.utils.DateUtil;
 import com.pk4pk.baseappmoudle.utils.FileUtil;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +57,11 @@ import java.util.Map;
 import com.likeit.a51scholarship.activitys.Container;
 import com.likeit.a51scholarship.activitys.MainActivity;
 import com.likeit.a51scholarship.utils.MyActivityManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -39,67 +72,102 @@ import cn.finalteam.rxgalleryfinal.rxbus.event.ImageRadioResultEvent;
 import cn.finalteam.rxgalleryfinal.utils.Logger;
 
 public class PerfectFirstActivity extends Container {
-    @BindView(R.id.xueli_tv)
-    TextView xueliTv;
-    @BindView(R.id.xueli_layout)
-    LinearLayout xueliLayout;
-    @BindView(R.id.where_tv)
-    TextView whereTv;
-    @BindView(R.id.where_layout)
-    LinearLayout whereLayout;
-    @BindView(R.id.school_et)
-    EditText schoolEt;
-    @BindView(R.id.profess_et)
-    EditText professEt;
-    @BindView(R.id.language_tv)
-    TextView languageTv;
-    @BindView(R.id.language_layout)
-    LinearLayout languageLayout;
-    @BindView(R.id.language_num_et)
-    EditText languageNumEt;
-    @BindView(R.id.ok_btn)
-    TextView okBtn;
-    @BindView(R.id.where_country_tv)
-    TextView whereCountryTv;
-    @BindView(R.id.where_country_layout)
-    LinearLayout whereCountryLayout;
-    @BindView(R.id.which_degree_tv)
-    TextView whichDegreeTv;
-    @BindView(R.id.which_degree_layout)
-    LinearLayout whichDegreeLayout;
-    @BindView(R.id.stay_time_tv)
-    TextView stayTimeTv;
-    @BindView(R.id.stay_time_layout)
-    LinearLayout stayTimeLayout;
-    @BindView(R.id.gpa_conver_tv)
-    TextView gpaConverTv;
-    @BindView(R.id.gpa_et)
-    EditText gpaEt;
-    @BindView(R.id.gpa_layout)
-    LinearLayout gpaLayout;
-    @BindView(R.id.chinese_name_et)
-    EditText chineseNameEt;
-    @BindView(R.id.english_name_et)
-    EditText englishNameEt;
-    @BindView(R.id.date_et)
-    TextView dateEt;
-    @BindView(R.id.email_et)
-    EditText emailEt;
-    @BindView(R.id.phone_et)
-    EditText phoneEt;
-    @BindView(R.id.update_img_layout)
-    LinearLayout updateImgLayout;
-    @BindView(R.id.update_img_btn)
-    ImageView updateImgBtn;
-    @BindView(R.id.backBtn)
-    Button btback;
-    @BindView(R.id.tv_header)
-    TextView tvHeader;
     @BindView(R.id.tv_right)
     TextView tvRight;
-    // private EduTypeInfoEntity eduTypeInfoEntity;
-    private int isEduType = 0;
+    @BindView(R.id.tv_header)
+    TextView tvHeader;
+    @BindView(R.id.xueli_tv)
+    TextView tvXueli;
+    @BindView(R.id.xueli_layout)
+    LinearLayout llXueli;
+    //地区
+    @BindView(R.id.where_tv)
+    TextView tvWhere;
+    @BindView(R.id.where_layout)
+    LinearLayout llWhere;
+    //留学国家
+    @BindView(R.id.where_country_tv)
+    TextView tvWhereCountry;
+    @BindView(R.id.where_country_layout)
+    LinearLayout llWhereCountry;
+    //学位
+    @BindView(R.id.which_degree_tv)
+    TextView tvWhichDegree;
+    @BindView(R.id.which_degree_layout)
+    LinearLayout llWhichDegree;
+    //时间
+    @BindView(R.id.stay_time_tv)
+    TextView tvStayTime;
+    @BindView(R.id.stay_time_layout)
+    LinearLayout llStayTime;
+    //专业
+    @BindView(R.id.school_et)
+    EditText etSchool;
+    @BindView(R.id.profess_et)
+    EditText tvProfess;
+    //GPA成绩
+    @BindView(R.id.gpa_et)
+    EditText etGpa;
+    @BindView(R.id.gpa_layout)
+    LinearLayout llGpa;
+    //托福
+    @BindView(R.id.toefl_et)
+    EditText etToefl;
+    //雅思
+    @BindView(R.id.yasi_et)
+    EditText etYasi;
+    //托业
+    @BindView(R.id.toeic_et)
+    EditText etToeic;
+    //其他
+    @BindView(R.id.other_et)
+    EditText etOther;
+    //中文名
+    @BindView(R.id.chinese_name_et)
+    EditText etChineseName;
+    //英文名
+    @BindView(R.id.english_name_et)
+    EditText etEnglishName;
+    //生日
+    @BindView(R.id.date_et)
+    TextView tvDate;
+    @BindView(R.id.date_layout)
+    LinearLayout llDate;
+    //邮箱
+    @BindView(R.id.email_et)
+    EditText etEmail;
+    //手机号
+    @BindView(R.id.phone_et)
+    EditText etPhone;
+    @BindView(R.id.imgs_layout)
+    LinearLayout imgsLayout;
+    //图片添加
+    @BindView(R.id.gv_all_photo)
+    CustomScrollGridView mGridView;
+    /**
+     * GridView适配器
+     */
+    private GridAdapter01 gridAdapter;
 
+    /**
+     * 管理图片操作
+     */
+    private CommandPhotoUtil01 commandPhoto;
+
+    /**
+     * 选择图片来源
+     */
+    private PhotoSystemOrShoot selectPhoto;
+    int mYear, mMonth, mDay;
+    //下拉
+    private View layoutMenu;
+    private ListView popMenuList;
+    private PopupWindow popMenu;
+    final int DATE_DIALOG = 1;
+    private List<UserEducationBean> educationData;
+    private List<UserDistrictBean> districtData;
+    private List<UserPlanTimeBean> planTimeData;
+    private String tag;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,380 +177,294 @@ public class PerfectFirstActivity extends Container {
         ButterKnife.bind(this);
         tvHeader.setText("完善信息");
         tvRight.setText("跳过");
+        educationData=new ArrayList<UserEducationBean>();
+        districtData=new ArrayList<UserDistrictBean>();
+        planTimeData=new ArrayList<UserPlanTimeBean>();
+        ininData();//註冊申请初始化数据
+        showProgress("Loading..." +
+                "");
+        initView();
+        addPlus();
     }
 
-    @OnClick({R.id.xueli_layout, R.id.where_layout, R.id.language_layout, R.id.ok_btn,
-            R.id.where_country_layout, R.id.which_degree_layout, R.id.stay_time_layout, R.id.gpa_conver_tv,
-            R.id.update_img_btn, R.id.date_layout, R.id.backBtn,R.id.tv_right})
+    private void addPlus() {
+        gridAdapter = new GridAdapter01(mContext, 4);
+        mGridView.setAdapter(gridAdapter);
+
+        // 选择图片获取途径
+        selectPhoto = new PhotoSystemOrShoot(mContext) {
+            @Override
+            public void onStartActivityForResult(Intent intent, int requestCode) {
+                startActivityForResult(intent, requestCode);
+            }
+        };
+        commandPhoto = new CommandPhotoUtil01(mContext, mGridView, gridAdapter, selectPhoto);
+    }
+
+    private void initView() {
+        final Calendar ca = Calendar.getInstance();
+        mYear = ca.get(Calendar.YEAR);
+        mMonth = ca.get(Calendar.MONTH);
+        mDay = ca.get(Calendar.DAY_OF_MONTH);
+    }
+
+    private void ininData() {
+        String url= AppConfig.LIKEIT_MEMBER_EDIT_TMPL;
+        RequestParams params=new RequestParams();
+        params.put("ukey",ukey);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                disShowProgress();
+                try {
+                JSONObject obj = new JSONObject(response);
+                String code = obj.optString("code");
+                String message = obj.optString("message");
+                if ("1".equals(code)) {
+                    JSONObject data = obj.optJSONObject("data");
+                    JSONArray educationArray = data.optJSONArray("education");
+                    for (int i = 0; i < educationArray.length(); i++) {
+                        JSONObject educationObj = educationArray.optJSONObject(i);
+                        UserEducationBean mUserEducationBean = new UserEducationBean();
+                        mUserEducationBean.setId(educationObj.optString("id"));
+                        mUserEducationBean.setName(educationObj.optString("name"));
+                        educationData.add(mUserEducationBean);
+                    }
+                    JSONArray districtArray = data.optJSONArray("district");
+                    for (int i = 0; i < districtArray.length(); i++) {
+                        JSONObject districtObj = districtArray.optJSONObject(i);
+                        UserDistrictBean mUserDistrictBean = new UserDistrictBean();
+                        mUserDistrictBean.setId(districtObj.optString("id"));
+                        mUserDistrictBean.setName(districtObj.optString("name"));
+                        districtData.add(mUserDistrictBean);
+                    }
+                    JSONArray planTimeArray = data.optJSONArray("plan_time");
+                    for (int i = 0; i < planTimeArray.length(); i++) {
+                        JSONObject planTimeObj = planTimeArray.optJSONObject(i);
+                        UserPlanTimeBean mUserPlanTimeBean = new UserPlanTimeBean();
+                        mUserPlanTimeBean.setId(planTimeObj.optString("id"));
+                        mUserPlanTimeBean.setName(planTimeObj.optString("name"));
+                        planTimeData.add(mUserPlanTimeBean);
+                    }
+                } else {
+                    ToastUtil.showS(mContext, message);
+                }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Throwable e) {
+                disShowProgress();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                disShowProgress();
+            }
+        });
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DATE_DIALOG:
+                return new DatePickerDialog(this, mdateListener, mYear, mMonth, mDay);
+        }
+        return null;
+    }
+
+    /**
+     * 设置日期 利用StringBuffer追加
+     */
+    public void display() {
+        tvDate.setText(new StringBuffer().append(mMonth + 1).append("-").append(mDay).append("-").append(mYear).append(" "));
+    }
+
+    private DatePickerDialog.OnDateSetListener mdateListener = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            mYear = year;
+            mMonth = monthOfYear;
+            mDay = dayOfMonth;
+            display();
+        }
+    };
+
+    private void selectMenu(final String tag) {
+        if (popMenu != null && popMenu.isShowing()) {
+            popMenu.dismiss();
+        } else {
+
+            layoutMenu = this.getLayoutInflater().inflate(
+                    R.layout.operationinto_popmenulist, null);
+            popMenuList = (ListView) layoutMenu
+                    .findViewById(R.id.menulist);
+
+            // 创建ArrayAdapter
+//            if ("1".equals(tag)) {
+//                adapter1 = new SchoolApplyAddressAdapter(
+//                        mContext,
+//                        areaData);
+//                popMenuList.setAdapter(adapter1);
+//                adapter1.notifyDataSetChanged();
+//            } else if ("2".equals(tag)) {
+//                adapter2 = new SchoolApplyStageAdapter(
+//                        mContext,
+//                        stageData);
+//                popMenuList.setAdapter(adapter2);
+//                adapter2.notifyDataSetChanged();
+//
+//            } else if ("3".equals(tag)) {
+//                adapter3 = new SchoolApplyPlanTimeAdapter(
+//                        mContext,
+//                        planTimeData);
+//                popMenuList.setAdapter(adapter3);
+//                adapter3.notifyDataSetChanged();
+//
+//            }
+
+            // 绑定适配器
+            backgroundAlpha(0.5f);
+
+            // 点击listview中item的处理
+            popMenuList
+                    .setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(AdapterView<?> parent,
+                                                View view, int position, long id) {
+                            // 隐藏弹出窗口
+                            if (popMenu != null && popMenu.isShowing()) {
+                                popMenu.dismiss();
+                                backgroundAlpha(1f);
+                            }
+//                            if ("1".equals(tag)) {
+//                                tvWhere.setText(areaData.get(position).getName());
+//                            } else if ("2".equals(tag)) {
+//                                stageid = stageData.get(position).getId();
+//                                tvWhichDegree.setText(stageData.get(position).getName());
+//                            } else if ("3".equals(tag)) {
+//                                tvStayTime.setText(planTimeData.get(position).getName());
+//                            }
+                        }
+                    });
+
+            // 创建弹出窗口
+            // 窗口内容为layoutLeft，里面包含一个ListView
+            // 窗口宽度跟tvLeft一样
+            //关闭事件
+            popMenu = new PopupWindow(layoutMenu, ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            popMenu.showAtLocation(getLayoutInflater().inflate(R.layout.activity_school_apply, null), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+            popMenu.setBackgroundDrawable(getResources().getDrawable(
+                    R.drawable.filter_bg));
+            popMenu.setAnimationStyle(R.style.AnimBottom);
+            popMenu.update();
+            popMenu.setOnDismissListener(new popupDismissListener());
+            popMenu.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+            popMenu.setTouchable(true); // 设置popupwindow可点击
+            popMenu.setOutsideTouchable(true); // 设置popupwindow外部可点击
+            popMenu.setFocusable(true); // 获取焦点
+
+
+            popMenu.setTouchInterceptor(new View.OnTouchListener() {
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    // 如果点击了popupwindow的外部，popupwindow也会消失
+                    if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+                        popMenu.dismiss();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+        }
+    }
+
+    /**
+     * 添加新笔记时弹出的popWin关闭的事件，主要是为了将背景透明度改回来
+     */
+    class popupDismissListener implements PopupWindow.OnDismissListener {
+
+        @Override
+        public void onDismiss() {
+            backgroundAlpha(1f);
+            WindowManager.LayoutParams attr = getWindow().getAttributes();
+            attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().setAttributes(attr);
+        }
+
+    }
+
+    /**
+     * 设置添加屏幕的背景透明度
+     *
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        getWindow().setAttributes(lp);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // 获取照片返回
+        if (selectPhoto != null) {
+            String photoPath = selectPhoto.getPhotoResultPath(requestCode, resultCode, data);
+            if (!TextUtils.isEmpty(photoPath)) {
+                commandPhoto.showGridPhoto(photoPath);
+            }
+        }
+    }
+    @OnClick({R.id.backBtn,R.id.tv_right, R.id.date_layout,R.id.xueli_layout, R.id.where_layout,R.id.where_country_layout, R.id.which_degree_layout, R.id.stay_time_layout, R.id.ok_btn})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.backBtn:
                 onBackPressed();
                 break;
-            case R.id.xueli_layout:
-                // xueliInfo(0);
-                break;
-            case R.id.where_layout:
-                //  whereInfo("0");
-                break;
-            case R.id.language_layout:
-                //   xueliInfo(1);
-                break;
-            case R.id.where_country_layout:
-                //  whereCountryLayout();
-                break;
-            case R.id.which_degree_layout:
-                //   xueliInfo(2);
-                break;
-            case R.id.stay_time_layout:
-                // stayTime();
-                break;
-            case R.id.date_layout:
-                showDialog(DATE_DIALOG);
-                break;
-            case R.id.gpa_conver_tv:
-                // toWebActivity("","GPA换算");
-                break;
-            case R.id.update_img_btn:
-                openImgSelect();
-                break;
             case R.id.tv_right:
-            case R.id.ok_btn:
-                //完善信息按钮
-                //  okBtn();
                 toActivityFinish(MainActivity.class);
                 Intent intent = new Intent(mContext, MainActivity.class);
                 startActivity(intent);
                 MyActivityManager.getInstance().finishAllActivity();
                 break;
+            case R.id.date_layout:
+                showDialog(DATE_DIALOG);
+                break;
+            case R.id.xueli_layout:
+                tag = "1";
+                selectMenu(tag);
+                break;
+            case R.id.where_layout:
+                tag = "2";
+                selectMenu(tag);
+                break;
+            case R.id.where_country_layout:
+                tag = "3";
+                selectMenu(tag);
+                break;
+            case R.id.which_degree_layout:
+                tag = "4";
+                selectMenu(tag);
+                break;
+            case R.id.stay_time_layout:
+                tag = "5";
+                selectMenu(tag);
+                break;
+            case R.id.ok_btn:
+               // offerData();
+                break;
         }
     }
-
-    private int DATE_DIALOG = 101;
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        if (id == DATE_DIALOG) {
-            mYear = DateUtil.getYear();
-            mMonth = DateUtil.getMonth();
-            mDay = DateUtil.getDay();
-            Logger.d("mYear :" + mYear + " mMonth :" + mMonth + "  mDay:" + mDay);
-            return new DatePickerDialog(this, mdateListener, mYear, mMonth, mDay);
-        }
-        return super.onCreateDialog(id);
-    }
-
-    private void openImgSelect() {
-        RxGalleryFinal
-                .with(mContext)
-                .image()
-                .radio()
-                .crop()
-                .imageLoader(ImageLoaderType.GLIDE)
-                .subscribe(new RxBusResultSubscriber<ImageRadioResultEvent>() {
-                    @Override
-                    protected void onEvent(ImageRadioResultEvent imageRadioResultEvent) throws Exception {
-                        //图片选择结果
-                        String cropPath = imageRadioResultEvent.getResult().getCropPath();
-                        Logger.d("cropPath :" + cropPath);
-//                        uploadFileBase64(cropPath);
-                        showImg(cropPath);
-                    }
-                })
-                .openGallery();
-    }
-
-    private List<String> imgPaths = new ArrayList<>();
-    private Map<Integer, String> imgUrl = new HashMap<>();
-
-    private void showImg(String filePath) {
-        if (!FileUtil.isExists(filePath)) {
-            showToast("图片不存在");
-            return;
-        }
-        imgPaths.add(filePath);
-        ImageView imageView = (ImageView) LayoutInflater.from(mContext).inflate(R.layout.item_perfect_image_view, updateImgLayout, false);
-        File file = new File(filePath);
-        //加载图片
-        Glide.with(this).load(file).into(imageView);
-        updateImgLayout.addView(imageView);
-    }
-
-    private void uploadFileBase64(final int index, String filePath) {
-        if (!FileUtil.isExists(filePath)) {
-            showToast("图片不存在");
-            return;
-        }
-        File file = new File(filePath);
-        try {
-            String base64Token = Base64.encodeToString(FileUtil.getFileToByte(file), Base64.DEFAULT);//  编码后
-//            String  base64Token = Base64.encodeToString(bytes, Base64.DEFAULT);//  编码后
-//            Logger.d("base64Token  start");
-//            Logger.d("base64Token  :" + base64Token);
-//            Logger.d("base64Token  end");
-//            HttpMethods.getInstance().uploadFileBase64(new MySubscriber<UploadImgEntity>(this) {
-//
-//                @Override
-//                public void onHttpCompleted(HttpResult<UploadImgEntity> httpResult) {
-//                    if (httpResult.isStatus()) {
-//                        imgUrl.put(index,httpResult.getData().getHeadimg());
-//                        currentUpdateImgIndex++;
-//                        if(currentUpdateImgIndex<imgPaths.size()) {
-//                            uploadFileBase64(currentUpdateImgIndex,imgPaths.get(currentUpdateImgIndex));
-//                        }else{
-//                            OkBtnNext();
-//                        }
-////                        Glide.with(context).load(MyApiService.IMG_BASE_URL2 + httpResult.getData().getHeadimg())
-////                                .bitmapTransform(new GlideCircleTransform(context))
-////                                .error(getResources().getDrawable(R.mipmap.default_user_head))
-////                                .into(userHeadImg);
-//                    } else {
-//                        showToast("图片上傳失败");
-//                    }
-//                }
-//
-//                @Override
-//                public void onHttpError(Throwable e) {
-//                    showToast("图片上傳失败");
-//                }
-//            }, ukey, base64Token);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-//
-//    private void stayTime() {
-//        HttpMethods.getInstance().stayTime(new MySubscriber<ArrayList<CityEntity>>(this) {
-//            @Override
-//            public void onHttpCompleted(HttpResult<ArrayList<CityEntity>> arrayListHttpResult) {
-//                if (arrayListHttpResult.isStatus()) {
-//                    handlerStayTime(arrayListHttpResult.getData());
-//                }
-//            }
-//
-//            @Override
-//            public void onHttpError(Throwable e) {
-//            }
-//        }, ukey);
-//    }
-//
-//    private void whereCountryLayout() {
-//        HttpMethods.getInstance().district(new MySubscriber<ArrayList<CityEntity>>(this) {
-//            @Override
-//            public void onHttpCompleted(HttpResult<ArrayList<CityEntity>> arrayListHttpResult) {
-//                if (arrayListHttpResult.isStatus()) {
-//                    handlerCountry(arrayListHttpResult.getData());
-//                }
-//            }
-//
-//            @Override
-//            public void onHttpError(Throwable e) {
-//            }
-//        }, "0", ukey);
-//    }
-
-    private void nextActivity() {
-        toActivityFinish(MainActivity.class);
-    }
-
-    private int currentUpdateImgIndex = 0;
-
-    private void okBtn() {
-        if (imgPaths.size() > 0) {
-            uploadFileBase64(currentUpdateImgIndex, imgPaths.get(currentUpdateImgIndex));
-        }
-    }
-
-    private void OkBtnNext() {
-
-    }
-
-//    private void xueliInfo(int type) {
-//        isEduType = type;
-//        if (eduTypeInfoEntity == null) {
-//            HttpMethods.getInstance().getXueLiList(new MySubscriber<EduTypeInfoEntity>(this) {
-//                @Override
-//                public void onHttpCompleted(HttpResult<EduTypeInfoEntity> eduTypeInfoEntityHttpResult) {
-//                    if (eduTypeInfoEntityHttpResult.isStatus()) {
-//                        eduTypeInfoEntity = eduTypeInfoEntityHttpResult.getData();
-//                        handlerEduType(eduTypeInfoEntity);
-//                    }
-//                }
-//                @Override
-//                public void onHttpError(Throwable e) {
-//                }
-//            }, ukey);
-//        } else {
-//            handlerEduType(eduTypeInfoEntity);
-//        }
-//    }
-//
-//    private void handlerEduType(final EduTypeInfoEntity eduTypeInfoEntity) {
-//        if (isEduType == 0) {
-//            initOptionPicker("学历", new OptionsPickerView.OnOptionsSelectListener() {
-//                @Override
-//                public void onOptionsSelect(int options1, int options2, int options3, View v) {
-//                    //返回的分别是三个级别的选中位置
-//                    xueliTv.setText(eduTypeInfoEntity.getEdu().get(options1).getName());
-//                    xueliTv.setTag(eduTypeInfoEntity.getEdu().get(options1).getId());
-//                }
-//            });
-//            pvOptions.setPicker(eduTypeInfoEntity.getEdu());//一级选择器
-//            pvOptions.show();
-//        } else if(isEduType==1){
-//            initOptionPicker("成绩类型", new OptionsPickerView.OnOptionsSelectListener() {
-//                @Override
-//                public void onOptionsSelect(int options1, int options2, int options3, View v) {
-//                    //返回的分别是三个级别的选中位置
-//                    languageTv.setText(eduTypeInfoEntity.getType().get(options1).getName());
-//                    languageTv.setTag(eduTypeInfoEntity.getType().get(options1).getId());
-//                }
-//            });
-//            pvOptions.setPicker(eduTypeInfoEntity.getType());//一级选择器
-//            pvOptions.show();
-//        }else if(isEduType==2){
-//            initOptionPicker("学历", new OptionsPickerView.OnOptionsSelectListener() {
-//                @Override
-//                public void onOptionsSelect(int options1, int options2, int options3, View v) {
-//                    //返回的分别是三个级别的选中位置
-//                    whichDegreeTv.setText(eduTypeInfoEntity.getEdu().get(options1).getName());
-//                    whichDegreeTv.setTag(eduTypeInfoEntity.getEdu().get(options1).getId());
-//                }
-//            });
-//            pvOptions.setPicker(eduTypeInfoEntity.getEdu());//一级选择器
-//            pvOptions.show();
-//        }
-//    }
-//
-//    private void whereInfo(String upid) {
-//        Logger.d("upid :" + upid);
-//        HttpMethods.getInstance().district(new MySubscriber<ArrayList<CityEntity>>(this) {
-//            @Override
-//            public void onHttpCompleted(HttpResult<ArrayList<CityEntity>> arrayListHttpResult) {
-//                if (arrayListHttpResult.isStatus()) {
-//                    handlerCity(arrayListHttpResult.getData());
-//                }
-//            }
-//            @Override
-//            public void onHttpError(Throwable e) {
-//                isFirstSelectWheel = true;
-//            }
-//        }, upid, ukey);
-//    }
-//
-//
-//
-//    private void handlerStayTime(final ArrayList<CityEntity> cityArr){
-//        initOptionPicker("留学时间", new OptionsPickerView.OnOptionsSelectListener() {
-//            @Override
-//            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-//                //返回的分别是三个级别的选中位置
-//                stayTimeTv.setText(cityArr.get(options1).getName());
-//                stayTimeTv.setTag(cityArr.get(options1).getId());
-//
-//            }
-//        });
-//
-//        pvOptions.setPicker(cityArr);//一级选择器
-//
-//        pvOptions.show();
-//    }
-//
-//
-//    private void handlerCountry(final ArrayList<CityEntity> cityArr){
-//        initOptionPicker("地区", new OptionsPickerView.OnOptionsSelectListener() {
-//            @Override
-//            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-//                //返回的分别是三个级别的选中位置
-//                whereCountryTv.setText(cityArr.get(options1).getName());
-//                whereCountryTv.setTag(cityArr.get(options1).getId());
-//
-//            }
-//        });
-//
-//        pvOptions.setPicker(cityArr);//一级选择器
-//
-//        pvOptions.show();
-//    }
-//
-//    private boolean isFirstSelectWheel = true;
-//    private String selectWhere = "";
-//
-//    private void handlerCity(final ArrayList<CityEntity> cityArr) {
-//        initOptionPicker("地区", new OptionsPickerView.OnOptionsSelectListener() {
-//            @Override
-//            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-//                //返回的分别是三个级别的选中位置
-//                if (isFirstSelectWheel) {
-//                    isFirstSelectWheel = false;
-//                    whereInfo(cityArr.get(options1).getId());
-//                    selectWhere = cityArr.get(options1).getName();
-//                } else {
-//                    whereTv.setText(selectWhere + "," + cityArr.get(options1).getName());
-//                    whereTv.setTag(cityArr.get(options1).getId());
-//                }
-//            }
-//        });
-//        pvOptions.setPicker(cityArr);//一级选择器
-//
-//        if (!isFirstSelectWheel) {
-//            pvOptions.setOnDismissListener(new OnDismissListener() {
-//                @Override
-//                public void onDismiss(Object o) {
-//                    isFirstSelectWheel = true;
-//                }
-//            });
-//        }
-//
-//        pvOptions.show();
-//    }
-//
-//    private OptionsPickerView pvOptions;
-//
-//    private void initOptionPicker(String wheelTitle, OptionsPickerView.OnOptionsSelectListener optionSelectListener) {//条件选择器初始化
-//        pvOptions = new OptionsPickerView.Builder(this, optionSelectListener)
-//                /*.setSubmitText("确定")
-//                .setCancelText("取消")
-//                .setTitleText("城市选择")
-//                .setTitleSize(20)
-//                .setSubCalSize(18)//确定取消按钮大小
-//                .setTitleColor(Color.BLACK)
-//                .setSubmitColor(Color.BLUE)
-//                .setCancelColor(Color.BLUE)
-//                .setBackgroundColor(Color.WHITE)
-//                .setLinkage(false)//default true
-//                .setCyclic(false, false, false)//循环与否
-//                .setOutSideCancelable(false)//点击外部dismiss, default true
-//                .setTitleBgColor(0xFF333333)//标题背景颜色 Night mode
-//                .setBgColor(0xFF000000)//滚轮背景颜色 Night mode
-//                .setLabels("省", "市", "区")//设置选择的三级单位
-//                .setLineSpacingMultiplier(2.0f) //设置两横线之间的间隔倍数（范围：1.2 - 2.0倍 文字高度）
-//                .setDividerColor(Color.RED)//设置分割线的颜色
-//                .isDialog(false)//是否设置为对话框模式
-//                .setOutSideCancelable(false)//点击屏幕中控件外部范围，是否可以取消显示*/
-//                .setTitleText(wheelTitle)
-//                .setDividerType(WheelView.DividerType.FILL)
-//                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
-//                .setContentTextSize(20)//设置滚轮文字大小
-//                .setSelectOptions(0, 1, 2)  //设置默认选中项
-//                .setLineSpacingMultiplier(2.0f) //设置两横线之间的间隔倍数（范围：1.2 - 2.0倍 文字高度）
-//                .build();
-////            pvOptions.setPicker(options1Items);//一级选择器
-////        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-////        pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器
-//    }
-
-    private int mYear, mMonth, mDay;
-    private DatePickerDialog.OnDateSetListener mdateListener = new DatePickerDialog.OnDateSetListener() {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            mYear = year;
-            mMonth = monthOfYear;
-            mDay = dayOfMonth;
-            dateEt.setText(mYear + "-" + mMonth + "-" + mDay);
-        }
-    };
 }

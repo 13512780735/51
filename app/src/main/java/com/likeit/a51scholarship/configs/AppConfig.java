@@ -25,6 +25,10 @@ public class AppConfig {
     public static final String LIKEIT_ADLIST = SERVER_API + "/api/index/adlist";
     //上传头像接口
     public static final String LIKEIT_UPIMG= SERVER_API + "/api/member/upimg_base64";
+    //用户编辑初始数据接口
+    public static final String LIKEIT_MEMBER_EDIT_TMPL= SERVER_API + "/api/member/edit_tmpl";
+    //编辑用户资料接口
+    public static final String LIKEIT_MEMBER_EDIT_INFO= SERVER_API + "/api/member/edit_info";
     /**
      * 院校
      */

@@ -418,8 +418,6 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
                                                 View view, int position, long id) {
                             // 改变顶部对应TextView值
                             tid = listMenu.get(position).getTid();
-                            //tvGender.setText(strItem);
-                            //ToastUtil.showS(getActivity(), strItem);
                             // 隐藏弹出窗口
                             if (popMenu != null && popMenu.isShowing()) {
                                 popMenu.dismiss();

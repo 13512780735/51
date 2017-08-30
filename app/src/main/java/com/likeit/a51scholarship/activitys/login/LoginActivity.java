@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
@@ -181,14 +182,17 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 boolean updatenick = EMClient.getInstance().pushManager().updatePushNickname(
                         MyApplication.currentUserNick.trim());
                 DemoHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
-                toActivityFinish(MainActivity.class);
-               // toActivity(UploadImgActivity.class);
+                toActivityFinish(UploadImgActivity.class);
+//                if("0".equals(is_first)){
+//                    toActivityFinish(MainActivity.class);
+//                }else{
+//                    toActivityFinish(UploadImgActivity.class);
+//                }
             }
 
             @Override
             public void onError(int i, String s) {
-                // ToastUtil.showS(mContext,"EM登录失败");
-                Log.d("TAG", "EM登录失败");
+                Log.d("TAG","EM登录失败");
             }
 
             @Override

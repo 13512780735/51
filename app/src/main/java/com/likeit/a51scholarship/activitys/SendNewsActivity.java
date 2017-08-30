@@ -45,8 +45,6 @@ public class SendNewsActivity extends Container {
     EditText titleEt;
     @BindView(R.id.content_et)
     EditText contentEt;
-    @BindView(R.id.imgs_layout)
-    LinearLayout imgsLayout;
     @BindView(R.id.news_type_layout)
     LinearLayout newsTypeLayout;
     @BindView(R.id.photo_im)
@@ -55,6 +53,8 @@ public class SendNewsActivity extends Container {
     ImageView camearIm;
     @BindView(R.id.label_im)
     ImageView labelIm;
+    @BindView(R.id.imgs_layout)
+    LinearLayout imgsLayout;
     //图片添加
     @BindView(R.id.gv_all_photo)
     CustomScrollGridView mGridView;

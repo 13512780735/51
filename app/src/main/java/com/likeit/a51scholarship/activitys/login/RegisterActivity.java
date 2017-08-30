@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
 import com.likeit.a51scholarship.R;
+import com.likeit.a51scholarship.utils.UtilPreference;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
@@ -180,7 +181,8 @@ public class RegisterActivity extends Container {
                         JSONObject data = obj.getJSONObject("data");
                         String ukey = data.optString("ukey");
                         ToastUtil.showS(mContext, message);
-
+                        UtilPreference.saveString(mContext,"name",phoneNum);
+                        UtilPreference.saveString(mContext,"passwd",passwd);
                         toActivityFinish(LoginActivity.class);
                     } else {
                         ToastUtil.showS(mContext, message);
