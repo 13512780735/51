@@ -30,6 +30,9 @@ import com.likeit.a51scholarship.activitys.SchoolApplyActivity;
 import com.likeit.a51scholarship.adapters.SchoolApplyAddressAdapter;
 import com.likeit.a51scholarship.adapters.SchoolApplyPlanTimeAdapter;
 import com.likeit.a51scholarship.adapters.SchoolApplyStageAdapter;
+import com.likeit.a51scholarship.adapters.userapply.UserApplyDistrictAdapter;
+import com.likeit.a51scholarship.adapters.userapply.UserApplyEducationAdapter;
+import com.likeit.a51scholarship.adapters.userapply.UserApplyPlanTimeAdapter;
 import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.imageutil.custom.CommandPhotoUtil01;
@@ -168,6 +171,10 @@ public class PerfectFirstActivity extends Container {
     private List<UserDistrictBean> districtData;
     private List<UserPlanTimeBean> planTimeData;
     private String tag;
+    private UserApplyEducationAdapter adapter1;
+    private UserApplyDistrictAdapter adapter2;
+    private UserApplyPlanTimeAdapter adapter3;
+    private String stageid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -177,9 +184,9 @@ public class PerfectFirstActivity extends Container {
         ButterKnife.bind(this);
         tvHeader.setText("完善信息");
         tvRight.setText("跳过");
-        educationData=new ArrayList<UserEducationBean>();
-        districtData=new ArrayList<UserDistrictBean>();
-        planTimeData=new ArrayList<UserPlanTimeBean>();
+        educationData = new ArrayList<UserEducationBean>();
+        districtData = new ArrayList<UserDistrictBean>();
+        planTimeData = new ArrayList<UserPlanTimeBean>();
         ininData();//註冊申请初始化数据
         showProgress("Loading..." +
                 "");
@@ -209,46 +216,46 @@ public class PerfectFirstActivity extends Container {
     }
 
     private void ininData() {
-        String url= AppConfig.LIKEIT_MEMBER_EDIT_TMPL;
-        RequestParams params=new RequestParams();
-        params.put("ukey",ukey);
+        String url = AppConfig.LIKEIT_MEMBER_EDIT_TMPL;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
                 disShowProgress();
                 try {
-                JSONObject obj = new JSONObject(response);
-                String code = obj.optString("code");
-                String message = obj.optString("message");
-                if ("1".equals(code)) {
-                    JSONObject data = obj.optJSONObject("data");
-                    JSONArray educationArray = data.optJSONArray("education");
-                    for (int i = 0; i < educationArray.length(); i++) {
-                        JSONObject educationObj = educationArray.optJSONObject(i);
-                        UserEducationBean mUserEducationBean = new UserEducationBean();
-                        mUserEducationBean.setId(educationObj.optString("id"));
-                        mUserEducationBean.setName(educationObj.optString("name"));
-                        educationData.add(mUserEducationBean);
+                    JSONObject obj = new JSONObject(response);
+                    String code = obj.optString("code");
+                    String message = obj.optString("message");
+                    if ("1".equals(code)) {
+                        JSONObject data = obj.optJSONObject("data");
+                        JSONArray educationArray = data.optJSONArray("education");
+                        for (int i = 0; i < educationArray.length(); i++) {
+                            JSONObject educationObj = educationArray.optJSONObject(i);
+                            UserEducationBean mUserEducationBean = new UserEducationBean();
+                            mUserEducationBean.setId(educationObj.optString("id"));
+                            mUserEducationBean.setName(educationObj.optString("name"));
+                            educationData.add(mUserEducationBean);
+                        }
+                        JSONArray districtArray = data.optJSONArray("district");
+                        for (int i = 0; i < districtArray.length(); i++) {
+                            JSONObject districtObj = districtArray.optJSONObject(i);
+                            UserDistrictBean mUserDistrictBean = new UserDistrictBean();
+                            mUserDistrictBean.setId(districtObj.optString("id"));
+                            mUserDistrictBean.setName(districtObj.optString("name"));
+                            districtData.add(mUserDistrictBean);
+                        }
+                        JSONArray planTimeArray = data.optJSONArray("plan_time");
+                        for (int i = 0; i < planTimeArray.length(); i++) {
+                            JSONObject planTimeObj = planTimeArray.optJSONObject(i);
+                            UserPlanTimeBean mUserPlanTimeBean = new UserPlanTimeBean();
+                            mUserPlanTimeBean.setId(planTimeObj.optString("id"));
+                            mUserPlanTimeBean.setName(planTimeObj.optString("name"));
+                            planTimeData.add(mUserPlanTimeBean);
+                        }
+                    } else {
+                        ToastUtil.showS(mContext, message);
                     }
-                    JSONArray districtArray = data.optJSONArray("district");
-                    for (int i = 0; i < districtArray.length(); i++) {
-                        JSONObject districtObj = districtArray.optJSONObject(i);
-                        UserDistrictBean mUserDistrictBean = new UserDistrictBean();
-                        mUserDistrictBean.setId(districtObj.optString("id"));
-                        mUserDistrictBean.setName(districtObj.optString("name"));
-                        districtData.add(mUserDistrictBean);
-                    }
-                    JSONArray planTimeArray = data.optJSONArray("plan_time");
-                    for (int i = 0; i < planTimeArray.length(); i++) {
-                        JSONObject planTimeObj = planTimeArray.optJSONObject(i);
-                        UserPlanTimeBean mUserPlanTimeBean = new UserPlanTimeBean();
-                        mUserPlanTimeBean.setId(planTimeObj.optString("id"));
-                        mUserPlanTimeBean.setName(planTimeObj.optString("name"));
-                        planTimeData.add(mUserPlanTimeBean);
-                    }
-                } else {
-                    ToastUtil.showS(mContext, message);
-                }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -307,27 +314,27 @@ public class PerfectFirstActivity extends Container {
                     .findViewById(R.id.menulist);
 
             // 创建ArrayAdapter
-//            if ("1".equals(tag)) {
-//                adapter1 = new SchoolApplyAddressAdapter(
-//                        mContext,
-//                        areaData);
-//                popMenuList.setAdapter(adapter1);
-//                adapter1.notifyDataSetChanged();
-//            } else if ("2".equals(tag)) {
-//                adapter2 = new SchoolApplyStageAdapter(
-//                        mContext,
-//                        stageData);
-//                popMenuList.setAdapter(adapter2);
-//                adapter2.notifyDataSetChanged();
-//
-//            } else if ("3".equals(tag)) {
-//                adapter3 = new SchoolApplyPlanTimeAdapter(
-//                        mContext,
-//                        planTimeData);
-//                popMenuList.setAdapter(adapter3);
-//                adapter3.notifyDataSetChanged();
-//
-//            }
+            if ("1".equals(tag) || "4".equals(tag)) {
+                adapter1 = new UserApplyEducationAdapter(
+                        mContext,
+                        educationData);
+                popMenuList.setAdapter(adapter1);
+                adapter1.notifyDataSetChanged();
+            } else if ("2".equals(tag) || "3".equals(tag)) {
+                adapter2 = new UserApplyDistrictAdapter(
+                        mContext,
+                        districtData);
+                popMenuList.setAdapter(adapter2);
+                adapter2.notifyDataSetChanged();
+
+            } else if ("5".equals(tag)) {
+                adapter3 = new UserApplyPlanTimeAdapter(
+                        mContext,
+                        planTimeData);
+                popMenuList.setAdapter(adapter3);
+                adapter3.notifyDataSetChanged();
+
+            }
 
             // 绑定适配器
             backgroundAlpha(0.5f);
@@ -344,14 +351,18 @@ public class PerfectFirstActivity extends Container {
                                 popMenu.dismiss();
                                 backgroundAlpha(1f);
                             }
-//                            if ("1".equals(tag)) {
-//                                tvWhere.setText(areaData.get(position).getName());
-//                            } else if ("2".equals(tag)) {
-//                                stageid = stageData.get(position).getId();
-//                                tvWhichDegree.setText(stageData.get(position).getName());
-//                            } else if ("3".equals(tag)) {
-//                                tvStayTime.setText(planTimeData.get(position).getName());
-//                            }
+                            if ("1".equals(tag)) {
+                                tvXueli.setText(educationData.get(position).getName());
+                            } else if ("2".equals(tag)) {
+                                stageid = districtData.get(position).getId();
+                                tvWhere.setText(districtData.get(position).getName());
+                            } else if ("3".equals(tag)) {
+                                tvWhereCountry.setText(districtData.get(position).getName());
+                            } else if ("4".equals(tag)) {
+                                tvWhichDegree.setText(educationData.get(position).getName());
+                            } else if ("5".equals(tag)) {
+                                tvStayTime.setText(planTimeData.get(position).getName());
+                            }
                         }
                     });
 
@@ -427,7 +438,8 @@ public class PerfectFirstActivity extends Container {
             }
         }
     }
-    @OnClick({R.id.backBtn,R.id.tv_right, R.id.date_layout,R.id.xueli_layout, R.id.where_layout,R.id.where_country_layout, R.id.which_degree_layout, R.id.stay_time_layout, R.id.ok_btn})
+
+    @OnClick({R.id.backBtn, R.id.tv_right, R.id.date_layout, R.id.xueli_layout, R.id.where_layout, R.id.where_country_layout, R.id.which_degree_layout, R.id.stay_time_layout, R.id.ok_btn})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.backBtn:
@@ -463,8 +475,24 @@ public class PerfectFirstActivity extends Container {
                 selectMenu(tag);
                 break;
             case R.id.ok_btn:
-               // offerData();
+                offerData();//提交数据
                 break;
         }
+    }
+
+    private void offerData() {
+        String url = AppConfig.LIKEIT_MEMBER_EDIT_INFO;
+        RequestParams params = new RequestParams();
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+
+            }
+
+            @Override
+            public void failed(Throwable e) {
+
+            }
+        });
     }
 }

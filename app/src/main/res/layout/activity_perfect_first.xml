@@ -855,6 +855,11 @@
                         android:text=""
                         android:textColor="#02b7fb"
                         android:textSize="14sp"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/filter_down_black_bg"/>
 
                 </LinearLayout>
 
