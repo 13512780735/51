@@ -1,0 +1,523 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".activitys.SchoolDetailActivity">
+
+    <include layout="@layout/layout_header_with_back_img" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+
+        <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+            android:id="@+id/school_details_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:id="@+id/ll_scrollview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/ll_scrollview01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:focusableInTouchMode="true"
+                    android:focusable="true"
+                    android:layout_height="200dip">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/viewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dip" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tv_indicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_margin="10dip"
+                            android:text="1/10"
+                            android:textColor="@color/white" />
+                    </RelativeLayout>
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/school_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dip"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical"
+                            android:lines="1"
+                            android:text="xxx"
+                            android:textColor="@color/color_333"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/school_es_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dip"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical"
+                            android:lines="1"
+                            android:text="xxx"
+                            android:textColor="@color/defualt_textcolor_d"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <com.likeit.a51scholarship.view.CircleImageView
+                        android:id="@+id/school_img_iv"
+                        android:layout_width="80dip"
+                        android:layout_height="80dip"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dip"
+                        android:src="@mipmap/test_bg" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="30dip"
+                            android:layout_height="30dip"
+                            android:layout_gravity="center"
+                            android:background="@mipmap/icon_paiming_1" />
+
+                        <LinearLayout
+                            android:layout_width="0dip"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="MBA排名"
+                                android:textColor="@color/defualt_textcolor_d" />
+
+                            <TextView
+                                android:id="@+id/school_rank"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="200"
+                                android:textColor="@color/login_btn_bg_color"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="20dip"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"></View>
+
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="30dip"
+                            android:layout_height="30dip"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/icon_money_1" />
+
+                        <LinearLayout
+                            android:layout_width="0dip"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="奖学金"
+                                android:textColor="@color/defualt_textcolor_d" />
+
+                            <TextView
+                                android:id="@+id/school_scholarship"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="$6000"
+                                android:textColor="@color/login_btn_bg_color"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="30dip"
+                            android:layout_height="30dip"
+                            android:layout_gravity="center"
+                            android:background="@mipmap/menu_icon_school" />
+
+                        <LinearLayout
+                            android:layout_width="0dip"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/school_nature"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="私立高校"
+                                android:textColor="@color/login_btn_bg_color"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="20dip"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"></View>
+
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="30dip"
+                            android:layout_height="30dip"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/school_icon_luqu" />
+
+                        <LinearLayout
+                            android:layout_width="0dip"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="录取率"
+                                android:textColor="@color/defualt_textcolor_d" />
+
+                            <TextView
+                                android:id="@+id/school_trate"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="60%"
+                                android:textColor="@color/login_btn_bg_color"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="托福要求"
+                        android:textColor="@color/color_999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/sat_num_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="80"
+                        android:textColor="@color/defualt_textcolor"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="雅思要求"
+                        android:textColor="@color/color_999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/toefl_num_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="6.5"
+                        android:textColor="@color/defualt_textcolor"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="托业要求"
+                        android:textColor="@color/color_999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/act_num_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="750"
+                        android:textColor="@color/defualt_textcolor"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="GMAT要求"
+                        android:textColor="@color/color_999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/perpal_num_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="550"
+                        android:textColor="@color/defualt_textcolor"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="GPA要求"
+                        android:textColor="@color/color_999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/gpa_num_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="3.0"
+                        android:textColor="@color/defualt_textcolor"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="学生人数"
+                        android:textColor="@color/color_999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/school_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="30000"
+                        android:textColor="@color/defualt_textcolor"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="学校简介"
+                    android:textColor="@color/color_333"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+
+
+                    />
+
+                <jaydenxiao.com.expandabletextview.ExpandableTextView
+                    android:id="@+id/school_desc_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    app:animDuration="200"
+                    app:collapseDrawable="@drawable/icon_down_arrow"
+                    app:collapseExpandGrarity="right"
+                    app:collapseExpandTextColor="@color/main_color"
+                    app:contentTextColor="@color/gray"
+                    app:contentTextSize="14sp"
+                    app:expandDrawable="@drawable/icon_up_arrow"
+                    app:maxCollapsedLines="3"
+                    app:textCollapse="@string/collapse"></jaydenxiao.com.expandabletextview.ExpandableTextView>
+            </LinearLayout>
+                <com.likeit.a51scholarship.view.MyListview
+                    android:id="@+id/school_details_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="10dip"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:layout_margin="10dip"></com.likeit.a51scholarship.view.MyListview>
+            </LinearLayout>
+        </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/icon_pinlun_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/icon_list_iv"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dip"
+                android:layout_marginRight="10dip"
+                android:src="@mipmap/icon_pinlun"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/icon_list_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/icon_up_iv"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dip"
+                android:layout_marginRight="10dip"
+                android:src="@mipmap/icon_list" />
+
+            <ImageView
+                android:id="@+id/icon_up_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dip"
+                android:layout_marginRight="10dip"
+                android:src="@mipmap/icon_up" />
+        </RelativeLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <CheckBox
+            style="@style/mycheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dip"
+            android:layout_weight="2"
+            android:background="@color/white"
+            android:gravity="center"
+            android:paddingRight="10dip"
+            android:text="收藏"
+            android:textColor="@drawable/home_font_selector"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_xuexiaoshenqin" />
+    </LinearLayout>
+</LinearLayout>
