@@ -66,7 +66,7 @@ public class LiveListActivity extends Container {
         mfragments.add(new LiveFragment01());
         mfragments.add(new LiveFragment01());
         //Toast.makeText(this,mDatas.toString(),Toast.LENGTH_SHORT).show();
-        viewpager.setAdapter(new LiveDetailsPageAdapter(getSupportFragmentManager(), mfragments, mDatas));
+     viewpager.setAdapter(new LiveDetailsPageAdapter(getSupportFragmentManager(), mfragments, mDatas));
         viewpager.setCurrentItem(0);
     }
 

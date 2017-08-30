@@ -1,6 +1,8 @@
 package com.likeit.a51scholarship.activitys.newsfragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,7 +10,15 @@ import android.widget.TextView;
 import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.activitys.Container;
 import com.likeit.a51scholarship.activitys.SendNewsActivity;
+import com.likeit.a51scholarship.configs.AppConfig;
+import com.likeit.a51scholarship.http.HttpUtil;
+import com.likeit.a51scholarship.utils.ToastUtil;
+import com.likeit.a51scholarship.utils.richtext.RichText;
 import com.likeit.a51scholarship.view.expandtabview.ExpandTabView;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,23 +34,87 @@ public class NewsDetailsActivity extends Container {
     ImageView ivRight;
     @BindView(R.id.tv_header)
     TextView tvHeader;
-    @BindView(R.id.new_details_desc_tv)
-    ExpandableTextView newDetailsDescTv;
+    @BindView(R.id.new_details_title)
+    TextView tvTitle;
+    @BindView(R.id.new_details_source01)
+    TextView tvSource;
+    @BindView(R.id.new_details_time)
+    TextView tvTime;
+    @BindView(R.id.new_details_praise)
+    TextView tvPraise;
+    @BindView(R.id.new_details_comment)
+    TextView tvComment;
+    @BindView(R.id.new_details_details)
+    RichText richDetails;
+    private String id;
+    private String title,source,time,content,comment,view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_details);
         ButterKnife.bind(this);
-        initView();
+        Intent intent=getIntent();
+        id = intent.getStringExtra("id");
+        //详情数据请求
+        initData();
+        showProgress("Loading...");
+
+    }
+
+    private void initData() {
+        String url= AppConfig.LIKEIT_NEW_GETDETAILS;
+        RequestParams params=new RequestParams();
+        params.put("ukey",ukey);
+        params.put("id",id);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                Log.d("TAG8885",response);
+                disShowProgress();
+                try {
+                    JSONObject obj=new JSONObject(response);
+                    String code=obj.optString("code");
+                    String message=obj.optString("message");
+                    if("1".equals(code)){
+                        JSONObject object=obj.optJSONObject("data");
+                        title=object.optString("title");//标题
+                        source=object.optString("author");//作者
+                        time=object.optString("interval");//发布时间间隔
+                        content=object.optString("content");//内容
+                        comment=object.optString("comment");//评论数
+                        view=object.optString("view");//阅读数
+                        initView();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Throwable e) {
+                disShowProgress();
+                ToastUtil.showS(mContext,"网络异常！");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                disShowProgress();
+            }
+        });
     }
 
     private void initView() {
         tvHeader.setText("资讯详情页");
         ivRight.setImageResource(R.mipmap.icon_edit);
         ivLeft.setImageResource(R.mipmap.icon_back);
-        newDetailsDescTv.setText("   人寰的期末周终于过去，我跟几个朋友也约着来了一场说走就走的旅行，大家决定去费城和首都华盛顿玩几天。着两所城市都是在美东地区" +
-                "，离纽约的距离不远，气候、温度都差不多。费城，美国曾经的首都，独立宣言的诞生地；华盛顿特区，现在美利坚合众国的首都，有着“博物馆之城”美名" +
-                "。美国历史虽短，但是这两座城市都在其...");
+        tvTitle.setText(title);
+        tvSource.setText(source);
+        tvTime.setText("时间："+time);
+        richDetails.setRichText(content);
+        tvPraise.setText(view);
+        tvComment.setText(comment);
     }
     @OnClick({R.id.iv_header_right,R.id.iv_header_left,R.id.new_details_share})
     public void onClick(View view){

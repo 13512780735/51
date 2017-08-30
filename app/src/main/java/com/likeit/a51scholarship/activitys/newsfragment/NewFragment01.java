@@ -18,6 +18,7 @@ import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.fragments.BaseFragment;
 import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.model.HomeItemNewsBean;
+import com.likeit.a51scholarship.model.NewTabBean;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.view.MyListview;
 import com.loopj.android.http.RequestParams;
@@ -41,6 +42,8 @@ public class NewFragment01 extends BaseFragment implements
     private ProgressDialog dialog;
     private List<HomeItemNewsBean> NewsData;
     private HomeItemNewsAdapter newAdapter;
+    private static final String KEY = "title";
+    private String cid;
 
     @Override
     protected int setContentView() {
@@ -51,6 +54,8 @@ public class NewFragment01 extends BaseFragment implements
     protected void lazyLoad() {
         dialog = new ProgressDialog(getActivity());
         dialog.setMessage("Loading...");
+        Bundle bundle=  getArguments();
+        cid=bundle.getString("url");
         NewsData = new ArrayList<HomeItemNewsBean>();
         newAdapter = new HomeItemNewsAdapter(getActivity(), NewsData);
         initData();
@@ -70,9 +75,11 @@ public class NewFragment01 extends BaseFragment implements
     }
 
     private void initData() {
-        String url = AppConfig.LIKEIT_NEWS;
+        String url = AppConfig.LIKEIT_NEW_GETLIST;
         RequestParams params = new RequestParams();
         params.put("ukey", ukey);
+        params.put("page", "1");
+        params.put("cid", cid);
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
@@ -139,12 +146,21 @@ public class NewFragment01 extends BaseFragment implements
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String id1=NewsData.get(position).getId();
                 Intent intentNewDetails = new Intent(getActivity(), NewsDetailsActivity.class);
+                intentNewDetails.putExtra("id",id1);
                 startActivity(intentNewDetails);
             }
         });
     }
+    public static NewFragment01 newInstance(NewTabBean str){
+        NewFragment01 fragment = new NewFragment01();
+            Bundle bundle = new Bundle();
+            bundle.putString(KEY, String.valueOf(str));
+           fragment.setArguments(bundle);
 
+           return fragment;
+         }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {

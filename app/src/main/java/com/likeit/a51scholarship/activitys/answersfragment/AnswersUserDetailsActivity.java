@@ -87,7 +87,7 @@ public class AnswersUserDetailsActivity extends Container implements
         mfragments.add(new LiveDetailsFragment01());
         mfragments.add(new UserDetailsFragment02());
         //Toast.makeText(this,mDatas.toString(),Toast.LENGTH_SHORT).show();
-        viewpager.setAdapter(new LiveDetailsPageAdapter(getSupportFragmentManager(), mfragments, mDatas));
+       viewpager.setAdapter(new LiveDetailsPageAdapter(getSupportFragmentManager(), mfragments, mDatas));
         viewpager.setCurrentItem(0);
     }
 

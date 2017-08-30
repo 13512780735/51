@@ -506,7 +506,8 @@
         <activity android:name=".chat.message.ui.CallActivity" />
         <activity android:name=".chat.message.ui.FriendActivity" />
         <activity android:name=".chat.message.ui.AddContactActivity" />
-        <activity android:name=".chat.message.ui.NewFriendsMsgActivity"></activity>
+        <activity android:name=".chat.message.ui.NewFriendsMsgActivity" />
+        <activity android:name=".activitys.SchoolApplyActivity"></activity>
     </application>
 
 </manifest>

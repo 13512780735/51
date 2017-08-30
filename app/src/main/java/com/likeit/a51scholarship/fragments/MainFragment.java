@@ -88,8 +88,8 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
     private HomeADlistBean homeADlistBean;
     private MyListview mListView;
     private List<HomeItemSchoolBean> SchoolData;
-    private HomeItemSchoolAdapter schoolAdater;
     private List<HomeItemNewsBean> NewsData;
+    private HomeItemSchoolAdapter schoolAdater;
     private HomeItemNewsAdapter newAdapter;
     private RadioButton radio_school;
     private RadioButton radio_news;
@@ -291,11 +291,13 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 String name = SchoolData.get(position).getName();
                 String en_name = SchoolData.get(position).getEn_name();
                 String img = SchoolData.get(position).getImg();
+                String sid=SchoolData.get(position).getId();
                 if (status == 1) {
                     Intent intentSchoolDetail = new Intent();
                     intentSchoolDetail.putExtra("name", name);//英文名字
                     intentSchoolDetail.putExtra("en_name", en_name);//中文名字
                     intentSchoolDetail.putExtra("img", img);//图片
+                    intentSchoolDetail.putExtra("sid", sid);//图片
                     intentSchoolDetail.setClass(getActivity(), SchoolDetailActivity.class);
                     startActivity(intentSchoolDetail);
                 }
@@ -304,7 +306,9 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         mListView02.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String id1=NewsData.get(position).getId();
                 Intent intentNewDetails = new Intent(getActivity(), NewsDetailsActivity.class);
+                intentNewDetails.putExtra("id",id1);
                 startActivity(intentNewDetails);
             }
         });
@@ -378,7 +382,10 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
             case R.id.search_content_et:
             case R.id.audio_icon:
             case R.id.search_layout:
-                toActivity(SearchInfoActivity.class);
+               // toActivity(SearchInfoActivity.class);
+                Intent intentSearch=new Intent(getActivity(),SearchInfoActivity.class);
+                intentSearch.putExtra("key","1");
+                startActivity(intentSearch);
                 break;
             case R.id.message_img:
                 break;

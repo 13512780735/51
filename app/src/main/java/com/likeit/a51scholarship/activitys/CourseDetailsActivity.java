@@ -87,7 +87,7 @@ public class CourseDetailsActivity extends Container implements View.OnClickList
         mfragments.add(new UserDetailsFragment02());
         mfragments.add(new LiveDetailsFragment01());
         //Toast.makeText(this,mDatas.toString(),Toast.LENGTH_SHORT).show();
-        viewpager.setAdapter(new LiveDetailsPageAdapter(getSupportFragmentManager(), mfragments, mDatas));
+       viewpager.setAdapter(new LiveDetailsPageAdapter(getSupportFragmentManager(), mfragments, mDatas));
         viewpager.setCurrentItem(2);
     }
 

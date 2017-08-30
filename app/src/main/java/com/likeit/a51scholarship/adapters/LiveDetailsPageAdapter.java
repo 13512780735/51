@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
+import com.likeit.a51scholarship.model.NewTabBean;
+
 import java.util.List;
 
 
@@ -28,6 +30,7 @@ public class LiveDetailsPageAdapter extends FragmentStatePagerAdapter {
         this.mfragments = fragmentlists;
         this.list_Title = list_Title;
     }
+
 
     @Override
     public Fragment getItem(int position) {

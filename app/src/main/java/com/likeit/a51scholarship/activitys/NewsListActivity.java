@@ -1,17 +1,21 @@
 package com.likeit.a51scholarship.activitys;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.activitys.livefragment.LiveDetailsFragment01;
 import com.likeit.a51scholarship.activitys.newsfragment.NewFragment01;
@@ -19,10 +23,20 @@ import com.likeit.a51scholarship.activitys.userdetailsfragment.UserDetailsFragme
 import com.likeit.a51scholarship.activitys.userdetailsfragment.UserDetailsFragment02;
 import com.likeit.a51scholarship.adapters.AnswersUserDetailsTabAdapter;
 import com.likeit.a51scholarship.adapters.LiveDetailsPageAdapter;
+import com.likeit.a51scholarship.adapters.NewListDetailPagerAdapter;
 import com.likeit.a51scholarship.adapters.NewTabAdapter;
+import com.likeit.a51scholarship.configs.AppConfig;
+import com.likeit.a51scholarship.http.HttpUtil;
+import com.likeit.a51scholarship.model.NewTabBean;
 import com.likeit.a51scholarship.utils.AndroidWorkaround;
 import com.likeit.a51scholarship.utils.MyActivityManager;
+import com.likeit.a51scholarship.utils.UtilPreference;
 import com.likeit.a51scholarship.view.SlidingTabLayout;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,7 +64,10 @@ public class NewsListActivity extends FragmentActivity {
     ViewPager viewpager;
     private NewsListActivity mContext;
     private Window window;
-    private List<String> mDatas;
+    private List<NewTabBean> mDatas;
+    private String ukey;
+    private NewTabBean mNewTabBean;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,25 +88,97 @@ public class NewsListActivity extends FragmentActivity {
         }
         MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
-        initView();
+        ukey = UtilPreference.getStringValue(mContext, "ukey");
+        mDatas = new ArrayList<NewTabBean>();
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading...");
+        initTab();
+        dialog.show();
+    }
+
+    private void initTab() {
+        String page = "1";
+        String url = AppConfig.LIKEIT_NEW_GETCATEGORY;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        params.put("page", page);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                dialog.dismiss();
+                Log.d("TAG", response);
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    String code = obj.optString("code");
+                    String message = obj.optString("message");
+                    if ("1".equals(code)) {
+                        //  NewTabBean mNewTabBean= JSON.parseArray(obj.optJSONArray("data"),NewTabBean.class);
+                        // mNewTabBean= JSON.parseObject(obj.optJSONArray("data").toString(),NewTabBean.class);
+                        JSONArray array = obj.optJSONArray("data");
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject object = array.optJSONObject(i);
+                            mNewTabBean = new NewTabBean();
+                            mNewTabBean.setId(object.optString("id"));
+                            mNewTabBean.setTitle(object.optString("title"));
+                            mDatas.add(mNewTabBean);
+                        }
+                        initView();
+                    }
+                    Log.d("TAG666", mNewTabBean.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Throwable e) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dialog.dismiss();
+            }
+        });
     }
 
     private void initView() {
-
-
         //设置TabLayout的模式
+        Log.d("TAG2323", mDatas.toString());
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        final List<Fragment> mfragments = new ArrayList<Fragment>();
+        for (int i = 0; i < mDatas.size(); i++) {
+            NewFragment01 fragment = NewFragment01.newInstance(mDatas.get(i));
+            Bundle bundle=new Bundle();
+            bundle.putString("url",mDatas.get(i).getId());
+            fragment.setArguments(bundle);
+            mfragments.add(fragment);
+        }
+        for (int i = 0; i < mDatas.size(); i++) {
+            mTabLayout.addTab(mTabLayout.newTab().setText((CharSequence) mDatas.get(i).getTitle()));//添加tab选项
+        }
+
+        FragmentPagerAdapter mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return mfragments.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return mfragments.size();
+            }
+
+            //ViewPager与TabLayout绑定后，这里获取到PageTitle就是Tab的Text
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return (CharSequence) mDatas.get(position).getTitle();
+            }
+        };
+        viewpager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(viewpager);
-        mDatas = new ArrayList<String>(Arrays.asList("头条", "热点", "视频", "留学", "社会", "奇闻"));
-        List<Fragment> mfragments = new ArrayList<Fragment>();
-        mfragments.add(new NewFragment01());
-        mfragments.add(new NewFragment01());
-        mfragments.add(new NewFragment01());
-        mfragments.add(new NewFragment01());
-        mfragments.add(new NewFragment01());
-        mfragments.add(new NewFragment01());
-        //Toast.makeText(this,mDatas.toString(),Toast.LENGTH_SHORT).show();
-        viewpager.setAdapter(new LiveDetailsPageAdapter(getSupportFragmentManager(), mfragments, mDatas));
+        mTabLayout.setTabsFromPagerAdapter(mAdapter);
         viewpager.setCurrentItem(0);
     }
 
@@ -102,12 +191,13 @@ public class NewsListActivity extends FragmentActivity {
                 break;
             case R.id.top_bar_right_img:
                 //oActivity(SearchInfoActivity.class);
-                Intent intentSearchInfo=new Intent(this,SearchInfoActivity.class);
+                Intent intentSearchInfo = new Intent(this, SearchInfoActivity.class);
+                intentSearchInfo.putExtra("key","2");
                 startActivity(intentSearchInfo);
                 break;
             case R.id.top_bar_edit_img:
                 // toActivity(SendNewsActivity.class);
-                Intent intentSendNews=new Intent(this,SendNewsActivity.class);
+                Intent intentSendNews = new Intent(this, SendNewsActivity.class);
                 startActivity(intentSendNews);
                 break;
         }

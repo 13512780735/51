@@ -19,156 +19,162 @@
         android:layout_height="1dip"
         android:background="@color/background_b"></View>
 
-    <RadioGroup
-        android:id="@+id/school_details_list_container"
+    <com.likeit.a51scholarship.view.MyListview
+        android:id="@+id/pop_listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:divider="@color/white"
+        android:layout_height="match_parent"></com.likeit.a51scholarship.view.MyListview>
 
-        <View
-            android:layout_width="1dip"
-            android:layout_height="30dip"
-            android:layout_marginLeft="30dip"
-            android:background="@color/background_b"></View>
+    <!--  <RadioGroup
+          android:id="@+id/school_details_list_container"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
 
-        <RadioButton
-            android:id="@+id/school_details_list_rb01"
-            android:layout_width="wrap_content"
-            android:layout_height="20dip"
-            android:layout_marginLeft="22dip"
-            android:button="@null"
-            android:drawableLeft="@drawable/school_details_list_selector"
-            android:drawablePadding="20dip"
-            android:text="院校概况"
-            android:textColor="@drawable/home_font_selector" />
+          <View
+              android:layout_width="1dip"
+              android:layout_height="30dip"
+              android:layout_marginLeft="30dip"
+              android:background="@color/background_b"></View>
 
-        <View
-            android:layout_width="1dip"
-            android:layout_height="30dip"
-            android:layout_marginLeft="30dip"
-            android:background="@color/background_b"></View>
+          <RadioButton
+              android:id="@+id/school_details_list_rb01"
+              android:layout_width="wrap_content"
+              android:layout_height="20dip"
+              android:layout_marginLeft="22dip"
+              android:button="@null"
+              android:drawableLeft="@drawable/school_details_list_selector"
+              android:drawablePadding="20dip"
+              android:text="院校概况"
+              android:textColor="@drawable/home_font_selector" />
 
-        <RadioButton
-            android:id="@+id/school_details_list_rb02"
-            android:layout_width="wrap_content"
-            android:layout_height="20dip"
-            android:layout_marginLeft="22dip"
-            android:button="@null"
-            android:drawableLeft="@drawable/school_details_list_selector"
-            android:drawablePadding="20dip"
-            android:text="录取与申请"
-            android:textColor="@drawable/home_font_selector" />
+          <View
+              android:layout_width="1dip"
+              android:layout_height="30dip"
+              android:layout_marginLeft="30dip"
+              android:background="@color/background_b"></View>
 
-        <View
-            android:layout_width="1dip"
-            android:layout_height="30dip"
-            android:layout_marginLeft="30dip"
-            android:background="@color/background_b"></View>
+          <RadioButton
+              android:id="@+id/school_details_list_rb02"
+              android:layout_width="wrap_content"
+              android:layout_height="20dip"
+              android:layout_marginLeft="22dip"
+              android:button="@null"
+              android:drawableLeft="@drawable/school_details_list_selector"
+              android:drawablePadding="20dip"
+              android:text="录取与申请"
+              android:textColor="@drawable/home_font_selector" />
 
-        <RadioButton
-            android:id="@+id/school_details_list_rb03"
-            android:layout_width="wrap_content"
-            android:layout_height="20dip"
-            android:layout_marginLeft="22dip"
-            android:button="@null"
-            android:drawableLeft="@drawable/school_details_list_selector"
-            android:drawablePadding="20dip"
-            android:text="学术介绍"
-            android:textColor="@drawable/home_font_selector" />
+          <View
+              android:layout_width="1dip"
+              android:layout_height="30dip"
+              android:layout_marginLeft="30dip"
+              android:background="@color/background_b"></View>
 
-        <View
-            android:layout_width="1dip"
-            android:layout_height="30dip"
-            android:layout_marginLeft="30dip"
-            android:background="@color/background_b"></View>
+          <RadioButton
+              android:id="@+id/school_details_list_rb03"
+              android:layout_width="wrap_content"
+              android:layout_height="20dip"
+              android:layout_marginLeft="22dip"
+              android:button="@null"
+              android:drawableLeft="@drawable/school_details_list_selector"
+              android:drawablePadding="20dip"
+              android:text="学术介绍"
+              android:textColor="@drawable/home_font_selector" />
 
-        <RadioButton
-            android:id="@+id/school_details_list_rb04"
-            android:layout_width="wrap_content"
-            android:layout_height="20dip"
-            android:layout_marginLeft="22dip"
-            android:button="@null"
-            android:drawableLeft="@drawable/school_details_list_selector"
-            android:drawablePadding="20dip"
-            android:text="费用"
-            android:textColor="@drawable/home_font_selector" />
+          <View
+              android:layout_width="1dip"
+              android:layout_height="30dip"
+              android:layout_marginLeft="30dip"
+              android:background="@color/background_b"></View>
 
-        <View
-            android:layout_width="1dip"
-            android:layout_height="30dip"
-            android:layout_marginLeft="30dip"
-            android:background="@color/background_b"></View>
+          <RadioButton
+              android:id="@+id/school_details_list_rb04"
+              android:layout_width="wrap_content"
+              android:layout_height="20dip"
+              android:layout_marginLeft="22dip"
+              android:button="@null"
+              android:drawableLeft="@drawable/school_details_list_selector"
+              android:drawablePadding="20dip"
+              android:text="费用"
+              android:textColor="@drawable/home_font_selector" />
 
-        <RadioButton
-            android:id="@+id/school_details_list_rb05"
-            android:layout_width="wrap_content"
-            android:layout_height="20dip"
-            android:layout_marginLeft="22dip"
-            android:button="@null"
-            android:drawableLeft="@drawable/school_details_list_selector"
-            android:drawablePadding="20dip"
-            android:text="奖学金申请"
-            android:textColor="@drawable/home_font_selector" />
+          <View
+              android:layout_width="1dip"
+              android:layout_height="30dip"
+              android:layout_marginLeft="30dip"
+              android:background="@color/background_b"></View>
 
-        <View
-            android:layout_width="1dip"
-            android:layout_height="30dip"
-            android:layout_marginLeft="30dip"
-            android:background="@color/background_b"></View>
+          <RadioButton
+              android:id="@+id/school_details_list_rb05"
+              android:layout_width="wrap_content"
+              android:layout_height="20dip"
+              android:layout_marginLeft="22dip"
+              android:button="@null"
+              android:drawableLeft="@drawable/school_details_list_selector"
+              android:drawablePadding="20dip"
+              android:text="奖学金申请"
+              android:textColor="@drawable/home_font_selector" />
 
-        <RadioButton
-            android:id="@+id/school_details_list_rb06"
-            android:layout_width="wrap_content"
-            android:layout_height="20dip"
-            android:layout_marginLeft="22dip"
-            android:button="@null"
-            android:drawableLeft="@drawable/school_details_list_selector"
-            android:drawablePadding="20dip"
-            android:text="学生数据"
-            android:textColor="@drawable/home_font_selector" />
+          <View
+              android:layout_width="1dip"
+              android:layout_height="30dip"
+              android:layout_marginLeft="30dip"
+              android:background="@color/background_b"></View>
 
-        <View
-            android:layout_width="1dip"
-            android:layout_height="30dip"
-            android:layout_marginLeft="30dip"
-            android:background="@color/background_b"></View>
+          <RadioButton
+              android:id="@+id/school_details_list_rb06"
+              android:layout_width="wrap_content"
+              android:layout_height="20dip"
+              android:layout_marginLeft="22dip"
+              android:button="@null"
+              android:drawableLeft="@drawable/school_details_list_selector"
+              android:drawablePadding="20dip"
+              android:text="学生数据"
+              android:textColor="@drawable/home_font_selector" />
 
-        <RadioButton
-            android:id="@+id/school_details_list_rb07"
-            android:layout_width="wrap_content"
-            android:layout_height="20dip"
-            android:layout_marginLeft="22dip"
-            android:button="@null"
-            android:drawableLeft="@drawable/school_details_list_selector"
-            android:drawablePadding="20dip"
-            android:text="联系方式"
-            android:textColor="@drawable/home_font_selector" />
+          <View
+              android:layout_width="1dip"
+              android:layout_height="30dip"
+              android:layout_marginLeft="30dip"
+              android:background="@color/background_b"></View>
 
-        <View
-            android:layout_width="1dip"
-            android:layout_height="30dip"
-            android:layout_marginLeft="30dip"
-            android:background="@color/background_b"></View>
+          <RadioButton
+              android:id="@+id/school_details_list_rb07"
+              android:layout_width="wrap_content"
+              android:layout_height="20dip"
+              android:layout_marginLeft="22dip"
+              android:button="@null"
+              android:drawableLeft="@drawable/school_details_list_selector"
+              android:drawablePadding="20dip"
+              android:text="联系方式"
+              android:textColor="@drawable/home_font_selector" />
 
-        <RadioButton
-            android:id="@+id/school_details_list_rb08"
-            android:layout_width="wrap_content"
-            android:layout_height="20dip"
-            android:layout_marginLeft="22dip"
-            android:button="@null"
-            android:drawableLeft="@drawable/school_details_list_selector"
-            android:drawablePadding="20dip"
-            android:text="校园印象"
-            android:visibility="gone"
-            android:textColor="@drawable/home_font_selector" />
+          <View
+              android:layout_width="1dip"
+              android:layout_height="30dip"
+              android:layout_marginLeft="30dip"
+              android:background="@color/background_b"></View>
 
-        <View
-            android:layout_width="1dip"
-            android:layout_height="30dip"
-            android:visibility="gone"
-            android:layout_marginLeft="30dip"
-            android:background="@color/background_b"></View>
+          <RadioButton
+              android:id="@+id/school_details_list_rb08"
+              android:layout_width="wrap_content"
+              android:layout_height="20dip"
+              android:layout_marginLeft="22dip"
+              android:button="@null"
+              android:drawableLeft="@drawable/school_details_list_selector"
+              android:drawablePadding="20dip"
+              android:text="校园印象"
+              android:textColor="@drawable/home_font_selector"
+              android:visibility="gone" />
+
+          <View
+              android:layout_width="1dip"
+              android:layout_height="30dip"
+              android:layout_marginLeft="30dip"
+              android:background="@color/background_b"
+              android:visibility="gone"></View>
 
 
-    </RadioGroup>
+      </RadioGroup>-->
 
 </LinearLayout>

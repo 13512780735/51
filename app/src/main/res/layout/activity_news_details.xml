@@ -26,6 +26,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dip"
                 android:gravity="center"
+                android:lines="1"
+                android:ellipsize="end"
                 android:text="牛津布鲁克斯大学2017年奖学金开放申请 7月截止"
                 android:textSize="15sp" />
 
@@ -53,6 +55,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/new_details_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -64,33 +67,13 @@
                 android:layout_height="1dip"
                 android:layout_margin="10dip"
                 android:background="@color/line_color"></View>
-
-            <jaydenxiao.com.expandabletextview.ExpandableTextView
-                android:id="@+id/new_details_desc_tv"
+            <com.likeit.a51scholarship.utils.richtext.RichText
+                android:id="@+id/new_details_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                app:animDuration="200"
-                app:collapseDrawable="@drawable/icon_down_arrow"
-                app:collapseExpandGrarity="right"
-                app:collapseExpandTextColor="@color/main_color"
-                app:contentTextColor="@color/defualt_textcolor_d"
-                app:contentTextSize="14sp"
-                app:expandDrawable="@drawable/icon_up_arrow"
-                app:maxCollapsedLines="5"
-                app:textCollapse="@string/collapse"></jaydenxiao.com.expandabletextview.ExpandableTextView>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="250dip"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/test01" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dip"
-                android:background="@color/line_color"></View>
+                android:textSize="14sp"
+                android:layout_margin="10dip"
+                />
 
             <com.likeit.a51scholarship.view.MyListview
                 android:id="@+id/new_details_lisView"
@@ -119,7 +102,6 @@
             android:gravity="center"
             android:paddingLeft="15dip"
             android:paddingRight="15dip"
-            android:text="99"
             android:textColor="@color/defualt_textcolor_d" />
 
         <View
@@ -138,7 +120,6 @@
             android:gravity="center"
             android:paddingLeft="15dip"
             android:paddingRight="15dip"
-            android:text="99"
             android:textColor="@color/defualt_textcolor_d" />
 
         <View

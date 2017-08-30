@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="5dp"
-            android:src="@mipmap/icon_back"/>
+            android:src="@mipmap/icon_back" />
 
         <LinearLayout
             android:id="@+id/search_layout"
@@ -42,28 +42,36 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_circle_stroke_white"
-                android:focusable="false"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:hint="请输入你要搜索的内容"
+                android:lines="1"
                 android:paddingLeft="15dp"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
             <ImageView
                 android:id="@+id/search_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:paddingTop="5dp"
-                android:src="@mipmap/nav_icon_search"/>
+                android:src="@mipmap/nav_icon_search_sel" />
 
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
-        android:background="@color/line_color"/>
+        android:background="@color/line_color" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/search_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 </LinearLayout>

@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
@@ -49,7 +50,7 @@ public class SearchSchoolActivity extends Container {
     @BindView(R.id.back_img)
     ImageView backImg;
     @BindView(R.id.search_content_et)
-    EditText searchContentEt;
+    TextView searchContentEt;
     @BindView(R.id.audio_icon)
     ImageView audioIcon;
     @BindView(R.id.search_layout)
@@ -82,10 +83,10 @@ public class SearchSchoolActivity extends Container {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_search_school);
+        setContentView(R.layout.activity_search_school);
         MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
-        schoolData=new ArrayList<SchoolListBean>();
+        schoolData = new ArrayList<SchoolListBean>();
         initData();
         showProgress("Loading...");
         initView();
@@ -139,7 +140,8 @@ public class SearchSchoolActivity extends Container {
                 super.onFinish();
                 disShowProgress();
             }
-        });    }
+        });
+    }
 
     private void initView() {
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
@@ -162,8 +164,8 @@ public class SearchSchoolActivity extends Container {
                 .setPullLabel("下拉刷新");
         mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
                 "松开即可刷新");
-        adapter=new SchoolListAdapter(mContext,schoolData);
-        adapter.addAll(schoolData,true);
+        adapter = new SchoolListAdapter(mContext, schoolData);
+        adapter.addAll(schoolData, true);
         adapter.notifyDataSetChanged();
         mListview.setAdapter(adapter);
         ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
@@ -173,33 +175,35 @@ public class SearchSchoolActivity extends Container {
                 String name = schoolData.get(position).getName();
                 String en_name = schoolData.get(position).getEn_name();
                 String img = schoolData.get(position).getImg();
+                String sid = schoolData.get(position).getId();
                 Intent intentSchoolDetail = new Intent();
                 intentSchoolDetail.putExtra("name", name);//英文名字
                 intentSchoolDetail.putExtra("en_name", en_name);//中文名字
                 intentSchoolDetail.putExtra("img", img);//图片
+                intentSchoolDetail.putExtra("sid", sid);//图片
                 intentSchoolDetail.setClass(mContext, SchoolDetailActivity.class);
                 startActivity(intentSchoolDetail);
             }
         });
-       adapter.setOnApplyClickListener(new SchoolListAdapter.onSchoolApplyClickListener() {
-           @Override
-           public void onApplyClick(int i) {
-               ToastUtil.showS(mContext,"申请成功！");
-           }
-       });
+        adapter.setOnApplyClickListener(new SchoolListAdapter.onSchoolApplyClickListener() {
+            @Override
+            public void onApplyClick(int i) {
+                    ToastUtil.showS(mContext, "申请成功！");
+            }
+        });
     }
 
 
-
-    @OnClick({R.id.back_img, R.id.audio_icon, R.id.search_layout, R.id.message_img})
+    @OnClick({R.id.back_img, R.id.search_layout, R.id.message_img})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back_img:
                 finish();
                 break;
-            case R.id.audio_icon:
             case R.id.search_layout:
-                toActivity(SearchInfoActivity.class);
+                Intent intentSchool = new Intent(mContext, SearchInfoActivity.class);
+                intentSchool.putExtra("key", "1");
+                startActivity(intentSchool);
                 break;
             case R.id.message_img:
                 break;

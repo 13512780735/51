@@ -52,8 +52,8 @@ public class SchoolListAdapter extends MyBaseAdapter<SchoolListBean>{
         holder.school_listview_tv_Chinese_name.setText(data1.getName());
         holder.school_listview_tv_English_name.setText(data1.getEn_name());
         holder.school_listview_tv_rank.setText(data1.getRanking());
-        holder.school_listview_tv_rate.setText(data1.getRate()+"%");
-        holder.school_listview_tv_scholarship.setText("$"+data1.getScholarship());
+        holder.school_listview_tv_rate.setText(data1.getRate());
+        holder.school_listview_tv_scholarship.setText(data1.getScholarship());
         ImageLoader.getInstance().displayImage(data1.getImg(), holder.school_listview_iv_school);
         // 订单详情点击事件
         holder.school_listview_bt_apply.setOnClickListener(new View.OnClickListener() {

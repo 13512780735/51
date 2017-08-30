@@ -1,9 +1,9 @@
 package com.likeit.a51scholarship.activitys;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -11,36 +11,52 @@ import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RadioGroup;
+import android.widget.RadioButton;
 import android.widget.ScrollView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.view.ViewGroup.LayoutParams;
 
+import com.alibaba.fastjson.JSON;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.a51scholarship.R;
+import com.likeit.a51scholarship.adapters.SchoolDetailPopAdapter;
+import com.likeit.a51scholarship.adapters.SchoolDetailsAdapter;
+import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.fragments.PictureSlideFragment;
-import com.likeit.a51scholarship.utils.ListScrollUtil;
+import com.likeit.a51scholarship.http.HttpUtil;
+import com.likeit.a51scholarship.model.SchoolDetailsBean;
+import com.likeit.a51scholarship.model.SchoolDetailsBean01;
+import com.likeit.a51scholarship.model.SchoolDetailsPopBena;
 import com.likeit.a51scholarship.utils.MyActivityManager;
+import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.utils.UtilPreference;
 import com.likeit.a51scholarship.view.CircleImageView;
 import com.likeit.a51scholarship.view.MyListview;
+import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +82,18 @@ public class SchoolDetailActivity extends Container {
     TextView schoolEsNameTv;
     @BindView(R.id.school_img_iv)
     CircleImageView schoolImgIv;
+
+    /**
+     * 学校简介
+     */
+    @BindView(R.id.school_rank)
+    TextView tvSchoolRank;
+    @BindView(R.id.school_scholarship)
+    TextView tvSchoolScholarship;
+    @BindView(R.id.school_nature)
+    TextView tvSchoolNature;
+    @BindView(R.id.school_trate)
+    TextView tvSchoolTrate;
     @BindView(R.id.sat_num_tv)
     TextView satNumTv;
     @BindView(R.id.toefl_num_tv)
@@ -76,115 +104,68 @@ public class SchoolDetailActivity extends Container {
     TextView perpalNumTv;
     @BindView(R.id.gpa_num_tv)
     TextView gpaNumTv;
+    @BindView(R.id.school_number)
+    TextView tvSchoolNumber;
     @BindView(R.id.school_desc_tv)
     ExpandableTextView schoolDescTv;
     @BindView(R.id.school_details_scrollview)
     PullToRefreshScrollView mPullToRefreshScrollView;
-    //录取数据
-    @BindView(R.id.school_admit_number_tv)
-    TextView schoolAdmitNumberTv;
-    @BindView(R.id.school_admit_rate_tv)
-    TextView schoolAdmitRateTv;
-    @BindView(R.id.school_admit_GPA_tv)
-    TextView schoolAdmitGPATv;
-    @BindView(R.id.school_SAT_admit_tv)
-    TextView schoolSATAdmitTv;
-    @BindView(R.id.school_math_SAT_tv)
-    TextView schoolMathSATTv;
-    @BindView(R.id.school_read_SAT_tv)
-    TextView schoolReadSATTv;
-    @BindView(R.id.school_admit_ACT_tv)
-    TextView schoolAdmitACTTv;
-    //新生高中生班级排名
-    @BindView(R.id.school_class_rank_front10_tv)
-    TextView schoolClassRankFront10Tv;
-    @BindView(R.id.school_class_rank_front25_tv)
-    TextView schoolClassRankFront25Tv;
-    @BindView(R.id.school_class_rank_front50_tv)
-    TextView schoolClassRankFront50Tv;
-    //申请信息
-    @BindView(R.id.school_apply_abort_time_tv)
-    TextView schoolApplyAbortTimeTv;
-    @BindView(R.id.school_inform_time_tv)
-    TextView schoolInformTimeTv;
-    @BindView(R.id.school_if_EA_tv)
-    TextView schoolIfEATv;
-    @BindView(R.id.school_EA_abort_time_tv)
-    TextView schoolEAAbortTimeTv;
-    @BindView(R.id.school_if_ED_tv)
-    TextView schoolIfEDTv;
-    @BindView(R.id.school_ED_abort_time_tv)
-    TextView schoolEDAbortTimeTv;
-    @BindView(R.id.school_dual_rank_tv)
-    TextView schoolDualRankTv;
-    @BindView(R.id.school_apply_cost_tv)
-    TextView schoolApplyCostTv;
-    @BindView(R.id.school_apply_html_tv)
-    TextView schoolApplyHtmlTv;
-    //申请材料
-    @BindView(R.id.school_apply_data_tv)
-    TextView schoolApplyDataTv;
-
-    //学术介绍-教师信息
-    //奖学金申请
-    @BindView(R.id.school_scholarship_tv)
-    TextView schoolScholarshipTv;
-    //校园印象列表
-    @BindView(R.id.school_details_listView)
-    MyListview mListView;
+    @BindView(R.id.school_details_list)
+    MyListview mListview;
+    @BindView(R.id.ll_scrollview01)
+    LinearLayout mLinearLayout;
     private ArrayList<String> urlList;
     private String name, en_name, img, key;
 
-    // 模拟评论数据
-    private List<Map<String, Object>> dataList;
-    private int[] icon = {R.mipmap.icon_01_3x, R.mipmap.icon_02_3x,
-            R.mipmap.icon_03_3x, R.mipmap.icon_04_3x};
-    private String[] iconName = {"Tom", "Lucy", "Lily", "Jim"};
-    private String[] iconTime = {"2017-01-05 20:20", "2017-02-05 20:20", "2017-03-05 23:20", "2017-05-05 10:20"};
-    private String[] iconDetails = {"不错！", "Is Very Good", "GoodMorning", "Hello"};
-    private SimpleAdapter simpleAdapter;
     //目录列表
     private int from = 0;
     private Window window;
     //点击菜单移到位置的点
-    @BindView(R.id.ll_school_admit)
-    LinearLayout llAdmit;
-    @BindView(R.id.school_staff_student_tv)
-    TextView tvStaff;
-    @BindView(R.id.ll_school_school_fee_tv)
-    TextView tvSchoolFee;
-    @BindView(R.id.ll_school_scholarship)
-    TextView tvSchoolScholarship;
-    @BindView(R.id.ll_school_number)
-    TextView tvSchoolNumber;
-    @BindView(R.id.ll_school_contact_way)
-    TextView tvSchoolContactWay;
+//    @BindView(R.id.ll_school_admit)
+//    LinearLayout llAdmit;
+//    @BindView(R.id.school_staff_student_tv)
+//    TextView tvStaff;
+//    @BindView(R.id.ll_school_school_fee_tv)
+//    TextView tvSchoolFee;
+//    @BindView(R.id.ll_school_scholarship)
+//    TextView tvSchoolScholarship;
+//    @BindView(R.id.ll_school_number)
+//    TextView tvSchoolNumber;
+//    @BindView(R.id.ll_school_contact_way)
+//    TextView tvSchoolContactWay;
     private int top; //目录菜单位置
     private int scrollViewHight;
     private boolean ischecked;
+    private String sid;
+    private SchoolDetailsBean mSchoolDetailsBean;
+    private List<SchoolDetailsBean01> mSchoolDetailsBean01;
+    private SchoolDetailsAdapter mAdapter;
+    private List<SchoolDetailsPopBena> popData;
+    private String name11;
+    private SchoolDetailPopAdapter01 adapter;
+    private ListView popMenuList;
+    private SchoolDetailsPopBena mSchoolDetailPopBena;
+    private int selectPosition = 0;//用于记录用户选择的变量
+    private TextView et;
+    private int hight01;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_school_detail);
+        setContentView(R.layout.activity_school_detail01);
         MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
         Intent intent = getIntent();
         name = intent.getStringExtra("name");//从首页中文名字
         en_name = intent.getStringExtra("en_name");//从首页英文名字
         img = intent.getStringExtra("img");//图片
+        sid = intent.getStringExtra("sid");//院校ID
         iv_header_left.setImageResource(R.mipmap.icon_back);
         iv_header_right.setImageResource(R.mipmap.icon_share);
-        String[] urls = {"http://img.netbian.com/file/2017/0722/3393191520f5569243da56526850c6f5.jpg",
-                "http://img.netbian.com/file/2017/0722/3393191520f5569243da56526850c6f5.jpg",
-                "http://img.netbian.com/file/2017/0722/3393191520f5569243da56526850c6f5.jpg",
-                "http://img.netbian.com/file/2017/0722/3393191520f5569243da56526850c6f5.jpg",
-                "http://img.netbian.com/file/2017/0722/3393191520f5569243da56526850c6f5.jpg"
-        };
+        initLogo();
+        initData1();
+        showProgress("Loading...");
 
-        urlList = new ArrayList<String>();
-        Collections.addAll(urlList, urls);
-        initData();
         Runnable runnable = new Runnable() {
 
             @Override
@@ -193,114 +174,15 @@ public class SchoolDetailActivity extends Container {
             }
         };
         UtilPreference.saveString(mContext, "checked", "1");
+
+
     }
 
-    private void initData() {
-        tv_header.setText(name);
-        schoolNameTv.setText(name);
-        schoolEsNameTv.setText(en_name);
-        ImageLoader.getInstance().displayImage(img, schoolImgIv);
+    private void initLogo() {
+        String[] urls = {img};
 
-        schoolAdmitNumberTv.setText("34919");  /**
-         * 录取数据
-         */
-        schoolDescTv.setText("美国德州大学(共十五分校) 阿灵顿分校商学所在美国高等教育发展已有一百年以上的历史，是一所综合教学及研究的高等学府以商业教育最为出名。" +
-                "美国德州大学(共十五分校) 阿灵顿分校商学所在美国高等教育发展已有一百年以上的历史，是一所综合教学及研究的高等学府以商业教育最为出名。" +
-                "美国德州大学(共十五分校) 阿灵顿分校商学所在美国高等教育发展已有一百年以上的历史，是一所综合教学及研究的高等学府以商业教育最为出名。");
-
-        schoolAdmitRateTv.setText("5.8%");
-        schoolAdmitGPATv.setText("4");
-        schoolSATAdmitTv.setText("～0");
-        schoolMathSATTv.setText("～0");
-        schoolReadSATTv.setText("～0");
-        schoolAdmitACTTv.setText("32～35");
-        /**
-         * 新生高中生班级排名
-         */
-        schoolClassRankFront10Tv.setText("95%");
-        schoolClassRankFront25Tv.setText("100%");
-        schoolClassRankFront50Tv.setText("100%");
-        /**
-         * 申请信息
-         */
-        schoolApplyAbortTimeTv.setText("01-01");
-        schoolInformTimeTv.setText("02-01");
-        schoolIfEATv.setText("是");
-        schoolEAAbortTimeTv.setText("11-01");
-        schoolIfEDTv.setText("是");
-        schoolEDAbortTimeTv.setText("12-01");
-        schoolDualRankTv.setText("否");
-        schoolApplyCostTv.setText("$75");
-        schoolApplyHtmlTv.setText("https://www.baidu.com");
-        /**
-         * 申请材料
-         */
-        schoolApplyDataTv.setText("1.填写申请表；2.75美金申请费；3.哈佛补充申请表；4.AST或ACT写作成绩；" +
-                "5.两门SAT 11的成绩(注意：SAT 11 English Language Proficiency Test,ELPT不被接受)；6.中学成绩单；7.两篇教师推荐信。");
-        /**
-         * 学术介绍
-         * 教师信息
-         */
-        /**
-         * 毕业率
-         */
-        /**
-         * 专业设置
-         */
-        /**
-         * 本科最受欢迎的5个专业
-         */
-        /**
-         * 费用
-         */
-        /**
-         * 奖学金申请
-         */
-        schoolScholarshipTv.setText("1.平均发放奖学金(本科生)：44781美元。2.申请到奖学金的比例(本科生)：58%。" +
-                "提供的奖学金类型：Federal PELL;Federal SEOG;state scholarships/grants;private scholarships;" +
-                "college/university gift aid from institution funds.");
-        /**
-         * 学生数据
-         */
-        /**
-         * 种族构成
-         */
-        /**
-         * 联系方式
-         */
-        /**
-         * 校园印象
-         */
-        mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
-        mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
-                mPullToRefreshScrollView.onRefreshComplete();
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
-                mPullToRefreshScrollView.onRefreshComplete();
-            }
-        });
-        mPullToRefreshScrollView.getLoadingLayoutProxy().setLastUpdatedLabel(
-                "上次刷新时间");
-        mPullToRefreshScrollView.getLoadingLayoutProxy()
-                .setPullLabel("下拉刷新");
-        mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
-                "松开即可刷新");
-
-        //评论列表
-        dataList = new ArrayList<Map<String, Object>>();
-        getData();
-        String[] from = {"img", "name", "time", "details"};
-        int[] to = {R.id.school_comment_avatar, R.id.school_comment_name, R.id.school_comment_time, R.id.school_comment_details};
-        simpleAdapter = new SimpleAdapter(this, dataList, R.layout.school_details_listview_items, from, to);
-        //配置适配器
-        mListView.setAdapter(simpleAdapter);
-        ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
+        urlList = new ArrayList<String>();
+        Collections.addAll(urlList, urls);
         viewPager.setAdapter(new PictureSlidePagerAdapter(getSupportFragmentManager()));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -319,17 +201,109 @@ public class SchoolDetailActivity extends Container {
         });
     }
 
-    private List<Map<String, Object>> getData() {
-        for (int i = 0; i < icon.length; i++) {
-            Log.d("TAG", "" + icon.length);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("img", icon[i]);
-            map.put("name", iconName[i]);
-            map.put("time", iconTime[i]);
-            map.put("details", iconDetails[i]);
-            dataList.add(map);
-        }
-        return dataList;
+    private void initData1() {
+        String url = AppConfig.LIKEIT_SCHOOL_DETAILS;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        params.put("sid", sid);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                disShowProgress();
+                Log.e("TAG", response);
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    String code = obj.optString("code");
+                    String message = obj.optString("message");
+                    if ("1".equals(code)) {
+                        JSONObject object = obj.optJSONObject("data");
+                        mSchoolDetailsBean = JSON.parseObject(object.toString(), SchoolDetailsBean.class);
+                        Log.d("TAG", mSchoolDetailsBean.toString());
+                        JSONArray array = object.optJSONArray("school_details");
+                        Log.d("TAG45685", array.toString());
+                        initData();
+
+                        popData = new ArrayList<SchoolDetailsPopBena>();
+                        //   List<SchoolDetailsPopBena> popData01=new ArrayList<SchoolDetailsPopBena>();
+                        SchoolDetailsPopBena mSchoolDetailPopBena01 = new SchoolDetailsPopBena();
+                        mSchoolDetailPopBena01.setName("简介");
+                        popData.add(mSchoolDetailPopBena01);
+                        for (int i = 0; i <= array.length(); i++) {
+                            JSONObject object1 = array.optJSONObject(i);
+                            mSchoolDetailPopBena = new SchoolDetailsPopBena();
+                            mSchoolDetailPopBena.setName(object1.optString("name"));
+                            popData.add(mSchoolDetailPopBena);
+                        }
+                        Log.d("TAG999", popData.toString());
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Throwable e) {
+                disShowProgress();
+                ToastUtil.showS(mContext, "网络异常！");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                disShowProgress();
+            }
+        });
+    }
+
+    private void initData() {
+        tv_header.setText(name);
+        schoolNameTv.setText(name);
+        schoolEsNameTv.setText(en_name);
+        String imgUrl = mSchoolDetailsBean.getSchool_info().getImg();
+        Log.d("TAG", imgUrl + "sid-->" + sid + "ukey-->" + ukey);
+        ImageLoader.getInstance().displayImage(imgUrl, schoolImgIv);
+        tvSchoolRank.setText(mSchoolDetailsBean.getSchool_info().getRanking());
+        tvSchoolScholarship.setText(mSchoolDetailsBean.getSchool_info().getScholarship());
+        tvSchoolNature.setText(mSchoolDetailsBean.getSchool_info().getNature_name() + "高校");
+        tvSchoolTrate.setText(mSchoolDetailsBean.getSchool_info().getRate());
+        satNumTv.setText(mSchoolDetailsBean.getSchool_info().getToefl());
+        toeflNumTv.setText(mSchoolDetailsBean.getSchool_info().getYasi());
+        actNumTv.setText(mSchoolDetailsBean.getSchool_info().getToeic());
+        perpalNumTv.setText(mSchoolDetailsBean.getSchool_info().getGmat());
+        gpaNumTv.setText(mSchoolDetailsBean.getSchool_info().getGpa());
+        tvSchoolNumber.setText(mSchoolDetailsBean.getSchool_info().getNumber());
+        schoolDescTv.setText(mSchoolDetailsBean.getSchool_info().getDescription());
+        mSchoolDetailsBean01 = mSchoolDetailsBean.getSchool_details();
+
+        Log.d("TAG123", mSchoolDetailsBean01.get(0).getName());
+        Log.d("TAG456", mSchoolDetailsBean01.get(0).getContent());
+        mAdapter = new SchoolDetailsAdapter(mContext, mSchoolDetailsBean01);
+        mListview.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+
+        mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
+        mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                //ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
+                mPullToRefreshScrollView.onRefreshComplete();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                // ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
+                mPullToRefreshScrollView.onRefreshComplete();
+            }
+        });
+        mPullToRefreshScrollView.getLoadingLayoutProxy().setLastUpdatedLabel(
+                "上次刷新时间");
+        mPullToRefreshScrollView.getLoadingLayoutProxy()
+                .setPullLabel("下拉刷新");
+        mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
+                "松开即可刷新");
+
+
     }
 
 
@@ -403,8 +377,9 @@ public class SchoolDetailActivity extends Container {
         oks.show(this);
     }
 
-
     private void initPopupWindow() {
+
+        Log.d("TAG909", popData.toString());
         DisplayMetrics metric = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metric);
         int width = metric.widthPixels;     // 屏幕宽度（像素）
@@ -416,6 +391,8 @@ public class SchoolDetailActivity extends Container {
         } else {
             popupWindow = new PopupWindow(popupWindowView, LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT, true);
         }
+        popMenuList = (ListView) popupWindowView
+                .findViewById(R.id.pop_listview);
         //动画效果
         if (Location.RIGHT.ordinal() == from) {
             popupWindow.setAnimationStyle(R.style.AnimationRightFade);
@@ -439,6 +416,11 @@ public class SchoolDetailActivity extends Container {
         //关闭事件
         popupWindow.setOnDismissListener(new popupDismissListener());
 
+        scrollViewHight = findViewById(R.id.ll_scrollview).getHeight();
+        adapter = new SchoolDetailPopAdapter01(mContext, popData);
+        popMenuList.setAdapter(adapter);
+        //adapter.setDefSelect(0);
+        adapter.notifyDataSetChanged();
         popupWindowView.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -452,83 +434,30 @@ public class SchoolDetailActivity extends Container {
                 return false;
             }
         });
-        scrollViewHight = findViewById(R.id.ll_scrollview).getHeight();
-        final RadioGroup mRadiogroup = (RadioGroup) popupWindowView.findViewById(R.id.school_details_list_container);
-        mRadiogroup.check(R.id.school_details_list_rb01);
-        String checked = UtilPreference.getStringValue(mContext, "checked");
-        if ("1".equals(checked)) {
-            mRadiogroup.check(R.id.school_details_list_rb01);
-        } else if ("2".equals(checked)) {
-            mRadiogroup.check(R.id.school_details_list_rb02);
-        } else if ("3".equals(checked)) {
-            mRadiogroup.check(R.id.school_details_list_rb03);
-        } else if ("4".equals(checked)) {
-            mRadiogroup.check(R.id.school_details_list_rb04);
-        } else if ("5".equals(checked)) {
-            mRadiogroup.check(R.id.school_details_list_rb05);
-        } else if ("6".equals(checked)) {
-            mRadiogroup.check(R.id.school_details_list_rb06);
-        } else if ("7".equals(checked)) {
-            mRadiogroup.check(R.id.school_details_list_rb07);
-        }
-        mRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        adapter = new SchoolDetailPopAdapter01(mContext, popData);
+        popMenuList.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        popMenuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                switch (checkedId) {
-                    case R.id.school_details_list_rb01:
-                        Log.d("TAG", "top-->" + top);
-                        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, 0);
-                        //popupWindow.dismiss();
-                        UtilPreference.saveString(mContext, "checked", "1");
-                        popupWindow.dismiss();
-                        break;
-                    case R.id.school_details_list_rb02:
-                        top = llAdmit.getTop();
-                        Log.d("TAG", "top-->" + top);
-                        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, top);
-                        UtilPreference.saveString(mContext, "checked", "2");
-                        popupWindow.dismiss();
-                        break;
-                    case R.id.school_details_list_rb03:
-                        top = tvStaff.getTop();
-                        Log.d("TAG", "top-->" + top);
-                        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, top);
-                        UtilPreference.saveString(mContext, "checked", "3");
-                        popupWindow.dismiss();
-                        break;
-                    case R.id.school_details_list_rb04:
-                        top = tvSchoolFee.getTop();
-                        Log.d("TAG", "top-->" + top);
-                        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, top);
-                        UtilPreference.saveString(mContext, "checked", "4");
-                        popupWindow.dismiss();
-                        break;
-                    case R.id.school_details_list_rb05:
-                        top = tvSchoolScholarship.getTop();
-                        Log.d("TAG", "top-->" + top);
-                        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, top);
-                        UtilPreference.saveString(mContext, "checked", "5");
-                        popupWindow.dismiss();
-                        break;
-                    case R.id.school_details_list_rb06:
-                        top = tvSchoolNumber.getTop();
-                        Log.d("TAG", "top-->" + top);
-                        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, top);
-                        UtilPreference.saveString(mContext, "checked", "6");
-                        popupWindow.dismiss();
-                        break;
-                    case R.id.school_details_list_rb07:
-                        top = tvSchoolContactWay.getTop();
-                        Log.d("TAG", "top-->" + top);
-                        mPullToRefreshScrollView.getRefreshableView().scrollTo(0, top);
-                        UtilPreference.saveString(mContext, "checked", "7");
-                        popupWindow.dismiss();
-                        break;
-
+            public void onItemClick(AdapterView<?> adapterView, View view, final int position, long id) {
+                popupWindow.dismiss();
+                selectPosition = position;
+                adapter.notifyDataSetChanged();
+                // mListview.setSelection(0);
+                if (position == 0) {
+                    popupWindow.dismiss();
+                    mPullToRefreshScrollView.getRefreshableView().scrollTo(0, 0);
+                } else {
+                    View listItem = mListview.getChildAt(position-1);
+                    hight01 = listItem.getMeasuredHeight();
+                    int hight = mLinearLayout.getHeight();
+                    Log.d("TAG", "Top-->" + top);
+                    mPullToRefreshScrollView.getRefreshableView().scrollTo(0, hight01 * (position - 1) + hight );
 
                 }
             }
         });
+
     }
 
     /**
@@ -568,5 +497,61 @@ public class SchoolDetailActivity extends Container {
         TOP,
         BOTTOM;
 
+    }
+
+    public class SchoolDetailPopAdapter01 extends BaseAdapter {
+
+        Context context;
+        List<SchoolDetailsPopBena> brandsList;
+        LayoutInflater mInflater;
+
+        public SchoolDetailPopAdapter01(Context context, List<SchoolDetailsPopBena> mList) {
+            this.context = context;
+            this.brandsList = mList;
+            mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public int getCount() {
+            return brandsList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+
+            ViewHolder viewHolder = null;
+            if (convertView == null) {
+                convertView = mInflater.inflate(R.layout.school_details_popwindow_listview_itmes, parent, false);
+                viewHolder = new ViewHolder();
+                viewHolder.name = (TextView) convertView.findViewById(R.id.id_name);
+                viewHolder.select = (RadioButton) convertView.findViewById(R.id.id_select);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+            viewHolder.name.setText(brandsList.get(position).getName());
+
+            if (selectPosition == position) {
+                viewHolder.select.setChecked(true);
+            } else {
+                viewHolder.select.setChecked(false);
+            }
+            return convertView;
+        }
+
+        public class ViewHolder {
+            TextView name;
+            RadioButton select;
+        }
     }
 }
