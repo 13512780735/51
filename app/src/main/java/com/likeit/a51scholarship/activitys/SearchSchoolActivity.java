@@ -213,6 +213,8 @@ public class SearchSchoolActivity extends Container {
                 startActivity(intentSchool);
                 break;
             case R.id.message_img:
+                //Intent intentFilter=new Intent(mContext,SchoolFilterActivity.class);
+                toActivity(SchoolFilterActivity.class);
                 break;
         }
     }

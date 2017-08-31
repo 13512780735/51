@@ -29,6 +29,8 @@ public class AppConfig {
     public static final String LIKEIT_MEMBER_EDIT_TMPL= SERVER_API + "/api/member/edit_tmpl";
     //编辑用户资料接口
     public static final String LIKEIT_MEMBER_EDIT_INFO= SERVER_API + "/api/member/edit_info";
+    //获取地区接口
+    public static final String LIKEIT_MEMBER_EDIT_DISTRICT= SERVER_API + "//api/region/district";
     /**
      * 院校
      */
@@ -50,6 +52,8 @@ public class AppConfig {
     public static final String LIKEIT_SCHOOL_ASTAGE= SERVER_API + "/api/school/stage";
     //院校筛选参数接口
     public static final String LIKEIT_SCHOOL_FILTR_PARAM= SERVER_API + "/api/school/filtr_param";
+    //院校筛选总数接口
+    public static final String LIKEIT_SCHOOL_FILTR_COUNT= SERVER_API + "/api/school/get_filtr_count";
 
 
     /**

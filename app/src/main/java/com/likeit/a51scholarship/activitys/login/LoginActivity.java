@@ -179,11 +179,11 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 boolean updatenick = EMClient.getInstance().pushManager().updatePushNickname(
                         MyApplication.currentUserNick.trim());
                 DemoHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
-    //            toActivityFinish(UploadImgActivity.class);
+               // toActivityFinish(UploadImgActivity.class);
                 if("0".equals(is_first)){
                     toActivityFinish(MainActivity.class);
                 }else{
-                    toActivityFinish(UploadImgActivity.class);
+                    toActivity(UploadImgActivity.class);
                 }
             }
 

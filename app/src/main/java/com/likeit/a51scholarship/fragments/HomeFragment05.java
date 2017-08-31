@@ -4,16 +4,19 @@ package com.likeit.a51scholarship.fragments;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.activitys.MainActivity;
+import com.likeit.a51scholarship.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,6 +80,12 @@ public class HomeFragment05 extends BaseFragment implements View.OnClickListener
         simpleAdapter = new SimpleAdapter(getActivity(), dataList, R.layout.item_ll_tools_gridview, from, to);
         //配置适配器
         mGridView.setAdapter(simpleAdapter);
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ToastUtil.showS(getActivity(),"敬请期待！");
+            }
+        });
     }
 
     private List<Map<String, Object>> getData() {

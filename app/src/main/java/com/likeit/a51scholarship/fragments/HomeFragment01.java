@@ -155,7 +155,7 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
             accountTv.setVisibility(View.GONE);
             accountTv01.setVisibility(View.VISIBLE);
             Log.d("TAG", "mobile2-->" + userInfobean.getMobile());
-            accountTv01.setText(userInfobean.getMobile());
+            accountTv01.setText(UtilPreference.getStringValue(getActivity(),"name"));
             ImageLoader.getInstance().displayImage(userInfobean.getHeadimg(), userHeadImg);
             //userHeadImg.setImageResource(R.mipmap.icon_03_3x);
             userHeadImg.setOnClickListener(this);

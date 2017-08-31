@@ -41,9 +41,10 @@ public class MainActivity extends SlidingFragmentActivity implements ViewPager.O
     RadioButton mRbFind;
     @BindView(R.id.rbMessage)
     RadioButton mRbMessage;
-    @BindView(R.id.rbTool)
-    RadioButton mRbTool;
-    @BindView(R.id.rgTools)
+    //小工具
+/*    @BindView(R.id.rbTool)
+    RadioButton mRbTool;*/
+  @BindView(R.id.rgTools)
     RadioGroup mRgTools;
     @BindView(R.id.home_viewpager)
     NoScrollViewPager mViewPager;

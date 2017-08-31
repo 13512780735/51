@@ -75,6 +75,7 @@ public class HomeFragment04 extends BaseFragment implements View.OnClickListener
         kefuService = findViewById(R.id.kefu_service);
         iv_header_left.setImageResource(R.mipmap.nav_icon_user);
         iv_header_right.setImageResource(R.mipmap.nav_icon_search_sel);
+        iv_header_right.setVisibility(View.INVISIBLE);
         adapter = new Message_Chat_ViewPagerAdatper(getChildFragmentManager());
         viewpage_message.setAdapter(adapter);
         viewpage_message.setOnPageChangeListener(this);

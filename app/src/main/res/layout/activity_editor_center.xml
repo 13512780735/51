@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,6 +19,7 @@
             android:gravity="center"
             android:layout_weight="1">
             <com.likeit.a51scholarship.view.CircleImageView
+                android:id="@+id/select_photo"
                 android:layout_width="60dip"
                 android:layout_height="60dip"
                 android:src="@mipmap/btn_photo"/>
@@ -30,6 +30,7 @@
             android:gravity="center"
             android:layout_weight="1">
             <com.likeit.a51scholarship.view.CircleImageView
+                android:id="@+id/user_avatar"
                 android:layout_width="80dip"
                 android:layout_height="80dip"
                 android:src="@mipmap/message_chat_avatar"/>
@@ -255,6 +256,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/line_color" />
     <RelativeLayout
+        android:id="@+id/rl_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"

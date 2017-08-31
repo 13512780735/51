@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="F:\51\20170814\51_20170830\pulltorefreshlibrary\assets"/><source path="F:\51\20170814\51_20170830\pulltorefreshlibrary\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="F:\51\20170814\51_20170830\pulltorefreshlibrary\build-types\release\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\as\20170829\51\pulltorefreshlibrary\assets"/><source path="D:\as\20170829\51\pulltorefreshlibrary\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="D:\as\20170829\51\pulltorefreshlibrary\build-types\release\assets"/></dataSet></merger>
