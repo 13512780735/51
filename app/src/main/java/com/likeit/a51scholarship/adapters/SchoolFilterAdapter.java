@@ -179,7 +179,7 @@ public class SchoolFilterAdapter extends BaseAdapter {
                             data.get(position).getValues().get(i).setChecked(false);
                         }
                         String attriId=data.get(position).getValues().get(arg2).getAttr_id();
-                        String attriName=data.get(position).getName();
+                       // String attriName=data.get(position).getName();
                         EventBus.getDefault().post(attriId);
                         EventBus.getDefault().post(new MessageEvent(attriId));
                         adapter.notifyDataSetChanged(!data.get(position).isNameIsChecked(), data.get(position).getValues());

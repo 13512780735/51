@@ -181,6 +181,15 @@ public class SchoolFilterActivity extends Container {
         //tv_message.setText(messageEvent.getMessage());
         ToastUtil.showS(mContext,messageEvent.getMessage());
         Log.d("TAG",messageEvent.getMessage());
+        String str = "";
+        for (int i = 0; i < data.size(); i++) {
+            for (int j = 0; j < data.get(i).getValues().size(); j++) {
+                if (data.get(i).getValues().get(j).isChecked()) {
+                    str = str + data.get(i).getValues().get(j).getAttr_id() + ",";
+                }
+            }
+        }
+       initTotal();
     }
     @Override
     protected void onDestroy() {
