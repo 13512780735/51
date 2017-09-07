@@ -1,5 +1,6 @@
 package com.likeit.a51scholarship.activitys.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +24,7 @@ import com.likeit.a51scholarship.chat.message.widget.DemoHelper;
 import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.utils.MyActivityManager;
+import com.likeit.a51scholarship.utils.NetUtils;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.utils.UtilPreference;
 import com.loopj.android.http.RequestParams;
@@ -82,6 +84,10 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
     RelativeLayout accountPasswdLayout;
 
     private boolean account_login = true;
+    private String phoneNum, currentUsername, passwd;
+    private String is_first;
+
+
 
     private int time = 60;
     Handler myH = new Handler() {
@@ -110,8 +116,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
             }
         }
     };
-    private String phoneNum, currentUsername, passwd;
-    private String is_first;
+    private String passwd1;
 
 
     @Override
@@ -120,6 +125,8 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
         setContentView(R.layout.activity_login);
         MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
+        passwd1="eed92abc0da569ad37b6e07b1d639400";
+        handler = new Handler(this);
     }
 
 
@@ -154,22 +161,24 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 // 微信登录
                 Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
                 authorize(wechat);
-                // ToastUtil.showL(this, "微信登录");
+                ToastUtil.showL(this, "微信登录");
                 break;
             case R.id.login_qq:
                 // QQ登录
                 Platform qzone = ShareSDK.getPlatform(QQ.NAME);
                 authorize(qzone);
+                ToastUtil.showL(this, "QQ登录");
                 break;
             case R.id.login_weibo:
                 Platform sina = ShareSDK.getPlatform(SinaWeibo.NAME);
                 authorize(sina);
+                ToastUtil.showL(this, "微博登录");
                 break;
         }
     }
 
     private void signin() {
-        EMClient.getInstance().login(currentUsername, passwd, new EMCallBack() {
+        EMClient.getInstance().login(currentUsername, passwd1, new EMCallBack() {
             @Override
             public void onSuccess() {
                 Log.d("TAG", "EM登录成功");
@@ -179,17 +188,17 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 boolean updatenick = EMClient.getInstance().pushManager().updatePushNickname(
                         MyApplication.currentUserNick.trim());
                 DemoHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
-               // toActivityFinish(UploadImgActivity.class);
-                if("0".equals(is_first)){
+                // toActivityFinish(UploadImgActivity.class);
+                if ("0".equals(is_first)) {
                     toActivityFinish(MainActivity.class);
-                }else{
+                } else {
                     toActivity(UploadImgActivity.class);
                 }
             }
 
             @Override
             public void onError(int i, String s) {
-                Log.d("TAG","EM登录失败");
+                Log.d("TAG", "EM登录失败");
             }
 
             @Override
@@ -325,19 +334,6 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
 
     }
 
-//    private void handlerLogin(HttpResult<UserInfoEntity> userInfoEntityHttpResult) {
-//        if (userInfoEntityHttpResult.isStatus()) {
-//            showToast("登陆成功");
-//            ((MyApplication) getApplication()).userInfoEntity = userInfoEntityHttpResult.getData();
-//            PreferencesUtil.putStringValue(PreferConfigs.uKey, userInfoEntityHttpResult.getData().getUkey());
-//            PreferencesUtil.putStringValue(PreferConfigs.uid, userInfoEntityHttpResult.getData().getUid());
-//            toActivityFinish(MainActivity.class);
-//            toFinish();
-//        } else {
-//            showToast("登录失败");
-//        }
-//    }
-
 
     private void sendCode() {
         if (TextUtils.isEmpty(phoneNum)) {
@@ -418,28 +414,35 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 Log.e("TAG", QQ.NAME + "授权返回的信息2：" + platform);
                 if (res != null) {
                     if (platform.equals(QQ.NAME)) {
-//                        // QQ认证回调
-//                        userRegister(QQ.NAME, (String) res.get("nickname"),
-//                                (String) res.get("nickname"),
-//                                (String) res.get("figureurl_qq_1"));
-//                        Log.d("TAG",
-//                                QQ.NAME + (String) res.get("nickname")
-//                                        + (String) res.get("nickname")
-//                                        + (String) res.get("figureurl_qq_1"));
-//                        showProgress("Loading...");
-//
-//                    } else if (platform.equals(SinaWeibo.NAME)) {
-//                        // 新浪微博认证回调
-//                        userRegister(SinaWeibo.NAME, (String) res.get("name"),
-//                                (String) res.get("idstr"),
-//                                (String) res.get("avatar_hd"));
-//                        showProgress("Loading...");
-//                    } else if (platform.equals(Wechat.NAME)) {
-//                        // 微信认证回调
-//                        userRegister(Wechat.NAME, (String) res.get("nickname"),
-//                                (String) res.get("unionid"),
-//                                (String) res.get("headimgurl"));
-//                        showProgress("Loading...");
+                        // QQ认证回调
+                        currentUsername=(String)res.get("nickname");
+                        userRegister(QQ.NAME, (String) res.get("nickname"),
+                                (String) res.get("nickname"),
+                                (String) res.get("figureurl_qq_1"));
+                        Log.d("TAG",
+                                QQ.NAME + (String) res.get("nickname")
+                                        + (String) res.get("nickname")
+                                        + (String) res.get("figureurl_qq_1"));
+                        showProgress("Loading...");
+
+                    } else if (platform.equals(SinaWeibo.NAME)) {
+                        // 新浪微博认证回调
+                        currentUsername=(String)res.get("idstr");
+                        userRegister(SinaWeibo.NAME, (String) res.get("name"),
+                                (String) res.get("idstr"),
+                                (String) res.get("avatar_hd"));
+                        showProgress("Loading...");
+                    } else if (platform.equals(Wechat.NAME)) {
+                        // 微信认证回调
+                        currentUsername=(String)res.get("unionid");
+                        userRegister(Wechat.NAME, (String) res.get("nickname"),
+                                (String) res.get("unionid"),
+                                (String) res.get("headimgurl"));
+                        Log.d("TAG","微信--》"+
+                                Wechat.NAME + (String) res.get("nickname")
+                                        + (String) res.get("unionid")
+                                        + (String) res.get("headimgurl"));
+                        showProgress("Loading...");
                     }
 
                 } else {
@@ -479,5 +482,86 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
             Log.d("TAG", t.toString());
         }
         t.printStackTrace();
+    }
+
+    /**
+     * 用户注册
+     *
+     * @param name
+     * @param faceUrl
+     */
+    private void userRegister(String type, final String name, String uid,
+                              final String faceUrl) {
+        String url = AppConfig.LIKEIT_THIRD_LOGIN;
+        if (NetUtils.isOnline()) {
+            Log.e("TAG789624", "userRegister");
+            RequestParams params = new RequestParams();
+            // TreeMap<String, String> params = new TreeMap<String, String>();
+            params.put("third_type", type);
+            params.put("third_uid", uid);
+            params.put("nickname", name);
+            params.put("avatar", faceUrl);
+            showErrorMsg("正在注册中");
+            HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+
+                @Override
+                public void success(String response) {
+                    Log.d("注册成功：", response);
+                    disShowProgress();
+                    // MyApplication.getInstance().doLogin(userInfo);
+                    try {
+
+                        JSONObject obj = new JSONObject(response);
+                        String code = obj.optString("code");
+                        String message = obj.optString("message");
+                        if ("1".equals(code)) {
+                            String ukey = obj.optJSONObject("data").optString("ukey");
+                            is_first = obj.optJSONObject("data").optString("is_first");
+                            Log.d("TAG", "LoginQQ-->" + is_first);
+                            Log.d("TAG", "ukey-->" + ukey);
+                            UtilPreference.saveString(mContext, "is_first", is_first);
+                            UtilPreference.saveString(getApplicationContext(),
+                                    "ukey", ukey);
+
+//                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                            finish();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //环信登录
+                                    signin();
+                                }
+                            });
+//                            if ("0".equals(is_first)) {
+//                                toActivityFinish(MainActivity.class);
+//                            } else {
+//                                toActivity(UploadImgActivity.class);
+//                            }
+                        } else {
+                            ToastUtil.showS(LoginActivity.this, message);
+                        }
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void failed(Throwable error) {
+                    Log.d("注册失败：", error.toString());
+                    ToastUtil.showS(getApplicationContext(), "网络异常请重新再试！");
+                }
+
+                @Override
+                public void onFinish() {
+                    // TODO Auto-generated method stub
+                    disShowProgress();
+                }
+            });
+
+        } else {
+            ToastUtil.showL(this, "当前无网络连接");
+        }
     }
 }

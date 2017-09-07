@@ -14,7 +14,6 @@ import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.utils.richtext.RichText;
-import com.likeit.a51scholarship.view.expandtabview.ExpandTabView;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
@@ -24,7 +23,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.sharesdk.onekeyshare.OnekeyShare;
-import jaydenxiao.com.expandabletextview.ExpandableTextView;
 
 
 public class NewsDetailsActivity extends Container {
@@ -124,6 +122,9 @@ public class NewsDetailsActivity extends Container {
                 break;
             case R.id.iv_header_right:
                 toActivity(SendNewsActivity.class);
+                Intent intent=new Intent(mContext,SendNewsActivity.class);
+                intent.putExtra("uId","1");
+                startActivity(intent);
                 break;
             case R.id.new_details_share:
                 newsShare();

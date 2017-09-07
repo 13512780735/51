@@ -7,7 +7,26 @@
 
 
     <include layout="@layout/layout_header_with_back"></include>
-    <include layout="@layout/layout_nodata"></include>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="院校收藏"
+        android:padding="10dip"
+        android:background="@color/line_color"/>
+    <RelativeLayout
+        android:id="@+id/nodata"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+        <include layout="@layout/layout_nodata"></include>
+    </RelativeLayout>
+    <ListView
+        android:id="@+id/collect_listview"
+        android:layout_width="match_parent"
+        android:divider="@color/line_color"
+        android:dividerHeight="1dip"
+        android:layout_height="match_parent"
+        ></ListView>
 
 
 </LinearLayout>

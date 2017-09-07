@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context="com.likeit.a51scholarship.activitys.CircleDetailsActivity">
 
@@ -12,6 +14,7 @@
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/circle_details_scrollview"
         android:layout_width="match_parent"
+        android:fillViewport="true"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -71,21 +74,40 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="10dip">
 
-                    <Button
-                        android:id="@+id/circle_details_attention"
+                    <RelativeLayout
+                        android:id="@+id/rl_attention"
                         android:layout_width="80dip"
-                        android:layout_height="35dip"
-                        android:background="@drawable/btn_blue_bg02"
-                        android:text="关注"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:layout_height="35dip">
+
+                        <Button
+                            android:id="@+id/circle_details_attention"
+                            android:layout_width="80dip"
+                            android:layout_height="35dip"
+                            android:background="@drawable/button_blue_bg"
+                            android:shadowColor="#02B7FB"
+                            android:text="未关注"
+                            android:textColor="@color/login_btn_bg_color"
+                            android:textSize="12sp"
+                            android:visibility="gone" />
+
+                        <Button
+                            android:id="@+id/circle_details_attention01"
+                            android:layout_width="80dip"
+                            android:layout_height="35dip"
+                            android:background="@drawable/button_drak_bg"
+                            android:shadowColor="@color/defualt_textcolor_d"
+                            android:text="已关注"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:visibility="gone" />
+                    </RelativeLayout>
 
                     <Button
                         android:id="@+id/circle_details_Posted"
                         android:layout_width="80dip"
                         android:layout_height="35dip"
                         android:layout_marginLeft="10dip"
-                        android:layout_toRightOf="@+id/circle_details_attention"
+                        android:layout_toRightOf="@+id/rl_attention"
                         android:background="@drawable/button_blue_bg"
                         android:drawableLeft="@mipmap/news_icon_edit01"
                         android:paddingLeft="10dip"
@@ -138,12 +160,75 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.likeit.a51scholarship.view.SlidingTabLayout
-                    android:id="@+id/circle_details_sliding_tabs"
+                <RadioGroup
+                    android:id="@+id/rgTools"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:translationZ="1dp" />
+                    android:layout_height="45dip"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/new_rball"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_weight="1"
+                        android:background="@drawable/radiobutton_tab_selector"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
+                        android:paddingTop="10dp"
+                        android:text="全部"
+                        android:textColor="@drawable/home_font_selector"
+                        android:textSize="14sp" />
+
+                    <RadioButton
+                        android:id="@+id/new_rbEssence"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_weight="1"
+                        android:background="@drawable/radiobutton_tab_selector"
+                        android:button="@null"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
+                        android:paddingTop="10dp"
+                        android:text="精华"
+                        android:textColor="@drawable/home_font_selector"
+                        android:textSize="14sp" />
+
+                    <RadioButton
+                        android:id="@+id/new_rbmember"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/radiobutton_tab_selector"
+                        android:button="@null"
+                        android:checked="false"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
+                        android:paddingTop="10dp"
+                        android:text="成员"
+                        android:textColor="@drawable/home_font_selector"
+                        android:textSize="14sp" />
+
+                    <RadioButton
+                        android:id="@+id/new_rbgroup"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/radiobutton_tab_selector"
+                        android:button="@null"
+                        android:checked="false"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
+                        android:paddingTop="10dp"
+                        android:text="群组"
+                        android:textColor="@drawable/home_font_selector"
+                        android:textSize="14sp" />
+                </RadioGroup>
 
                 <com.likeit.a51scholarship.view.NoScrollViewPager01
                     android:id="@+id/circle_details_viewpager"

@@ -193,20 +193,26 @@
         android:layout_height="@dimen/line_height"
         android:background="@color/line_color" />
 
-    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
-        android:id="@+id/school_list_scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-       >
+    <!--<com.handmark.pulltorefresh.library.PullToRefreshScrollView-->
+    <!--android:id="@+id/school_list_scrollview"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--&gt;-->
 
-        <com.likeit.a51scholarship.view.MyListview
-            android:id="@+id/school_list_listview"
-            android:layout_width="match_parent"
-            android:divider="@color/smssdk_white"
-            android:dividerHeight="10dp"
-            android:layout_height="match_parent"></com.likeit.a51scholarship.view.MyListview>
-    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
-
+    <!--<com.likeit.a51scholarship.view.MyListview-->
+    <!--android:id="@+id/school_list_listview"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:divider="@color/smssdk_white"-->
+    <!--android:dividerHeight="10dp"-->
+    <!--android:layout_height="match_parent"></com.likeit.a51scholarship.view.MyListview>-->
+    <!--</com.handmark.pulltorefresh.library.PullToRefreshScrollView>-->
+   <com.handmark.pulltorefresh.library.PullToRefreshListView
+    android:id="@+id/school_list_listview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:dividerHeight="5dp"
+    android:dividerPadding="2dip" >
+</com.handmark.pulltorefresh.library.PullToRefreshListView>
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"

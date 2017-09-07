@@ -3,23 +3,18 @@ package com.likeit.a51scholarship.fragments;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.RectF;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
-import android.widget.SimpleAdapter;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
@@ -31,11 +26,10 @@ import com.likeit.a51scholarship.activitys.AnswersActivity;
 import com.likeit.a51scholarship.activitys.CourseListActivity;
 import com.likeit.a51scholarship.activitys.LiveListActivity;
 import com.likeit.a51scholarship.activitys.MainActivity;
-import com.likeit.a51scholarship.activitys.MessageActivity;
 import com.likeit.a51scholarship.activitys.NewsListActivity;
 import com.likeit.a51scholarship.activitys.SchoolDetailActivity;
+import com.likeit.a51scholarship.activitys.SchoolFilterActivity;
 import com.likeit.a51scholarship.activitys.SearchInfoActivity;
-import com.likeit.a51scholarship.activitys.SearchSchoolActivity;
 import com.likeit.a51scholarship.activitys.newsfragment.NewsDetailsActivity;
 import com.likeit.a51scholarship.adapters.HomeItemNewsAdapter;
 import com.likeit.a51scholarship.adapters.HomeItemSchoolAdapter;
@@ -45,7 +39,6 @@ import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.model.HomeADlistBean;
 import com.likeit.a51scholarship.model.HomeItemNewsBean;
 import com.likeit.a51scholarship.model.HomeItemSchoolBean;
-import com.likeit.a51scholarship.utils.JSONUtils;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.utils.UtilPreference;
@@ -58,9 +51,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -97,7 +88,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
     private static final String SHOWCASE_ID = "sequence example";
     private View iv_school_layout;
     private View line_school, line_news;
-    private int status = 1;  // 判断是院校选择还是资讯选择 ，1为院校、2为资讯
+    private String status = "1";  // 判断是院校选择还是资讯选择 ，1为院校、2为资讯
     private String is_first;  //判断是否显示指示层
     private MyListview mListView02;
 
@@ -114,7 +105,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         ADListData = new ArrayList<HomeADlistBean>();
         SchoolData = new ArrayList<HomeItemSchoolBean>();
         NewsData = new ArrayList<HomeItemNewsBean>();
-        is_first = UtilPreference.getStringValue(getActivity(),"is_first");
+        is_first = UtilPreference.getStringValue(getActivity(), "is_first");
         Log.d("TAG", "is_first-->" + is_first);
         initData();
         dialog.show();
@@ -145,7 +136,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
-              Log.d("TAG", "Home-->" + response);
+                Log.d("TAG", "Home-->" + response);
                 dialog.dismiss();
                 try {
                     JSONObject obj = new JSONObject(response);
@@ -227,11 +218,13 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         String url = AppConfig.LIKEIT_SCHOOL;
         RequestParams params = new RequestParams();
         params.put("ukey", ukey);
+        params.put("page", "1");
+
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
                 dialog.dismiss();
-                 Log.d("TAG", "HomeSchool-->" + response);
+                Log.d("TAG", "HomeSchool-->" + response);
                 try {
                     JSONObject obj = new JSONObject(response);
                     String code = obj.optString("code");
@@ -250,7 +243,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                             SchoolData.add(homeItemSchoolBean);
                         }
                         Log.d("TAG", "HomeSchool-->" + SchoolData);
-                       // schoolAdater.addAll(SchoolData, false);
+                        // schoolAdater.addAll(SchoolData, false);
                         schoolAdater.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {
@@ -292,26 +285,26 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 String name = SchoolData.get(position).getName();
                 String en_name = SchoolData.get(position).getEn_name();
                 String img = SchoolData.get(position).getImg();
-                String sid=SchoolData.get(position).getId();
-                String country_id=SchoolData.get(position).getCountry_id();
-                if (status == 1) {
-                    Intent intentSchoolDetail = new Intent();
-                    intentSchoolDetail.putExtra("name", name);//英文名字
-                    intentSchoolDetail.putExtra("en_name", en_name);//中文名字
-                    intentSchoolDetail.putExtra("img", img);//图片
-                    intentSchoolDetail.putExtra("sid", sid);//图片
-                    intentSchoolDetail.putExtra("country_id", country_id);//图片
-                    intentSchoolDetail.setClass(getActivity(), SchoolDetailActivity.class);
-                    startActivity(intentSchoolDetail);
-                }
+                String sid = SchoolData.get(position).getId();
+                String country_id = SchoolData.get(position).getCountry_id();
+                Intent intentSchoolDetail = new Intent();
+                intentSchoolDetail.putExtra("name", name);//英文名字
+                intentSchoolDetail.putExtra("en_name", en_name);//中文名字
+                intentSchoolDetail.putExtra("img", img);//图片
+                intentSchoolDetail.putExtra("sid", sid);//图片
+                intentSchoolDetail.putExtra("country_id", country_id);//图片
+                intentSchoolDetail.setClass(getActivity(), SchoolDetailActivity.class);
+                Log.d("TAG555", "sid-->" + sid);
+                Log.d("TAG555", "en_name-->" + en_name);
+                startActivity(intentSchoolDetail);
             }
         });
         mListView02.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String id1=NewsData.get(position).getId();
+                String id1 = NewsData.get(position).getId();
                 Intent intentNewDetails = new Intent(getActivity(), NewsDetailsActivity.class);
-                intentNewDetails.putExtra("id",id1);
+                intentNewDetails.putExtra("id", id1);
                 startActivity(intentNewDetails);
             }
         });
@@ -354,7 +347,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         mListView.setAdapter(schoolAdater);
         schoolAdater.notifyDataSetChanged();
         ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
-        if("1".equals(is_first)){
+        if ("1".equals(is_first)) {
             mListView.post(new Runnable() {
                 @Override
                 public void run() {
@@ -369,7 +362,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                     });
                 }
             });
-        }else{
+        } else {
             return;
         }
 
@@ -385,9 +378,9 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
             case R.id.search_content_et:
             case R.id.audio_icon:
             case R.id.search_layout:
-               // toActivity(SearchInfoActivity.class);
-                Intent intentSearch=new Intent(getActivity(),SearchInfoActivity.class);
-                intentSearch.putExtra("key","1");
+                // toActivity(SearchInfoActivity.class);
+                Intent intentSearch = new Intent(getActivity(), SearchInfoActivity.class);
+                intentSearch.putExtra("key", "1");
                 startActivity(intentSearch);
                 break;
             case R.id.message_img:
@@ -398,7 +391,10 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 break;
             case R.id.school_layout:
 //                toActivity(AutoSearchActivity.class);
-                toActivity(SearchSchoolActivity.class);
+                //   toActivity(SchoolFilterActivity.class);
+                Intent intentFilter = new Intent(getActivity(), SchoolFilterActivity.class);
+                intentFilter.putExtra("filterId", "1");
+                startActivity(intentFilter);
                 break;
             case R.id.news_layout:
                 toActivity(NewsListActivity.class);
@@ -427,6 +423,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         mPullToRefreshScrollView.onRefreshComplete();
     }
 
+
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
         switch (checkedId) {
@@ -435,7 +432,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 schoolAdater.notifyDataSetChanged();
                 mListView02.setVisibility(View.GONE);
                 mListView.setVisibility(View.VISIBLE);
-                status = 1;
+                status = "1";
                 getListData();
                 line_news.setVisibility(View.GONE);
                 line_school.setVisibility(View.VISIBLE);
@@ -453,7 +450,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 newAdapter.notifyDataSetChanged();
                 mListView.setVisibility(View.GONE);
                 mListView02.setVisibility(View.VISIBLE);
-                status = 2;
+                status = "2";
                 getListNew();
                 line_news.setVisibility(View.VISIBLE);
                 line_school.setVisibility(View.GONE);
@@ -473,7 +470,8 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
     private void getListNew() {
         String url = AppConfig.LIKEIT_NEWS;
         RequestParams params = new RequestParams();
-       // params.put("ukey", ukey);
+        // params.put("ukey", ukey);
+        params.put("page", "1");
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
@@ -498,7 +496,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                             NewsData.add(homeItemNewsBean);
                         }
                         Log.d("TAG", "HomeSchool-->" + NewsData);
-                       // newAdapter.addAll(NewsData, false);
+                        // newAdapter.addAll(NewsData, false);
                         newAdapter.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {

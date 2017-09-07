@@ -2,19 +2,18 @@ package com.likeit.a51scholarship.fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -26,7 +25,6 @@ import com.likeit.a51scholarship.activitys.SearchInfoActivity;
 import com.likeit.a51scholarship.adapters.CircleGridViewAdapter;
 import com.likeit.a51scholarship.adapters.CricleListViewAdapter;
 import com.likeit.a51scholarship.adapters.GroupListFilterAdapter;
-import com.likeit.a51scholarship.adapters.SimleAdapter01;
 import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.model.circle_model.FollowCircleModel;
@@ -34,7 +32,6 @@ import com.likeit.a51scholarship.model.circle_model.GroupListFilterModel;
 import com.likeit.a51scholarship.model.circle_model.GroupListModel;
 import com.likeit.a51scholarship.utils.ListScrollUtil;
 import com.likeit.a51scholarship.utils.ToastUtil;
-import com.likeit.a51scholarship.utils.UtilPreference;
 import com.likeit.a51scholarship.view.MyGridView;
 import com.likeit.a51scholarship.view.MyListview;
 import com.loopj.android.http.RequestParams;
@@ -44,7 +41,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,9 +90,9 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
         followCircleData = new ArrayList<FollowCircleModel>();
         groupListData = new ArrayList<GroupListModel>();
         listMenu = new ArrayList<GroupListFilterModel>();//筛选数据
-        //获取关注的圈子
+//        //获取关注的圈子
         getFollowCircleData();
-        //获取全部圈子列表
+//        //获取全部圈子列表
         getGroupListData();
         //筛选数据
         getFilterData();
@@ -151,18 +147,21 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-        // refresh();
+       //refresh();
     }
 
     private void refresh() {
+        //获取全部圈子列表
+        mGroupListAdapter.addAll(groupListData, true);
+        //groupListData.clear();
+        getGroupListData();
+        mGroupListAdapter.notifyDataSetChanged();
         //获取关注的圈子
         mFollowCircleAdapter.addAll(followCircleData, true);
         getFollowCircleData();
         mFollowCircleAdapter.notifyDataSetChanged();
-        //获取全部圈子列表
-        mGroupListAdapter.addAll(groupListData, true);
-        getGroupListData();
-        mGroupListAdapter.notifyDataSetChanged();
+
+        //dialog.show();
 
     }
 
@@ -297,7 +296,23 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                toActivity(CircleDetailsActivity.class);
+               // toActivity(CircleDetailsActivity.class);
+                String circleId = followCircleData.get(position).getId();
+                String circleTitle = followCircleData.get(position).getTitle();
+                String circleDetail = followCircleData.get(position).getDetail();
+                String circleLogo = followCircleData.get(position).getLogo();
+                String circleMemberNum = followCircleData.get(position).getMember_num();
+                String circlePostNum = followCircleData.get(position).getPost_num();
+                String circleIsFollow = "1";
+                Intent intentDetails = new Intent(getActivity(), CircleDetailsActivity.class);
+                intentDetails.putExtra("circleId", circleId);
+                intentDetails.putExtra("circleTitle", circleTitle);
+                intentDetails.putExtra("circleDetail", circleDetail);
+                intentDetails.putExtra("circleLogo", circleLogo);
+                intentDetails.putExtra("circleMemberNum", circleMemberNum);
+                intentDetails.putExtra("circlePostNum", circlePostNum);
+                intentDetails.putExtra("circleIsFollow", circleIsFollow);
+                startActivity(intentDetails);
             }
         });
         /**
@@ -311,7 +326,22 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                toActivity(CircleDetailsActivity.class);
+                String circleId = groupListData.get(position).getId();
+                String circleTitle = groupListData.get(position).getTitle();
+                String circleDetail = groupListData.get(position).getDetail();
+                String circleLogo = groupListData.get(position).getLogo();
+                String circleMemberNum = groupListData.get(position).getMember_num();
+                String circlePostNum = groupListData.get(position).getPost_num();
+                String circleIsFollow = groupListData.get(position).getIsfollow();
+                Intent intentDetails = new Intent(getActivity(), CircleDetailsActivity.class);
+                intentDetails.putExtra("circleId", circleId);
+                intentDetails.putExtra("circleTitle", circleTitle);
+                intentDetails.putExtra("circleDetail", circleDetail);
+                intentDetails.putExtra("circleLogo", circleLogo);
+                intentDetails.putExtra("circleMemberNum", circleMemberNum);
+                intentDetails.putExtra("circlePostNum", circlePostNum);
+                intentDetails.putExtra("circleIsFollow", circleIsFollow);
+                startActivity(intentDetails);
             }
         });
         mGroupListAdapter.setOnEnFollowClickListener(new CricleListViewAdapter.onBtnEnFollowClickListener() {
@@ -460,12 +490,14 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+        refresh();
         ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
         mPullToRefreshScrollView.onRefreshComplete();
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+        refresh();
         ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
         mPullToRefreshScrollView.onRefreshComplete();
     }

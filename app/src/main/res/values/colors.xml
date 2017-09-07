@@ -2,9 +2,9 @@
 <resources>
 
     <color name="header_bg_color">#FFFFFF</color>
+    <color name="colorAccent">#FF4081</color>
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#FFFFFF</color>
-    <color name="colorAccent">#FF4081</color>
 
     <color name="defualt_window_background">#FFFFFF</color>
     <color name="white">#FFFFFF</color>   <!--APP主要界面的底色-->

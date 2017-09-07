@@ -12,6 +12,7 @@ import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.activitys.Container;
 import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.http.HttpUtil;
+import com.likeit.a51scholarship.utils.richtext.RichText;
 import com.loopj.android.http.RequestParams;
 
 import java.net.URL;
@@ -19,7 +20,7 @@ import java.net.URL;
 public class InviteFriendsActivity extends Container {
 
     private String sid;
-    private TextView webview;
+    private RichText webview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +32,10 @@ public class InviteFriendsActivity extends Container {
     }
 
     private void initView() {
-        webview=(TextView) findViewById(R.id.webview);
-        String url1=" <p style=\"white-space: normal;\">美国德州大学（共十五分校） 阿灵顿分校商学所在美国高等教育发展己有一百年以上的历史，是一所综合教学及研究的高等学府以商业教育最为出名。UTA位于德州Dallas的心脏位置，为美国经济成功发展的大城之一。UTA学生每年入学人数超过2万名，分别来自全美50州及90个不同国家。UTA是全美中西部前50名之优良大学，并且是美国德州大学系统第二大之分校。 而UTA之商学院更在全美排名前80名，提供许多专业训练课程及学位。UTA 为有效训练中高级经理人迈向国际化的商业环境，针对中国及其它亚洲国家，提供面试学习者的绿色通道课程。</p><p style=\"white-space: normal;\"><img src=\"http://liuxueapp.wbteam.cn/Uploads/Editor/Picture/2017-03-07/58be6daeee881.png \n" +
-                "\n" +
-                "\" title=\"\" alt=\"美国德克萨斯州立大学 阿灵顿分校02.png\"/><img src=\"http://liuxueapp.wbteam.cn/Uploads/Editor/Picture/2017-03-07/58be6dab7b7a6.png \n" +
-                "\n" +
-                "\" title=\"\" alt=\"美国德克萨斯州立大学 阿灵顿分校01.png\"/></p><p><br/></p>";
-        webview.setText(Html.fromHtml(url1,imgGetter,null));
+        webview=(RichText) findViewById(R.id.webview);
+        String url1=" <p style=\\\"white-space: normal;\\\"><span style=\\\"font-size: 18px;\\\"><strong>录取数据</strong></span></p><p style=\\\"white-space: normal;\\\">申请人数 34919&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录取率 5.8%</p><p style=\\\"white-space: normal;\\\">入学率</p><p style=\\\"white-space: normal;\\\">GPA平均分 4</p><p style=\\\"white-space: normal;\\\">SAT录取区间值 &nbsp;~0</p><p style=\\\"white-space: normal;\\\">SAT数学区间值 &nbsp;~0</p><p style=\\\"white-space: normal;\\\">SAT批判性阅读区间值 &nbsp;~0</p><p style=\\\"white-space: normal;\\\">ACT录取区间值 &nbsp;32~35</p><p style=\\\"white-space: normal;\\\"><br/></p><p style=\\\"white-space: normal;\\\"><span style=\\\"font-size: 18px;\\\"><strong>新生高中生班级排名</strong></span></p><p style=\\\"white-space: normal;\\\">班级排名前10%学生比例 &nbsp;95%</p><p style=\\\"white-space: normal;\\\">班级排名前25%学生比例 &nbsp;100%<br/></p><p style=\\\"white-space: normal;\\\">班级排名前50%学生比例 &nbsp;100%</p><p style=\\\"white-space: normal;\\\"><br/></p><p style=\\\"white-space: normal;\\\"><span style=\\\"font-size: 18px;\\\"><strong>申请信息</strong></span></p><p style=\\\"white-space: normal;\\\">申请截止日期 &nbsp;01-01 &nbsp; &nbsp;通知日期<br/></p><p style=\\\"white-space: normal;\\\">是否有EA &nbsp;是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EA截止日期 &nbsp;11-01</p><p style=\\\"white-space: normal;\\\">是否有ED &nbsp;否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ED截止日期</p><p style=\\\"white-space: normal;\\\">是否双录取 &nbsp;否</p><p style=\\\"white-space: normal;\\\">申请费 $75</p><p style=\\\"white-space: normal;\\\">申请网址 &nbsp;<a href=\\\"https://college.harvard.edu/admissions\\\" _src=\\\"https://college.harvard.edu/admissions\\\">https://college.harvard.edu/admissions</a></p><p style=\\\"white-space: normal;\\\"><br/></p><p style=\\\"white-space: normal;\\\"><span style=\\\"font-size: 18px;\\\"><strong>申请材料</strong></span></p><p style=\\\"white-space: normal;\\\">1.填写申请表; 2.75美金申请费; 3.哈佛补充申请表; 4.SAT或ACT写作成绩; 5.两门SAT II 的成绩 (注意: SAT II English Language Proficiency Test, ELPT 不被接受); 6.中学成绩单; 7.两篇教师推荐信.<br/></p><p><br/></p>";
+       // webview.setText(Html.fromHtml(url1,imgGetter,null));
+        webview.setRichText(url1);
     }
 
     private void initData() {

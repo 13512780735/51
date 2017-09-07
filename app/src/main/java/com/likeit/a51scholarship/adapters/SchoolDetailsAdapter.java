@@ -42,12 +42,6 @@ public class SchoolDetailsAdapter extends MyBaseAdapter<SchoolDetailsBean01> {
         SchoolDetailsBean01 data1 = getItem(position);
         holder.schoolDetailsName.setText(data1.getName());
         holder.schoolDetails.setRichText(data1.getContent());
-//        holder.schoolDetails.setOnRichTextImageClickListener(new RichText.OnRichTextImageClickListener(){
-//            @Override
-//            public void imageClicked(List<String> imageUrls, int position){
-//                Toast.makeText(context, imageUrls.get(position),Toast.LENGTH_SHORT).show();
-//            }
-//        });
         return convertView;
     }
 

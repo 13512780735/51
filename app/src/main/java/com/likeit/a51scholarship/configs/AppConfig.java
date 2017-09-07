@@ -1,5 +1,4 @@
 package com.likeit.a51scholarship.configs;
-
 /**
  * Created by Administrator on 2017\7\18 0018.
  */
@@ -17,6 +16,8 @@ public class AppConfig {
     public static final String LIKEIT_REGISTER = SERVER_API + "/api/member/register";
     //登录
     public static final String LIKEIT_LOGIN = SERVER_API + "/api/member/login";
+    //第三方登录
+    public static final String LIKEIT_THIRD_LOGIN = SERVER_API + "/api/member/third_login";
     //获取用户信息
     public static final String LIKEIT_GET_INFO = SERVER_API + "/api/member/get_info";
     //我关注的圈子接口
@@ -30,7 +31,9 @@ public class AppConfig {
     //编辑用户资料接口
     public static final String LIKEIT_MEMBER_EDIT_INFO= SERVER_API + "/api/member/edit_info";
     //获取地区接口
-    public static final String LIKEIT_MEMBER_EDIT_DISTRICT= SERVER_API + "//api/region/district";
+    public static final String LIKEIT_MEMBER_EDIT_DISTRICT= SERVER_API + "/api/region/district";
+    //我的收藏接口
+    public static final String LIKEIT_MEMBER_COLLECT= SERVER_API + "/api/member/collect";
     /**
      * 院校
      */
@@ -54,6 +57,8 @@ public class AppConfig {
     public static final String LIKEIT_SCHOOL_FILTR_PARAM= SERVER_API + "/api/school/filtr_param";
     //院校筛选总数接口
     public static final String LIKEIT_SCHOOL_FILTR_COUNT= SERVER_API + "/api/school/get_filtr_count";
+    //院校收藏接口
+    public static final String LIKEIT_SCHOOL_COLLECT= SERVER_API + "/api/school/collect";
 
 
     /**
@@ -67,6 +72,10 @@ public class AppConfig {
     public static final String LIKEIT_GROUP_FOLLOW_GROUP= SERVER_API + "/api/group/follow_group";
     //圈子文章列表接口
     public static final String LIKEIT_GROUP_GETPOST= SERVER_API + "/api/group/getpost";
+    //圈子成员列表接口
+    public static final String LIKEIT_GROUP_GET_MEMBER_LIST= SERVER_API + "/api/group/get_member_list";
+    //圈子文章发布接口
+    public static final String LIKEIT_GROUP_ADDPOST= SERVER_API + "/api/group/addpost";
     /**
      * 资讯
      */
@@ -76,6 +85,8 @@ public class AppConfig {
     public static final String LIKEIT_NEW_GETCATEGORY= SERVER_API + "/api/news/getcategory";
     //资讯详情接口
     public static final String LIKEIT_NEW_GETDETAILS= SERVER_API + "/api/news/getdetails";
+    //资讯发布接口
+    public static final String LIKEIT_NEW_ADDNEWS= SERVER_API + "/api/news/addnews";
     /**
      * 搜索
      */

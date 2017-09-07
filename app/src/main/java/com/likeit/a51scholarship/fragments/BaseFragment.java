@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
+import com.likeit.a51scholarship.view.CustomViewpager;
 import com.pk4pk.baseappmoudle.base.KKBaseV4Fragment;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -37,7 +38,6 @@ public abstract class BaseFragment extends KKBaseV4Fragment {
         ukey = UtilPreference.getStringValue(getActivity(), "ukey");
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(setContentView(), container, false);

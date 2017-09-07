@@ -1,24 +1,22 @@
 package com.likeit.a51scholarship.activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.IdRes;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.a51scholarship.R;
-import com.likeit.a51scholarship.activitys.userdetailsfragment.UserDetailsFragment01;
-import com.likeit.a51scholarship.activitys.userdetailsfragment.UserDetailsFragment02;
 import com.likeit.a51scholarship.adapters.AnswersUserDetailsTabAdapter;
+import com.likeit.a51scholarship.fragments.MainFragment;
+import com.likeit.a51scholarship.view.CustomViewpager;
 import com.likeit.a51scholarship.view.NoScrollViewPager01;
-import com.likeit.a51scholarship.view.SlidingTabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,33 +25,64 @@ import jaydenxiao.com.expandabletextview.ExpandableTextView;
 
 
 public class CircleDetailsActivity extends Container implements
-        PullToRefreshBase.OnRefreshListener2<ScrollView>{
+        PullToRefreshBase.OnRefreshListener2<ScrollView>, ViewPager.OnPageChangeListener, RadioGroup.OnCheckedChangeListener {
     @BindView(R.id.backBtn)
     Button btBack;
+    @BindView(R.id.circle_details_attention)
+    Button btAttention;//关注
+    @BindView(R.id.circle_details_attention01)
+    Button btAttention01;//未关注
+    @BindView(R.id.circle_details_Posted)
+    Button btPosted;//发帖
     @BindView(R.id.tv_header)
     TextView tvHeader;
+    @BindView(R.id.circle_details_posts)
+    TextView tvPosts;
+    @BindView(R.id.circle_details_membership)
+    TextView tvMember;
     @BindView(R.id.circle_details_desc_tv)
     ExpandableTextView circleDetailsDescTv;
     @BindView(R.id.circle_details_scrollview)
     PullToRefreshScrollView mPullToRefreshScrollView;
-    @BindView(R.id.circle_details_sliding_tabs)
-    SlidingTabLayout slidingTabLayout;
     @BindView(R.id.circle_details_viewpager)
     NoScrollViewPager01 viewpager;
-    private String[] titles=new String[]{"全部","精华","成员","群组"};
+    @BindView(R.id.rgTools)
+    RadioGroup mRgTools;
+    private String circleId;
+    private String circleTitle;
+    private String circleDetail;
+    private String circleLogo;
+    private String circleMemberNum;
+    private String circlePostNum;
+    private String circleIsFollow;
     private AnswersUserDetailsTabAdapter adapter;
-    private List<Fragment> fragments=new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circle_details);
         ButterKnife.bind(this);
+        Intent intent = getIntent();
+        circleDetail = intent.getStringExtra("circleDetail");
+        circleId = intent.getStringExtra("circleId");
+        circleTitle = intent.getStringExtra("circleTitle");
+        circleLogo = intent.getStringExtra("circleLogo");
+        circleMemberNum = intent.getStringExtra("circleMemberNum");
+        circlePostNum = intent.getStringExtra("circlePostNum");
+        circleIsFollow = intent.getStringExtra("circleIsFollow");
         initView();
     }
 
     private void initView() {
         tvHeader.setText("圈子详情");
-        circleDetailsDescTv.setText("美国留学党们，快快加入吧~美国留学党们，快快加入吧~美国留学党们，快快加入吧~美国留学党们，快快加入吧~美国留学党们，快快加入吧~");
+        if ("1".equals(circleIsFollow)) {
+            btAttention01.setVisibility(View.VISIBLE);
+        } else {
+            btAttention.setVisibility(View.VISIBLE);
+        }
+        tvPosts.setText("帖子:" + circlePostNum);
+        tvMember.setText("成员数:" + circleMemberNum);
+        circleDetailsDescTv.setText(circleDetail);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setOnRefreshListener(this);
         mPullToRefreshScrollView.getLoadingLayoutProxy().setLastUpdatedLabel(
@@ -65,28 +94,30 @@ public class CircleDetailsActivity extends Container implements
         mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
                 "松开即可刷新");
 
-        fragments.add(new UserDetailsFragment01());
-        fragments.add(new UserDetailsFragment02());
-        fragments.add(new UserDetailsFragment01());
-        fragments.add(new UserDetailsFragment02());
-        adapter=new AnswersUserDetailsTabAdapter(getSupportFragmentManager(),titles,fragments);
+        adapter = new AnswersUserDetailsTabAdapter(getSupportFragmentManager());
+        viewpager.setAdapter(adapter);
+        viewpager.setOnPageChangeListener(this);
+        viewpager.setCurrentItem(0);
+        viewpager.setOffscreenPageLimit(0);
+        mRgTools.setOnCheckedChangeListener(this);
+        MainFragment fragment = new MainFragment();
         viewpager.setAdapter(adapter);
         viewpager.setNoScroll(false);
-        slidingTabLayout.setCustomTabView(R.layout.custom_tab_view, R.id.tab_item);
-        slidingTabLayout.setTabTitleTextSize(14);//标题字体大小
-        slidingTabLayout.setTitleTextColor(this.getResources().getColor(R.color.login_btn_bg_color), this.getResources().getColor(R.color.defualt_textcolor_d));//标题字体颜色
-        WindowManager wm = this.getWindowManager();
-        int width = wm.getDefaultDisplay().getWidth();
-        slidingTabLayout.setTabStripWidth(width/(titles.length+1));//滑动条宽度
-        slidingTabLayout.setSelectedIndicatorColors(this.getResources().getColor(R.color.login_btn_bg_color));//滑动条颜色
-        slidingTabLayout.setDistributeEvenly(true); //均匀平铺选项卡
-        slidingTabLayout.setViewPager(viewpager);
+
     }
-    @OnClick({R.id.backBtn})
-    public void onClick(View view){
-        switch (view.getId()){
+
+    @OnClick({R.id.backBtn, R.id.circle_details_Posted})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.backBtn:
                 onBackPressed();
+                break;
+            case R.id.circle_details_Posted:
+                // toActivity(SendNewsActivity.class);
+                Intent intent = new Intent(mContext, SendNewsActivity.class);
+                intent.putExtra("uid", "2");
+                intent.putExtra("gid", circleId);
+                startActivity(intent);
                 break;
         }
     }
@@ -99,5 +130,25 @@ public class CircleDetailsActivity extends Container implements
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
         mPullToRefreshScrollView.onRefreshComplete();
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        mRgTools.check(mRgTools.getChildAt(position).getId());
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+        viewpager.setCurrentItem(group.indexOfChild(group.findViewById(checkedId)), false);
     }
 }

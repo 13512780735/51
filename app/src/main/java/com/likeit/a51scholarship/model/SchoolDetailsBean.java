@@ -53,6 +53,7 @@ public class SchoolDetailsBean {
          * img : http://liuxueapp.wbteam.cn//Uploads/Picture/2017-03-21/58d0cbb31355e.jpg
          * img_width : 702
          * img_height : 280
+         *  is_collect: 1
          */
 
         private String id;
@@ -74,6 +75,41 @@ public class SchoolDetailsBean {
         private String img;
         private String img_width;
         private String img_height;
+        private String is_collect;
+
+        @Override
+        public String toString() {
+            return "SchoolInfoBean{" +
+                    "id='" + id + '\'' +
+                    ", name='" + name + '\'' +
+                    ", en_name='" + en_name + '\'' +
+                    ", country_name='" + country_name + '\'' +
+                    ", area_name='" + area_name + '\'' +
+                    ", ranking='" + ranking + '\'' +
+                    ", rate='" + rate + '\'' +
+                    ", scholarship='" + scholarship + '\'' +
+                    ", nature_name='" + nature_name + '\'' +
+                    ", number='" + number + '\'' +
+                    ", toeic='" + toeic + '\'' +
+                    ", toefl='" + toefl + '\'' +
+                    ", yasi='" + yasi + '\'' +
+                    ", gmat='" + gmat + '\'' +
+                    ", gpa='" + gpa + '\'' +
+                    ", description='" + description + '\'' +
+                    ", img='" + img + '\'' +
+                    ", img_width='" + img_width + '\'' +
+                    ", img_height='" + img_height + '\'' +
+                    ", is_collect='" + is_collect + '\'' +
+                    '}';
+        }
+
+        public String getIs_collect() {
+            return is_collect;
+        }
+
+        public void setIs_collect(String is_collect) {
+            this.is_collect = is_collect;
+        }
 
         public String getId() {
             return id;

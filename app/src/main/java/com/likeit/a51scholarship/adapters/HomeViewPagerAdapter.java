@@ -26,7 +26,7 @@ public class HomeViewPagerAdapter extends FragmentPagerAdapter {
         frList.add(new HomeFragment02());
         frList.add(new HomeFragment03());
         frList.add(new HomeFragment04());
-       // frList.add(new HomeFragment05());
+   frList.add(new HomeFragment05());
 
     }
 
@@ -44,9 +44,9 @@ public class HomeViewPagerAdapter extends FragmentPagerAdapter {
         } else if (position == 4) {
             return frList.get(4);
         }
-//        else if (position == 5) {
-//            return frList.get(5);
-//        }
+        else if (position == 5) {
+            return frList.get(5);
+       }
         return null;
     }
 

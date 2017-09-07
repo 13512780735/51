@@ -1,14 +1,9 @@
 package com.likeit.a51scholarship.app;
 
-import android.Manifest;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.easemob.redpacketsdk.RPInitRedPacketCallback;
 import com.easemob.redpacketsdk.RPValueCallback;
@@ -18,29 +13,22 @@ import com.easemob.redpacketsdk.bean.TokenData;
 import com.easemob.redpacketsdk.constant.RPConstant;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
-import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.likeit.a51scholarship.chat.message.widget.DemoHelper;
 import com.likeit.a51scholarship.model.UserInfo;
-import com.likeit.a51scholarship.utils.ToastUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import com.likeit.a51scholarship.R;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import cn.sharesdk.framework.ShareSDK;
 import cn.smssdk.SMSSDK;
-import me.weyye.hipermission.HiPermission;
-import me.weyye.hipermission.PermissionCallback;
-import me.weyye.hipermission.PermissionItem;
 
-import static com.nostra13.universalimageloader.core.ImageLoader.TAG;
 
 
 public class MyApplication extends Application {

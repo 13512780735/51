@@ -82,6 +82,8 @@ public class SchoolDetailActivity extends Container {
     TextView schoolEsNameTv;
     @BindView(R.id.school_img_iv)
     CircleImageView schoolImgIv;
+    @BindView(R.id.rbCollect)
+    RadioButton rbCollect;
 
     /**
      * 学校简介
@@ -120,19 +122,6 @@ public class SchoolDetailActivity extends Container {
     //目录列表
     private int from = 0;
     private Window window;
-    //点击菜单移到位置的点
-//    @BindView(R.id.ll_school_admit)
-//    LinearLayout llAdmit;
-//    @BindView(R.id.school_staff_student_tv)
-//    TextView tvStaff;
-//    @BindView(R.id.ll_school_school_fee_tv)
-//    TextView tvSchoolFee;
-//    @BindView(R.id.ll_school_scholarship)
-//    TextView tvSchoolScholarship;
-//    @BindView(R.id.ll_school_number)
-//    TextView tvSchoolNumber;
-//    @BindView(R.id.ll_school_contact_way)
-//    TextView tvSchoolContactWay;
     private int top; //目录菜单位置
     private int scrollViewHight;
     private boolean ischecked;
@@ -149,6 +138,9 @@ public class SchoolDetailActivity extends Container {
     private TextView et;
     private int hight01;
     private String country_id;
+    private String is_collect;
+    private JSONArray array;
+    private SchoolDetailsPopBena mSchoolDetailPopBena01;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +153,8 @@ public class SchoolDetailActivity extends Container {
         en_name = intent.getStringExtra("en_name");//从首页英文名字
         img = intent.getStringExtra("img");//图片
         sid = intent.getStringExtra("sid");//院校ID
+        Log.d("TAG888", "sid-->" + sid);
+        Log.d("TAG888", "en_name-->" + en_name);
         country_id = intent.getStringExtra("country_id");//院校ID
         iv_header_left.setImageResource(R.mipmap.icon_back);
         iv_header_right.setImageResource(R.mipmap.icon_share);
@@ -221,25 +215,31 @@ public class SchoolDetailActivity extends Container {
                         JSONObject object = obj.optJSONObject("data");
                         mSchoolDetailsBean = JSON.parseObject(object.toString(), SchoolDetailsBean.class);
                         Log.d("TAG", mSchoolDetailsBean.toString());
-                        JSONArray array = object.optJSONArray("school_details");
-                        Log.d("TAG45685", array.toString());
                         initData();
-
                         popData = new ArrayList<SchoolDetailsPopBena>();
-                        //   List<SchoolDetailsPopBena> popData01=new ArrayList<SchoolDetailsPopBena>();
-                        SchoolDetailsPopBena mSchoolDetailPopBena01 = new SchoolDetailsPopBena();
+                        mSchoolDetailPopBena01 = new SchoolDetailsPopBena();
                         mSchoolDetailPopBena01.setName("简介");
                         popData.add(mSchoolDetailPopBena01);
-                        for (int i = 0; i <= array.length(); i++) {
-                            JSONObject object1 = array.optJSONObject(i);
-                            mSchoolDetailPopBena = new SchoolDetailsPopBena();
-                            mSchoolDetailPopBena.setName(object1.optString("name"));
-                            popData.add(mSchoolDetailPopBena);
+                        Log.d("TAG45555", popData.toString());
+                        array = object.optJSONArray("school_details");
+                        Log.d("TAG45685", array.toString());
+                        if (array == null || array.length() == 0) {
+                            return;
+                        } else {
+                            for (int i = 0; i <= array.length(); i++) {
+                                JSONObject object1 = array.optJSONObject(i);
+                                mSchoolDetailPopBena = new SchoolDetailsPopBena();
+                                mSchoolDetailPopBena.setName(object1.optString("name"));
+                                popData.add(mSchoolDetailPopBena);
+                                Log.d("TAG999", popData.toString());
+                            }
+                            // Log.d("TAG999", popData.toString());
                         }
-                        Log.d("TAG999", popData.toString());
-
                     }
-                } catch (JSONException e) {
+                } catch (
+                        JSONException e)
+
+                {
                     e.printStackTrace();
                 }
             }
@@ -276,14 +276,23 @@ public class SchoolDetailActivity extends Container {
         gpaNumTv.setText(mSchoolDetailsBean.getSchool_info().getGpa());
         tvSchoolNumber.setText(mSchoolDetailsBean.getSchool_info().getNumber());
         schoolDescTv.setText(mSchoolDetailsBean.getSchool_info().getDescription());
-        mSchoolDetailsBean01 = mSchoolDetailsBean.getSchool_details();
-
-        Log.d("TAG123", mSchoolDetailsBean01.get(0).getName());
-        Log.d("TAG456", mSchoolDetailsBean01.get(0).getContent());
-        mAdapter = new SchoolDetailsAdapter(mContext, mSchoolDetailsBean01);
-        mListview.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
-
+        is_collect = mSchoolDetailsBean.getSchool_info().getIs_collect();
+        Log.d("TAG333", "is_collect-->" + is_collect);
+        if ("1".equals(is_collect)) {
+            rbCollect.setChecked(true);
+        } else {
+            rbCollect.setChecked(false);
+        }
+//        if (array == null || array.length() == 0) {
+//            return;
+//        } else {
+            mSchoolDetailsBean01 = mSchoolDetailsBean.getSchool_details();
+            //  Log.d("TAG123", mSchoolDetailsBean01.get(0).getName());
+         //   Log.d("TAG456", mSchoolDetailsBean01.get(0).getContent());
+            mAdapter = new SchoolDetailsAdapter(mContext, mSchoolDetailsBean01);
+            mListview.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+  //      }
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
             @Override
@@ -328,7 +337,7 @@ public class SchoolDetailActivity extends Container {
 
     private PopupWindow popupWindow;
 
-    @OnClick({R.id.iv_header_right, R.id.iv_header_left, R.id.icon_up_iv, R.id.icon_list_iv, R.id.icon_pinlun_iv, R.id.school_details_apply})
+    @OnClick({R.id.iv_header_right, R.id.iv_header_left, R.id.icon_up_iv, R.id.icon_list_iv, R.id.icon_pinlun_iv, R.id.school_details_apply, R.id.rbCollect})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_header_left:
@@ -348,15 +357,62 @@ public class SchoolDetailActivity extends Container {
             case R.id.icon_up_iv:
                 mPullToRefreshScrollView.getRefreshableView().scrollTo(0, 0);
                 break;
+            case R.id.rbCollect:
+                // mPullToRefreshScrollView.getRefreshableView().scrollTo(0, 0);
+                showCollect();
+                break;
             case R.id.school_details_apply:
                 Intent intentApply = new Intent(mContext, SchoolApplyActivity.class);
-                intentApply.putExtra("name",mSchoolDetailsBean.getSchool_info().getName());
-                intentApply.putExtra("address",mSchoolDetailsBean.getSchool_info().getCountry_name());
-                intentApply.putExtra("sid",mSchoolDetailsBean.getSchool_info().getId());
-                intentApply.putExtra("country_id",country_id);
+                intentApply.putExtra("name", mSchoolDetailsBean.getSchool_info().getName());
+                intentApply.putExtra("address", mSchoolDetailsBean.getSchool_info().getCountry_name());
+                intentApply.putExtra("sid", mSchoolDetailsBean.getSchool_info().getId());
+                intentApply.putExtra("country_id", country_id);
                 startActivity(intentApply);
                 break;
         }
+    }
+
+    private void showCollect() {
+        if ("1".equals(is_collect)) {
+            rbCollect.setChecked(false);
+            is_collect = "0";
+        } else {
+            rbCollect.setChecked(true);
+            is_collect = "1";
+        }
+        Log.d("TAG", "is_collect-->" + is_collect);
+        String url = AppConfig.LIKEIT_SCHOOL_COLLECT;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        params.put("sid", sid);
+        params.put("status", is_collect);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                Log.d("TAG", response);
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    String code = obj.optString("code");
+                    String message = obj.optString("message");
+                    if ("1".equals(code)) {
+                        if ("0".equals(is_collect)) {
+                            ToastUtil.showS(mContext, "取消成功");
+                        } else {
+                            ToastUtil.showS(mContext, "收藏成功");
+                        }
+                    } else {
+                        ToastUtil.showS(mContext, message);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Throwable e) {
+
+            }
+        });
     }
 
     private void share() {
@@ -389,7 +445,7 @@ public class SchoolDetailActivity extends Container {
 
     private void initPopupWindow() {
 
-        Log.d("TAG909", popData.toString());
+        //Log.d("TAG909", popData.toString());
         DisplayMetrics metric = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metric);
         int width = metric.widthPixels;     // 屏幕宽度（像素）

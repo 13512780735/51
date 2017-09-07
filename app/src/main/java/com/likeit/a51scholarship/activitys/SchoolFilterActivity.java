@@ -14,6 +14,7 @@ import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.model.SchoolAttributeNameVo;
 import com.likeit.a51scholarship.model.SchoolAttributeVo;
+import com.likeit.a51scholarship.model.SchoolFilterEventBean;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.view.MessageEvent;
 import com.loopj.android.http.RequestParams;
@@ -47,6 +48,12 @@ public class SchoolFilterActivity extends Container {
     List<SchoolAttributeNameVo> data;
     private SchoolFilterAdapter mAdapter;
     private String total;
+    private String attrName;
+    private String attrId;
+    private String stage, country, area, lang, nature, style, toefl, toeic, yasi;
+    private List<SchoolFilterEventBean> attrData;
+    private String filterId;
+    private SchoolFilterEventBean mSchoolFilterEventBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,34 +61,41 @@ public class SchoolFilterActivity extends Container {
         setContentView(R.layout.activity_school_filter);
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
-        initData();//初始化筛选数据
+        Intent intent = getIntent();
+        filterId = intent.getStringExtra("filterId");
         initTotal();//初始化总数
+        initData();//初始化筛选数据
         initView();
     }
 
     private void initTotal() {
-        String url=AppConfig.LIKEIT_SCHOOL_FILTR_COUNT;
-        RequestParams params=new RequestParams();
-        params.put("ukey",ukey);
-//        params.put("stage",ukey);
-//        params.put("country",ukey);
-//        params.put("area",ukey);
-//        params.put("lang",ukey);
-//        params.put("nature",ukey);
-//        params.put("style",ukey);
-//        params.put("toefl",ukey);
-//        params.put("toeic",ukey);
-//        params.put("yasi",ukey);
+        String url = AppConfig.LIKEIT_SCHOOL_FILTR_COUNT;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        params.put("stage", stage);
+        params.put("country", country);
+        params.put("area", area);
+        params.put("lang", lang);
+        params.put("nature", nature);
+        params.put("style", style);
+        params.put("toefl", toefl);
+        params.put("toeic", toeic);
+        params.put("yasi", yasi);
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
-                Log.d("TAG",response);
+                Log.d("TAG", response);
                 try {
-                    JSONObject obj=new JSONObject(response);
-                    String code=obj.optString("code");
-                    String message=obj.optString("message");
-                    if("1".equals(code)){
-                        total=obj.getJSONObject("data").optString("total");
+                    JSONObject obj = new JSONObject(response);
+                    String code = obj.optString("code");
+                    String message = obj.optString("message");
+                    if ("1".equals(code)) {
+                        total = obj.optJSONObject("data").optString("total");
+                        showTotal();
+                    } else {
+                        total = "0";
+                        showTotal();
+                        ToastUtil.showS(mContext, message);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -96,9 +110,13 @@ public class SchoolFilterActivity extends Container {
 
     }
 
+    private void showTotal() {
+        tvTotle.setText("共" + total + "个高校符合条件>>");
+    }
+
     private void initView() {
         tvHeader.setText("筛选院校");
-        tvTotle.setText("共"+total+"个高校符合条件>>");
+
         data = new ArrayList<SchoolAttributeNameVo>();
         mAdapter = new SchoolFilterAdapter(mContext, data);
         mListView.setAdapter(mAdapter);
@@ -130,12 +148,40 @@ public class SchoolFilterActivity extends Container {
 
             @Override
             public void failed(Throwable e) {
-                ToastUtil.showS(mContext,"网络异常！");
+                ToastUtil.showS(mContext, "网络异常！");
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
+            }
+        });
+    }
+
+    private void initTotal01() {
+        String url = AppConfig.LIKEIT_SCHOOL_FILTR_COUNT;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                Log.d("TAG", response);
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    String code = obj.optString("code");
+                    String message = obj.optString("message");
+                    if ("1".equals(code)) {
+                        total = obj.optJSONObject("data").optString("total");
+                        showTotal();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Throwable e) {
+
             }
         });
     }
@@ -169,28 +215,109 @@ public class SchoolFilterActivity extends Container {
                 break;
             case R.id.tv_reset:
                 //onBackPressed();
+                if(data!=null && !data.isEmpty()){
+                    refresh();
+                }else{
+                    return;
+                }
+                //  refresh();
                 break;
             case R.id.tv_totle:
+
                 Intent intentSchool = new Intent(mContext, SearchSchoolActivity.class);
-                startActivity(intentSchool);
+                intentSchool.putExtra("stage", stage);
+                intentSchool.putExtra("country", country);
+                intentSchool.putExtra("area", area);
+                intentSchool.putExtra("lang", lang);
+                intentSchool.putExtra("nature", nature);
+                intentSchool.putExtra("style", style);
+                intentSchool.putExtra("toefl", toefl);
+                intentSchool.putExtra("toeic", toeic);
+                intentSchool.putExtra("yasi", yasi);
+                if ("1".equals(filterId)) {
+                    startActivity(intentSchool);
+                } else {
+                    startActivity(intentSchool);
+                    finish();
+                }
+
                 break;
         }
     }
+
+    private void refresh() {
+        if(data!=null && !data.isEmpty()&&attrData!=null&&!attrData.isEmpty()){
+            data.clear();
+            attrData.clear();
+            stage="";
+            country="";
+            lang="";
+            nature="";
+            style="";
+            toefl="";
+            toeic="";
+            yasi="";
+            try {
+                initData();
+                initTotal01();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else{
+            return;
+        }
+
+        mAdapter.notifyDataSetChanged();
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMoonEvent(MessageEvent messageEvent){
+    public void onMoonEvent(MessageEvent messageEvent) {
         //tv_message.setText(messageEvent.getMessage());
-        ToastUtil.showS(mContext,messageEvent.getMessage());
-        Log.d("TAG",messageEvent.getMessage());
-        String str = "";
+        // ToastUtil.showS(mContext, messageEvent.getMessage());
+        // Log.d("TAG",messageEvent.getMessage());
+        attrData = new ArrayList<>();
+       mSchoolFilterEventBean = new SchoolFilterEventBean();
+        // String str = "";
         for (int i = 0; i < data.size(); i++) {
             for (int j = 0; j < data.get(i).getValues().size(); j++) {
                 if (data.get(i).getValues().get(j).isChecked()) {
-                    str = str + data.get(i).getValues().get(j).getAttr_id() + ",";
+                    //  str = str + data.get(i).getValues().get(j).getAttr_id() + ",";
+                    mSchoolFilterEventBean.setAttrId(data.get(i).getValues().get(j).getAttr_id());
+                    mSchoolFilterEventBean.setAttrName(data.get(i).getName());
+                    attrData.add(mSchoolFilterEventBean);
+                    attrName = mSchoolFilterEventBean.getAttrName();
+                    // attrId = mSchoolFilterEventBean.getAttrId();
+                    if ("攻读学位".equals(attrName)) {
+                        stage = data.get(i).getValues().get(j).getAttr_id();
+                    } else if ("国家".equals(attrName)) {
+                        country = data.get(i).getValues().get(j).getAttr_id();
+                    } else if ("上课语言".equals(attrName)) {
+                        lang = data.get(i).getValues().get(j).getAttr_id();
+                    } else if ("学校性质".equals(attrName)) {
+                        nature = data.get(i).getValues().get(j).getAttr_id();
+                    } else if ("学校类型".equals(attrName)) {
+                        style = data.get(i).getValues().get(j).getAttr_id();
+                    } else if ("托福(可不选)".equals(attrName)) {
+                        toefl = data.get(i).getValues().get(j).getAttr_id();
+                    } else if ("雅思(可不选)".equals(attrName)) {
+                        yasi = data.get(i).getValues().get(j).getAttr_id();
+                    } else if ("托业(可不选)".equals(attrName)) {
+                        toeic = data.get(i).getValues().get(j).getAttr_id();
+                    }
                 }
+
             }
+
         }
-       initTotal();
+        // String stage,country,area,lang,nature,style,toefl,toeic,yasi;
+        initTotal();
+        // String attr=messageEvent.getMessage();
+        Log.d("TAG222", "stage-->" + stage + "country-->" + country + "area-->" + area + "lang-->" + lang + "nature-->" + nature + "style-->" + style + "toefl-->" + toefl + "toeic-->" + toeic + "yasi-->" + yasi);
+        Log.d("TAG333", attrData.get(0).getAttrName());
+
+
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

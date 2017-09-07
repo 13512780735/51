@@ -212,7 +212,11 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
-
+        <!--<receiver android:name=".wxapi.AppRegister">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
         <!-- 百度地图所需的service -->
         <service
             android:name="com.baidu.location.f"
@@ -249,29 +253,38 @@
                 android:resource="@xml/provider_paths" />
         </provider>
         <!-- ShareSDK 开始 -->
-
+        <!--<activity-->
+            <!--android:name="cn.sharesdk.framework.ShareSDKUIShell"-->
+            <!--android:configChanges="keyboardHidden|orientation"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
+            <!--android:windowSoftInputMode="stateHidden|adjustResize">-->
+        <!--</activity>-->
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <meta-data
-                android:name="AuthorizeAdapter"
-                android:value="cn.sharesdk.demo.MyAdapter" />
+                android:name="Mob-AppKey"
+                android:value="1b2c101abbaf8" />
+            <meta-data
+                android:name="Mob-AppSecret"
+                android:value="1424e2e31a51475a8085b7bf9cbc14e4" />
 
             <action android:name="android.intent.action.VIEW" />
 
             <category android:name="android.intent.category.BROWSABLE" />
             <category android:name="android.intent.category.DEFAULT" />
             <!--
-                 调用新浪原生SDK，需要注册的回调activity
+                 调用新浪原生SDK，需要注册的回调activity  -->
 
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            -->
+
 
         </activity>
         <activity

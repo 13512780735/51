@@ -42,9 +42,9 @@ public class MainActivity extends SlidingFragmentActivity implements ViewPager.O
     @BindView(R.id.rbMessage)
     RadioButton mRbMessage;
     //小工具
-/*    @BindView(R.id.rbTool)
-    RadioButton mRbTool;*/
-  @BindView(R.id.rgTools)
+    @BindView(R.id.rbTool)
+    RadioButton mRbTool;
+    @BindView(R.id.rgTools)
     RadioGroup mRgTools;
     @BindView(R.id.home_viewpager)
     NoScrollViewPager mViewPager;
@@ -57,7 +57,7 @@ public class MainActivity extends SlidingFragmentActivity implements ViewPager.O
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
         initView();
@@ -158,7 +158,7 @@ public class MainActivity extends SlidingFragmentActivity implements ViewPager.O
                     firstTime = secondTime;
                     return true;
                 } else {
-                //MyActivityManager.getInstance().moveTaskToBack(mContext);// 不退出，后台运行
+                    //MyActivityManager.getInstance().moveTaskToBack(mContext);// 不退出，后台运行
                 }
                 break;
         }

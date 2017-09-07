@@ -263,6 +263,8 @@ public class EditorCenterActivity extends Container {
                     String message=obj.optString("message");
                     if("1".equals(code)){
                         ToastUtil.showS(mContext,message);
+                        UtilPreference.saveString(mContext,"isLogin","1");
+                        finish();
                     }else{
                         ToastUtil.showS(mContext,message);
                     }

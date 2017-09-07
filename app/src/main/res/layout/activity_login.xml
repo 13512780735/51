@@ -281,6 +281,7 @@
                 android:padding="10dp"
                 android:clickable="false"
                 android:text="手机号动态登陆"
+                android:visibility="gone"
                 android:textColor="@color/login_btn_bg_color"
                 android:textSize="12sp" />
         </LinearLayout>

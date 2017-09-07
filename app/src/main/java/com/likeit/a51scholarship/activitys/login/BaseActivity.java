@@ -35,7 +35,7 @@ public class BaseActivity extends Activity {
     protected final static int DATA_LOAD_COMPLETE = 0x002;
     protected final static int DATA_LOAD_FAIL = 0x003;
 
-    public static final Handler handler = new Handler();
+    public static Handler handler = new Handler();
 
     /**
      * 上下文 当进入activity时必须 mContext = this 方可使用，否则会报空指针

@@ -94,6 +94,13 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
         dialog.setMessage("Loading...");
         isLogin = UtilPreference.getStringValue(getActivity(), "isLogin");
         Log.d("TAG", "isLogin-->" + isLogin);
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         if ("0".equals(isLogin)) {
             //获取用户信息
             initUser();
@@ -102,7 +109,6 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
         } else {
             return;
         }
-
     }
 
     private void initUser() {

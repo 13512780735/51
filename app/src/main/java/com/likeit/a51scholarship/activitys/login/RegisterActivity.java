@@ -99,7 +99,7 @@ public class RegisterActivity extends Container {
 
 
     private void sendCode() {
-
+        phoneNum = phoneEt.getText().toString().trim();
         if (TextUtils.isEmpty(phoneNum)) {
             ToastUtil.showS(mContext, "请输入手机号码");
             return;
@@ -158,8 +158,8 @@ public class RegisterActivity extends Container {
             return;
         }
 
-
-        signup();
+        Register();
+        //signup();
     }
 
     private void Register() {
@@ -210,31 +210,31 @@ public class RegisterActivity extends Container {
         });
     }
 
-    //环信注册
-    private void signup() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    EMClient.getInstance().createAccount(phoneNum, passwd);//同步方法
-                    Log.d("TAG","注册成功！");
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Register();
-                        }
-                    });
-                } catch (HyphenateException e) {
-                    e.printStackTrace();
-                    Log.d("TAG","注册失敗！");
-                }
-            }
-        }).start();
-
-
-
-    }
+//    //环信注册
+//    private void signup() {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    EMClient.getInstance().createAccount(phoneNum, passwd);//同步方法
+//                    Log.d("TAG","注册成功！");
+//
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//                        }
+//                    });
+//                } catch (HyphenateException e) {
+//                    e.printStackTrace();
+//                    Log.d("TAG","注册失敗！");
+//                }
+//            }
+//        }).start();
+//
+//
+//
+//    }
 
     class TimeCount extends CountDownTimer {
         public TimeCount(long millisInFuture, long countDownInterval) {

@@ -498,19 +498,39 @@
         android:layout_height="40dip"
         android:background="@color/white"
         android:orientation="horizontal">
-
-        <CheckBox
-            style="@style/mycheckbox"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dip"
-            android:layout_weight="2"
-            android:background="@color/white"
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
-            android:paddingRight="10dip"
-            android:text="收藏"
-            android:textColor="@drawable/home_font_selector"
-            android:textSize="15sp" />
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbCollect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/school_collect_selector"
+                android:button="@null"
+                android:checked="false"
+                android:clickable="false"
+                android:focusable="false"
+                android:drawablePadding="5dip"
+                android:text="收藏"
+                android:textColor="@drawable/home_font_selector"
+                android:focusableInTouchMode="false" />
+
+           <!-- <TextView
+                android:id="@+id/id_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="收藏"
+                android:textColor="@drawable/home_font_selector"
+                android:textSize="16dp"></TextView>-->
+        </LinearLayout>
+
 
         <ImageView
             android:id="@+id/school_details_apply"

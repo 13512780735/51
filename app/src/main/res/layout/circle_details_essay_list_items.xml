@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dip"
+        android:orientation="horizontal">
+        <FrameLayout
+            android:layout_width="@dimen/width60"
+            android:layout_height="@dimen/width60"
+            android:layout_margin="10dip">
+
+            <com.likeit.a51scholarship.view.CircleImageView
+                android:id="@+id/circle_essay_avatar"
+                android:layout_width="@dimen/width60"
+                android:layout_height="@dimen/width60"
+                android:src="@mipmap/message_chat_avatar" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent">
+
+                <ImageView
+                    android:id="@+id/circle_essay_v1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/message_chat_v1" />
+            </RelativeLayout>
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_margin="10dip"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/circle_essay_name"
+                android:layout_width="wrap_content"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="风中的小鸟"
+                 />
+
+            <TextView
+                android:id="@+id/circle_essay_time"
+                android:layout_width="wrap_content"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="50分钟前"
+                android:textColor="@color/defualt_textcolor_d" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_add_friend"
+            android:layout_width="80dip"
+            android:layout_height="30dip"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/button_drak02_bg"
+            android:textColor="@color/login_btn_bg_color"
+            android:text="加好友"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_title01"
+            android:layout_width="35dip"
+            android:layout_height="35dip"
+            android:text="精"
+            android:gravity="center"
+            android:layout_margin="10dip"
+            android:background="@drawable/button_blue_bg"
+            android:textSize="16sp"
+            android:textColor="@color/login_btn_bg_color"/>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="55dip"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:layout_toRightOf="@+id/tv_title01"
+            android:text="xxxx"/>
+    </RelativeLayout>
+    <com.likeit.a51scholarship.utils.richtext.RichText
+        android:id="@+id/circle_essay_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_margin="10dip"
+        android:textColor="?android:textColorPrimary" />
+</LinearLayout>

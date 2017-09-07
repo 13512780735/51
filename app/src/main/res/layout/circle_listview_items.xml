@@ -75,6 +75,5 @@
         android:textColor="@color/white"
         android:visibility="gone"
         android:shadowColor="@color/defualt_textcolor_d"
-
         android:textSize="12sp" />
 </RelativeLayout>

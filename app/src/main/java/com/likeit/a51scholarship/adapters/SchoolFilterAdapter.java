@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import com.likeit.a51scholarship.R;
 import com.likeit.a51scholarship.model.SchoolAttributeNameVo;
+import com.likeit.a51scholarship.model.SchoolFilterEventBean;
 import com.likeit.a51scholarship.view.GridViewForScrollView;
 import com.likeit.a51scholarship.view.MessageEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,12 +39,14 @@ public class SchoolFilterAdapter extends BaseAdapter {
     final int TYPE_9 = 8;
     private MyView myView;
     private MyView2 myView2;
+    private ArrayList<SchoolFilterEventBean> attrData;
 
 
     public SchoolFilterAdapter(Context context, List<SchoolAttributeNameVo> data) {
         this.context = context;
         this.data = data;
     }
+
     @Override
     public int getCount() {
         return data == null ? 0 : data.size();
@@ -93,6 +97,7 @@ public class SchoolFilterAdapter extends BaseAdapter {
         return VIEW_TYPE;
 
     }
+
     @Override
     public View getView(final int position, View v, ViewGroup parent) {
         int type = getItemViewType(position);
@@ -122,6 +127,7 @@ public class SchoolFilterAdapter extends BaseAdapter {
                     v = View.inflate(context, R.layout.school_filter_listview_item04, null);
                     myView2.name = (TextView) v.findViewById(R.id.school_filter_items_tvName);
                     myView2.tvContent = (TextView) v.findViewById(R.id.school_filter_items_tvContent);
+                    v.setVisibility(View.INVISIBLE);
                     v.setTag(myView2);
                     break;
                 case TYPE_4:
@@ -166,22 +172,31 @@ public class SchoolFilterAdapter extends BaseAdapter {
                 final SchoolFilterAttrAdapter adapter = new SchoolFilterAttrAdapter(context);
                 myView.grid.setAdapter(adapter);
                 adapter.notifyDataSetChanged(data.get(position).isNameIsChecked(), data.get(position).getValues());
+                attrData = new ArrayList<SchoolFilterEventBean>();
                 myView.grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                         //设置当前选中的位置的状态为非。
                         data.get(position).getValues().get(arg2).setChecked(!data.get(position).getValues().get(arg2).isChecked());
+                        String attriId = data.get(position).getValues().get(arg2).getAttr_id();
+                        String name = data.get(position).getName();
+                        SchoolFilterEventBean mSchoolFilterEventBean = new SchoolFilterEventBean();
+                        mSchoolFilterEventBean.setAttrId(data.get(position).getValues().get(arg2).getAttr_id());
+                        mSchoolFilterEventBean.setAttrName(data.get(position).getName());
+                        attrData.add(mSchoolFilterEventBean);
                         for (int i = 0; i < data.get(position).getValues().size(); i++) {
                             //跳过已设置的选中的位置的状态
                             if (i == arg2) {
                                 continue;
                             }
+
                             data.get(position).getValues().get(i).setChecked(false);
+//                            mSchoolFilterEventBean.setAttrId(data.get(position).getValues().get(arg2).getAttr_id());
+//                            mSchoolFilterEventBean.setAttrName(data.get(position).getName());
+//                            attrData.remove(mSchoolFilterEventBean);
                         }
-                        String attriId=data.get(position).getValues().get(arg2).getAttr_id();
-                       // String attriName=data.get(position).getName();
-                        EventBus.getDefault().post(attriId);
-                        EventBus.getDefault().post(new MessageEvent(attriId));
+
+                        EventBus.getDefault().post(new MessageEvent(attrData.toString()));
                         adapter.notifyDataSetChanged(!data.get(position).isNameIsChecked(), data.get(position).getValues());
 
                     }

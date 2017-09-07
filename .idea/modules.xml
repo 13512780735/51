@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/51.iml" filepath="$PROJECT_DIR$/51.iml" />
-      <module fileurl="file://$PROJECT_DIR$/51_20170830.iml" filepath="$PROJECT_DIR$/51_20170830.iml" />
       <module fileurl="file://$PROJECT_DIR$/HightLight/HightLight.iml" filepath="$PROJECT_DIR$/HightLight/HightLight.iml" />
       <module fileurl="file://$PROJECT_DIR$/OneKeyShare/OneKeyShare.iml" filepath="$PROJECT_DIR$/OneKeyShare/OneKeyShare.iml" />
       <module fileurl="file://$PROJECT_DIR$/PhotoViewlibrary/PhotoViewlibrary.iml" filepath="$PROJECT_DIR$/PhotoViewlibrary/PhotoViewlibrary.iml" />

@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <include layout="@layout/layout_header_with_back" />
@@ -15,8 +17,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:background="@null"
-        android:gravity="center_vertical"
         android:hint="请输入30字以内的标题"
+        android:gravity="center_vertical"
         android:textSize="14sp"
 
         />
@@ -39,16 +41,21 @@
         android:gravity="top"
         android:hint="资讯内容..."
         android:textSize="14sp" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/line_color" />
     <com.likeit.a51scholarship.imageutil.custom.CustomScrollGridView
         android:id="@+id/gv_all_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dip"
         android:gravity="center"
         android:horizontalSpacing="5dp"
         android:listSelector='#00000000'
         android:numColumns="4"
-        android:layout_margin="10dip"
         android:scrollbars="none"
         android:verticalSpacing="5dp"></com.likeit.a51scholarship.imageutil.custom.CustomScrollGridView>
 
@@ -63,8 +70,14 @@
             android:orientation="horizontal"
             android:visibility="gone" />
     </HorizontalScrollView>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/line_color" />
     <LinearLayout
+        android:id="@+id/ll_select"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/color_e3e3"
@@ -76,14 +89,16 @@
             android:id="@+id/photo_im"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/btn_icon_photo_default" />
+            android:src="@mipmap/btn_icon_photo_default"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/camear_im"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/btn_icon_photographs_default" />
+            android:src="@mipmap/btn_icon_photographs_default"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/label_im"
@@ -94,6 +109,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_selcet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -102,19 +118,13 @@
         android:textColor="@color/color_999"
         android:textSize="12sp" />
 
-    <ScrollView
+    <com.likeit.a51scholarship.view.GridViewForScrollView
+        android:id="@+id/addnews_gridview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
-
-        <LinearLayout
-            android:id="@+id/news_type_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        </LinearLayout>
-    </ScrollView>
+        android:verticalSpacing="10dip"
+        android:numColumns="4"
+        android:horizontalSpacing="10dip"
+        android:layout_height="wrap_content"></com.likeit.a51scholarship.view.GridViewForScrollView>
 
 
 </LinearLayout>
