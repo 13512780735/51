@@ -23,7 +23,7 @@ public class CircleDetailsMemberAdapter extends MyBaseAdapter<CircleMemberModel>
     }
 
     @Override
-    public View getItemView(int position, View convertView, ViewGroup parent) {
+    public View getItemView(final int position, View convertView, ViewGroup parent) {
        ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
@@ -42,13 +42,32 @@ public class CircleDetailsMemberAdapter extends MyBaseAdapter<CircleMemberModel>
         CircleMemberModel data1 = getItem(position);
         holder.tvEssayName.setText(data1.getNickname());
         ImageLoader.getInstance().displayImage(data1.getHeadimg(),holder.ivAvatar);
+        // 加好友
+        holder.tvAdd.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mOnAddClickListener.onAddClick(position);
+            }
+        });
         return convertView;
     }
+    /**
+     * 点击添加的时候
+     */
+    public interface onAddClickListener {
+        void onAddClick(int i);
+    }
 
+    private onAddClickListener mOnAddClickListener;
+
+    public void setOnAddClickListener(
+            onAddClickListener mOnAddClickListener) {
+        this.mOnAddClickListener = mOnAddClickListener;
+    }
     private class ViewHolder {
         CircleImageView ivAvatar;
         TextView tvAdd,tvEssayName;
-        RichText rtContent;
 
     }
 }

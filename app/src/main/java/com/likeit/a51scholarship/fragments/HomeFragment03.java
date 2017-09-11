@@ -48,6 +48,7 @@ public class HomeFragment03 extends BaseFragment implements View.OnClickListener
     }
 
     private void initView() {
+
         mPullToRefreshScrollView = findViewById(R.id.ll_find_scrollview);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setOnRefreshListener(this);
@@ -68,7 +69,7 @@ public class HomeFragment03 extends BaseFragment implements View.OnClickListener
         ll_find_friend = findViewById(R.id.ll_find_friend);
         ll_find_kefu = findViewById(R.id.ll_find_kefu);
         ll_find_serve = findViewById(R.id.ll_find_serve);
-
+        ll_find_serve.setVisibility(View.GONE);
     }
 
     private void initListener() {
@@ -105,7 +106,7 @@ public class HomeFragment03 extends BaseFragment implements View.OnClickListener
 //                // it is group chat
 //                intent.putExtra("chatType", Constant.CHATTYPE_GROUP);
 //                intent.putExtra("userId", groupAdapter.getItem(position - 3).getGroupId());
- //               startActivityForResult(intent, 0);
+                //               startActivityForResult(intent, 0);
                 break;
             case R.id.ll_find_kefu:
                 KefuDialog kefuDialog = new KefuDialog(getContext());

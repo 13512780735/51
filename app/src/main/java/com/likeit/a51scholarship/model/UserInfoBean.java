@@ -36,6 +36,7 @@ public class UserInfoBean implements Serializable {
      * nickname_cn :
      * nickname_en :
      * mobile :
+     * isapprove : 1
      */
 
     private String nickname;
@@ -65,6 +66,7 @@ public class UserInfoBean implements Serializable {
     private String nickname_cn;
     private String nickname_en;
     private String mobile;
+    private String isapprove;
 
     public String getNickname() {
         return nickname;
@@ -280,5 +282,13 @@ public class UserInfoBean implements Serializable {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getIsapprove() {
+        return isapprove;
+    }
+
+    public void setIsapprove(String isapprove) {
+        this.isapprove = isapprove;
     }
 }

@@ -5,15 +5,10 @@
     android:orientation="vertical"
     tools:context="com.likeit.a51scholarship.activitys.newsfragment.NewFragment01">
 
-    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
-        android:id="@+id/news_header_scrollview"
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/news_header_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.likeit.a51scholarship.view.MyListview
-            android:id="@+id/news_header_listview"
-            android:layout_width="match_parent"
-            android:divider="@color/background_b"
-            android:dividerHeight="10dip"
-            android:layout_height="match_parent"></com.likeit.a51scholarship.view.MyListview>
-    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+        android:layout_height="match_parent"
+        android:dividerHeight="5dp"
+        android:dividerPadding="2dip"></com.handmark.pulltorefresh.library.PullToRefreshListView>
 </LinearLayout>

@@ -3,11 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/background_b"
     tools:context=".activitys.my_center.FeeBackActivity">
 
 
     <include layout="@layout/layout_header_with_back"></include>
-    <include layout="@layout/layout_nodata"></include>
+   <!-- <include layout="@layout/layout_nodata"></include>-->
 
-
+    <EditText
+        android:id="@+id/title_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="top"
+        android:hint="请输入标题"
+        android:padding="10dp"
+        android:textSize="14sp" />
+    <EditText
+        android:id="@+id/content_et"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="top"
+        android:hint="意见反馈"
+        android:padding="10dp"
+        android:textSize="14sp" />
 </LinearLayout>

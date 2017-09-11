@@ -1,6 +1,7 @@
 package com.likeit.a51scholarship.activitys.login;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -37,6 +38,7 @@ public class GuideActivity extends BaseActivity implements View.OnClickListener 
     @BindView(R.id.guide_tvRegister)
     TextView tvRegister;
     private Context mContext;
+    private String online;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,17 @@ public class GuideActivity extends BaseActivity implements View.OnClickListener 
         MyActivityManager.getInstance().addActivity(this);
         mContext = this;
         ButterKnife.bind(this);
-       openPermission();
+        openPermission();
+        Intent intent=getIntent();
+        online=intent.getStringExtra("online");
+       if("1".equals(online)){
+           // showMsgAndDisProgress();
+           AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+           dlg.setTitle("提示");
+           dlg.setMessage("您的账号已在其他设备登录");
+           dlg.setPositiveButton("确定",null);
+           dlg.show();
+       }
         initView();
     }
     private void openPermission() {

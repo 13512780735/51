@@ -72,6 +72,12 @@ public class Container extends AppCompatActivity {
         //setContentView(R.layout.activity_school_detail);
         MyActivityManager.getInstance().addActivity(this);
         ukey = UtilPreference.getStringValue(this, "ukey");
+//        if (StringUtil.isBlank(ukey)) {
+//            ToastUtil.showS(mContext, "未知用户,请先登录！");
+//            // showProgress("未知用户,请先登录！");
+//
+//            return;
+//        }
     }
 
     public static boolean setMiuiStatusBarDarkMode(Activity activity, boolean darkmode) {

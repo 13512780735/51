@@ -20,6 +20,7 @@
                 android:layout_height="match_parent"
                 android:divider="@color/line_color"
                 android:dividerHeight="1dip"></com.likeit.a51scholarship.view.MyListview>
+
         </LinearLayout>
     </ScrollView>
 

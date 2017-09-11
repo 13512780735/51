@@ -4,7 +4,6 @@ package com.likeit.a51scholarship.fragments;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.likeit.a51scholarship.R;
+import com.likeit.a51scholarship.activitys.login.ChangePWDActivity;
 import com.likeit.a51scholarship.activitys.login.LoginActivity;
 import com.likeit.a51scholarship.activitys.my_center.AboutActivity;
 import com.likeit.a51scholarship.activitys.my_center.CollectActivity;
@@ -22,20 +22,18 @@ import com.likeit.a51scholarship.activitys.my_center.FeeBackActivity;
 import com.likeit.a51scholarship.activitys.my_center.InviteFriendsActivity;
 import com.likeit.a51scholarship.activitys.my_center.NearSeeActivity;
 import com.likeit.a51scholarship.activitys.my_center.OpenActivity;
+import com.likeit.a51scholarship.activitys.my_center.RealNameActivity;
 import com.likeit.a51scholarship.activitys.my_center.SetActivity;
 import com.likeit.a51scholarship.activitys.my_center.SpentActivity;
-import com.likeit.a51scholarship.activitys.my_center.UserInfoActivity;
 import com.likeit.a51scholarship.configs.AppConfig;
-import com.likeit.a51scholarship.event.MainMessageEvent;
 import com.likeit.a51scholarship.http.HttpUtil;
-import com.likeit.a51scholarship.model.UserInfo;
 import com.likeit.a51scholarship.model.UserInfoBean;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.utils.UtilPreference;
+import com.likeit.a51scholarship.view.CircleImageView;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,7 +41,7 @@ import org.json.JSONObject;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment01 extends MyBaseFragment implements View.OnClickListener {
-    private ImageView userHeadImg;
+    private CircleImageView userHeadImg;
     private TextView accountTv;
     private TextView accountTv01;
     private LinearLayout accountLayout;
@@ -80,6 +78,8 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
     //数据获取
     private String nickName, headImg, mobile;
     private UserInfoBean userInfobean;
+    private TextView accountMoveTv;
+    private TextView real_tv;
 
 
     @Override
@@ -157,16 +157,28 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
     private void userInfo() {
         if ("0".equals(isLogin)) {
             userEditorImg.setVisibility(View.VISIBLE);
-            realImg.setVisibility(View.VISIBLE);
+           // realImg.setVisibility(View.VISIBLE);
             accountTv.setVisibility(View.GONE);
             accountTv01.setVisibility(View.VISIBLE);
+            accountMoveTv.setVisibility(View.GONE);
+            accountManagerTv.setVisibility(View.VISIBLE);
+            if("0".equals(userInfobean.getIsapprove())){
+                real_tv.setText("未认证");
+            }else if("1".equals(userInfobean.getIsapprove())){
+                real_tv.setText("已认证");
+            }else if("2".equals(userInfobean.getIsapprove())){
+                real_tv.setText("未审核");
+            }else if("3".equals(userInfobean.getIsapprove())){
+                real_tv.setText("不通过");
+            }
             Log.d("TAG", "mobile2-->" + userInfobean.getMobile());
-            accountTv01.setText(UtilPreference.getStringValue(getActivity(),"name"));
+            accountTv01.setText(UtilPreference.getStringValue(getActivity(), "name"));
             ImageLoader.getInstance().displayImage(userInfobean.getHeadimg(), userHeadImg);
             //userHeadImg.setImageResource(R.mipmap.icon_03_3x);
             userHeadImg.setOnClickListener(this);
-        } else {
             accountManagerLayout.setOnClickListener(this);
+        } else {
+            //accountManagerLayout.setOnClickListener(this);
             accountLayout.setOnClickListener(this);
 
         }
@@ -174,6 +186,7 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
 
 
     private void initView() {
+        real_tv=findViewById(R.id.real_tv);
 
         userHeadImg = findViewById(R.id.user_head_img);
         userEditorImg = findViewById(R.id.user_edit_iv);
@@ -181,6 +194,7 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
         accountTv01 = findViewById(R.id.account_tv01);
         accountLayout = findViewById(R.id.account_layout);
         accountManagerTv = findViewById(R.id.account_manager_tv);
+        accountMoveTv = findViewById(R.id.account_move_tv);
         accountManagerLayout = findViewById(R.id.account_manager_layout);
         line1 = findViewById(R.id.line1);
         collectRedV = findViewById(R.id.collect_red_v);
@@ -221,13 +235,16 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
             case R.id.user_head_img:
                 // toActivity(EditorCenterActivity.class);
                 Intent intentEdit = new Intent(getActivity(), EditorCenterActivity.class);
-                    intentEdit.putExtra("userInfoBean", userInfobean);
+                intentEdit.putExtra("userInfoBean", userInfobean);
                 startActivity(intentEdit);
                 break;
             case R.id.account_layout:
-            case R.id.account_manager_layout:
+
                 toActivity(LoginActivity.class);
                 getActivity().finish();
+                break;
+            case R.id.account_manager_layout:
+                toActivity(ChangePWDActivity.class);
                 break;
 //            case R.id.account_layout:
 //            case R.id.account_manager_layout:
@@ -253,6 +270,9 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
                 break;
             case R.id.about_layout://关于我们
                 toActivity(AboutActivity.class);
+                break;
+            case R.id.real_layout://实名认证
+                toActivity(RealNameActivity.class);
                 break;
             case R.id.set_layout://设置
                 toActivity(SetActivity.class);

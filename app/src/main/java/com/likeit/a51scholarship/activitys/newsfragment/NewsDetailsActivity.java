@@ -57,7 +57,9 @@ public class NewsDetailsActivity extends Container {
         //详情数据请求
         initData();
         showProgress("Loading...");
-
+        tvHeader.setText("资讯详情页");
+        ivRight.setImageResource(R.mipmap.icon_edit);
+        ivLeft.setImageResource(R.mipmap.icon_back);
     }
 
     private void initData() {
@@ -104,9 +106,6 @@ public class NewsDetailsActivity extends Container {
     }
 
     private void initView() {
-        tvHeader.setText("资讯详情页");
-        ivRight.setImageResource(R.mipmap.icon_edit);
-        ivLeft.setImageResource(R.mipmap.icon_back);
         tvTitle.setText(title);
         tvSource.setText(source);
         tvTime.setText("时间："+time);

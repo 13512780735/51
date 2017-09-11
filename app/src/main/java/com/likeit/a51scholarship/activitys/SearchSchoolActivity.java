@@ -96,8 +96,8 @@ public class SearchSchoolActivity extends Container {
         rate = "0";
         scholarship = "0";
         schoolData = new ArrayList<SchoolListBean>();
-//        initData(1);
-//        showProgress("Loading...");
+        initData(1);
+        showProgress("Loading...");
         initView();
     }
 
@@ -174,11 +174,11 @@ public class SearchSchoolActivity extends Container {
 //        super.onResume();
 //        refresh();
 //    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        refresh1();
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        refresh1();
+//    }
 
     private void refresh1() {
         adapter.addAll(schoolData, true);
@@ -256,10 +256,10 @@ public class SearchSchoolActivity extends Container {
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String name = schoolData.get(position).getName();
-                String en_name = schoolData.get(position).getEn_name();
-                String img = schoolData.get(position).getImg();
-                String sid = schoolData.get(position).getId();
+                String name = schoolData.get(position-1).getName();
+                String en_name = schoolData.get(position-1).getEn_name();
+                String img = schoolData.get(position-1).getImg();
+                String sid = schoolData.get(position-1).getId();
                 Intent intentSchoolDetail = new Intent();
                 intentSchoolDetail.putExtra("name", name);//英文名字
                 intentSchoolDetail.putExtra("en_name", en_name);//中文名字
@@ -274,10 +274,10 @@ public class SearchSchoolActivity extends Container {
             public void onApplyClick(int i) {
                 //ToastUtil.showS(mContext, "申请成功！");
                 Intent intent = new Intent(mContext, SchoolApplyActivity.class);
-                intent.putExtra("name", schoolData.get(i).getName());
-                intent.putExtra("address", schoolData.get(i).getCountry_name());
-                intent.putExtra("country_id", schoolData.get(i).getCountry_id());
-                intent.putExtra("sid", schoolData.get(i).getId());
+                intent.putExtra("name", schoolData.get(i-1).getName());
+                intent.putExtra("address", schoolData.get(i-1).getCountry_name());
+                intent.putExtra("country_id", schoolData.get(i-1).getCountry_id());
+                intent.putExtra("sid", schoolData.get(i-1).getId());
                 startActivity(intent);
             }
         });

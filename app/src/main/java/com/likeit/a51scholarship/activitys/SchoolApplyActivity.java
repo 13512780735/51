@@ -50,7 +50,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-
 public class SchoolApplyActivity extends Container {
     @BindView(R.id.tv_header)
     TextView tvHeader;
@@ -161,8 +160,8 @@ public class SchoolApplyActivity extends Container {
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         address = intent.getStringExtra("address");
-        country_id=intent.getStringExtra("country_id");
-        sid=intent.getStringExtra("sid");
+        country_id = intent.getStringExtra("country_id");
+        sid = intent.getStringExtra("sid");
         areaData = new ArrayList<AreaBean>();
         stageData = new ArrayList<StageBean>();
         planTimeData = new ArrayList<PlanTimeBean>();
@@ -290,60 +289,73 @@ public class SchoolApplyActivity extends Container {
     }
 
     private void offerData() {
-        if(StringUtil.isBlank(tvWhere.getText().toString())){
-            ToastUtil.showS(mContext,"请选择地区");
-        }else if(StringUtil.isBlank(tvWhichDegree.getText().toString())){
-            ToastUtil.showS(mContext,"请选择学位");
-        }else if(StringUtil.isBlank(tvStayTime.getText().toString())){
-            ToastUtil.showS(mContext,"请选择留学时间");
-        }else if(StringUtil.isBlank(etGpa.getText().toString())){
-            ToastUtil.showS(mContext,"请输入GPA分数");
-        }else if(StringUtil.isBlank(etToefl.getText().toString())){
-            ToastUtil.showS(mContext,"请输入托福分数");
-        }else if(StringUtil.isBlank(etYasi.getText().toString())){
-            ToastUtil.showS(mContext,"请输入雅思分数");
-        }else if(StringUtil.isBlank(etToeic.getText().toString())){
-            ToastUtil.showS(mContext,"请输入托业分数");
-        }else if(StringUtil.isBlank(etOther.getText().toString())){
-            ToastUtil.showS(mContext,"请输入其他成绩类型、分数");
-        }else if(StringUtil.isBlank(etChineseName.getText().toString())){
-            ToastUtil.showS(mContext,"请输入中文名字");
-        }else if(StringUtil.isBlank(etEnglishName.getText().toString())){
-            ToastUtil.showS(mContext,"请输入英文名字");
-        }else if(StringUtil.isBlank(tvDate.getText().toString())){
-            ToastUtil.showS(mContext,"请选择出生日期");
-        }else if(StringUtil.isBlank(etEmail.getText().toString())){
-            ToastUtil.showS(mContext,"请输入邮箱");
-        }else if(StringUtil.isBlank(etPhone.getText().toString())){
-            ToastUtil.showS(mContext,"请输入手机");
+        if (StringUtil.isBlank(tvWhere.getText().toString())) {
+            ToastUtil.showS(mContext, "请选择地区");
+            return;
+        } else if (StringUtil.isBlank(tvWhichDegree.getText().toString())) {
+            ToastUtil.showS(mContext, "请选择学位");
+            return;
+        } else if (StringUtil.isBlank(tvStayTime.getText().toString())) {
+            ToastUtil.showS(mContext, "请选择留学时间");
+            return;
+        } else if (StringUtil.isBlank(etGpa.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入GPA分数");
+            return;
+        } else if (StringUtil.isBlank(etToefl.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入托福分数");
+            return;
+        } else if (StringUtil.isBlank(etYasi.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入雅思分数");
+            return;
+        } else if (StringUtil.isBlank(etToeic.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入托业分数");
+            return;
+        } else if (StringUtil.isBlank(etOther.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入其他成绩类型、分数");
+            return;
+        } else if (StringUtil.isBlank(etChineseName.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入中文名字");
+            return;
+        } else if (StringUtil.isBlank(etEnglishName.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入英文名字");
+            return;
+        } else if (StringUtil.isBlank(tvDate.getText().toString())) {
+            ToastUtil.showS(mContext, "请选择出生日期");
+            return;
+        } else if (StringUtil.isBlank(etEmail.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入邮箱");
+            return;
+        } else if (StringUtil.isBlank(etPhone.getText().toString())) {
+            ToastUtil.showS(mContext, "请输入手机");
+            return;
         }
-        String url=AppConfig.LIKEIT_SCHOOL_APPLY;
-        RequestParams params=new RequestParams();
-        params.put("ukey",ukey);
-        params.put("sid",sid);
-        params.put("country",country_id);
-        params.put("stage",stageid);
-        params.put("gpa",etGpa.getText().toString());
-        params.put("name",etChineseName.getText().toString());
-        params.put("mobile",etPhone.getText().toString());
-        params.put("email",etEmail.getText().toString());
-        params.put("times",tvStayTime.getText().toString());
-        params.put("toefl",etToefl.getText().toString());
-        params.put("yasi",etYasi.getText().toString());
-        params.put("gmat",etOther.getText().toString());
+        String url = AppConfig.LIKEIT_SCHOOL_APPLY;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        params.put("sid", sid);
+        params.put("country", country_id);
+        params.put("stage", stageid);
+        params.put("gpa", etGpa.getText().toString());
+        params.put("name", etChineseName.getText().toString());
+        params.put("mobile", etPhone.getText().toString());
+        params.put("email", etEmail.getText().toString());
+        params.put("times", tvStayTime.getText().toString());
+        params.put("toefl", etToefl.getText().toString());
+        params.put("yasi", etYasi.getText().toString());
+        params.put("gmat", etOther.getText().toString());
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
-                Log.d("TAG",response);
+                Log.d("TAG", response);
                 try {
-                    JSONObject obj=new JSONObject(response);
-                    String code=obj.optString("code");
-                    String message=obj.optString("message");
-                    if("1".equals(code)){
-                        ToastUtil.showS(mContext,message);
+                    JSONObject obj = new JSONObject(response);
+                    String code = obj.optString("code");
+                    String message = obj.optString("message");
+                    if ("1".equals(code)) {
+                        ToastUtil.showS(mContext, message);
                         finish();
-                    }else{
-                        ToastUtil.showS(mContext,message);
+                    } else {
+                        ToastUtil.showS(mContext, message);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -436,7 +448,7 @@ public class SchoolApplyActivity extends Container {
                             if ("1".equals(tag)) {
                                 tvWhere.setText(areaData.get(position).getName());
                             } else if ("2".equals(tag)) {
-                                stageid=stageData.get(position).getId();
+                                stageid = stageData.get(position).getId();
                                 tvWhichDegree.setText(stageData.get(position).getName());
                             } else if ("3".equals(tag)) {
                                 tvStayTime.setText(planTimeData.get(position).getName());

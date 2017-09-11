@@ -13,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.likeit.a51scholarship.R;
@@ -25,9 +27,11 @@ import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.utils.MyActivityManager;
 import com.likeit.a51scholarship.utils.NetUtils;
+import com.likeit.a51scholarship.utils.StringUtil;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.utils.UtilPreference;
 import com.loopj.android.http.RequestParams;
+import com.tencent.bugly.beta.Beta;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,8 +41,10 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.finalteam.rxgalleryfinal.utils.Logger;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
@@ -88,7 +94,6 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
     private String is_first;
 
 
-
     private int time = 60;
     Handler myH = new Handler() {
         @Override
@@ -125,8 +130,13 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
         setContentView(R.layout.activity_login);
         MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
-        passwd1="eed92abc0da569ad37b6e07b1d639400";
+        passwd1 = "eed92abc0da569ad37b6e07b1d639400";
+        checkVersion();
         handler = new Handler(this);
+    }
+
+    private void checkVersion() {
+        Beta.checkUpgrade();//检查版本号
     }
 
 
@@ -134,6 +144,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_btn:
+                UtilPreference.saveString(mContext, "isLogin", "0");
                 login();
                 break;
             case R.id.forget_passwd_tv:
@@ -159,20 +170,24 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 break;
             case R.id.login_wechat:
                 // 微信登录
+                UtilPreference.saveString(mContext, "isLogin", "0");
                 Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
                 authorize(wechat);
                 ToastUtil.showL(this, "微信登录");
                 break;
             case R.id.login_qq:
                 // QQ登录
+                UtilPreference.saveString(mContext, "isLogin", "0");
                 Platform qzone = ShareSDK.getPlatform(QQ.NAME);
                 authorize(qzone);
                 ToastUtil.showL(this, "QQ登录");
                 break;
             case R.id.login_weibo:
-                Platform sina = ShareSDK.getPlatform(SinaWeibo.NAME);
-                authorize(sina);
-                ToastUtil.showL(this, "微博登录");
+//                UtilPreference.saveString(mContext, "isLogin", "0");
+//                Platform sina = ShareSDK.getPlatform(SinaWeibo.NAME);
+//                authorize(sina);
+//                ToastUtil.showL(this, "微博登录");
+                ToastUtil.showL(this, "暂未开通");
                 break;
         }
     }
@@ -184,11 +199,10 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 Log.d("TAG", "EM登录成功");
                 EMClient.getInstance().groupManager().loadAllGroups();
                 EMClient.getInstance().chatManager().loadAllConversations();
-                // update current user's display name for APNs
                 boolean updatenick = EMClient.getInstance().pushManager().updatePushNickname(
                         MyApplication.currentUserNick.trim());
                 DemoHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
-                // toActivityFinish(UploadImgActivity.class);
+            //    toActivityFinish(UploadImgActivity.class);
                 if ("0".equals(is_first)) {
                     toActivityFinish(MainActivity.class);
                 } else {
@@ -198,7 +212,10 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
 
             @Override
             public void onError(int i, String s) {
-                Log.d("TAG", "EM登录失败");
+              //  Toast.makeText(mContext,"EM登录失败",Toast.LENGTH_LONG).show();
+               // ToastUtil.showS(mContext, "EM登录失败");
+               Log.d("TAG", "EM登录失败");
+                showErrorMsg("登录失败");
             }
 
             @Override
@@ -328,7 +345,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
             @Override
             public void onFinish() {
                 super.onFinish();
-                disShowProgress();
+               // disShowProgress();
             }
         });
 
@@ -409,45 +426,77 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 Object[] objs = (Object[]) msg.obj;
                 Log.d("数据2：", objs.toString());
                 String platform = (String) objs[0];
-                HashMap<String, Object> res = (HashMap<String, Object>) objs[1];
+             //   HashMap<String, Object> res1 = (HashMap<String, Object>) objs[1];
+                Platform res = (Platform) objs[1];
                 // Log.e("TAG", "授权返回的信息1：" + JSON.toJSONString(objs[1]));
                 Log.e("TAG", QQ.NAME + "授权返回的信息2：" + platform);
+//                res.getDb().getToken();
+//                res.getDb().getUserGender();
+//                res.getDb().getUserIcon();
+//                res.getDb().getUserId();
+//                res.getDb().getUserName();
                 if (res != null) {
                     if (platform.equals(QQ.NAME)) {
                         // QQ认证回调
-                        currentUsername=(String)res.get("nickname");
-                        userRegister(QQ.NAME, (String) res.get("nickname"),
-                                (String) res.get("nickname"),
-                                (String) res.get("figureurl_qq_1"));
-                        Log.d("TAG",
-                                QQ.NAME + (String) res.get("nickname")
-                                        + (String) res.get("nickname")
-                                        + (String) res.get("figureurl_qq_1"));
+                        //  currentUsername=(String)res.get("nickname");
+                        currentUsername = res.getDb().getUserId();
+                        String figureurl_qq_1 = res.getDb().getUserIcon();
+                        String nickname = res.getDb().getUserName();
+                        String uid = res.getDb().getUserId();
+                        Log.d("TAG", "currentUsername-->" + currentUsername);
+                        Log.d("TAG", "nickname-->" + nickname);
+                        Log.d("TAG", "figureurl_qq_1-->" + figureurl_qq_1);
+                        userRegister(QQ.NAME, nickname, uid, figureurl_qq_1);
                         showProgress("Loading...");
 
                     } else if (platform.equals(SinaWeibo.NAME)) {
                         // 新浪微博认证回调
-                        currentUsername=(String)res.get("idstr");
-                        userRegister(SinaWeibo.NAME, (String) res.get("name"),
-                                (String) res.get("idstr"),
-                                (String) res.get("avatar_hd"));
+                        currentUsername = res.getDb().getUserId();
+                        String figureurl_qq_1 = res.getDb().getUserIcon();
+                        String nickname = res.getDb().getUserName();
+                        String uid = res.getDb().getUserId();
+                        Log.d("TAG", "currentUsername-->" + currentUsername);
+                        Log.d("TAG", "nickname-->" + nickname);
+                        Log.d("TAG", "figureurl_qq_1-->" + figureurl_qq_1);
+                        userRegister(SinaWeibo.NAME, nickname, uid, figureurl_qq_1);
                         showProgress("Loading...");
                     } else if (platform.equals(Wechat.NAME)) {
                         // 微信认证回调
-                        currentUsername=(String)res.get("unionid");
-                        userRegister(Wechat.NAME, (String) res.get("nickname"),
-                                (String) res.get("unionid"),
-                                (String) res.get("headimgurl"));
-                        Log.d("TAG","微信--》"+
-                                Wechat.NAME + (String) res.get("nickname")
-                                        + (String) res.get("unionid")
-                                        + (String) res.get("headimgurl"));
+                        currentUsername = res.getDb().getUserId();
+                        String figureurl_qq_1 = res.getDb().getUserIcon();
+                        String nickname = res.getDb().getUserName();
+                        String uid = res.getDb().getUserId();
+                        Log.d("TAG", "currentUsername-->" + currentUsername);
+                        Log.d("TAG", "nickname-->" + nickname);
+                        Log.d("TAG", "figureurl_qq_1-->" + figureurl_qq_1);
+                        userRegister(Wechat.NAME, nickname, uid, figureurl_qq_1);
                         showProgress("Loading...");
                     }
 
                 } else {
                     ToastUtil.showL(this, "获取用户信息失败！");
                 }
+                // 授权成功
+//                ToastUtil.showS(mContext, "授权成功，正在跳转登录操作…");
+//                Object[] objs = (Object[]) msg.obj;
+//                String platform = (String) objs[0];
+//                HashMap<String, Object> res = (HashMap<String, Object>) objs[1];
+////                Logger.e("TAG", "授权返回的信息1：" + JSON.toJSONString(res));
+////                Logger.e("TAG", QQ.NAME+"授权返回的信息2：" + platform);
+//                if(res!=null){
+//                    if (platform.equals(QQ.NAME)) {
+//                        // QQ认证回调
+//                        userRegister(QQ.NAME, (String) res.get("nickname"), (String) res.get("nickname"), (String) res.get("figureurl_qq_1"));
+//                    } else if (platform.equals(SinaWeibo.NAME)) {
+//                        // 新浪微博认证回调
+//                        userRegister(SinaWeibo.NAME, (String) res.get("name"), (String) res.get("idstr"), (String) res.get("avatar_hd"));
+//                    } else if (platform.equals(Wechat.NAME)) {
+//                        // 微信认证回调
+//                        userRegister(Wechat.NAME, (String)res.get("nickname"), (String)res.get("unionid"), (String)res.get("headimgurl"));
+//                    }
+//                }else{
+//                    ToastUtil.showS(mContext, "获取用户信息失败！");
+//                }
             }
             break;
         }
@@ -467,10 +516,18 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
     public void onComplete(Platform platform, int action, HashMap<String, Object> res) {
         if (action == Platform.ACTION_USER_INFOR) {
             Message msg = new Message();
-            Log.d("TAG", platform.toString());
+            Log.d("TAG", "platform-->" + platform.toString());
             Log.d("数据：", res.toString());
             msg.what = MSG_AUTH_COMPLETE;
-            msg.obj = new Object[]{platform.getName(), res};
+            // PlatformDb platDB = platform.getDb();//获取数平台数据DB
+            msg.obj = new Object[]{platform.getName(), platform};
+            // msg.obj = new Object[]{platform.getName(), platDB};
+//            //通过DB获取各种数据
+//            platDB.getToken();
+//            platDB.getUserGender();
+//            platDB.getUserIcon();
+//            platDB.getUserId();
+//            platDB.getUserName();
             handler.sendMessage(msg);
         }
     }

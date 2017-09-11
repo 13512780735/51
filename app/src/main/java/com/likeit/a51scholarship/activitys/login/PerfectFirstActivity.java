@@ -469,37 +469,48 @@ public class PerfectFirstActivity extends Container {
 
         if (StringUtil.isBlank(tvXueli.getText().toString())) {
             ToastUtil.showS(mContext, "请选择学历");
+            return;
         } else if (StringUtil.isBlank(tvWhere.getText().toString())) {
             ToastUtil.showS(mContext, "请选择地区");
-
+            return;
         } else if (StringUtil.isBlank(tvWhichDegree.getText().toString())) {
             ToastUtil.showS(mContext, "请选择学位");
 
         } else if (StringUtil.isBlank(tvWhereCountry.getText().toString())) {
             ToastUtil.showS(mContext, "请选择留学国家");
-
+            return;
         } else if (StringUtil.isBlank(tvStayTime.getText().toString())) {
             ToastUtil.showS(mContext, "请选择留学时间");
+            return;
         } else if (StringUtil.isBlank(etGpa.getText().toString())) {
             ToastUtil.showS(mContext, "请输入GPA分数");
+            return;
         } else if (StringUtil.isBlank(etToefl.getText().toString())) {
             ToastUtil.showS(mContext, "请输入托福分数");
         } else if (StringUtil.isBlank(etYasi.getText().toString())) {
             ToastUtil.showS(mContext, "请输入雅思分数");
+            return;
         } else if (StringUtil.isBlank(etToeic.getText().toString())) {
             ToastUtil.showS(mContext, "请输入托业分数");
+            return;
         } else if (StringUtil.isBlank(etOther.getText().toString())) {
             ToastUtil.showS(mContext, "请输入其他成绩类型、分数");
+            return;
         } else if (StringUtil.isBlank(etChineseName.getText().toString())) {
             ToastUtil.showS(mContext, "请输入中文名字");
+            return;
         } else if (StringUtil.isBlank(etEnglishName.getText().toString())) {
             ToastUtil.showS(mContext, "请输入英文名字");
+            return;
         } else if (StringUtil.isBlank(tvDate.getText().toString())) {
             ToastUtil.showS(mContext, "请选择出生日期");
+            return;
         } else if (StringUtil.isBlank(etEmail.getText().toString())) {
             ToastUtil.showS(mContext, "请输入邮箱");
+            return;
         } else if (StringUtil.isBlank(etPhone.getText().toString())) {
             ToastUtil.showS(mContext, "请输入手机");
+            return;
         }
         String url = AppConfig.LIKEIT_MEMBER_EDIT_INFO;
         RequestParams params = new RequestParams();

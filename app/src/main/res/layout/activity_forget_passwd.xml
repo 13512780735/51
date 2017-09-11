@@ -147,6 +147,7 @@
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/icon_passwd"
             android:background="@null"
+            android:inputType="textPassword"
             android:hint="结合数字、字母或符号、长度6-12位"
             android:textSize="12sp" />
 
@@ -192,6 +193,7 @@
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/icon_repasswd"
             android:background="@null"
+            android:inputType="textPassword"
             android:hint="结合数字、字母或符号、长度6-12位"
             android:textSize="12sp" />
 

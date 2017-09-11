@@ -38,6 +38,8 @@ public abstract class BaseFragment extends KKBaseV4Fragment {
         ukey = UtilPreference.getStringValue(getActivity(), "ukey");
 
     }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(setContentView(), container, false);

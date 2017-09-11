@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.likeit.a51scholarship.activitys.login.ChangePWDActivity">
+
+    <include layout="@layout/layout_header_with_back" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/icon_old_passwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/icon_password" />
+
+        <TextView
+            android:id="@+id/passwd_old_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/icon_old_passwd"
+            android:layout_toRightOf="@+id/icon_old_passwd"
+            android:text="原密码"
+            android:textColor="@color/defualt_textcolor"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/passwd_old_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/passwd_old_tv"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/icon_old_passwd"
+            android:background="@null"
+            android:hint="请输入原密码"
+            android:inputType="textPassword"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/passwd_old_et"
+            android:layout_marginTop="4dp"
+            android:background="@color/line_color" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/icon_passwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/icon_password" />
+
+        <TextView
+            android:id="@+id/passwd_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/icon_passwd"
+            android:layout_toRightOf="@+id/icon_passwd"
+            android:text="新密码"
+            android:textColor="@color/defualt_textcolor"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/passwd_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/passwd_tv"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/icon_passwd"
+            android:background="@null"
+            android:hint="结合数字、字母或符号、长度6-12位"
+            android:inputType="textPassword"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/passwd_et"
+            android:layout_marginTop="4dp"
+            android:background="@color/line_color" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/icon_repasswd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/icon_codeok" />
+
+        <TextView
+            android:id="@+id/repasswd_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/icon_repasswd"
+            android:layout_toRightOf="@+id/icon_repasswd"
+            android:text="确认新密码"
+            android:textColor="@color/defualt_textcolor"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/re_passwd_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/repasswd_tv"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/icon_repasswd"
+            android:background="@null"
+            android:hint="结合数字、字母或符号、长度6-12位"
+            android:inputType="textPassword"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/re_passwd_et"
+            android:layout_marginTop="4dp"
+            android:background="@color/line_color" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/ok_btn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_round_login_btn_"
+        android:gravity="center"
+        android:text="确认"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+</LinearLayout>

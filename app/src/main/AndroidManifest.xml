@@ -212,11 +212,11 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
-        <!--<receiver android:name=".wxapi.AppRegister">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />-->
-        <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- <receiver android:name=".wxapi.AppRegister"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
         <!-- 百度地图所需的service -->
         <service
             android:name="com.baidu.location.f"
@@ -253,13 +253,13 @@
                 android:resource="@xml/provider_paths" />
         </provider>
         <!-- ShareSDK 开始 -->
-        <!--<activity-->
-            <!--android:name="cn.sharesdk.framework.ShareSDKUIShell"-->
-            <!--android:configChanges="keyboardHidden|orientation"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
-            <!--android:windowSoftInputMode="stateHidden|adjustResize">-->
-        <!--</activity>-->
+        <!-- <activity -->
+        <!-- android:name="cn.sharesdk.framework.ShareSDKUIShell" -->
+        <!-- android:configChanges="keyboardHidden|orientation" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" -->
+        <!-- android:windowSoftInputMode="stateHidden|adjustResize"> -->
+        <!-- </activity> -->
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -276,23 +276,20 @@
 
             <category android:name="android.intent.category.BROWSABLE" />
             <category android:name="android.intent.category.DEFAULT" />
-            <!--
-                 调用新浪原生SDK，需要注册的回调activity  -->
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
 
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
-
         </activity>
         <activity
             android:name=".wxapi.WXEntryActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <!-- 分享 -->
 
 
@@ -521,7 +518,10 @@
         <activity android:name=".chat.message.ui.AddContactActivity" />
         <activity android:name=".chat.message.ui.NewFriendsMsgActivity" />
         <activity android:name=".activitys.SchoolApplyActivity" />
-        <activity android:name=".activitys.SchoolFilterActivity"></activity>
+        <activity android:name=".activitys.SchoolFilterActivity" />
+        <activity android:name=".activitys.CircleDetails01Activity" />
+        <activity android:name=".activitys.login.ChangePWDActivity" />
+        <activity android:name=".activitys.my_center.RealNameActivity"></activity>
     </application>
 
 </manifest>

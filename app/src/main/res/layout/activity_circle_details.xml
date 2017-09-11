@@ -230,11 +230,16 @@
                         android:textSize="14sp" />
                 </RadioGroup>
 
-                <com.likeit.a51scholarship.view.NoScrollViewPager01
+                <com.likeit.a51scholarship.view.NoScrollViewPager02
                     android:id="@+id/circle_details_viewpager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white" />
+            <!--    <com.likeit.a51scholarship.view.CustomViewpager
+                    android:id="@+id/circle_details_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white" />-->
             </LinearLayout>
         </LinearLayout>
 

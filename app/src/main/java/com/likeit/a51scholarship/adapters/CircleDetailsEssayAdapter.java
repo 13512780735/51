@@ -17,14 +17,14 @@ import java.util.List;
  * Created by Administrator on 2017/9/1.
  */
 
-public class CircleDetailsEssayAdapter extends MyBaseAdapter<CircleEssayModel>{
+public class CircleDetailsEssayAdapter extends MyBaseAdapter<CircleEssayModel> {
     public CircleDetailsEssayAdapter(Context context, List<CircleEssayModel> circleEssayModels) {
         super(context, circleEssayModels);
     }
 
     @Override
-    public View getItemView(int position, View convertView, ViewGroup parent) {
-       ViewHolder holder;
+    public View getItemView(final int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = getInflater().inflate(
@@ -48,15 +48,37 @@ public class CircleDetailsEssayAdapter extends MyBaseAdapter<CircleEssayModel>{
         CircleEssayModel data1 = getItem(position);
         holder.tvEssayName.setText(data1.getUserinfo().getNickname());
         holder.tvEssayTime.setText(data1.getPost_time());
-        ImageLoader.getInstance().displayImage(data1.getUserinfo().getHeadimg(),holder.ivAvatar);
+        ImageLoader.getInstance().displayImage(data1.getUserinfo().getHeadimg(), holder.ivAvatar);
         holder.tvTitle.setText(data1.getTitle());
         holder.rtContent.setRichText(data1.getContent());
+        // 加好友
+        holder.tvAdd.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mOnAddClickListener.onAddClick(position);
+            }
+        });
         return convertView;
+    }
+
+    /**
+     * 点击添加的时候
+     */
+    public interface onAddClickListener {
+        void onAddClick(int i);
+    }
+
+    private onAddClickListener mOnAddClickListener;
+
+    public void setOnAddClickListener(
+            onAddClickListener mOnAddClickListener) {
+        this.mOnAddClickListener = mOnAddClickListener;
     }
 
     private class ViewHolder {
         CircleImageView ivAvatar;
-        TextView tvEssayTime,tvAdd,tvTitle,tvEssayName;
+        TextView tvEssayTime, tvAdd, tvTitle, tvEssayName;
         RichText rtContent;
 
     }

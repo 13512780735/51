@@ -11,10 +11,13 @@ import com.easemob.redpacketsdk.RedPacket;
 import com.easemob.redpacketsdk.bean.RedPacketInfo;
 import com.easemob.redpacketsdk.bean.TokenData;
 import com.easemob.redpacketsdk.constant.RPConstant;
+import com.hyphenate.EMConnectionListener;
+import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseUserUtils;
+import com.hyphenate.util.NetUtils;
 import com.likeit.a51scholarship.chat.message.widget.DemoHelper;
 import com.likeit.a51scholarship.model.UserInfo;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -22,13 +25,14 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import com.likeit.a51scholarship.R;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 
 import java.util.Iterator;
 import java.util.List;
 
 import cn.sharesdk.framework.ShareSDK;
 import cn.smssdk.SMSSDK;
-
 
 
 public class MyApplication extends Application {
@@ -40,6 +44,7 @@ public class MyApplication extends Application {
     private boolean isInit = false;
     public final String PREF_USERNAME = "username";
     public static String currentUserNick = "";
+
     public static MyApplication getInstance() {
         if (mContext == null) {
             return new MyApplication();
@@ -72,8 +77,8 @@ public class MyApplication extends Application {
                 .writeDebugLogs().build();
         ImageLoader.getInstance().init(config);
 //        //初始化
-//        Beta.autoCheckUpgrade = true;//设置自动检查
-        // Bugly.init(context, "f8279afbf2", false);
+        Beta.autoCheckUpgrade = true;//设置自动检查
+        Bugly.init(mContext, "6441c3da7a", false);
     }
 
     private void initRedPacket() {
@@ -130,11 +135,11 @@ public class MyApplication extends Application {
             return;
         }
 
-         //调用初始化方法初始化sdk
-     EMClient.getInstance().init(mContext, initOptions());
+        //调用初始化方法初始化sdk
+        EMClient.getInstance().init(mContext, initOptions());
 
         //设置开启debug模式
-       EMClient.getInstance().setDebugMode(true);
+        EMClient.getInstance().setDebugMode(true);
 
         // 设置初始化已经完成
         isInit = true;
@@ -211,21 +216,22 @@ public class MyApplication extends Application {
     }
 
 
-    public static MyApplication getInstance(Context appContext) {
-        return instance;
-    }
 
-    /**
-     * 获取用户信息
-     *
-     * @return
-     */
+        public static MyApplication getInstance(Context appContext) {
+            return instance;
+        }
+
+        /**
+         * 获取用户信息
+         *
+         * @return
+         */
 //    public UserInfo getUserInfo() {
 //        if (userInfo == null)
 //            init();
 //        return userInfo;
 //    }
-}
+    }
 //    private void init() {
 //        userInfo = Storage.getObject(AppConfig.USER_INFO, UserInfo.class);
 //

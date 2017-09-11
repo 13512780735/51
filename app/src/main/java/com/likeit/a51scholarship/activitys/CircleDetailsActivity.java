@@ -17,6 +17,7 @@ import com.likeit.a51scholarship.adapters.AnswersUserDetailsTabAdapter;
 import com.likeit.a51scholarship.fragments.MainFragment;
 import com.likeit.a51scholarship.view.CustomViewpager;
 import com.likeit.a51scholarship.view.NoScrollViewPager01;
+import com.likeit.a51scholarship.view.NoScrollViewPager02;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +46,7 @@ public class CircleDetailsActivity extends Container implements
     @BindView(R.id.circle_details_scrollview)
     PullToRefreshScrollView mPullToRefreshScrollView;
     @BindView(R.id.circle_details_viewpager)
-    NoScrollViewPager01 viewpager;
+    NoScrollViewPager02 viewpager;
     @BindView(R.id.rgTools)
     RadioGroup mRgTools;
     private String circleId;
@@ -102,7 +103,7 @@ public class CircleDetailsActivity extends Container implements
         mRgTools.setOnCheckedChangeListener(this);
         MainFragment fragment = new MainFragment();
         viewpager.setAdapter(adapter);
-        viewpager.setNoScroll(false);
+     viewpager.setNoScroll(false);
 
     }
 
@@ -144,7 +145,6 @@ public class CircleDetailsActivity extends Container implements
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -13,15 +14,22 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.hyphenate.EMConnectionListener;
+import com.hyphenate.EMError;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.util.NetUtils;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.likeit.a51scholarship.R;
+import com.likeit.a51scholarship.activitys.login.GuideActivity;
+import com.likeit.a51scholarship.activitys.login.LoginActivity;
 import com.likeit.a51scholarship.adapters.HomeViewPagerAdapter;
 import com.likeit.a51scholarship.fragments.HomeFragment01;
 import com.likeit.a51scholarship.fragments.MainFragment;
 import com.likeit.a51scholarship.fragments.ShowFragment;
 import com.likeit.a51scholarship.utils.AndroidWorkaround;
 import com.likeit.a51scholarship.utils.MyActivityManager;
+import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.view.NoScrollViewPager;
 
 import java.lang.reflect.Field;
@@ -42,8 +50,8 @@ public class MainActivity extends SlidingFragmentActivity implements ViewPager.O
     @BindView(R.id.rbMessage)
     RadioButton mRbMessage;
     //小工具
-    @BindView(R.id.rbTool)
-    RadioButton mRbTool;
+  /*  @BindView(R.id.rbTool)
+    RadioButton mRbTool;*/
     @BindView(R.id.rgTools)
     RadioGroup mRgTools;
     @BindView(R.id.home_viewpager)
@@ -53,7 +61,6 @@ public class MainActivity extends SlidingFragmentActivity implements ViewPager.O
     private HomeViewPagerAdapter adapter;
     private SlidingMenu menu;
     private LinearLayout schoolLayout;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +70,43 @@ public class MainActivity extends SlidingFragmentActivity implements ViewPager.O
         initView();
         initMenu();
         //showIndentDialog1();
+        //注册一个监听连接状态的listener
+        EMClient.getInstance().addConnectionListener(new MyConnectionListener());
+    }
+
+    //实现ConnectionListener接口
+    private class MyConnectionListener implements EMConnectionListener {
+        @Override
+        public void onConnected() {
+        }
+
+        @Override
+        public void onDisconnected(final int error) {
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    if (error == EMError.USER_REMOVED) {
+                        // 显示帐号已经被移除
+                    } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
+                        // 显示帐号在其他设备登录
+                        //Log.d("TAG","您的账号已在其他设备登录！");
+                      //  ToastUtil.showS(mContext,"您的账号已在其他设备登录！");
+                      Intent intent = new Intent(MainActivity.this, GuideActivity.class);
+                        intent.putExtra("online", "1");
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        if (NetUtils.hasNetwork(MainActivity.this)) ;
+                            //连接不到聊天服务器
+                        else {
+                            //当前网络不可用，请检查网络设置
+                            //
+                        }
+                    }
+                }
+            });
+        }
     }
 
     private void showIndentDialog1() {

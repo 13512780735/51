@@ -69,4 +69,5 @@ public class NoScrollViewPager01 extends ViewPager {
 
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 	}
+
 }

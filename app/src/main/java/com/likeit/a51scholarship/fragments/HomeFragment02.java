@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.a51scholarship.R;
+import com.likeit.a51scholarship.activitys.CircleDetails01Activity;
 import com.likeit.a51scholarship.activitys.CircleDetailsActivity;
 import com.likeit.a51scholarship.activitys.MainActivity;
 import com.likeit.a51scholarship.activitys.SearchInfoActivity;
@@ -304,7 +305,7 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
                 String circleMemberNum = followCircleData.get(position).getMember_num();
                 String circlePostNum = followCircleData.get(position).getPost_num();
                 String circleIsFollow = "1";
-                Intent intentDetails = new Intent(getActivity(), CircleDetailsActivity.class);
+                Intent intentDetails = new Intent(getActivity(), CircleDetails01Activity.class);
                 intentDetails.putExtra("circleId", circleId);
                 intentDetails.putExtra("circleTitle", circleTitle);
                 intentDetails.putExtra("circleDetail", circleDetail);
@@ -333,7 +334,7 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
                 String circleMemberNum = groupListData.get(position).getMember_num();
                 String circlePostNum = groupListData.get(position).getPost_num();
                 String circleIsFollow = groupListData.get(position).getIsfollow();
-                Intent intentDetails = new Intent(getActivity(), CircleDetailsActivity.class);
+                Intent intentDetails = new Intent(getActivity(), CircleDetails01Activity.class);
                 intentDetails.putExtra("circleId", circleId);
                 intentDetails.putExtra("circleTitle", circleTitle);
                 intentDetails.putExtra("circleDetail", circleDetail);

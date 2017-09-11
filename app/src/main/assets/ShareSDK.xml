@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DevInfor>
     <QQ
-        AppId="1106052121"
-        AppKey="RFVR6AfdGKoJlmLS"
+        AppId="1106329709"
+        AppKey="SeZ2rDeTt65CvSeq"
         Enable="true"
         Id="1"
         RedirectUrl="http://www.sharesdk.cn"
@@ -21,28 +21,28 @@
          AppSecret:ee3efba84ee28a0ca22d2c9b75f7537b
 -->
     <Wechat
-        AppId="wx27891f02149f28a4"
-        AppSecret="6a6ad735e6e22bf609d7ea86e48d6327"
+        AppId="wxe55ba264c3b48641"
+        AppSecret="ee3efba84ee28a0ca22d2c9b75f7537b"
         BypassApproval="false"
         Enable="true"
         Id="3"
         SortId="3" />
 
-
+<!--
     <QZone
-        AppId="1106052121"
-        AppKey="RFVR6AfdGKoJlmLS"
+        AppId="1106329709"
+        AppKey="SeZ2rDeTt65CvSeq"
         Enable="true"
         Id="4"
         ShareByAppClient="true"
         SortId="4" />
 
     <WechatMoments
-        AppId="wx27891f02149f28a4"
-        AppSecret="6a6ad735e6e22bf609d7ea86e48d6327"
+        AppId="wxe55ba264c3b48641"
+        AppSecret="ee3efba84ee28a0ca22d2c9b75f7537b"
         BypassApproval="false"
         Enable="true"
         Id="5"
-        SortId="5" />
+        SortId="5" />-->
 
 </DevInfor>

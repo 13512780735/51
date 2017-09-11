@@ -8,7 +8,7 @@
     android:paddingRight="10dp"
     android:paddingTop="20dp">
 
-    <ImageView
+    <com.likeit.a51scholarship.view.CircleImageView
         android:id="@+id/user_head_img"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -58,7 +58,16 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:src="@mipmap/icon_real"
-            android:visibility="gone" />
+            android:visibility="gone"
+            />
+        <TextView
+            android:id="@+id/real_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_blue_bg"
+            android:padding="5dip"
+            android:textColor="@color/login_btn_bg_color"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -73,13 +82,22 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/account_manager_tv"
+            android:id="@+id/account_move_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="开启更多精彩功能"
             android:textColor="@color/color_999"
             android:textSize="12sp" />
-
+        <TextView
+            android:id="@+id/account_manager_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账号管理"
+            android:drawablePadding="5dip"
+            android:visibility="gone"
+            android:drawableRight="@mipmap/wangsan_icon_right"
+            android:textColor="@color/color_999"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <View
@@ -103,6 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_main_userinfo_height"
             android:gravity="center_vertical"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <ImageView
@@ -178,6 +197,7 @@
             android:id="@+id/spent_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_main_userinfo_height"
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -217,6 +237,7 @@
             android:id="@+id/dian_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_main_userinfo_height"
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -254,6 +275,7 @@
             android:id="@+id/near_see_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_main_userinfo_height"
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -291,6 +313,7 @@
             android:id="@+id/open_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_main_userinfo_height"
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -414,6 +437,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_main_userinfo_height"
             android:gravity="center_vertical"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <ImageView

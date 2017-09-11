@@ -1,17 +1,23 @@
 package com.likeit.a51scholarship.view;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * Created by Administrator on 2017/9/5.
+ * Created by vipui on 16/8/25.
  */
 
 public class CustomViewpager extends ViewPager {
@@ -59,11 +65,11 @@ public class CustomViewpager extends ViewPager {
             setLayoutParams(layoutParams);
         }
     }
-
     /**
      * 保存position与对于的View
      */
-    public void setObjectForPosition(View view, int position) {
+    public void setObjectForPosition(View view, int position)
+    {
         mChildrenViews.put(position, view);
     }
 

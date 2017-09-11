@@ -49,7 +49,7 @@ public class CircleFragment02 extends BaseFragment {
         dialog.setMessage("Loading...");
         Intent intent=getActivity().getIntent();
         circleId = intent.getStringExtra("circleId");
-        essayData=new ArrayList<CircleEssayModel>();
+      essayData=new ArrayList<CircleEssayModel>();
         initData();
         dialog.show();
         initView();

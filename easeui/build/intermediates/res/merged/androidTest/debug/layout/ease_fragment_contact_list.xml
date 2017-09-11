@@ -12,7 +12,10 @@
         android:layout_height="50dip"
         android:layout_marginTop="20dip"
         hyphenate:titleBarTitle="@string/address_book" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#DBDBDB"></View>
     <include
         android:id="@+id/search_bar_view"
         android:visibility="gone"

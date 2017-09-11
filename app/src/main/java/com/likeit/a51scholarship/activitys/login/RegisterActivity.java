@@ -22,6 +22,7 @@ import com.likeit.a51scholarship.activitys.Container;
 import com.likeit.a51scholarship.configs.AppConfig;
 import com.likeit.a51scholarship.http.HttpUtil;
 import com.likeit.a51scholarship.utils.MyActivityManager;
+import com.likeit.a51scholarship.utils.StringUtil;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.utils.UtilPreference;
 import com.loopj.android.http.RequestParams;
@@ -100,8 +101,8 @@ public class RegisterActivity extends Container {
 
     private void sendCode() {
         phoneNum = phoneEt.getText().toString().trim();
-        if (TextUtils.isEmpty(phoneNum)) {
-            ToastUtil.showS(mContext, "请输入手机号码");
+        if (!(StringUtil.isCellPhone(phoneNum))) {
+            ToastUtil.showS(mContext, "请输入正确的手机号码");
             return;
         } else {
             SMSSDK.getVerificationCode("86", phoneNum);
@@ -153,12 +154,12 @@ public class RegisterActivity extends Container {
             ToastUtil.showS(mContext, "请输入姓名");
             return;
         }
-        if (TextUtils.isEmpty(sex)) {
-            ToastUtil.showS(mContext, "请选择性别");
-            return;
-        }
+//        if (TextUtils.isEmpty(sex)) {
+//            ToastUtil.showS(mContext, "请选择性别");
+//            return;
+//        }
 
-        Register();
+      //  Register();
         //signup();
     }
 

@@ -356,6 +356,8 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                         @Override
                         public void onGlobalLayout() {
                             addHightView();
+                            is_first="0";
+                            UtilPreference.saveString(getActivity(), "is_first", is_first);
                             iv_school_layout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                             backgroundAlpha(1f);
                         }

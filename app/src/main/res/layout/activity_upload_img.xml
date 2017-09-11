@@ -14,7 +14,7 @@
         android:text="欢迎来到51奖学金APP"
         android:textSize="18sp" />
 
-    <ImageView
+    <com.likeit.a51scholarship.view.CircleImageView
         android:id="@+id/head_img"
         android:layout_width="100dp"
         android:layout_height="100dp"

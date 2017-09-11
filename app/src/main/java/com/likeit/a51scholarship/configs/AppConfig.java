@@ -34,6 +34,16 @@ public class AppConfig {
     public static final String LIKEIT_MEMBER_EDIT_DISTRICT= SERVER_API + "/api/region/district";
     //我的收藏接口
     public static final String LIKEIT_MEMBER_COLLECT= SERVER_API + "/api/member/collect";
+    //修改用户密码接口
+    public static final String LIKEIT_CHANGE_PWD= SERVER_API + "/api/member/changepwd";
+    //重置密码接口
+    public static final String LIKEIT_RSETPWD= SERVER_API + "/api/member/resetpwd";
+    //身份证上传接口
+    public static final String LIKEIT_UPLOAD_FORBASE64= SERVER_API + "/api/member/uploadForBase64";
+    //申请个人认证接口
+    public static final String LIKEIT_APPROVE= SERVER_API + "/api/member/approve";
+    //用户意见反馈接口
+    public static final String LIKEIT_FEEDBACK= SERVER_API + "/api/member/feedback";
     /**
      * 院校
      */

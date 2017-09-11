@@ -42,6 +42,7 @@ import com.likeit.a51scholarship.model.SchoolDetailsBean;
 import com.likeit.a51scholarship.model.SchoolDetailsBean01;
 import com.likeit.a51scholarship.model.SchoolDetailsPopBena;
 import com.likeit.a51scholarship.utils.MyActivityManager;
+import com.likeit.a51scholarship.utils.StringUtil;
 import com.likeit.a51scholarship.utils.ToastUtil;
 import com.likeit.a51scholarship.utils.UtilPreference;
 import com.likeit.a51scholarship.view.CircleImageView;
@@ -286,13 +287,13 @@ public class SchoolDetailActivity extends Container {
 //        if (array == null || array.length() == 0) {
 //            return;
 //        } else {
-            mSchoolDetailsBean01 = mSchoolDetailsBean.getSchool_details();
-            //  Log.d("TAG123", mSchoolDetailsBean01.get(0).getName());
-         //   Log.d("TAG456", mSchoolDetailsBean01.get(0).getContent());
-            mAdapter = new SchoolDetailsAdapter(mContext, mSchoolDetailsBean01);
-            mListview.setAdapter(mAdapter);
-            mAdapter.notifyDataSetChanged();
-  //      }
+        mSchoolDetailsBean01 = mSchoolDetailsBean.getSchool_details();
+        //  Log.d("TAG123", mSchoolDetailsBean01.get(0).getName());
+        //   Log.d("TAG456", mSchoolDetailsBean01.get(0).getContent());
+        mAdapter = new SchoolDetailsAdapter(mContext, mSchoolDetailsBean01);
+        mListview.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+        //      }
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
             @Override
@@ -363,11 +364,19 @@ public class SchoolDetailActivity extends Container {
                 break;
             case R.id.school_details_apply:
                 Intent intentApply = new Intent(mContext, SchoolApplyActivity.class);
-                intentApply.putExtra("name", mSchoolDetailsBean.getSchool_info().getName());
-                intentApply.putExtra("address", mSchoolDetailsBean.getSchool_info().getCountry_name());
-                intentApply.putExtra("sid", mSchoolDetailsBean.getSchool_info().getId());
-                intentApply.putExtra("country_id", country_id);
-                startActivity(intentApply);
+                if (mSchoolDetailsBean == null) {
+                    intentApply.putExtra("name", "");
+                    intentApply.putExtra("address", "");
+                    intentApply.putExtra("sid", "");
+                    intentApply.putExtra("country_id", "");
+                    startActivity(intentApply);
+                } else {
+                    intentApply.putExtra("name", mSchoolDetailsBean.getSchool_info().getName());
+                    intentApply.putExtra("address", mSchoolDetailsBean.getSchool_info().getCountry_name());
+                    intentApply.putExtra("sid", mSchoolDetailsBean.getSchool_info().getId());
+                    intentApply.putExtra("country_id", country_id);
+                    startActivity(intentApply);
+                }
                 break;
         }
     }
