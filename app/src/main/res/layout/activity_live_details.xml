@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.likeit.a51scholarship.activitys.livefragment.LiveDetailsActivity">
+    tools:context="com.likeit.as51scholarship.activitys.livefragment.LiveDetailsActivity">
 
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
@@ -49,7 +49,7 @@
                 app:tabSelectedTextColor="@color/login_btn_bg_color"
                 app:tabTextColor="@color/defualt_textcolor_d" />
 
-            <com.likeit.a51scholarship.view.NoScrollViewPager01
+            <com.likeit.as51scholarship.view.NoScrollViewPager01
                 android:id="@+id/live_details_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

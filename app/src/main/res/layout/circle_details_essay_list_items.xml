@@ -12,7 +12,7 @@
             android:layout_height="@dimen/width60"
             android:layout_margin="10dip">
 
-            <com.likeit.a51scholarship.view.CircleImageView
+            <com.likeit.as51scholarship.view.CircleImageView
                 android:id="@+id/circle_essay_avatar"
                 android:layout_width="@dimen/width60"
                 android:layout_height="@dimen/width60"
@@ -93,7 +93,7 @@
             android:layout_toRightOf="@+id/tv_title01"
             android:text="xxxx"/>
     </RelativeLayout>
-    <com.likeit.a51scholarship.utils.richtext.RichText
+    <com.likeit.as51scholarship.utils.richtext.RichText
         android:id="@+id/circle_essay_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

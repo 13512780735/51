@@ -54,7 +54,7 @@
             android:layout_height="@dimen/width60"
             >
 
-            <com.likeit.a51scholarship.view.CircleImageView
+            <com.likeit.as51scholarship.view.CircleImageView
                 android:id="@+id/iv_live_avatar"
                 android:layout_width="@dimen/width60"
                 android:layout_height="@dimen/width60"

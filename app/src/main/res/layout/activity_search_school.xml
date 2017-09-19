@@ -199,12 +199,12 @@
     <!--android:layout_height="match_parent"-->
     <!--&gt;-->
 
-    <!--<com.likeit.a51scholarship.view.MyListview-->
+    <!--<as51scholarshipp.view.MyListview-->
     <!--android:id="@+id/school_list_listview"-->
     <!--android:layout_width="match_parent"-->
     <!--android:divider="@color/smssdk_white"-->
     <!--android:dividerHeight="10dp"-->
-    <!--android:layout_height="match_parent"></com.likeit.a51scholarship.view.MyListview>-->
+    <!--android:layout_height="match_parent"></as51scholarshipp.view.MyListview>-->
     <!--</com.handmark.pulltorefresh.library.PullToRefreshScrollView>-->
    <com.handmark.pulltorefresh.library.PullToRefreshListView
     android:id="@+id/school_list_listview"

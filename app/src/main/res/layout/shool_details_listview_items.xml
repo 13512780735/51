@@ -13,7 +13,7 @@
         android:layout_marginBottom="10dip"
         android:layout_marginTop="10dip"
         android:layout_height="wrap_content" />
-    <com.likeit.a51scholarship.utils.richtext.RichText
+    <com.likeit.as51scholarship.utils.richtext.RichText
         android:id="@+id/school_details_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

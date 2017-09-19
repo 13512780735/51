@@ -32,12 +32,12 @@
                 android:text="我关注的圈子"
                 android:textSize="16sp" />
 
-            <com.likeit.a51scholarship.view.MyGridView
+            <com.likeit.as51scholarship.view.MyGridView
                 android:id="@+id/circle_gridview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:numColumns="4"
-                android:verticalSpacing="10dip"></com.likeit.a51scholarship.view.MyGridView>
+                android:verticalSpacing="10dip"></com.likeit.as51scholarship.view.MyGridView>
 
             <View
                 android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                 android:layout_height="1dip"
                 android:background="@color/background_b"></View>
 
-            <com.likeit.a51scholarship.view.MyListview
+            <com.likeit.as51scholarship.view.MyListview
                 android:id="@+id/circle_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

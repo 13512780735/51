@@ -11,7 +11,7 @@
         android:layout_height="@dimen/width80"
         android:layout_margin="10dip">
 
-        <com.likeit.a51scholarship.view.CircleImageView
+        <com.likeit.as51scholarship.view.CircleImageView
             android:id="@+id/answers_senior_avatar"
             android:layout_width="@dimen/width80"
             android:layout_height="@dimen/width80"

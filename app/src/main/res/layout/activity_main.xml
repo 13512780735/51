@@ -7,12 +7,12 @@
     android:background="@color/defualt_window_background"
     tools:context=".activitys.MainActivity">
 
-    <com.likeit.a51scholarship.view.NoScrollViewPager
+    <com.likeit.as51scholarship.view.NoScrollViewPager
         android:id="@+id/home_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/defualt_window_background"
-        android:layout_weight="1"></com.likeit.a51scholarship.view.NoScrollViewPager>
+        android:layout_weight="1"></com.likeit.as51scholarship.view.NoScrollViewPager>
 
     <LinearLayout
         android:layout_width="match_parent"

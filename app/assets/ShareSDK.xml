@@ -9,8 +9,8 @@
     <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
 
     <QQ
-        AppId="1106052121"
-        AppKey="RFVR6AfdGKoJlmLS"
+        AppId="1106336729"
+        AppKey="xAWY031dRvuE1PW3"
         Enable="true"
         Id="1"
         RedirectUrl="http://www.sharesdk.cn"

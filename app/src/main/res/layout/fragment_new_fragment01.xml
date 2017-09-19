@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.likeit.a51scholarship.activitys.newsfragment.NewFragment01">
+    tools:context="com.likeit.as51scholarship.activitys.newsfragment.NewFragment01">
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/news_header_listview"

@@ -3,18 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.likeit.a51scholarship.activitys.livefragment.LiveFragment01">
+    tools:context="com.likeit.as51scholarship.activitys.livefragment.LiveFragment01">
 
     <!-- TODO: Update blank fragment layout -->
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/live_header_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.likeit.a51scholarship.view.MyListview
+        <com.likeit.as51scholarship.view.MyListview
             android:id="@+id/live_header_listview"
             android:layout_width="match_parent"
             android:divider="@color/background_b"
             android:dividerHeight="10dip"
-            android:layout_height="match_parent"></com.likeit.a51scholarship.view.MyListview>
+            android:layout_height="match_parent"></com.likeit.as51scholarship.view.MyListview>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 </LinearLayout>

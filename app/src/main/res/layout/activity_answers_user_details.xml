@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.likeit.a51scholarship.activitys.answersfragment.AnswersUserDetailsActivity">
+    tools:context="com.likeit.as51scholarship.activitys.answersfragment.AnswersUserDetailsActivity">
 
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
@@ -52,7 +52,7 @@
                         android:layout_height="@dimen/width90"
                         android:layout_gravity="bottom">
 
-                        <com.likeit.a51scholarship.view.CircleImageView
+                        <com.likeit.as51scholarship.view.CircleImageView
                             android:id="@+id/answer_user_details_avatar"
                             android:layout_width="@dimen/width90"
                             android:layout_height="@dimen/width90"
@@ -158,7 +158,7 @@
                 app:tabSelectedTextColor="@color/login_btn_bg_color"
                 app:tabTextColor="@color/defualt_textcolor_d" />
 
-            <com.likeit.a51scholarship.view.NoScrollViewPager01
+            <com.likeit.as51scholarship.view.NoScrollViewPager01
                 android:id="@+id/answer_user_details_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

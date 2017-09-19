@@ -1,0 +1,208 @@
+package com.likeit.as51scholarship.activitys;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.hyphenate.EMConnectionListener;
+import com.hyphenate.EMError;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.util.NetUtils;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.likeit.as51scholarship.R;
+import com.likeit.as51scholarship.activitys.login.GuideActivity;
+import com.likeit.as51scholarship.adapters.HomeViewPagerAdapter;
+import com.likeit.as51scholarship.fragments.HomeFragment01;
+import com.likeit.as51scholarship.fragments.MainFragment;
+import com.likeit.as51scholarship.fragments.ShowFragment;
+import com.likeit.as51scholarship.utils.MyActivityManager;
+import com.likeit.as51scholarship.view.NoScrollViewPager;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+
+public class MainActivity extends SlidingFragmentActivity implements ViewPager.OnPageChangeListener, RadioGroup.OnCheckedChangeListener {
+
+    @BindView(R.id.rbHome)
+    RadioButton mRbHome;
+    @BindView(R.id.rbCircle)
+    RadioButton mRbCircle;
+    @BindView(R.id.rbFind)
+    RadioButton mRbFind;
+    @BindView(R.id.rbMessage)
+    RadioButton mRbMessage;
+    //小工具
+  /*  @BindView(R.id.rbTool)
+    RadioButton mRbTool;*/
+    @BindView(R.id.rgTools)
+    RadioGroup mRgTools;
+    @BindView(R.id.home_viewpager)
+    NoScrollViewPager mViewPager;
+    private MainActivity mContext;
+    private View main;
+    private HomeViewPagerAdapter adapter;
+    private SlidingMenu menu;
+    private LinearLayout schoolLayout;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        MyActivityManager.getInstance().addActivity(this);
+        ButterKnife.bind(this);
+        mViewPager.setOffscreenPageLimit(2);
+        initView();
+        initMenu();
+        //showIndentDialog1();
+        //注册一个监听连接状态的listener
+        EMClient.getInstance().addConnectionListener(new MyConnectionListener());
+    }
+
+    //实现ConnectionListener接口
+    private class MyConnectionListener implements EMConnectionListener {
+        @Override
+        public void onConnected() {
+        }
+
+        @Override
+        public void onDisconnected(final int error) {
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    if (error == EMError.USER_REMOVED) {
+                        // 显示帐号已经被移除
+                    } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
+                        // 显示帐号在其他设备登录
+                        //Log.d("TAG","您的账号已在其他设备登录！");
+                      //  ToastUtil.showS(mContext,"您的账号已在其他设备登录！");
+                      Intent intent = new Intent(MainActivity.this, GuideActivity.class);
+                        intent.putExtra("online", "1");
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        if (NetUtils.hasNetwork(MainActivity.this)) ;
+                            //连接不到聊天服务器
+                        else {
+                            //当前网络不可用，请检查网络设置
+                            //
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    private void showIndentDialog1() {
+        ShowFragment dialog = new ShowFragment();
+        dialog.show(getSupportFragmentManager(), "EditNameDialog");
+    }
+
+
+    public void refresh() {
+        menu.toggle();
+    }
+
+    private void initMenu() {
+        HomeFragment01 homeFragment = new HomeFragment01();
+        menu = getSlidingMenu();
+        menu.setMode(SlidingMenu.LEFT);
+        //设置触摸屏幕的模式
+        //  menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        menu.setShadowWidthRes(R.dimen.shadow_width);
+        menu.setShadowWidth(getWindowManager().getDefaultDisplay().getWidth() / 40);
+        menu.setShadowDrawable(R.color.colorPrimaryDark);
+        //设置滑动菜单的宽度
+        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        //设置渐入渐出效果的值
+        menu.setFadeEnabled(true);//是否有渐变
+        menu.setFadeDegree(0.4f);
+        //把滑动菜单添加进所有的Activity中
+        // menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        //为侧滑菜单设置布局
+        setBehindContentView(R.layout.left_menu);//设置SlidingMenu滑出来之后的布局
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.menu_frame, homeFragment).commit();
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+    }
+
+
+    public static boolean setMiuiStatusBarDarkMode(Activity activity, boolean darkmode) {
+        Class<? extends Window> clazz = activity.getWindow().getClass();
+        try {
+            int darkModeFlag = 0;
+            Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+            Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
+            darkModeFlag = field.getInt(layoutParams);
+            Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
+            extraFlagField.invoke(activity.getWindow(), darkmode ? darkModeFlag : 0, darkModeFlag);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private void initView() {
+        adapter = new HomeViewPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(adapter);
+        mViewPager.setOnPageChangeListener(this);
+        mViewPager.setCurrentItem(0);
+        mViewPager.setOffscreenPageLimit(0);
+        mRgTools.setOnCheckedChangeListener(this);
+        MainFragment fragment = new MainFragment();
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        mRgTools.check(mRgTools.getChildAt(position).getId());
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+        mViewPager.setCurrentItem(radioGroup.indexOfChild(radioGroup.findViewById(checkedId)), false);
+    }
+
+    //记录用户首次点击返回键的时间
+    private long firstTime = 0;
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                long secondTime = System.currentTimeMillis();
+                if (secondTime - firstTime > 2000) {
+                    Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                    firstTime = secondTime;
+                    return true;
+                } else {
+                    //MyActivityManager.getInstance().moveTaskToBack(mContext);// 不退出，后台运行
+                }
+                break;
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+
+}

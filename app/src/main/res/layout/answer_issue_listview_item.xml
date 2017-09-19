@@ -12,7 +12,7 @@
         android:layout_weight="3"
         android:orientation="horizontal">
 
-        <com.likeit.a51scholarship.view.CircleImageView
+        <com.likeit.as51scholarship.view.CircleImageView
             android:id="@+id/answers_issue_avatar"
             android:layout_width="@dimen/width45"
             android:layout_height="@dimen/width45"

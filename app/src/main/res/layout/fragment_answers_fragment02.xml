@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.likeit.a51scholarship.activitys.answersfragment.AnswersFragment01">
-    <com.likeit.a51scholarship.view.expandtabview.ExpandTabView
+    tools:context="com.likeit.as51scholarship.activitys.answersfragment.AnswersFragment01">
+    <com.likeit.as51scholarship.view.expandtabview.ExpandTabView
         android:id="@+id/expandtab_view01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,11 +20,11 @@
         android:background="@color/background_b"
         android:layout_height="match_parent">
 
-        <com.likeit.a51scholarship.view.MyListview
+        <com.likeit.as51scholarship.view.MyListview
             android:id="@+id/answer_senior_listview"
             android:divider="@color/background_b"
             android:dividerHeight="10dip"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.likeit.a51scholarship.view.MyListview>
+            android:layout_height="match_parent"></com.likeit.as51scholarship.view.MyListview>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 </LinearLayout>

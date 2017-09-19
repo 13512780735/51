@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.likeit.a51scholarship">
+    package="com.likeit.as51scholarship">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -65,15 +65,15 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:resizeable="true"
-        android:smallScreens="true" />
+        <supports-screens
+            android:anyDensity="true"
+            android:largeScreens="true"
+            android:normalScreens="true"
+            android:resizeable="true"
+            android:smallScreens="true" />
 
     <application
-        android:name=".app.MyApplication"
+        android:name="com.likeit.as51scholarship.app.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
@@ -85,7 +85,7 @@
 
 
         <!-- 开机自启动服务 -->
-        <receiver android:name=".chat.message.receiver.StartServiceReceiver">
+        <receiver android:name="com.likeit.as51scholarship.chat.message.receiver.StartServiceReceiver">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
@@ -111,7 +111,7 @@
             android:exported="false" />
 
         <receiver
-            android:name=".chat.message.receiver.GCMPushBroadCast"
+            android:name="com.likeit.as51scholarship.chat.message.receiver.GCMPushBroadCast"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.hyphenate.sdk.push" />
@@ -285,7 +285,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.likeit.as51scholarship.wxapi.WXEntryActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
@@ -295,23 +295,23 @@
 
         <!-- ShareSDK 结束 -->
         <activity
-            android:name=".activitys.MainActivity"
+            android:name="com.likeit.as51scholarship.activitys.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.login.ForgetPasswdActivity"
+            android:name="com.likeit.as51scholarship.activitys.login.ForgetPasswdActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.login.RegisterActivity"
+            android:name="com.likeit.as51scholarship.activitys.login.RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.Container"
+            android:name="com.likeit.as51scholarship.activitys.Container"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.login.SplashActivity"
+            android:name="com.likeit.as51scholarship.activitys.login.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar">
             <intent-filter>
@@ -321,22 +321,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activitys.login.LoginActivity"
+            android:name="com.likeit.as51scholarship.activitys.login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activitys.login.GuideActivity"
+            android:name="com.likeit.as51scholarship.activitys.login.GuideActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name=".activitys.login.BaseActivity"
+            android:name="com.likeit.as51scholarship.activitys.login.BaseActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.login.UploadImgActivity"
+            android:name="com.likeit.as51scholarship.activitys.login.UploadImgActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.login.PerfectFirstActivity"
+            android:name="com.likeit.as51scholarship.activitys.login.PerfectFirstActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
@@ -349,179 +349,179 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".activitys.my_center.UserInfoActivity"
+            android:name="com.likeit.as51scholarship.activitys.my_center.UserInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.my_center.InviteFriendsActivity"
+            android:name="com.likeit.as51scholarship.activitys.my_center.InviteFriendsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.my_center.CollectActivity"
+            android:name="com.likeit.as51scholarship.activitys.my_center.CollectActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.my_center.SpentActivity"
+            android:name="com.likeit.as51scholarship.activitys.my_center.SpentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.my_center.DianActivity"
+            android:name="com.likeit.as51scholarship.activitys.my_center.DianActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.my_center.NearSeeActivity"
+            android:name="com.likeit.as51scholarship.activitys.my_center.NearSeeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.my_center.OpenActivity"
+            android:name="com.likeit.as51scholarship.activitys.my_center.OpenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.my_center.AboutActivity"
+            android:name="com.likeit.as51scholarship.activitys.my_center.AboutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.my_center.SetActivity"
+            android:name="com.likeit.as51scholarship.activitys.my_center.SetActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.my_center.FeeBackActivity"
+            android:name="com.likeit.as51scholarship.activitys.my_center.FeeBackActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.SearchInfoActivity"
+            android:name="com.likeit.as51scholarship.activitys.SearchInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.MessageActivity"
+            android:name="com.likeit.as51scholarship.activitys.MessageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.SearchSchoolActivity"
+            android:name="com.likeit.as51scholarship.activitys.SearchSchoolActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.NewsListActivity"
+            android:name="com.likeit.as51scholarship.activitys.NewsListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.SchoolDetailActivity"
+            android:name="com.likeit.as51scholarship.activitys.SchoolDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.WebActivity"
+            android:name="com.likeit.as51scholarship.activitys.WebActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.WebForNewsActivity"
+            android:name="com.likeit.as51scholarship.activitys.WebForNewsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.WebHtmlActivity"
+            android:name="com.likeit.as51scholarship.activitys.WebHtmlActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.SendNewsActivity"
+            android:name="com.likeit.as51scholarship.activitys.SendNewsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.SchoolCommentActivity"
+            android:name="com.likeit.as51scholarship.activitys.SchoolCommentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.my_center.EditorCenterActivity"
+            android:name="com.likeit.as51scholarship.activitys.my_center.EditorCenterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.newsfragment.NewsDetailsActivity"
+            android:name="com.likeit.as51scholarship.activitys.newsfragment.NewsDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.LiveListActivity"
+            android:name="com.likeit.as51scholarship.activitys.LiveListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.CourseListActivity"
+            android:name="com.likeit.as51scholarship.activitys.CourseListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.AnswersActivity"
+            android:name="com.likeit.as51scholarship.activitys.AnswersActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.AskActivity"
+            android:name="com.likeit.as51scholarship.activitys.AskActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.answersfragment.AnswersUserDetailsActivity"
+            android:name="com.likeit.as51scholarship.activitys.answersfragment.AnswersUserDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.CourseDetailsActivity"
+            android:name="com.likeit.as51scholarship.activitys.CourseDetailsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.CircleDetailsActivity"
+            android:name="com.likeit.as51scholarship.activitys.CircleDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.livefragment.LiveDetailsActivity"
+            android:name="com.likeit.as51scholarship.activitys.livefragment.LiveDetailsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".activitys.livefragment.LiveDetails01Activity"
+            android:name="com.likeit.as51scholarship.activitys.livefragment.LiveDetails01Activity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".dateutils.DateSelectActivity"
+            android:name="com.likeit.as51scholarship.dateutils.DateSelectActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".chat.message.ui.VideoCallActivity"
+            android:name="com.likeit.as51scholarship.chat.message.ui.VideoCallActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
         <activity
-            android:name=".chat.message.ui.VoiceCallActivity"
+            android:name="com.likeit.as51scholarship.chat.message.ui.VoiceCallActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/nornal_style" />
         <activity
-            android:name=".chat.message.ui.ChatActivity"
+            android:name="com.likeit.as51scholarship.chat.message.ui.ChatActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".chat.message.ui.GroupsActivity"
+            android:name="com.likeit.as51scholarship.chat.message.ui.GroupsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".chat.message.ui.NewGroupActivity"
+            android:name="com.likeit.as51scholarship.chat.message.ui.NewGroupActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".chat.message.ui.PublicGroupsActivity"
+            android:name="com.likeit.as51scholarship.chat.message.ui.PublicGroupsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
-        <activity android:name=".chat.message.ui.GroupPickContactsActivity" />
-        <activity android:name=".chat.message.ui.GroupSimpleDetailActivity" />
-        <activity android:name=".chat.message.ui.PublicGroupsSeachActivity" />
-        <activity android:name=".chat.message.ui.PickAtUserActivity" />
-        <activity android:name=".chat.message.ui.ContextMenuActivity" />
-        <activity android:name=".chat.message.ui.ForwardMessageActivity" />
-        <activity android:name=".chat.message.ui.GroupDetailsActivity" />
-        <activity android:name=".chat.message.ui.ChatRoomDetailsActivity" />
-        <activity android:name=".chat.message.ui.ImageGridActivity" />
-        <activity android:name=".chat.message.ui.UserProfileActivity" />
-        <activity android:name=".chat.message.ui.CallActivity" />
-        <activity android:name=".chat.message.ui.FriendActivity" />
-        <activity android:name=".chat.message.ui.AddContactActivity" />
-        <activity android:name=".chat.message.ui.NewFriendsMsgActivity" />
-        <activity android:name=".activitys.SchoolApplyActivity" />
-        <activity android:name=".activitys.SchoolFilterActivity" />
-        <activity android:name=".activitys.CircleDetails01Activity" />
-        <activity android:name=".activitys.login.ChangePWDActivity" />
-        <activity android:name=".activitys.my_center.RealNameActivity"></activity>
+        <activity android:name="com.likeit.as51scholarship.chat.message.ui.GroupPickContactsActivity" />
+        <activity android:name="com.likeit.as51scholarship.chat.message.ui.GroupSimpleDetailActivity" />
+        <activity android:name="com.likeit.as51scholarship.chat.message.ui.PublicGroupsSeachActivity" />
+        <activity android:name="com.likeit.as51scholarship.chat.message.ui.PickAtUserActivity" />
+        <activity android:name="com.likeit.as51scholarship.chat.message.ui.ContextMenuActivity" />
+        <activity android:name="com.likeit.as51scholarship.chat.message.ui.ForwardMessageActivity" />
+        <activity android:name="com.likeit.as51scholarship.chat.message.ui.GroupDetailsActivity" />
+        <activity android:name="com.likeit.as51scholarship.chat.message.ui.ChatRoomDetailsActivity" />
+        <activity android:name="com.likeit.as51scholarship.chat.message.ui.ImageGridActivity" />
+        <activity android:name="com.likeit.as51scholarship.chat.message.ui.UserProfileActivity" />
+        <activity android:name="com.likeit.as51scholarship.chat.message.ui.CallActivity" />
+        <activity android:name="com.likeit.as51scholarship.chat.message.ui.FriendActivity" />
+        <activity android:name="com.likeit.as51scholarship.chat.message.ui.AddContactActivity" />
+        <activity android:name="com.likeit.as51scholarship.chat.message.ui.NewFriendsMsgActivity" />
+        <activity android:name="com.likeit.as51scholarship.activitys.SchoolApplyActivity" />
+        <activity android:name="com.likeit.as51scholarship.activitys.SchoolFilterActivity" />
+        <activity android:name="com.likeit.as51scholarship.activitys.CircleDetails01Activity" />
+        <activity android:name="com.likeit.as51scholarship.activitys.login.ChangePWDActivity" />
+        <activity android:name="com.likeit.as51scholarship.activitys.my_center.RealNameActivity"></activity>
     </application>
 
 </manifest>

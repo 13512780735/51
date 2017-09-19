@@ -7,7 +7,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context="com.likeit.a51scholarship.activitys.CircleDetailsActivity">
+    tools:context="com.likeit.as51scholarship.activitys.CircleDetailsActivity">
 
     <include layout="@layout/layout_header_with_back"></include>
 
@@ -28,7 +28,7 @@
                 android:layout_height="180dip"
                 android:orientation="vertical">
 
-                <com.likeit.a51scholarship.view.CircleImageView
+                <com.likeit.as51scholarship.view.CircleImageView
                     android:id="@+id/circle_details_avatar"
                     android:layout_width="60dip"
                     android:layout_height="60dip"
@@ -230,12 +230,12 @@
                         android:textSize="14sp" />
                 </RadioGroup>
 
-                <com.likeit.a51scholarship.view.NoScrollViewPager02
+                <com.likeit.as51scholarship.view.NoScrollViewPager02
                     android:id="@+id/circle_details_viewpager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white" />
-            <!--    <com.likeit.a51scholarship.view.CustomViewpager
+            <!--    <as51scholarshipp.view.CustomViewpager
                     android:id="@+id/circle_details_viewpager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

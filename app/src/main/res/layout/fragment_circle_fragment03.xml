@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.likeit.a51scholarship.activitys.circlefragment.CircleFragment02">
+    tools:context="com.likeit.as51scholarship.activitys.circlefragment.CircleFragment02">
 
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
@@ -15,12 +15,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.likeit.a51scholarship.view.MyListview
+            <com.likeit.as51scholarship.view.MyListview
                 android:id="@+id/circle_member_listview03"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="@color/line_color"
-                android:dividerHeight="1dip"></com.likeit.a51scholarship.view.MyListview>
+                android:dividerHeight="1dip"></com.likeit.as51scholarship.view.MyListview>
         </LinearLayout>
     </ScrollView>
 

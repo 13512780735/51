@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="20dip"
     android:orientation="vertical"
-    tools:context="com.likeit.a51scholarship.activitys.newsfragment.NewsDetailsActivity">
+    tools:context="com.likeit.as51scholarship.activitys.newsfragment.NewsDetailsActivity">
 
     <include layout="@layout/layout_header_with_back_img"></include>
 
@@ -67,7 +67,7 @@
                 android:layout_height="1dip"
                 android:layout_margin="10dip"
                 android:background="@color/line_color"></View>
-            <com.likeit.a51scholarship.utils.richtext.RichText
+            <com.likeit.as51scholarship.utils.richtext.RichText
                 android:id="@+id/new_details_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,10 +75,10 @@
                 android:layout_margin="10dip"
                 />
 
-            <com.likeit.a51scholarship.view.MyListview
+            <com.likeit.as51scholarship.view.MyListview
                 android:id="@+id/new_details_lisView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.likeit.a51scholarship.view.MyListview>
+                android:layout_height="wrap_content"></com.likeit.as51scholarship.view.MyListview>
         </LinearLayout>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.likeit.a51scholarship.dateutils.DateSelectActivity">
+    tools:context="com.likeit.as51scholarship.dateutils.DateSelectActivity">
 
     <cn.aigestudio.datepicker.views.DatePicker
         android:theme="@android:style/Theme.Holo.Light.NoActionBar"

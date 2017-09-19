@@ -24,8 +24,8 @@ import android.widget.TextView;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.onekeyshare.CustomerLogo;
 
-import com.likeit.a51scholarship.R;
-import com.likeit.a51scholarship.utils.ScreenUtils;
+import com.likeit.as51scholarship.R;
+import com.likeit.as51scholarship.utils.ScreenUtils;
 import com.mob.tools.gui.ViewPagerAdapter;
 import com.mob.tools.utils.ResHelper;
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#252C39"
     android:animateLayoutChanges="true"
-    tools:context="com.likeit.a51scholarship.chat.message.ui.VideoCallActivity">
+    tools:context="com.likeit.as51scholarship.chat.message.ui.VideoCallActivity">
 
     <RelativeLayout
         android:id="@+id/layout_surface_container"
@@ -53,7 +53,7 @@
                 android:textSize="22sp"
                 android:visibility="visible" />
 
-            <com.likeit.a51scholarship.chat.message.widget.MyChronometer
+            <com.likeit.as51scholarship.chat.message.widget.MyChronometer
                 android:id="@+id/chronometer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

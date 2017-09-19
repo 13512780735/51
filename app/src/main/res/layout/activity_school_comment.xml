@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.likeit.a51scholarship.activitys.SchoolCommentActivity">
+    tools:context="com.likeit.as51scholarship.activitys.SchoolCommentActivity">
 
     <include layout="@layout/layout_header_with_back"></include>
     <EditText

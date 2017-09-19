@@ -969,7 +969,7 @@
             </LinearLayout>
 
 
-            <com.likeit.a51scholarship.imageutil.custom.CustomScrollGridView
+            <com.likeit.as51scholarship.imageutil.custom.CustomScrollGridView
                 android:id="@+id/gv_all_photo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -979,7 +979,7 @@
                 android:numColumns="4"
                 android:layout_margin="10dip"
                 android:scrollbars="none"
-                android:verticalSpacing="5dp"></com.likeit.a51scholarship.imageutil.custom.CustomScrollGridView>
+                android:verticalSpacing="5dp"></com.likeit.as51scholarship.imageutil.custom.CustomScrollGridView>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"

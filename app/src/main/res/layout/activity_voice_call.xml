@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    tools:context="com.likeit.a51scholarship.chat.message.ui.VoiceCallActivity">
+    tools:context="com.likeit.as51scholarship.chat.message.ui.VoiceCallActivity">
 
     <LinearLayout
         android:id="@+id/topLayout"
@@ -29,7 +29,7 @@
             android:textSize="22sp"
             android:visibility="visible" />
 
-        <com.likeit.a51scholarship.chat.message.widget.MyChronometer
+        <com.likeit.as51scholarship.chat.message.widget.MyChronometer
             android:id="@+id/chronometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

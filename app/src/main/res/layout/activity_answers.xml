@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.likeit.a51scholarship.activitys.AnswersActivity">
+    tools:context="com.likeit.as51scholarship.activitys.AnswersActivity">
 
     <RelativeLayout
         android:id="@+id/rl_header"
@@ -91,11 +91,11 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <com.likeit.a51scholarship.view.NoScrollViewPager
+    <com.likeit.as51scholarship.view.NoScrollViewPager
         android:id="@+id/answers_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/defualt_window_background"
-        android:layout_weight="1"></com.likeit.a51scholarship.view.NoScrollViewPager>
+        android:layout_weight="1"></com.likeit.as51scholarship.view.NoScrollViewPager>
 
 </LinearLayout>

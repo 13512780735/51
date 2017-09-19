@@ -69,7 +69,7 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <com.likeit.a51scholarship.view.CircleImageView
+        <com.likeit.as51scholarship.view.CircleImageView
             android:id="@+id/school_img_iv"
             android:layout_width="80dip"
             android:layout_height="80dip"

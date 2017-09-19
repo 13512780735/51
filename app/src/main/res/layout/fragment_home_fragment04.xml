@@ -8,21 +8,21 @@
     <!-- TODO: Update blank fragment layout -->
     <include layout="@layout/layout_header_with_back_img_switchbtn"></include>
 
-        <com.likeit.a51scholarship.view.NoScrollViewPager
+        <com.likeit.as51scholarship.view.NoScrollViewPager
             android:id="@+id/message_viewpager"
             android:layout_width="match_parent"
             android:layout_marginTop="50dip"
             android:layout_height="match_parent"
             android:divider="@color/smssdk_white"
             android:background="@color/defualt_window_background"
-            android:layout_weight="1"></com.likeit.a51scholarship.view.NoScrollViewPager>
-   <!--     <com.likeit.a51scholarship.view.MyListview
+            android:layout_weight="1"></com.likeit.as51scholarship.view.NoScrollViewPager>
+   <!--     <as51scholarshipp.view.MyListview
             android:id="@+id/ll_message_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
 
-        </com.likeit.a51scholarship.view.MyListview>-->
+        </as51scholarshipp.view.MyListview>-->
 
 
     <RelativeLayout

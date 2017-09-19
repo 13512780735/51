@@ -15,7 +15,7 @@
         android:paddingStart="10dip"
         android:text="XXXXX" />
 
-    <com.likeit.a51scholarship.view.GridViewForScrollView
+    <com.likeit.as51scholarship.view.GridViewForScrollView
         android:id="@+id/school_filter_items_GridView"
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -25,7 +25,7 @@
         android:paddingEnd="10dip"
         android:paddingStart="10dip"
         android:paddingBottom="10dip"
-        android:verticalSpacing="10dip"></com.likeit.a51scholarship.view.GridViewForScrollView>
+        android:verticalSpacing="10dip"></com.likeit.as51scholarship.view.GridViewForScrollView>
 
 
 </LinearLayout>

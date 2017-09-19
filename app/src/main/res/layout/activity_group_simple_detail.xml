@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#eee"
     android:orientation="vertical"
-    tools:context="com.likeit.a51scholarship.chat.message.ui.GroupSimpleDetailActivity">
+    tools:context="com.likeit.as51scholarship.chat.message.ui.GroupSimpleDetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

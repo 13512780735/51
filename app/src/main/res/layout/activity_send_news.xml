@@ -47,7 +47,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:background="@color/line_color" />
-    <com.likeit.a51scholarship.imageutil.custom.CustomScrollGridView
+    <com.likeit.as51scholarship.imageutil.custom.CustomScrollGridView
         android:id="@+id/gv_all_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
         android:listSelector='#00000000'
         android:numColumns="4"
         android:scrollbars="none"
-        android:verticalSpacing="5dp"></com.likeit.a51scholarship.imageutil.custom.CustomScrollGridView>
+        android:verticalSpacing="5dp"></com.likeit.as51scholarship.imageutil.custom.CustomScrollGridView>
 
     <HorizontalScrollView
         android:layout_width="match_parent"
@@ -118,13 +118,13 @@
         android:textColor="@color/color_999"
         android:textSize="12sp" />
 
-    <com.likeit.a51scholarship.view.GridViewForScrollView
+    <com.likeit.as51scholarship.view.GridViewForScrollView
         android:id="@+id/addnews_gridview"
         android:layout_width="match_parent"
         android:verticalSpacing="10dip"
         android:numColumns="4"
         android:horizontalSpacing="10dip"
-        android:layout_height="wrap_content"></com.likeit.a51scholarship.view.GridViewForScrollView>
+        android:layout_height="wrap_content"></com.likeit.as51scholarship.view.GridViewForScrollView>
 
 
 </LinearLayout>

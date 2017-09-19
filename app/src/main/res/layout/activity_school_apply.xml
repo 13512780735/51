@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.likeit.a51scholarship.activitys.SchoolApplyActivity"
+    tools:context="com.likeit.as51scholarship.activitys.SchoolApplyActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_b"
@@ -934,7 +934,7 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <com.likeit.a51scholarship.imageutil.custom.CustomScrollGridView
+            <com.likeit.as51scholarship.imageutil.custom.CustomScrollGridView
                 android:id="@+id/gv_all_photo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -944,7 +944,7 @@
                 android:numColumns="4"
                 android:layout_margin="10dip"
                 android:scrollbars="none"
-                android:verticalSpacing="5dp"></com.likeit.a51scholarship.imageutil.custom.CustomScrollGridView>
+                android:verticalSpacing="5dp"></com.likeit.as51scholarship.imageutil.custom.CustomScrollGridView>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"

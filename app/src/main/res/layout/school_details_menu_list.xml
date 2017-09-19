@@ -19,11 +19,11 @@
         android:layout_height="1dip"
         android:background="@color/background_b"></View>
 
-    <com.likeit.a51scholarship.view.MyListview
+    <com.likeit.as51scholarship.view.MyListview
         android:id="@+id/pop_listview"
         android:layout_width="match_parent"
         android:divider="@color/white"
-        android:layout_height="match_parent"></com.likeit.a51scholarship.view.MyListview>
+        android:layout_height="match_parent"></com.likeit.as51scholarship.view.MyListview>
 
     <!--  <RadioGroup
           android:id="@+id/school_details_list_container"

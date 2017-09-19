@@ -16,11 +16,11 @@
         android:layout_height="match_parent"
         android:divider="@color/smssdk_white">
 
-        <com.likeit.a51scholarship.view.MyGridView
+        <com.likeit.as51scholarship.view.MyGridView
             android:id="@+id/ll_tools_gridview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:verticalSpacing="30dip"
-            android:numColumns="3"></com.likeit.a51scholarship.view.MyGridView>
+            android:numColumns="3"></com.likeit.as51scholarship.view.MyGridView>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 </LinearLayout>

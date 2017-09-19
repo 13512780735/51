@@ -13,7 +13,7 @@
         android:paddingTop="10dip"
         android:orientation="horizontal">
 
-        <com.likeit.a51scholarship.view.CircleImageView
+        <com.likeit.as51scholarship.view.CircleImageView
             android:id="@+id/school_comment_avatar"
             android:layout_width="40dip"
             android:layout_height="40dip"

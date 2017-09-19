@@ -7,7 +7,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context="com.likeit.a51scholarship.activitys.CircleDetails01Activity">
+    tools:context="com.likeit.as51scholarship.activitys.CircleDetails01Activity">
 
     <include layout="@layout/layout_header_with_back"></include>
 
@@ -28,7 +28,7 @@
                 android:layout_height="180dip"
                 android:orientation="vertical">
 
-                <com.likeit.a51scholarship.view.CircleImageView
+                <com.likeit.as51scholarship.view.CircleImageView
                     android:id="@+id/circle_details_avatar"
                     android:layout_width="60dip"
                     android:layout_height="60dip"
@@ -234,7 +234,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dip"
                 android:background="@color/line_color"></View>
-            <com.likeit.a51scholarship.view.MyListview
+            <com.likeit.as51scholarship.view.MyListview
                 android:id="@+id/listView01"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -245,9 +245,9 @@
                 android:dividerHeight="5dip"
                 android:focusable="false"
 
-                ></com.likeit.a51scholarship.view.MyListview>
+                ></com.likeit.as51scholarship.view.MyListview>
 
-            <com.likeit.a51scholarship.view.MyListview
+            <com.likeit.as51scholarship.view.MyListview
                 android:id="@+id/listView02"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -255,9 +255,9 @@
                 android:divider="@color/line_color"
                 android:dividerHeight="2dip"
                 android:focusable="false"
-                android:visibility="gone"></com.likeit.a51scholarship.view.MyListview>
+                android:visibility="gone"></com.likeit.as51scholarship.view.MyListview>
 
-            <com.likeit.a51scholarship.view.MyListview
+            <com.likeit.as51scholarship.view.MyListview
                 android:id="@+id/listView03"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -265,7 +265,7 @@
                 android:divider="@color/line_color"
                 android:dividerHeight="2dip"
                 android:focusable="false"
-                android:visibility="gone"></com.likeit.a51scholarship.view.MyListview>
+                android:visibility="gone"></com.likeit.as51scholarship.view.MyListview>
             <TextView
                 android:id="@+id/nodata"
                 android:layout_width="match_parent"
