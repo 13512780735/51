@@ -2,26 +2,30 @@ package com.likeit.as51scholarship.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ScrollView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.as51scholarship.R;
+import com.likeit.as51scholarship.adapters.CourseListAdapter;
+import com.likeit.as51scholarship.configs.AppConfig;
+import com.likeit.as51scholarship.http.HttpUtil;
+import com.likeit.as51scholarship.model.CourseListBean;
 import com.likeit.as51scholarship.utils.ListScrollUtil;
 import com.likeit.as51scholarship.view.MyListview;
 import com.likeit.as51scholarship.view.expandtabview.ExpandTabView;
 import com.likeit.as51scholarship.view.expandtabview.ViewLeft;
 import com.likeit.as51scholarship.view.expandtabview.ViewMiddle;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,26 +40,67 @@ public class CourseListActivity extends Container implements
     MyListview mListview;
     @BindView(R.id.expandtab_view)
     ExpandTabView expandTabView;
-    private SimpleAdapter simpleAdapter;
-    private List<Map<String, Object>> dataList;
     private ArrayList<View> mViewArray = new ArrayList<View>();
     private ViewMiddle viewMiddle;
-    // 图片封装为一个数组
-    private int[] icon = {R.mipmap.course_test_bg, R.mipmap.course_test_bg,
-            R.mipmap.course_test_bg, R.mipmap.course_test_bg, R.mipmap.course_test_bg};
-    private String[] iconName = {"托福名师讲解，高效提分", "托福名师讲解，高效提分",
-            "托福名师讲解，高效提分", "托福名师讲解，高效提分", "托福名师讲解，高效提分"};
-    private String[] iconTime = {"5课时，177分钟", "5课时，177分钟", "5课时，177分钟", "5课时，177分钟", "5课时，177分钟"};
     private ViewLeft viewLeft;
+    private ArrayList<CourseListBean> courseData;
+    private CourseListAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
         ButterKnife.bind(this);
+        courseData = new ArrayList<CourseListBean>();
+        initData();
+        showProgress("Loading...");
         initView();
-        initVaule();
-        initListener();
+        //  initVaule();
+        // initListener();
+    }
+
+    private void initData() {
+        String url = AppConfig.LIKEIT_COURSE_GETLIST;
+        RequestParams parmas = new RequestParams();
+        parmas.put("ukey", ukey);
+        HttpUtil.post(url, parmas, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                disShowProgress();
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    String code = obj.optString("code");
+                    String message = obj.optString("message");
+                    if ("1".equals(code)) {
+                        JSONArray array = obj.optJSONArray("data");
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject object = array.optJSONObject(i);
+                            CourseListBean mCourseListBean = new CourseListBean();
+                            mCourseListBean.setId(object.optString("id"));
+                            mCourseListBean.setTitle(object.optString("title"));
+                            mCourseListBean.setDuration(object.optString("duration"));
+                            mCourseListBean.setCover(object.optString("cover"));
+                            mCourseListBean.setIsfree(object.optString("isfree"));
+                            mCourseListBean.setView(object.optString("view"));
+                            mCourseListBean.setAmount(object.optString("amount"));
+                            mCourseListBean.setCreate_time(object.optString("create_time"));
+                            mCourseListBean.setVideo_url(object.optString("video_url"));
+                            mCourseListBean.setVideo_url(object.optString("video_url"));
+                            mCourseListBean.setContent(object.optString("content"));
+                            courseData.add(mCourseListBean);
+                        }
+                        mAdapter.notifyDataSetChanged();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Throwable e) {
+
+            }
+        });
     }
 
     private void initListener() {
@@ -64,24 +109,26 @@ public class CourseListActivity extends Container implements
             @Override
             public void getValue(String showText) {
 
-                onRefresh(viewMiddle,showText);
+                onRefresh(viewMiddle, showText);
 
             }
         });
 
     }
 
-    private void initVaule() {
-     mViewArray.add(viewMiddle);
-       // mViewArray.add(viewLeft);
-        ArrayList<String> mTextArray = new ArrayList<String>();
-        mTextArray.add("全部类别");
-        expandTabView.setValue(mTextArray, mViewArray);
-    }
-    String videoUrl = "http://bvideo.spriteapp.cn/video/2016/0704/577a4c29e1f14_wpd.mp4";
+    //    private void initVaule() {
+//     mViewArray.add(viewMiddle);
+//       // mViewArray.add(viewLeft);
+//        ArrayList<String> mTextArray = new ArrayList<String>();
+//        mTextArray.add("全部类别");
+//        expandTabView.setValue(mTextArray, mViewArray);
+//    }
     private void initView() {
-        viewMiddle = new ViewMiddle(this);
-        viewLeft = new ViewLeft(this);
+        mAdapter = new CourseListAdapter(mContext, courseData);
+        mListview.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+//        viewMiddle = new ViewMiddle(this);
+//        viewLeft = new ViewLeft(this);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setOnRefreshListener(this);
         mPullToRefreshScrollView.getLoadingLayoutProxy().setLastUpdatedLabel(
@@ -92,38 +139,21 @@ public class CourseListActivity extends Container implements
 //                      "refreshingLabel");
         mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
                 "松开即可刷新");
-        /**
-         * 消息
-         */
-        dataList = new ArrayList<Map<String, Object>>();
-        getData();
-        String[] from = {"img", "name", "readTime"};
-        int[] to = {R.id.course_listview_avatar, R.id.course_listview_name, R.id.course_listview_time};
-        simpleAdapter = new SimpleAdapter(mContext, dataList, R.layout.course_listview_items, from, to);
-        //配置适配器
-        mListview.setAdapter(simpleAdapter);
-        ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intentNewDetails = new Intent(mContext, CourseDetailsActivity.class);
-                startActivity(intentNewDetails);
-               // openVideo(videoUrl);
+                String video_url = courseData.get(position).getVideo_url();
+                String content = courseData.get(position).getContent();
+                String mId = courseData.get(position).getId();
+                Intent intent = new Intent(mContext, CourseDetailsActivity.class);
+                intent.putExtra("video_url", video_url);
+                intent.putExtra("content", content);
+                intent.putExtra("mId", mId);
+                startActivity(intent);
             }
         });
     }
 
-    private List<Map<String, Object>> getData() {
-        for (int i = 0; i < icon.length; i++) {
-            Log.d("TAG", "" + icon.length);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("img", icon[i]);
-            map.put("name", iconName[i]);
-            map.put("readTime", iconTime[i]);
-            dataList.add(map);
-        }
-        return dataList;
-    }
 
     @OnClick({R.id.top_bar_back_img, R.id.top_bar_right_img})
     public void onClick(View view) {
@@ -132,7 +162,9 @@ public class CourseListActivity extends Container implements
                 onBackPressed();
                 break;
             case R.id.top_bar_right_img:
-                toActivity(SearchInfoActivity.class);
+                Intent intentSearchInfo = new Intent(this, SearchInfoActivity.class);
+                intentSearchInfo.putExtra("key", "4");
+                startActivity(intentSearchInfo);
                 break;
         }
 
@@ -149,6 +181,7 @@ public class CourseListActivity extends Container implements
         ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
         mPullToRefreshScrollView.onRefreshComplete();
     }
+
     private void onRefresh(View view, String showText) {
 
         expandTabView.onPressBack();

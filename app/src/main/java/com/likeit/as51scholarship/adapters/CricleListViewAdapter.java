@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.likeit.as51scholarship.R;
 import com.likeit.as51scholarship.model.circle_model.GroupListModel;
 import com.likeit.as51scholarship.utils.StringUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -53,8 +54,8 @@ public class CricleListViewAdapter extends MyBaseAdapter<GroupListModel> {
         if(StringUtil.isBlank(imgUrl)){
             holder.ivAvatar.setImageResource(R.mipmap.icon_01_3x);
         }else{
-           // ImageLoader.getInstance().displayImage(imgUrl, holder.ivAvatar);
-            holder.ivAvatar.setImageResource(R.mipmap.icon_01_3x);
+            ImageLoader.getInstance().displayImage(imgUrl, holder.ivAvatar);
+           // holder.ivAvatar.setImageResource(R.mipmap.icon_01_3x);
         }
         holder.tvSchoolName.setText(data.getTitle());
         holder.tvSchoolNumber.setText("成员："+data.getMember_num());

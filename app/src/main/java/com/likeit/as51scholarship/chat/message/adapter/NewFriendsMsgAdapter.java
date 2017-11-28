@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -19,17 +20,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.domain.EaseUser;
 import com.likeit.as51scholarship.R;
 import com.likeit.as51scholarship.chat.message.db.InviteMessgeDao;
 import com.likeit.as51scholarship.chat.message.model.InviteMessage;
 import com.likeit.as51scholarship.chat.message.model.InviteMessage.InviteMessageStatus;
+import com.likeit.as51scholarship.chat.message.utils.UserApiModel;
+import com.likeit.as51scholarship.chat.message.utils.UserInfoCacheSvc;
+import com.likeit.as51scholarship.event.MessageEvent;
+import com.likeit.as51scholarship.view.CircleImageView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.Collections;
 import java.util.List;
 
 public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 
     private Context context;
     private InviteMessgeDao messgeDao;
+    List<InviteMessage> msgs1;
+    private EaseUser user = null;
+    ;
 
     public NewFriendsMsgAdapter(Context context, int textViewResourceId, List<InviteMessage> objects) {
         super(context, textViewResourceId, objects);
@@ -43,7 +56,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = View.inflate(context, R.layout.em_row_invite_msg, null);
-            holder.avator = (ImageView) convertView.findViewById(R.id.avatar);
+            holder.avator = (CircleImageView) convertView.findViewById(R.id.avatar);
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.message = (TextView) convertView.findViewById(R.id.message);
             holder.agreeBtn = (Button) convertView.findViewById(R.id.agree);
@@ -56,12 +69,20 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 
         final InviteMessage msg = getItem(position);
         if (msg != null) {
+            String username = msg.getFrom();
+            UserApiModel userInfo = UserInfoCacheSvc.getByChatUserName(username);
+            if (userInfo != null) {
+                user = new EaseUser(username);
+                user.setAvatar(userInfo.getHeadImg());
+                user.setNick(userInfo.getUsername());
+
+            }
             holder.agreeBtn.setVisibility(View.GONE);
             holder.refuseBtn.setVisibility(View.GONE);
-
-
-            holder.message.setText(msg.getReason());
-            holder.name.setText(msg.getFrom());
+            holder.message.setText("请求加你为好友");
+            holder.name.setText(userInfo.getUsername());
+            Log.d("TAG323",user.getNickname());
+            ImageLoader.getInstance().displayImage(userInfo.getHeadImg(), holder.avator);
             // holder.time.setText(DateUtils.getTimestampString(new
             // Date(msg.getTime())));
             if (msg.getStatus() == InviteMessageStatus.BEAGREED) {
@@ -72,12 +93,12 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                     msg.getStatus() == InviteMessageStatus.GROUPINVITATION) {
                 holder.agreeBtn.setVisibility(View.VISIBLE);
                 holder.refuseBtn.setVisibility(View.VISIBLE);
-                if(msg.getStatus() == InviteMessageStatus.BEINVITEED){
+                if (msg.getStatus() == InviteMessageStatus.BEINVITEED) {
                     if (msg.getReason() == null) {
                         // use default text
                         holder.message.setText(context.getResources().getString(R.string.Request_to_add_you_as_a_friend));
                     }
-                }else if (msg.getStatus() == InviteMessageStatus.BEAPPLYED) { //application to join group
+                } else if (msg.getStatus() == InviteMessageStatus.BEAPPLYED) { //application to join group
                     if (TextUtils.isEmpty(msg.getReason())) {
                         holder.message.setText(context.getResources().getString(R.string.Apply_to_the_group_of) + msg.getGroupName());
                     }
@@ -93,6 +114,13 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                     public void onClick(View v) {
                         // accept invitation
                         acceptInvitation(holder.agreeBtn, holder.refuseBtn, msg);
+                        messgeDao.deleteMessage(msg.getFrom());
+                        messgeDao.getMessagesList().clear();
+                        messgeDao.saveUnreadMessageCount(0);
+                        msgs1 = messgeDao.getMessagesList();
+                        Collections.reverse(msgs1);
+                        NewFriendsMsgAdapter.this.notifyDataSetChanged();
+                        EventBus.getDefault().post(new MessageEvent("1"));
                     }
                 });
                 holder.refuseBtn.setOnClickListener(new OnClickListener() {
@@ -100,6 +128,13 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                     public void onClick(View v) {
                         // decline invitation
                         refuseInvitation(holder.agreeBtn, holder.refuseBtn, msg);
+                        messgeDao.deleteMessage(msg.getFrom());
+                        messgeDao.getMessagesList().clear();
+                        messgeDao.saveUnreadMessageCount(0);
+                        msgs1 = messgeDao.getMessagesList();
+                        Collections.reverse(msgs1);
+                        NewFriendsMsgAdapter.this.notifyDataSetChanged();
+                        EventBus.getDefault().post(new MessageEvent("1"));
                     }
                 });
             } else {
@@ -263,8 +298,8 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                             buttonAgree.setText(str2);
                             buttonAgree.setBackgroundDrawable(null);
                             buttonAgree.setEnabled(false);
-
                             buttonRefuse.setVisibility(View.INVISIBLE);
+                            notifyDataSetChanged();
                         }
                     });
                 } catch (final Exception e) {
@@ -322,8 +357,8 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                             buttonRefuse.setText(str2);
                             buttonRefuse.setBackgroundDrawable(null);
                             buttonRefuse.setEnabled(false);
-
                             buttonAgree.setVisibility(View.INVISIBLE);
+                            notifyDataSetChanged();
                         }
                     });
                 } catch (final Exception e) {
@@ -342,7 +377,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
     }
 
     private static class ViewHolder {
-        ImageView avator;
+        CircleImageView avator;
         TextView name;
         TextView message;
         Button agreeBtn;

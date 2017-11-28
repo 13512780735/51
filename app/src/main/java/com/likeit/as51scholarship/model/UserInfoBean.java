@@ -8,14 +8,16 @@ import java.io.Serializable;
 
 public class UserInfoBean implements Serializable {
 
+
     /**
-     * nickname : 留学
-     * headimg :
+     * nickname : 啦啦
+     * headimg : http://liuxueapp.wbteam.cn//Uploads/Avatar/214/59cc639196e13.png
      * pos_province :
      * country :
-     * education : 本科
-     * school : 测试学校
-     * professional : 测试专业
+     * education_id : null
+     * education : null
+     * school : null
+     * professional : null
      * score_type : 0
      * score10 : 0
      * sex : 1
@@ -23,26 +25,29 @@ public class UserInfoBean implements Serializable {
      * want_country :
      * want_education :
      * want_time :
-     * score_GPA : 0
-     * score_TOEFL :
-     * score_IELTS :
-     * score_TOEIC :
-     * score_SAT :
-     * score_SSAT :
-     * score_GMAT :
-     * score_GRE :
-     * score_ACT :
-     * score_other :
-     * nickname_cn :
-     * nickname_en :
-     * mobile :
-     * isapprove : 1
+     * score_GPA : null
+     * score_TOEFL : null
+     * score_IELTS : null
+     * score_TOEIC : null
+     * score_SAT : null
+     * score_SSAT : null
+     * score_GMAT : null
+     * score_GRE : null
+     * score_ACT : null
+     * score_other : null
+     * nickname_cn : null
+     * nickname_en : null
+     * mobile : 13512780735
+     * country_id : 0
+     * easemob_id : 13512780735
+     * isapprove : 0
      */
 
     private String nickname;
     private String headimg;
     private String pos_province;
     private String country;
+    private String education_id;
     private String education;
     private String school;
     private String professional;
@@ -53,19 +58,21 @@ public class UserInfoBean implements Serializable {
     private String want_country;
     private String want_education;
     private String want_time;
-    private String score_GPA;
-    private String score_TOEFL;
-    private String score_IELTS;
-    private String score_TOEIC;
-    private String score_SAT;
-    private String score_SSAT;
-    private String score_GMAT;
-    private String score_GRE;
-    private String score_ACT;
-    private String score_other;
-    private String nickname_cn;
-    private String nickname_en;
+    private Object score_GPA;
+    private Object score_TOEFL;
+    private Object score_IELTS;
+    private Object score_TOEIC;
+    private Object score_SAT;
+    private Object score_SSAT;
+    private Object score_GMAT;
+    private Object score_GRE;
+    private Object score_ACT;
+    private Object score_other;
+    private Object nickname_cn;
+    private Object nickname_en;
     private String mobile;
+    private String country_id;
+    private String easemob_id;
     private String isapprove;
 
     public String getNickname() {
@@ -98,6 +105,14 @@ public class UserInfoBean implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getEducation_id() {
+        return education_id;
+    }
+
+    public void setEducation_id(String education_id) {
+        this.education_id = education_id;
     }
 
     public String getEducation() {
@@ -180,99 +195,99 @@ public class UserInfoBean implements Serializable {
         this.want_time = want_time;
     }
 
-    public String getScore_GPA() {
+    public Object getScore_GPA() {
         return score_GPA;
     }
 
-    public void setScore_GPA(String score_GPA) {
+    public void setScore_GPA(Object score_GPA) {
         this.score_GPA = score_GPA;
     }
 
-    public String getScore_TOEFL() {
+    public Object getScore_TOEFL() {
         return score_TOEFL;
     }
 
-    public void setScore_TOEFL(String score_TOEFL) {
+    public void setScore_TOEFL(Object score_TOEFL) {
         this.score_TOEFL = score_TOEFL;
     }
 
-    public String getScore_IELTS() {
+    public Object getScore_IELTS() {
         return score_IELTS;
     }
 
-    public void setScore_IELTS(String score_IELTS) {
+    public void setScore_IELTS(Object score_IELTS) {
         this.score_IELTS = score_IELTS;
     }
 
-    public String getScore_TOEIC() {
+    public Object getScore_TOEIC() {
         return score_TOEIC;
     }
 
-    public void setScore_TOEIC(String score_TOEIC) {
+    public void setScore_TOEIC(Object score_TOEIC) {
         this.score_TOEIC = score_TOEIC;
     }
 
-    public String getScore_SAT() {
+    public Object getScore_SAT() {
         return score_SAT;
     }
 
-    public void setScore_SAT(String score_SAT) {
+    public void setScore_SAT(Object score_SAT) {
         this.score_SAT = score_SAT;
     }
 
-    public String getScore_SSAT() {
+    public Object getScore_SSAT() {
         return score_SSAT;
     }
 
-    public void setScore_SSAT(String score_SSAT) {
+    public void setScore_SSAT(Object score_SSAT) {
         this.score_SSAT = score_SSAT;
     }
 
-    public String getScore_GMAT() {
+    public Object getScore_GMAT() {
         return score_GMAT;
     }
 
-    public void setScore_GMAT(String score_GMAT) {
+    public void setScore_GMAT(Object score_GMAT) {
         this.score_GMAT = score_GMAT;
     }
 
-    public String getScore_GRE() {
+    public Object getScore_GRE() {
         return score_GRE;
     }
 
-    public void setScore_GRE(String score_GRE) {
+    public void setScore_GRE(Object score_GRE) {
         this.score_GRE = score_GRE;
     }
 
-    public String getScore_ACT() {
+    public Object getScore_ACT() {
         return score_ACT;
     }
 
-    public void setScore_ACT(String score_ACT) {
+    public void setScore_ACT(Object score_ACT) {
         this.score_ACT = score_ACT;
     }
 
-    public String getScore_other() {
+    public Object getScore_other() {
         return score_other;
     }
 
-    public void setScore_other(String score_other) {
+    public void setScore_other(Object score_other) {
         this.score_other = score_other;
     }
 
-    public String getNickname_cn() {
+    public Object getNickname_cn() {
         return nickname_cn;
     }
 
-    public void setNickname_cn(String nickname_cn) {
+    public void setNickname_cn(Object nickname_cn) {
         this.nickname_cn = nickname_cn;
     }
 
-    public String getNickname_en() {
+    public Object getNickname_en() {
         return nickname_en;
     }
 
-    public void setNickname_en(String nickname_en) {
+    public void setNickname_en(Object nickname_en) {
         this.nickname_en = nickname_en;
     }
 
@@ -282,6 +297,22 @@ public class UserInfoBean implements Serializable {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getCountry_id() {
+        return country_id;
+    }
+
+    public void setCountry_id(String country_id) {
+        this.country_id = country_id;
+    }
+
+    public String getEasemob_id() {
+        return easemob_id;
+    }
+
+    public void setEasemob_id(String easemob_id) {
+        this.easemob_id = easemob_id;
     }
 
     public String getIsapprove() {

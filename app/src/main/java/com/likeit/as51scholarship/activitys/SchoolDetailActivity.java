@@ -39,6 +39,7 @@ import com.likeit.as51scholarship.http.HttpUtil;
 import com.likeit.as51scholarship.model.SchoolDetailsBean;
 import com.likeit.as51scholarship.model.SchoolDetailsBean01;
 import com.likeit.as51scholarship.model.SchoolDetailsPopBena;
+import com.likeit.as51scholarship.utils.DialogUtils;
 import com.likeit.as51scholarship.utils.MyActivityManager;
 import com.likeit.as51scholarship.utils.ToastUtil;
 import com.likeit.as51scholarship.utils.UtilPreference;
@@ -58,7 +59,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.sharesdk.onekeyshare.OnekeyShare;
 import jaydenxiao.com.expandabletextview.ExpandableTextView;
 
 
@@ -69,6 +69,8 @@ public class SchoolDetailActivity extends Container {
     ImageView iv_header_right;
     @BindView(R.id.tv_header)
     TextView tv_header;
+
+
     @BindView(R.id.tv_indicator)
     TextView tv_indicator;
     @BindView(R.id.viewpager)
@@ -138,6 +140,7 @@ public class SchoolDetailActivity extends Container {
     private String is_collect;
     private JSONArray array;
     private SchoolDetailsPopBena mSchoolDetailPopBena01;
+    private String imgUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -259,19 +262,53 @@ public class SchoolDetailActivity extends Container {
         tv_header.setText(name);
         schoolNameTv.setText(name);
         schoolEsNameTv.setText(en_name);
-        String imgUrl = mSchoolDetailsBean.getSchool_info().getImg();
+        imgUrl = mSchoolDetailsBean.getSchool_info().getImg();
         Log.d("TAG", imgUrl + "sid-->" + sid + "ukey-->" + ukey);
-        ImageLoader.getInstance().displayImage(imgUrl, schoolImgIv);
-        tvSchoolRank.setText(mSchoolDetailsBean.getSchool_info().getRanking());
-        tvSchoolScholarship.setText(mSchoolDetailsBean.getSchool_info().getScholarship());
+        ImageLoader.getInstance().displayImage(mSchoolDetailsBean.getSchool_info().getLogo(), schoolImgIv);
+        if ("0".equals(mSchoolDetailsBean.getSchool_info().getRanking())) {
+            tvSchoolRank.setText("--");
+        } else {
+            tvSchoolRank.setText(mSchoolDetailsBean.getSchool_info().getRanking());
+        }
+        if ("0".equals(mSchoolDetailsBean.getSchool_info().getScholarship())) {
+            tvSchoolScholarship.setText("--");
+        } else {
+            tvSchoolScholarship.setText(mSchoolDetailsBean.getSchool_info().getScholarship());
+        }
         tvSchoolNature.setText(mSchoolDetailsBean.getSchool_info().getNature_name() + "高校");
-        tvSchoolTrate.setText(mSchoolDetailsBean.getSchool_info().getRate());
-        satNumTv.setText(mSchoolDetailsBean.getSchool_info().getToefl());
-        toeflNumTv.setText(mSchoolDetailsBean.getSchool_info().getYasi());
-        actNumTv.setText(mSchoolDetailsBean.getSchool_info().getToeic());
-        perpalNumTv.setText(mSchoolDetailsBean.getSchool_info().getGmat());
-        gpaNumTv.setText(mSchoolDetailsBean.getSchool_info().getGpa());
-        tvSchoolNumber.setText(mSchoolDetailsBean.getSchool_info().getNumber());
+        if ("0".equals(mSchoolDetailsBean.getSchool_info().getRate())) {
+            tvSchoolTrate.setText("--");
+        } else {
+            tvSchoolTrate.setText(mSchoolDetailsBean.getSchool_info().getRate());
+        }
+        if ("0".equals(mSchoolDetailsBean.getSchool_info().getToefl())) {
+            satNumTv.setText("--");
+        } else {
+            satNumTv.setText(mSchoolDetailsBean.getSchool_info().getToefl());
+        }
+        if ("0".equals(mSchoolDetailsBean.getSchool_info().getYasi())) {
+            toeflNumTv.setText("--");
+        } else {
+            toeflNumTv.setText(mSchoolDetailsBean.getSchool_info().getYasi());
+        }
+        if ("0".equals(mSchoolDetailsBean.getSchool_info().getToeic())) {
+            actNumTv.setText("--");
+        } else {
+            actNumTv.setText(mSchoolDetailsBean.getSchool_info().getToeic());
+        }
+        if ("0".equals(mSchoolDetailsBean.getSchool_info().getGmat())) {
+            perpalNumTv.setText("--");
+        } else {
+            perpalNumTv.setText(mSchoolDetailsBean.getSchool_info().getGmat());
+        } if ("0".equals(mSchoolDetailsBean.getSchool_info().getGpa())) {
+            gpaNumTv.setText("--");
+        } else {
+            gpaNumTv.setText(mSchoolDetailsBean.getSchool_info().getGpa());
+        }if ("0".equals(mSchoolDetailsBean.getSchool_info().getNumber())) {
+            tvSchoolNumber.setText("--");
+        } else {
+            tvSchoolNumber.setText(mSchoolDetailsBean.getSchool_info().getNumber());
+        }
         schoolDescTv.setText(mSchoolDetailsBean.getSchool_info().getDescription());
         is_collect = mSchoolDetailsBean.getSchool_info().getIs_collect();
         Log.d("TAG333", "is_collect-->" + is_collect);
@@ -421,31 +458,10 @@ public class SchoolDetailActivity extends Container {
     }
 
     private void share() {
-        OnekeyShare oks = new OnekeyShare();
-        //关闭sso授权
-        oks.disableSSOWhenAuthorize();
-
-        // 分享时Notification的图标和文字
-        //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
-        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
-        //oks.setTitle(getString(R.string.share));
-        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-        oks.setTitleUrl("http://sharesdk.cn");
-        // text是分享文本，所有平台都需要这个字段
-        oks.setText("我是分享文本");
-        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        oks.setImagePath("/sdcard/test.jpg");
-        // url仅在微信（包括好友和朋友圈）中使用
-        oks.setUrl("http://sharesdk.cn");
-        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
-        oks.setComment("我是测试评论文本");
-        // site是分享此内容的网站名称，仅在QQ空间使用
-        oks.setSite(getString(R.string.app_name));
-        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-        oks.setSiteUrl("http://sharesdk.cn");
-
-        // 启动分享GUI
-        oks.show(this);
+        String url = "http://liuxueapp.wbteam.cn/51SchoolShare/shareSchool.html?id=";
+        String link = url + mSchoolDetailsBean.getSchool_info().getId();
+        Log.d("TAG",mSchoolDetailsBean.getSchool_info().getLogo());
+        DialogUtils.showShare(SchoolDetailActivity.this, mSchoolDetailsBean.getSchool_info().getLogo(), mSchoolDetailsBean.getSchool_info().getName(), "", link);
     }
 
     private void initPopupWindow() {
@@ -524,7 +540,7 @@ public class SchoolDetailActivity extends Container {
                     int hight = mLinearLayout.getHeight();
                     Log.d("TAG", "Top-->" + top);
                     mPullToRefreshScrollView.getRefreshableView().scrollTo(0, hight01 * (position - 1) + hight);
-
+                    mListview.setSelection(position);
                 }
             }
         });

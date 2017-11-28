@@ -110,18 +110,20 @@ public class GroupsActivity extends ChatBaseActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 1) {
+                if (position == 0) {
                     // create a new group
                     startActivityForResult(new Intent(GroupsActivity.this, NewGroupActivity.class), 0);
-                } else if (position == 2) {
-                    // join a public group
-                    startActivityForResult(new Intent(GroupsActivity.this, PublicGroupsActivity.class), 0);
-                } else {
+                }
+//                else if (position == 1) {
+//                    // join a public group
+//                    startActivityForResult(new Intent(GroupsActivity.this, PublicGroupsActivity.class), 0);
+//                }
+                else {
                     // enter group chat
                     Intent intent = new Intent(GroupsActivity.this, ChatActivity.class);
                     // it is group chat
                     intent.putExtra("chatType", Constant.CHATTYPE_GROUP);
-                    intent.putExtra("userId", groupAdapter.getItem(position - 3).getGroupId());
+                    intent.putExtra("userId", groupAdapter.getItem(position - 1).getGroupId());
                     startActivityForResult(intent, 0);
                 }
             }

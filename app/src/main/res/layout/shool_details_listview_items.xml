@@ -2,21 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dip">
 
     <TextView
         android:id="@+id/school_details_name"
         android:layout_width="match_parent"
-        android:text="xxxxxx"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dip"
         android:layout_marginTop="10dip"
-        android:layout_height="wrap_content" />
+        android:text="xxxxxx"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
     <com.likeit.as51scholarship.utils.richtext.RichText
         android:id="@+id/school_details_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="?android:textColorPrimary" />
+        android:textColor="?android:textColorPrimary"
+        android:textSize="14sp" />
+
+
 </LinearLayout>

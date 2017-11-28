@@ -1,2 +1,2 @@
 include ':app', ':baseapp_module', ':kkeventbus_module', ':imagecycleviewlib-release', ':HightLight', ':PhotoViewlibrary', ':wkvideoplayer',
-        ':OneKeyShare', ':library', ':pulltorefreshlibrary', ':easeui', ':redpacketlibrary'
+        ':OneKeyShare', ':library', ':pulltorefreshlibrary', ':easeui', ':redpacketlibrary', ':wavesidebar'

@@ -145,6 +145,7 @@
         android:background="@color/line_color"
         android:id="@+id/view" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rl_birthday"
         android:layout_width="match_parent"
@@ -160,36 +161,43 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginTop="5dp"
+            android:focusable="false"
             android:src="@mipmap/icon_birthday" />
 
         <TextView
             android:id="@+id/birthday_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="生日"
-            android:textColor="@color/defualt_textcolor"
-            android:textSize="14sp"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/birthday_et" />
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/icon_birthday"
+            android:text="生日"
+            android:focusable="false"
+            android:textColor="@color/defualt_textcolor"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/birthday_et"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
             android:layout_below="@+id/birthday_tv"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/icon_birthday"
-            android:text="May 15，1984"
             android:gravity="center_vertical"
-            android:textColor="@color/defualt_textcolor_d"
             android:inputType="number"
+            android:focusable="false"
+            android:text="May 15，1984"
+            android:textColor="@color/defualt_textcolor_d"
             android:textSize="12sp" />
+
         <ImageView
             android:id="@+id/iv_birthday_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/filter_right_bg"/>
+            android:paddingRight="10dip"
+            android:src="@mipmap/filter_right_bg" />
 
         <View
             android:layout_width="match_parent"
@@ -198,6 +206,7 @@
             android:layout_marginTop="4dp"
             android:background="@color/line_color" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -234,7 +243,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="男"
-                android:checked="true"
                 android:textColor="@color/defualt_textcolor"
                 android:textSize="12sp" />
 
@@ -269,7 +277,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-
+            android:focusable="false"
             android:layout_marginTop="5dp"
             android:src="@mipmap/icon_adress_1" />
 
@@ -277,6 +285,7 @@
             android:id="@+id/address_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:focusable="false"
             android:text="所在国家城市"
             android:textColor="@color/defualt_textcolor"
             android:textSize="14sp"
@@ -287,6 +296,7 @@
             android:id="@+id/address_et"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:focusable="false"
             android:layout_below="@+id/address_tv"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/icon_address"
@@ -299,6 +309,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:paddingRight="10dip"
             android:src="@mipmap/filter_right_bg"/>
 
         <View
@@ -309,6 +320,7 @@
             android:background="@color/line_color" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/rl_education"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -321,7 +333,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-
+            android:focusable="false"
             android:layout_marginTop="5dp"
             android:src="@mipmap/icon_education" />
 
@@ -329,24 +341,31 @@
             android:id="@+id/education_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="学历成绩"
+            android:text="学历"
+            android:focusable="false"
             android:textColor="@color/defualt_textcolor"
             android:textSize="14sp"
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/education_et" />
 
-        <EditText
+        <TextView
             android:id="@+id/education_et"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:focusable="false"
             android:layout_below="@+id/education_tv"
             android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
             android:layout_toRightOf="@+id/icon_education"
             android:background="@null"
-            android:hint="本科，CET"
-            android:inputType="number"
+            android:textColor="@color/defualt_textcolor_d"
             android:textSize="12sp" />
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dip"
+            android:src="@mipmap/filter_right_bg"/>
 
         <View
             android:layout_width="match_parent"

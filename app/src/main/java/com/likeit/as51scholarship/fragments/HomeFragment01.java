@@ -20,14 +20,18 @@ import com.likeit.as51scholarship.activitys.my_center.DianActivity;
 import com.likeit.as51scholarship.activitys.my_center.EditorCenterActivity;
 import com.likeit.as51scholarship.activitys.my_center.FeeBackActivity;
 import com.likeit.as51scholarship.activitys.my_center.InviteFriendsActivity;
+import com.likeit.as51scholarship.activitys.my_center.IssueActivity;
 import com.likeit.as51scholarship.activitys.my_center.NearSeeActivity;
 import com.likeit.as51scholarship.activitys.my_center.OpenActivity;
+import com.likeit.as51scholarship.activitys.my_center.QuizActivity;
 import com.likeit.as51scholarship.activitys.my_center.RealNameActivity;
 import com.likeit.as51scholarship.activitys.my_center.SetActivity;
 import com.likeit.as51scholarship.activitys.my_center.SpentActivity;
+import com.likeit.as51scholarship.chat.message.utils.UserInfoCacheSvc;
 import com.likeit.as51scholarship.configs.AppConfig;
 import com.likeit.as51scholarship.http.HttpUtil;
 import com.likeit.as51scholarship.model.UserInfoBean;
+import com.likeit.as51scholarship.utils.StringUtil;
 import com.likeit.as51scholarship.utils.ToastUtil;
 import com.likeit.as51scholarship.utils.UtilPreference;
 import com.likeit.as51scholarship.view.CircleImageView;
@@ -80,6 +84,10 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
     private UserInfoBean userInfobean;
     private TextView accountMoveTv;
     private TextView real_tv;
+    private String nickname;
+    private LinearLayout changePwdLayout;
+    private LinearLayout quiz_layout;
+    private LinearLayout issue_layout;
 
 
     @Override
@@ -129,7 +137,15 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
                     Log.d("TAG", data.toString());
                     if ("1".equals(code)) {
                         userInfobean = JSON.parseObject(String.valueOf(data), UserInfoBean.class);
-                        Log.d("TAG", "mobile3-->" + userInfobean.getNickname());
+                        Log.d("TAG", "mobile3-->" + userInfobean.getNickname() + "getHeadimg-->" + userInfobean.getHeadimg());
+                        //SharedPreferencesUtils.setParam(getActivity(),AppConfig.USER_NAME,userInfobean.getNickname());
+                        UtilPreference.saveString(getActivity(), "nickname", userInfobean.getNickname());
+                        UtilPreference.saveString(getActivity(), "headimg", userInfobean.getHeadimg());
+                        //设置要发送出去的头像
+                        //  SharedPreferencesUtils.setParam(getActivity(),AppConfig.USER_HEAD_IMG,userInfobean.getHeadimg());
+                        UtilPreference.saveString(getActivity(), "easemob_id", userInfobean.getEasemob_id());
+                        Log.d("TAG", "easemob_id-->" + userInfobean.getEasemob_id());
+                        UserInfoCacheSvc.createOrUpdate(userInfobean.getEasemob_id(), userInfobean.getNickname(), userInfobean.getHeadimg());
                         userInfo();
                     } else {
                         ToastUtil.showS(getActivity(), message);
@@ -157,36 +173,47 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
     private void userInfo() {
         if ("0".equals(isLogin)) {
             userEditorImg.setVisibility(View.VISIBLE);
-           // realImg.setVisibility(View.VISIBLE);
+            // realImg.setVisibility(View.VISIBLE);
             accountTv.setVisibility(View.GONE);
             accountTv01.setVisibility(View.VISIBLE);
             accountMoveTv.setVisibility(View.GONE);
             accountManagerTv.setVisibility(View.VISIBLE);
-            if("0".equals(userInfobean.getIsapprove())){
+            if ("0".equals(userInfobean.getIsapprove())) {
                 real_tv.setText("未认证");
-            }else if("1".equals(userInfobean.getIsapprove())){
+            } else if ("1".equals(userInfobean.getIsapprove())) {
                 real_tv.setText("已认证");
-            }else if("2".equals(userInfobean.getIsapprove())){
+            } else if ("2".equals(userInfobean.getIsapprove())) {
                 real_tv.setText("未审核");
-            }else if("3".equals(userInfobean.getIsapprove())){
+            } else if ("3".equals(userInfobean.getIsapprove())) {
                 real_tv.setText("不通过");
             }
             Log.d("TAG", "mobile2-->" + userInfobean.getMobile());
-            accountTv01.setText(UtilPreference.getStringValue(getActivity(), "name"));
+            Log.d("TAG", "userHeadImg-->" + userInfobean.getHeadimg());
+            Log.d("TAG", "nickname-->" + userInfobean.getNickname());
+            Log.d("TAG", "mobile-->" + userInfobean.getMobile());
+            // accountTv01.setText(UtilPreference.getStringValue(getActivity(), "name"));
+            nickname = userInfobean.getNickname();
+            mobile = userInfobean.getMobile();
+
+            if (StringUtil.isBlank(nickname)) {
+                accountTv01.setText(mobile);
+            } else {
+                accountTv01.setText(nickname);
+            }
             ImageLoader.getInstance().displayImage(userInfobean.getHeadimg(), userHeadImg);
             //userHeadImg.setImageResource(R.mipmap.icon_03_3x);
             userHeadImg.setOnClickListener(this);
             accountManagerLayout.setOnClickListener(this);
         } else {
             //accountManagerLayout.setOnClickListener(this);
-            accountLayout.setOnClickListener(this);
+            // accountLayout.setOnClickListener(this);
 
         }
     }
 
 
     private void initView() {
-        real_tv=findViewById(R.id.real_tv);
+        real_tv = findViewById(R.id.real_tv);
 
         userHeadImg = findViewById(R.id.user_head_img);
         userEditorImg = findViewById(R.id.user_edit_iv);
@@ -214,8 +241,11 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
         realLayout = findViewById(R.id.real_layout);
         feedBackLyout = findViewById(R.id.feedback_layout);
         inviteLayout = findViewById(R.id.invite_layout);
+        changePwdLayout = findViewById(R.id.change_pwd_layout);
+        issue_layout = findViewById(R.id.issue_layout);
+        quiz_layout = findViewById(R.id.quiz_layout);
         Log.d("TAG", "mobile1-->" + mobile);
-
+        accountTv.setOnClickListener(this);
         collectLayout.setOnClickListener(this);
         spentLayout.setOnClickListener(this);
         dianLayout.setOnClickListener(this);
@@ -227,31 +257,39 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
         inviteLayout.setOnClickListener(this);
         aboutLayout.setOnClickListener(this);
         realLayout.setOnClickListener(this);
+        changePwdLayout.setOnClickListener(this);
+        issue_layout.setOnClickListener(this);
+        quiz_layout.setOnClickListener(this);
     }
 
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.user_head_img:
+            case R.id.account_manager_layout:
                 // toActivity(EditorCenterActivity.class);
                 Intent intentEdit = new Intent(getActivity(), EditorCenterActivity.class);
                 intentEdit.putExtra("userInfoBean", userInfobean);
                 startActivity(intentEdit);
                 break;
-            case R.id.account_layout:
-
+            case R.id.account_tv:
                 toActivity(LoginActivity.class);
                 getActivity().finish();
                 break;
-            case R.id.account_manager_layout:
-                toActivity(ChangePWDActivity.class);
-                break;
+//            case R.id.account_layout:
+//
+//                toActivity(LoginActivity.class);
+//                getActivity().finish();
+//                break;
 //            case R.id.account_layout:
 //            case R.id.account_manager_layout:
 //                toActivity(AccountManageActivity.class);
 //                break;
             case R.id.invite_layout:
                 toActivity(InviteFriendsActivity.class);
+                break;
+            case R.id.change_pwd_layout://修改密码
+                toActivity(ChangePWDActivity.class);
                 break;
             case R.id.collect_layout: //我的收藏
                 toActivity(CollectActivity.class);
@@ -279,6 +317,12 @@ public class HomeFragment01 extends MyBaseFragment implements View.OnClickListen
                 break;
             case R.id.feedback_layout://意见反馈
                 toActivity(FeeBackActivity.class);
+                break;
+            case R.id.issue_layout://我的发布
+                toActivity(IssueActivity.class);
+                break;
+            case R.id.quiz_layout://我的提问
+                toActivity(QuizActivity.class);
                 break;
         }
     }

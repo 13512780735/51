@@ -88,28 +88,70 @@
         android:layout_height="0dip"
         android:layout_weight="2"
         android:gravity="center_vertical">
+    <!--    <RelativeLayout
+            android:id="@+id/rl_like01"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/answers_issue_like_number"
+            <RelativeLayout
+                android:id="@+id/rl_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:src="@mipmap/tab_btn_like_selected"/>
+                <ImageView
+                    android:id="@+id/iv_like01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:src="@mipmap/tab_btn_like_default"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/answers_issue_like_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/rl_like"
+                android:layout_marginLeft="5dip"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dip"
+                android:paddingRight="15dip"
+                android:textColor="@color/defualt_textcolor_d" />
+        </RelativeLayout>-->
+        <RadioButton
+            android:id="@+id/rbLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/tab_btn_like_selected"
-            android:drawablePadding="5dip"
-            android:gravity="center_vertical"
-            android:text="9,999"
-            android:textColor="@color/defualt_textcolor_d" />
+            android:drawableLeft="@drawable/answer_like_selector"
+            android:button="@null"
+            android:checked="false"
+            android:clickable="false"
+            android:layout_centerVertical="true"
+            android:focusable="false"
+            android:drawablePadding="10dip"
+            android:text="1"
+            android:textColor="@drawable/home_font_selector"
+            android:focusableInTouchMode="false" />
 
         <TextView
             android:id="@+id/answers_issue_commnent_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dip"
-            android:layout_toRightOf="@+id/answers_issue_like_number"
             android:drawableLeft="@mipmap/tab_btn_comment"
-            android:drawablePadding="5dip"
+            android:drawablePadding="10dip"
             android:gravity="center_vertical"
+            android:layout_centerVertical="true"
             android:text="15"
-            android:textColor="@color/defualt_textcolor_d" />
+            android:textColor="@color/defualt_textcolor_d"
+            android:layout_toEndOf="@+id/rbLike"
+            android:layout_marginStart="30dp" />
         />
 
         <TextView
@@ -120,6 +162,7 @@
             android:drawableLeft="@mipmap/answer_answer_bg"
             android:drawablePadding="5dip"
             android:gravity="center_vertical"
+            android:layout_centerVertical="true"
             android:text="回答"
             android:textColor="@color/login_btn_bg_color" />
         />

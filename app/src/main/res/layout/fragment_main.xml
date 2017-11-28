@@ -24,8 +24,8 @@
             android:layout_height="fill_parent"
             android:background="#a0ffffff"
             android:orientation="vertical">
+            <include layout="@layout/fragment_home_head" />
 
-         <include layout="@layout/fragment_home_head" />
 
             <com.likeit.as51scholarship.view.MyListview
                 android:id="@+id/listView01"
@@ -64,6 +64,7 @@
             android:id="@+id/userinfo_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dip"
             android:src="@mipmap/nav_icon_user" />
 
         <LinearLayout
@@ -101,6 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:visibility="gone"
                 android:src="@mipmap/nav_icon_voice" />
         </LinearLayout>
 
@@ -109,6 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:padding="10dip"
             android:src="@mipmap/nav_icon_notice_no" />
     </LinearLayout>
 

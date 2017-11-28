@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.likeit.as51scholarship.activitys.login.ProtocolActivity">
+
+    <include layout="@layout/layout_header_with_back"></include>
+
+<!--    <com.likeit.as51scholarship.utils.richtext.RichText
+        android:id="@+id/protocol_details_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="14sp" />-->
+    <WebView
+        android:id="@+id/web_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></WebView>
+</LinearLayout>

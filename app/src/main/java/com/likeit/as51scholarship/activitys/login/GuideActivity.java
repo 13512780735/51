@@ -43,8 +43,8 @@ public class GuideActivity extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
-        MyActivityManager.getInstance().addActivity(this);
         mContext = this;
+        MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
         openPermission();
         Intent intent=getIntent();
@@ -67,6 +67,9 @@ public class GuideActivity extends BaseActivity implements View.OnClickListener 
         permissions.add(new PermissionItem(Manifest.permission.CALL_PHONE, "电话", R.drawable.permission_ic_phone));
         permissions.add(new PermissionItem(Manifest.permission.CAMERA, "照相", R.drawable.permission_ic_camera));
         permissions.add(new PermissionItem(Manifest.permission.WRITE_EXTERNAL_STORAGE , "储存空间", R.drawable.permission_ic_storage));
+        permissions.add(new PermissionItem(Manifest.permission.RECORD_AUDIO , "录音", R.drawable.permission_ic_micro_phone));
+      //  permissions.add(new PermissionItem(Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS , "储存空间", R.drawable.permission_ic_storage));
+
        // permissions.add(new PermissionItem(Manifest.permission.READ_EXTERNAL_STORAGE, "Camera", R.drawable.permission_ic_storage));
         HiPermission.create(mContext)
                 .permissions(permissions)
@@ -102,6 +105,7 @@ public class GuideActivity extends BaseActivity implements View.OnClickListener 
         tvBrow.setOnClickListener(this);
         tvLogin.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
+        tvBrow.setVisibility(View.GONE);
     }
 
     @Override
@@ -117,11 +121,11 @@ public class GuideActivity extends BaseActivity implements View.OnClickListener 
                 Intent intent02 = new Intent(mContext, LoginActivity.class);
                 UtilPreference.saveString(mContext, "isLogin", "0");
                 startActivity(intent02);
-                finish();
+               finish();
                 break;
             case R.id.guide_tvRegister:
                 Intent intent03 = new Intent(mContext, RegisterActivity.class);
-
+                intent03.putExtra("id","1");
                 startActivity(intent03);
                 finish();
                 break;

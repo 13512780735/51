@@ -3,10 +3,20 @@ package com.likeit.as51scholarship.activitys;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +28,22 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.likeit.as51scholarship.R;
+import com.likeit.as51scholarship.activitys.my_center.EditorCenterActivity;
 import com.likeit.as51scholarship.adapters.SchoolApplyAddressAdapter;
 import com.likeit.as51scholarship.adapters.SchoolApplyPlanTimeAdapter;
 import com.likeit.as51scholarship.adapters.SchoolApplyStageAdapter;
 import com.likeit.as51scholarship.configs.AppConfig;
 import com.likeit.as51scholarship.http.HttpUtil;
-import com.likeit.as51scholarship.imageutil.custom.CommandPhotoUtil01;
+import com.likeit.as51scholarship.imageutil.custom.CropUtils;
 import com.likeit.as51scholarship.imageutil.custom.CustomScrollGridView;
-import com.likeit.as51scholarship.imageutil.custom.GridAdapter01;
-import com.likeit.as51scholarship.imageutil.custom.PhotoSystemOrShoot;
+import com.likeit.as51scholarship.imageutil.custom.DialogPermission;
+import com.likeit.as51scholarship.imageutil.custom.FileUtil;
+import com.likeit.as51scholarship.imageutil.custom.GridViewAddImgesAdpter;
+import com.likeit.as51scholarship.imageutil.custom.PermissionUtil;
+import com.likeit.as51scholarship.imageutil.custom.SharedPreferenceMark;
 import com.likeit.as51scholarship.model.SchoolApplyBean;
 import com.likeit.as51scholarship.model.schoolapply.AreaBean;
 import com.likeit.as51scholarship.model.schoolapply.PlanTimeBean;
@@ -37,13 +52,18 @@ import com.likeit.as51scholarship.utils.StringUtil;
 import com.likeit.as51scholarship.utils.ToastUtil;
 import com.loopj.android.http.RequestParams;
 
+import net.bither.util.NativeUtil;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +71,9 @@ import butterknife.OnClick;
 
 
 public class SchoolApplyActivity extends Container {
+    public final int TYPE_TAKE_PHOTO = 1;//Uri获取类型判断
+
+    public final int CODE_TAKE_PHOTO = 1;//相机RequestCode
     @BindView(R.id.tv_header)
     TextView tvHeader;
     @BindView(R.id.xuexiao_tv)
@@ -112,26 +135,28 @@ public class SchoolApplyActivity extends Container {
     //手机号
     @BindView(R.id.phone_et)
     EditText etPhone;
-    @BindView(R.id.imgs_layout)
-    LinearLayout imgsLayout;
+    //    @BindView(R.id.imgs_layout)
+//    LinearLayout imgsLayout;
     //图片添加
     @BindView(R.id.gv_all_photo)
     CustomScrollGridView mGridView;
     /**
-     * GridView适配器
+     * private List<Map<String, Object>> datas;
+     * private GridViewAddImgesAdpter gridViewAddImgesAdpter;
+     * private Dialog dialog;
+     * private final int PHOTO_REQUEST_CAREMA = 1;// 拍照
+     * private final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择private static final String PHOTO_FILE_NAME = "temp_photo.jpg";
+     * private File tempFile;
+     * private final String IMAGE_DIR = Environment.getExternalStorageDirectory() + "/gridview/";
+     * /* 头像名称
      */
-    private GridAdapter01 gridAdapter;
+    private final String IMAGE_DIR = Environment.getExternalStorageDirectory() + "/gridview/";
+    private static final int REQUEST_CODE_TAKE_PHOTO = 1;
+    private static final int REQUEST_CODE_ALBUM = 2;
+    private static final int REQUEST_CODE_CROUP_PHOTO = 3;
 
-    /**
-     * 管理图片操作
-     */
-    private CommandPhotoUtil01 commandPhoto;
-
-    /**
-     * 选择图片来源
-     */
-    private PhotoSystemOrShoot selectPhoto;
-
+    /* 头像名称 */
+    private final String PHOTO_FILE_NAME = "temp_photo.jpg";
     private String name, address;
     final int DATE_DIALOG = 1;
     int mYear, mMonth, mDay;
@@ -151,6 +176,12 @@ public class SchoolApplyActivity extends Container {
     private String country_id;
     private String sid;
     private String stageid;
+    private GridViewAddImgesAdpter gridViewAddImgesAdpter;
+    private List<Map<String, Object>> datas;
+    private Dialog dialog;
+    private Uri photoUri;
+    private File file;
+    private Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,27 +196,23 @@ public class SchoolApplyActivity extends Container {
         areaData = new ArrayList<AreaBean>();
         stageData = new ArrayList<StageBean>();
         planTimeData = new ArrayList<PlanTimeBean>();
+        datas = new ArrayList<>();
+        init();
         ininData();//院校申请初始化数据
         showProgress("Loading..." +
                 "");
         initView();
-        addPlus();
+    }
+    private void init() {
+        file = new File(FileUtil.getCachePath(this), "user-avatar.jpg");
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            uri = Uri.fromFile(file);
+        } else {
+            //通过FileProvider创建一个content类型的Uri(android 7.0需要这样的方法跨应用访问)
+            uri = FileProvider.getUriForFile(mContext, "com.likeit.as51scholarship.fileprovider", file);
+        }
     }
 
-    private void addPlus() {
-        gridAdapter = new GridAdapter01(mContext, 4);
-        mGridView.setAdapter(gridAdapter);
-
-        // 选择图片获取途径
-        selectPhoto = new PhotoSystemOrShoot(mContext) {
-            @Override
-            public void onStartActivityForResult(Intent intent, int requestCode) {
-                startActivityForResult(intent, requestCode);
-            }
-        };
-        commandPhoto = new CommandPhotoUtil01(mContext, mGridView, gridAdapter, selectPhoto);
-
-    }
 
     private void initView() {
         final Calendar ca = Calendar.getInstance();
@@ -195,6 +222,14 @@ public class SchoolApplyActivity extends Container {
         tvHeader.setText("申请");
         tvXuexiao.setText(name);
         tvWhereCountry.setText(address);
+        gridViewAddImgesAdpter = new GridViewAddImgesAdpter(datas, this);
+        mGridView.setAdapter(gridViewAddImgesAdpter);
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                showdialog();
+            }
+        });
     }
 
 
@@ -298,21 +333,6 @@ public class SchoolApplyActivity extends Container {
         } else if (StringUtil.isBlank(tvStayTime.getText().toString())) {
             ToastUtil.showS(mContext, "请选择留学时间");
             return;
-        } else if (StringUtil.isBlank(etGpa.getText().toString())) {
-            ToastUtil.showS(mContext, "请输入GPA分数");
-            return;
-        } else if (StringUtil.isBlank(etToefl.getText().toString())) {
-            ToastUtil.showS(mContext, "请输入托福分数");
-            return;
-        } else if (StringUtil.isBlank(etYasi.getText().toString())) {
-            ToastUtil.showS(mContext, "请输入雅思分数");
-            return;
-        } else if (StringUtil.isBlank(etToeic.getText().toString())) {
-            ToastUtil.showS(mContext, "请输入托业分数");
-            return;
-        } else if (StringUtil.isBlank(etOther.getText().toString())) {
-            ToastUtil.showS(mContext, "请输入其他成绩类型、分数");
-            return;
         } else if (StringUtil.isBlank(etChineseName.getText().toString())) {
             ToastUtil.showS(mContext, "请输入中文名字");
             return;
@@ -373,7 +393,15 @@ public class SchoolApplyActivity extends Container {
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case DATE_DIALOG:
-                return new DatePickerDialog(this, mdateListener, mYear, mMonth, mDay);
+                return new DatePickerDialog(SchoolApplyActivity.this, R.style.MyDatePickerDialogTheme, new DatePickerDialog.OnDateSetListener()  {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        mYear = year;
+                        mMonth = month;
+                        mDay = dayOfMonth;
+                        display();
+                    }
+                }, 2017, 01, 01);
         }
         return null;
     }
@@ -385,17 +413,6 @@ public class SchoolApplyActivity extends Container {
         tvDate.setText(new StringBuffer().append(mMonth + 1).append("-").append(mDay).append("-").append(mYear).append(" "));
     }
 
-    private DatePickerDialog.OnDateSetListener mdateListener = new DatePickerDialog.OnDateSetListener() {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            mYear = year;
-            mMonth = monthOfYear;
-            mDay = dayOfMonth;
-            display();
-        }
-    };
 
     private void selectMenu(final String tag) {
         if (popMenu != null && popMenu.isShowing()) {
@@ -516,16 +533,207 @@ public class SchoolApplyActivity extends Container {
 
     }
 
+    /**
+     * 选择图片对话框
+     */
+    public void showdialog() {
+        View localView = LayoutInflater.from(this).inflate(
+                R.layout.popup_select_way_photo, null);
+        TextView tv_camera = (TextView) localView.findViewById(R.id.tv_bitmap_shoot);
+        TextView tv_gallery = (TextView) localView.findViewById(R.id.tv_bitmap_system);
+        TextView tv_cancel = (TextView) localView.findViewById(R.id.tv_bitmap_cancel);
+        dialog = new Dialog(this, R.style.custom_dialog);
+        dialog.setContentView(localView);
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        // 设置全屏
+        WindowManager windowManager = getWindowManager();
+        Display display = windowManager.getDefaultDisplay();
+        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+        lp.width = display.getWidth(); // 设置宽度
+        dialog.getWindow().setAttributes(lp);
+        dialog.show();
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+            }
+        });
+
+        tv_camera.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                // 拍照
+                if (PermissionUtil.hasCameraPermission(SchoolApplyActivity.this)) {
+                    uploadAvatarFromPhotoRequest();
+                }
+            }
+        });
+
+        tv_gallery.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    // 从系统相册选取照片
+                uploadAvatarFromAlbumRequest();
+            }
+        });
+    }
+
+    /**
+     * photo
+     */
+    private void uploadAvatarFromPhotoRequest() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO);
+    }
+
+    /**
+     * album
+     */
+    private void uploadAvatarFromAlbumRequest() {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, REQUEST_CODE_ALBUM);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // 获取照片返回
-        if (selectPhoto != null) {
-            String photoPath = selectPhoto.getPhotoResultPath(requestCode, resultCode, data);
-            if (!TextUtils.isEmpty(photoPath)) {
-                commandPhoto.showGridPhoto(photoPath);
-            }
+        if (resultCode != -1) {
+            return;
         }
+        if (requestCode == REQUEST_CODE_ALBUM && data != null) {
+            Uri newUri;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                newUri = Uri.parse("file:///" + CropUtils.getPath(this, data.getData()));
+            } else {
+                newUri = data.getData();
+            }
+            if (newUri != null) {
+                startPhotoZoom(newUri);
+            } else {
+                Toast.makeText(this, "没有得到相册图片", Toast.LENGTH_LONG).show();
+            }
+        } else if (requestCode == REQUEST_CODE_TAKE_PHOTO) {
+            startPhotoZoom(uri);
+        } else if (requestCode == REQUEST_CODE_CROUP_PHOTO) {
+            uploadAvatarFromPhoto();
+        }
+    }
+
+    private void uploadAvatarFromPhoto() {
+       // compressAndUploadAvatar(file.getPath());
+        uploadImage(file.getPath());
+    }
+
+
+
+    /**
+     * 裁剪拍照裁剪
+     *
+     * @param uri
+     */
+    public void startPhotoZoom(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.putExtra("crop", "true");// crop=true 有这句才能出来最后的裁剪页面.
+        intent.putExtra("aspectX", 1);// 这两项为裁剪框的比例.
+        intent.putExtra("aspectY", 1);// x:y=1:1
+//        intent.putExtra("outputX", 400);//图片输出大小
+//        intent.putExtra("outputY", 400);
+        intent.putExtra("output", Uri.fromFile(file));
+        intent.putExtra("outputFormat", "JPEG");// 返回格式
+        startActivityForResult(intent, REQUEST_CODE_CROUP_PHOTO);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+
+            case PermissionUtil.REQUEST_SHOWCAMERA:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    uploadAvatarFromPhotoRequest();
+
+                } else {
+                    if (!SharedPreferenceMark.getHasShowCamera()) {
+                        SharedPreferenceMark.setHasShowCamera(true);
+                        new DialogPermission(this, "关闭摄像头权限影响扫描功能");
+
+                    } else {
+                        Toast.makeText(this, "未获取摄像头权限", Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+
+
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 0xAAAAAAAA) {
+                photoPath(msg.obj.toString());
+            }
+
+        }
+    };
+
+    /**
+     * 上传图片
+     *
+     * @param path
+     */
+    private void uploadImage(final String path) {
+        new Thread() {
+            @Override
+            public void run() {
+                if (new File(path).exists()) {
+                    Log.d("images", "源文件存在" + path);
+                } else {
+                    Log.d("images", "源文件不存在" + path);
+                }
+
+                File dir = new File(IMAGE_DIR);
+                if (!dir.exists()) {
+                    dir.mkdir();
+                }
+                final File file = new File(dir + "/temp_photo" + System.currentTimeMillis() + ".jpg");
+                Log.d("TAG88", file.getAbsolutePath());
+                NativeUtil.compressBitmap(path, file.getAbsolutePath(), 50);
+                if (file.exists()) {
+                    Log.d("images", "压缩后的文件存在" + file.getAbsolutePath());
+                } else {
+                    Log.d("images", "压缩后的不存在" + file.getAbsolutePath());
+                }
+                Message message = new Message();
+                message.what = 0xAAAAAAAA;
+                message.obj = file.getAbsolutePath();
+                handler.sendMessage(message);
+
+            }
+        }.start();
+
+    }
+
+    public void photoPath(String path) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("path", path);
+        datas.add(map);
+        gridViewAddImgesAdpter.notifyDataSetChanged();
     }
 }

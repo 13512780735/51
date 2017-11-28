@@ -68,7 +68,7 @@ public abstract class BaseFragment extends KKBaseV4Fragment {
             return;
         }
 
-        if (getUserVisibleHint()) {
+        if (getUserVisibleHint()&&!isLoad) {
             lazyLoad();
             isLoad = true;
         } else {

@@ -71,24 +71,34 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="10dip">
-
+            <RelativeLayout
+                android:id="@+id/ll_new_friend_code"
+                android:layout_width="40dip"
+                android:layout_height="match_parent"
+                android:background="@color/white">
                 <ImageView
                     android:id="@+id/new_friend_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginTop="5dip"
                     android:src="@mipmap/icon_circle_new_friend" />
+            </RelativeLayout>
+                <Button
+                    android:id="@+id/bt_friend_code"
+                    android:visibility="invisible"
+                    android:layout_height="fill_parent"
+                    android:layout_width="40dip"
+                    android:background="#00000000"
+                    />
 
                 <TextView
                     android:id="@+id/new_friend_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_toEndOf="@+id/new_friend_code"
-                    android:layout_toRightOf="@+id/new_friend_code"
+                    android:layout_toRightOf="@+id/ll_new_friend_code"
                     android:text="新朋友"
+                    android:layout_centerVertical="true"
+                    android:paddingTop="5dip"
                     android:textColor="@color/defualt_textcolor_c"
                     android:textSize="14sp" />
             </RelativeLayout>

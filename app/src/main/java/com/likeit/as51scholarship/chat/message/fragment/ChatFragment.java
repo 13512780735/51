@@ -51,14 +51,16 @@ import com.likeit.as51scholarship.chat.message.ui.ForwardMessageActivity;
 import com.likeit.as51scholarship.chat.message.ui.GroupDetailsActivity;
 import com.likeit.as51scholarship.chat.message.ui.ImageGridActivity;
 import com.likeit.as51scholarship.chat.message.ui.PickAtUserActivity;
-import com.likeit.as51scholarship.chat.message.ui.UserProfileActivity;
 import com.likeit.as51scholarship.chat.message.ui.VideoCallActivity;
 import com.likeit.as51scholarship.chat.message.ui.VoiceCallActivity;
+import com.likeit.as51scholarship.chat.message.utils.PrefUtils;
+import com.likeit.as51scholarship.chat.message.utils.SharePrefConstant;
 import com.likeit.as51scholarship.chat.message.widget.Constant;
 import com.likeit.as51scholarship.chat.message.widget.DemoHelper;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -69,14 +71,14 @@ import java.util.Map;
 public class ChatFragment extends EaseChatFragment implements EaseChatFragment.EaseChatFragmentHelper {
     private static final int ITEM_VIDEO = 11;
     private static final int ITEM_FILE = 12;
-    private static final int ITEM_VOICE_CALL = 13;
-    private static final int ITEM_VIDEO_CALL = 14;
+//    private static final int ITEM_VOICE_CALL = 13;
+//    private static final int ITEM_VIDEO_CALL = 14;
 
     private static final int REQUEST_CODE_SELECT_VIDEO = 11;
     private static final int REQUEST_CODE_SELECT_FILE = 12;
     private static final int REQUEST_CODE_GROUP_DETAIL = 13;
     private static final int REQUEST_CODE_CONTEXT_MENU = 14;
-    private static final int REQUEST_CODE_SELECT_AT_USER = 15;
+    private static final int    REQUEST_CODE_SELECT_AT_USER = 15;
 
 
     private static final int MESSAGE_TYPE_SENT_VOICE_CALL = 1;
@@ -151,6 +153,10 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
     }
 
     @Override
+    public void setArguments(Serializable userId) {
+    }
+
+    @Override
     protected void registerExtendMenuItem() {
         //use the menu in base class
         super.registerExtendMenuItem();
@@ -159,8 +165,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
 //        inputMenu.registerExtendMenuItem(R.string.attach_video, R.drawable.em_chat_video_selector, ITEM_VIDEO_CALL, extendMenuItemClickListener);
         inputMenu.registerExtendMenuItem(R.string.attach_file, R.drawable.em_chat_file_selector, ITEM_FILE, extendMenuItemClickListener);
         if(chatType == Constant.CHATTYPE_SINGLE){
-            inputMenu.registerExtendMenuItem(R.string.attach_voice_call, R.drawable.em_chat_voice_call_selector, ITEM_VOICE_CALL, extendMenuItemClickListener);
-            inputMenu.registerExtendMenuItem(R.string.attach_video_call, R.drawable.em_chat_video_call_selector, ITEM_VIDEO_CALL, extendMenuItemClickListener);
+//            inputMenu.registerExtendMenuItem(R.string.attach_voice_call, R.drawable.em_chat_voice_call_selector, ITEM_VOICE_CALL, extendMenuItemClickListener);
+//            inputMenu.registerExtendMenuItem(R.string.attach_video_call, R.drawable.em_chat_video_call_selector, ITEM_VIDEO_CALL, extendMenuItemClickListener);
         }
         //聊天室暂时不支持红包功能
         //red packet code : 注册红包菜单选项
@@ -260,12 +266,34 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
 
     @Override
     public void onSetMessageAttributes(EMMessage message) {
-        if(isRobot){
-            //set message extension
-            message.setAttribute("em_robot_message", isRobot);
+//        if(isRobot){
+//            //set message extension
+//            message.setAttribute("em_robot_message", isRobot);
+//        }
+//            //设置消息扩展属性
+//            //设置要发送扩展消息用户昵称
+//            message.setAttribute(Constant.USER_NAME, (String) SharedPreferencesUtils.getParam(getActivity().getApplicationContext(), AppConfig.USER_NAME,"nike"));
+//            //设置要发送扩展消息用户头像
+//            message.setAttribute(Constant.HEAD_IMAGE_URL, (String)SharedPreferencesUtils.getParam(getActivity().getApplicationContext(),AppConfig.USER_HEAD_IMG,""));
+//            Log.d("TAG9999",(String) SharedPreferencesUtils.getParam(getActivity().getApplicationContext(), AppConfig.USER_NAME,"nike"));
+//            Log.d("TAG9995",(String)SharedPreferencesUtils.getParam(getActivity().getApplicationContext(),AppConfig.USER_HEAD_IMG,""));
+        setUserInfoAttribute(message);
+    }
+    /**
+     * 设置用户的属性，
+     * 通过消息的扩展，传递客服系统用户的属性信息
+     * @param message
+     */
+    private void setUserInfoAttribute(EMMessage message) {
+        try {
+            message.setAttribute(SharePrefConstant.ChatUserId, PrefUtils.getUserChatId());
+            message.setAttribute(SharePrefConstant.ChatUserNick, PrefUtils.getUserName());
+            message.setAttribute(SharePrefConstant.ChatUserPic, PrefUtils.getUserPic()) ;//这里用是图片的完整链接地址，如果要取缩略图，需要服务端配合；
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
     @Override
     public EaseCustomChatRowProvider onSetCustomChatRowProvider() {
         return new CustomChatRowProvider();
@@ -291,14 +319,14 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
     @Override
     public void onAvatarClick(String username) {
         //handling when user click avatar
-        Intent intent = new Intent(getActivity(), UserProfileActivity.class);
-        intent.putExtra("username", username);
-        startActivity(intent);
+//        Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+//        intent.putExtra("username", username);
+//        startActivity(intent);
     }
 
     @Override
     public void onAvatarLongClick(String username) {
-        inputAtUsername(username);
+      //  inputAtUsername(username);
     }
 
 
@@ -331,10 +359,10 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
     @Override
     public void onMessageBubbleLongClick(EMMessage message) {
         // no message forward when in chat room
-        startActivityForResult((new Intent(getActivity(), ContextMenuActivity.class)).putExtra("message",message)
-                        .putExtra("ischatroom", chatType == EaseConstant.CHATTYPE_CHATROOM),
-                REQUEST_CODE_CONTEXT_MENU);
-    }
+//        startActivityForResult((new Intent(getActivity(), ContextMenuActivity.class)).putExtra("message",message)
+//                        .putExtra("ischatroom", chatType == EaseConstant.CHATTYPE_CHATROOM),
+//    REQUEST_CODE_CONTEXT_MENU);
+}
 
     @Override
     public boolean onExtendMenuItemClick(int itemId, View view) {
@@ -346,12 +374,12 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
             case ITEM_FILE: //file
                 selectFileFromLocal();
                 break;
-            case ITEM_VOICE_CALL:
-                startVoiceCall();
-                break;
-            case ITEM_VIDEO_CALL:
-                startVideoCall();
-                break;
+//            case ITEM_VOICE_CALL:
+//                startVoiceCall();
+//                break;
+//            case ITEM_VIDEO_CALL:
+//                startVideoCall();
+//                break;
             //red packet code : 进入发红包页面
             case ITEM_RED_PACKET:
                 //注意：不再支持原有的startActivityForResult进入红包相关页面

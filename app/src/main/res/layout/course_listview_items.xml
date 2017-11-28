@@ -42,7 +42,7 @@
                 android:drawablePadding="5dip"
                 android:textColor="@color/defualt_textcolor_d"/>
             <Button
-
+                android:id="@+id/tv_free"
                 android:layout_width="60dip"
                 android:layout_height="25dip"
                 android:layout_alignParentRight="true"

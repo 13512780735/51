@@ -7,8 +7,8 @@ android {
         applicationId "com.likeit.as51scholarship"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 2
-        versionName "1.1"
+        versionCode 7
+        versionName "1.7"
         multiDexEnabled true
         aaptOptions.cruncherEnabled = false
         aaptOptions.useNewCruncher = false
@@ -16,6 +16,13 @@ android {
         ndk {
             //设置支持的SO库架构
             abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+    }
+    productFlavors {
+        arm {
+            ndk {
+                abiFilters "armeabi"
+            }
         }
     }
     buildTypes {
@@ -33,7 +40,7 @@ android {
     signingConfigs {
 
         release {
-            storeFile file("D:\\as\\0903\\qianming\\51keystore.jks")
+            storeFile file("F:\\1009\\0903\\qianming\\51keystore.jks")
             storePassword "123456"
             keyAlias "key0"
             keyPassword "123456"
@@ -41,28 +48,28 @@ android {
         }
 
         debug {
-            storeFile file("D:\\as\\0903\\qianming\\51keystore.jks")
+            storeFile file("F:\\1009\\0903\\qianming\\51keystore.jks")
             storePassword "123456"
             keyAlias "key0"
             keyPassword "123456"
         }
     }
-    buildTypes {
-        debug {
-            signingConfig signingConfigs.debug
-            ndk {
-                abiFilters "arm64-v8a", "armeabi", "armeabi-v7a", "x86", "x86_64"//动态库强制只编译filters中的
-            }
-        }
-        release {
-            signingConfig signingConfigs.release
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            ndk {
-                abiFilters "arm64-v8a", "armeabi", "armeabi-v7a", "x86", "x86_64"//动态库强制只编译filters中的
-            }
-        }
-    }
+//    buildTypes {
+//        debug {
+//            signingConfig signingConfigs.debug
+//            ndk {
+//                abiFilters "arm64-v8a", "armeabi", "armeabi-v7a", "x86", "x86_64"//动态库强制只编译filters中的
+//            }
+//        }
+//        release {
+//            signingConfig signingConfigs.release
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            ndk {
+//                abiFilters "arm64-v8a", "armeabi", "armeabi-v7a", "x86", "x86_64"//动态库强制只编译filters中的
+//            }
+//        }
+//    }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_7
     }
@@ -83,6 +90,15 @@ android {
     }
 
 }
+
+
+
+
+
+
+
+
+
 
 
 dependencies {
@@ -113,6 +129,10 @@ dependencies {
     compile files('libs/ShareSDK-Core-2.7.7.jar')
     compile files('libs/MobCommons-2017.0412.1554.jar')
     compile files('libs/MobTools-2017.0412.1554.jar')
+    compile name: 'NativeImgCompress', ext: 'aar'
+    compile files('libs/ormlite-android-4.49-SNAPSHOT.jar')
+    compile files('libs/pinyin4j-2.5.0.jar')
+    compile project(path: ':wavesidebar')
     compile 'com.jaydenxiao:ExpandableTextView:1.0.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -138,6 +158,9 @@ dependencies {
     compile 'com.alibaba:fastjson:1.2.10'
     compile 'cn.aigestudio.datepicker:DatePicker:2.2.0'
     compile 'com.parse:parse-android:1.13.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.joanzapata.pdfview:android-pdfview:1.0.4@aar'
 }

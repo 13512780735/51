@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.likeit.as51scholarship.R;
 import com.likeit.as51scholarship.model.HomeItemNewsBean;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -52,15 +53,16 @@ public class HomeItemNewsAdapter extends MyBaseAdapter<HomeItemNewsBean> {
         holder.new_name.setText(data1.getTitle());
         holder.news_read_number.setText("阅读" + data1.getView());
         holder.news_read_time.setText(data1.getInterval());
-        holder.imageView_avatar.setImageResource(R.mipmap.test02);
+       // holder.imageView_avatar.setImageResource(R.mipmap.test02);
+        ImageLoader.getInstance().displayImage(data1.getCover(),holder.imageView_avatar);
         if ("0".equals(data1.getComment().toString())) {
             holder.news_comment_number.setVisibility(View.GONE);
             holder.new_share.setVisibility(View.GONE);
         } else {
-            holder.news_comment_number.setVisibility(View.VISIBLE);
+            holder.news_comment_number.setVisibility(View.GONE);
             holder.new_share.setVisibility(View.VISIBLE);
             holder.news_comment_number.setText(data1.getComment());
-            holder.new_share.setImageResource(R.mipmap.icon_more);
+          //  holder.new_share.setImageResource(R.mipmap.icon_more);
         }
 
         return convertView;

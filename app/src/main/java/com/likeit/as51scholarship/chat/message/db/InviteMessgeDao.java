@@ -73,7 +73,6 @@ public class InviteMessgeDao {
 	public void deleteGroupMessage(String groupId) {
 		DemoDBManager.getInstance().deleteGroupMessage(groupId);
 	}
-
 	public void deleteGroupMessage(String groupId, String from) {
 		DemoDBManager.getInstance().deleteGroupMessage(groupId, from);
 	}

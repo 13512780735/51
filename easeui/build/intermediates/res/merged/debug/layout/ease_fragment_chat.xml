@@ -9,19 +9,22 @@
     <com.hyphenate.easeui.widget.EaseTitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_marginTop="20dip"
         android:layout_height="50dip"
         hyphenate:titleBarLeftImage="@drawable/em_mm_title_back" />
-<View
-    android:layout_width="match_parent"
-    android:layout_below="@+id/title_bar"
-    android:layout_height="1dip"
-    android:background="@color/divider_list"></View>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/title_bar"
+        android:background="@color/divider_list"></View>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/view"
         android:layout_above="@+id/input_menu"
-        android:layout_below="@id/title_bar" >
+        >
 
         <com.hyphenate.easeui.widget.EaseChatMessageList
             android:id="@+id/message_list"

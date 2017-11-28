@@ -57,6 +57,7 @@ import com.hyphenate.util.EMLog;
 import com.hyphenate.util.PathUtil;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -194,7 +195,10 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     }
 
     protected void setUpView() {
-        titleBar.setTitle(toChatUsername);
+        if(toChatUsername.equals("13556789999")){
+            titleBar.setTitle("客服");
+        }else{
+        titleBar.setTitle(toChatUsername);}
         if (chatType == EaseConstant.CHATTYPE_SINGLE) {
             // set title
             if(EaseUserUtils.getUserInfo(toChatUsername) != null){
@@ -253,7 +257,12 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             forwardMessage(forward_msg_id);
         }
     }
-    
+
+    @Override
+    public void setArguments(Serializable userId) {
+
+    }
+
     /**
      * register extend menu, item id need > 3 if you override this method and keep exist item
      */
@@ -1102,6 +1111,8 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
          * set message attribute
          */
         void onSetMessageAttributes(EMMessage message);
+                //设置消息扩展属性
+            //设置消息扩展属性
 
         /**
          * enter to chat detail

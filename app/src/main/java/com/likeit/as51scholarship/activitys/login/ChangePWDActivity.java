@@ -67,7 +67,7 @@ public class ChangePWDActivity extends Container {
             ToastUtil.showS(mContext,"确认密码不能为空");
             return;
         }
-        ToastUtil.showS(mContext,"修改成功");
+       // ToastUtil.showS(mContext,"修改成功");
         String url= AppConfig.LIKEIT_CHANGE_PWD;
         RequestParams params=new RequestParams();
         params.put("ukey",ukey);

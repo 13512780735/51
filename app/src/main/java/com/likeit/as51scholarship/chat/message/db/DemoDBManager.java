@@ -18,7 +18,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-public class DemoDBManager {
+public class    DemoDBManager {
     static private DemoDBManager dbMgr = new DemoDBManager();
     private DbOpenHelper dbHelper;
     

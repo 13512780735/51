@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.likeit.as51scholarship.R;
 import com.likeit.as51scholarship.model.circle_model.FollowCircleModel;
 import com.likeit.as51scholarship.utils.StringUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -55,8 +56,8 @@ public class CircleGridViewAdapter extends MyBaseAdapter<FollowCircleModel> {
         if(StringUtil.isBlank(imgUrl)){
             holder.ivAvatar.setImageResource(R.mipmap.icon_01_3x);
         }else{
-           // ImageLoader.getInstance().displayImage(imgUrl, holder.ivAvatar);
-            holder.ivAvatar.setImageResource(R.mipmap.icon_01_3x);
+        ImageLoader.getInstance().displayImage(imgUrl, holder.ivAvatar);
+         //   holder.ivAvatar.setImageResource(R.mipmap.icon_01_3x);
         }
         holder.tvTitle.setText(data.getTitle());
 //        if(listFollowCircle.size()==7){

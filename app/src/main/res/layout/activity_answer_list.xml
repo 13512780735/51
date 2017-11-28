@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_b"
+    android:orientation="vertical"
+    tools:context="com.likeit.as51scholarship.activitys.AnswerListActivity">
+
+    <include layout="@layout/layout_header_with_back"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dip"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dip">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+
+            <com.likeit.as51scholarship.view.CircleImageView
+                android:id="@+id/answers_issue_avatar"
+                android:layout_width="@dimen/width45"
+                android:layout_height="@dimen/width45"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/message_chat_avatar" />
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/answers_issue_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dip"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/login_btn_bg_color" />
+
+                <TextView
+                    android:id="@+id/answers_issue_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dip"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/defualt_textcolor_d" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/answers_issue_live01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/switchbtn_blue_bg"
+                android:paddingBottom="2dip"
+                android:paddingLeft="8dip"
+                android:paddingRight="8dip"
+                android:paddingTop="2dip"
+                android:textColor="@color/login_btn_bg_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/answers_issue_live02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/switchbtn_blue_bg"
+                android:paddingBottom="2dip"
+                android:paddingLeft="8dip"
+                android:paddingRight="8dip"
+                android:paddingTop="2dip"
+                android:textColor="@color/login_btn_bg_color"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/answers_issue_details"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+           />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dip"
+        android:layout_marginTop="10dip"
+        android:background="@color/white"
+        android:padding="10dip"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的回答"
+            android:textColor="@color/defualt_textcolor_d" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:layout_marginTop="10dip"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="请输入250字以内的问题回答"
+            android:textColorHint="@color/defualt_textcolor_f"
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dip"
+            android:gravity="center_horizontal"
+            android:layout_gravity="right">
+
+            <TextView
+                android:id="@+id/tv_room02_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/defualt_textcolor_c" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tv_room02_length"
+                android:text="/250"
+                android:textColor="@color/defualt_textcolor_c" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

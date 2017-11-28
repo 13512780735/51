@@ -41,6 +41,8 @@ public class SchoolFilterActivity extends Container {
     TextView tvHeader;
     @BindView(R.id.tv_totle)
     TextView tvTotle;
+    @BindView(R.id.tv_right)
+    TextView tvRight;
     @BindView(R.id.tv_reset)
     TextView tvReset;
     @BindView(R.id.school_filter_listview)
@@ -54,6 +56,9 @@ public class SchoolFilterActivity extends Container {
     private List<SchoolFilterEventBean> attrData;
     private String filterId;
     private SchoolFilterEventBean mSchoolFilterEventBean;
+    private String check01;
+    private String check02;
+    private boolean check03;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +100,7 @@ public class SchoolFilterActivity extends Container {
                     } else {
                         total = "0";
                         showTotal();
-                        ToastUtil.showS(mContext, message);
+                      //  ToastUtil.showS(mContext, message);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -116,7 +121,7 @@ public class SchoolFilterActivity extends Container {
 
     private void initView() {
         tvHeader.setText("筛选院校");
-
+        tvRight.setText("跳过");
         data = new ArrayList<SchoolAttributeNameVo>();
         mAdapter = new SchoolFilterAdapter(mContext, data);
         mListView.setAdapter(mAdapter);
@@ -207,17 +212,22 @@ public class SchoolFilterActivity extends Container {
         mAdapter.notifyDataSetChanged();
     }
 
-    @OnClick({R.id.backBtn, R.id.tv_reset, R.id.tv_totle})
+    @OnClick({R.id.backBtn, R.id.tv_reset, R.id.tv_totle, R.id.tv_right})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.backBtn:
-                onBackPressed();
+
+                if ("2".equals(filterId)) {
+                    onBackPressed();
+                } else {
+                    toActivityFinish(MainActivity.class);
+                }
                 break;
             case R.id.tv_reset:
                 //onBackPressed();
-                if(data!=null && !data.isEmpty()){
+                if (data != null && !data.isEmpty()) {
                     refresh();
-                }else{
+                } else {
                     return;
                 }
                 //  refresh();
@@ -236,34 +246,52 @@ public class SchoolFilterActivity extends Container {
                 intentSchool.putExtra("yasi", yasi);
                 if ("1".equals(filterId)) {
                     startActivity(intentSchool);
-                } else {
+                } else if ("2".equals(filterId)) {
                     startActivity(intentSchool);
                     finish();
                 }
 
                 break;
+            case R.id.tv_right:
+                Intent intentSchool01 = new Intent(mContext, SearchSchoolActivity.class);
+                intentSchool01.putExtra("stage", stage);
+                intentSchool01.putExtra("country", country);
+                intentSchool01.putExtra("area", area);
+                intentSchool01.putExtra("lang", lang);
+                intentSchool01.putExtra("nature", nature);
+                intentSchool01.putExtra("style", style);
+                intentSchool01.putExtra("toefl", toefl);
+                intentSchool01.putExtra("toeic", toeic);
+                intentSchool01.putExtra("yasi", yasi);
+                if ("1".equals(filterId)) {
+                    startActivity(intentSchool01);
+                } else if ("2".equals(filterId)) {
+                    startActivity(intentSchool01);
+                    finish();
+                }
+                break;
         }
     }
 
     private void refresh() {
-        if(data!=null && !data.isEmpty()&&attrData!=null&&!attrData.isEmpty()){
+        if (data != null && !data.isEmpty() && attrData != null && !attrData.isEmpty()) {
             data.clear();
             attrData.clear();
-            stage="";
-            country="";
-            lang="";
-            nature="";
-            style="";
-            toefl="";
-            toeic="";
-            yasi="";
+            stage = "";
+            country = "";
+            lang = "";
+            nature = "";
+            style = "";
+            toefl = "";
+            toeic = "";
+            yasi = "";
             try {
                 initData();
                 initTotal01();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             return;
         }
 
@@ -272,21 +300,19 @@ public class SchoolFilterActivity extends Container {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
         public void onMoonEvent(MessageEvent messageEvent) {
-            //tv_message.setText(messageEvent.getMessage());
-            // ToastUtil.showS(mContext, messageEvent.getMessage());
-            // Log.d("TAG",messageEvent.getMessage());
+        //tv_message.setText(messageEvent.getMessage());
+        // ToastUtil.showS(mContext, messageEvent.getMessage());
+        // Log.d("TAG",messageEvent.getMessage());
         attrData = new ArrayList<>();
-       mSchoolFilterEventBean = new SchoolFilterEventBean();
+        mSchoolFilterEventBean = new SchoolFilterEventBean();
         // String str = "";
         for (int i = 0; i < data.size(); i++) {
             for (int j = 0; j < data.get(i).getValues().size(); j++) {
                 if (data.get(i).getValues().get(j).isChecked()) {
-                    //  str = str + data.get(i).getValues().get(j).getAttr_id() + ",";
                     mSchoolFilterEventBean.setAttrId(data.get(i).getValues().get(j).getAttr_id());
                     mSchoolFilterEventBean.setAttrName(data.get(i).getName());
                     attrData.add(mSchoolFilterEventBean);
                     attrName = mSchoolFilterEventBean.getAttrName();
-                    // attrId = mSchoolFilterEventBean.getAttrId();
                     if ("攻读学位".equals(attrName)) {
                         stage = data.get(i).getValues().get(j).getAttr_id();
                     } else if ("国家".equals(attrName)) {
@@ -309,12 +335,12 @@ public class SchoolFilterActivity extends Container {
             }
 
         }
-        // String stage,country,area,lang,nature,style,toefl,toeic,yasi;
+
         initTotal();
         // String attr=messageEvent.getMessage();
-        Log.d("TAG222", "stage-->" + stage + "country-->" + country + "area-->" + area + "lang-->" + lang + "nature-->" + nature + "style-->" + style + "toefl-->" + toefl + "toeic-->" + toeic + "yasi-->" + yasi);
-        Log.d("TAG333", attrData.get(0).getAttrName());
-
+      Log.d("TAG222", "stage-->" + stage + "country-->" + country + "area-->" + area + "lang-->" + lang + "nature-->" + nature + "style-->" + style + "toefl-->" + toefl + "toeic-->" + toeic + "yasi-->" + yasi);
+//        Log.d("TAG333", attrData.get(0).
+//                getAttrName());
 
     }
 

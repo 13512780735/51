@@ -28,6 +28,7 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.widget.EaseConversationList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -131,8 +132,13 @@ public class EaseConversationListFragment extends EaseBaseFragment{
             }
         });
     }
-    
-    
+
+    @Override
+    public void setArguments(Serializable userId) {
+
+    }
+
+
     protected EMConnectionListener connectionListener = new EMConnectionListener() {
         
         @Override

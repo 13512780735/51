@@ -1,6 +1,7 @@
 package com.hyphenate.easeui.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +15,8 @@ import com.hyphenate.easeui.domain.EaseUser;
 public class EaseUserUtils {
     
     static EaseUserProfileProvider userProvider;
-    
+    private static int avatarResId;
+
     static {
         userProvider = EaseUI.getInstance().getUserProfileProvider();
     }
@@ -36,17 +38,26 @@ public class EaseUserUtils {
      * @param username
      */
     public static void setUserAvatar(Context context, String username, ImageView imageView){
+//        EaseUser user = null;
+//        // 从缓存里取昵称和头像
+//        UserApiModel userInfo = UserInfoCacheSvc.getByChatUserName(username);
+//        if (userInfo != null) {
+//            user = new EaseUser(username);
+//            user.setAvatar(userInfo.getHeadImg());
+//            user.setNick(userInfo.getUsername());
+//            Log.d("TAG3333",userInfo.getHeadImg());
+//        }
     	EaseUser user = getUserInfo(username);
         if(user != null && user.getAvatar() != null){
             try {
-                int avatarResId = Integer.parseInt(user.getAvatar());
+                avatarResId = Integer.parseInt(user.getAvatar());
                 Glide.with(context).load(avatarResId).into(imageView);
             } catch (Exception e) {
                 //use default avatar
-                Glide.with(context).load(user.getAvatar()).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.ease_default_avatar).into(imageView);
+                Glide.with(context).load(user.getAvatar()).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(avatarResId).into(imageView);
             }
         }else{
-            Glide.with(context).load(R.drawable.ease_default_avatar).into(imageView);
+            Glide.with(context).load(avatarResId).into(imageView);
         }
     }
     

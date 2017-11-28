@@ -100,10 +100,15 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
                 avatarView.setRadius(avatarOptions.getAvatarRadius());
         }
 
-        EaseUserUtils.setUserNick(username, holder.nameView);
+      EaseUserUtils.setUserNick(username, holder.nameView);
         EaseUserUtils.setUserAvatar(getContext(), username, holder.avatar);
-        
-       
+//        if (conversation.getLastMessage().getFrom().equals(SPUtil.getUser(getContext()).getHuanxinid())) {
+//            Glide.with(getContext()).load(conversation.getLastMessage().getStringAttribute("to_headportrait", "")).placeholder(R.mipmap.zwf_one).transform(new GlideCircleTransform(getContext())).into(holder.avatar);
+//            holder.name.setText(conversation.getLastMessage().getStringAttribute("to_username", ""));
+//        } else {
+//            Glide.with(getContext()).load(conversation.getLastMessage().getStringAttribute("from_headportrait", "")).placeholder(R.mipmap.zwf_one).transform(new GlideCircleTransform(getContext())).into(holder.avatar);
+//            holder.name.setText(conversation.getLastMessage().getStringAttribute("from_username", ""));
+//        }
         if(primaryColor != 0)
             holder.nameView.setTextColor(primaryColor);
         if(primarySize != 0)

@@ -187,8 +187,11 @@ public class NewsListActivity extends FragmentActivity {
                 break;
             case R.id.top_bar_edit_img:
                 // toActivity(SendNewsActivity.class);
-                Intent intentSendNews = new Intent(this, SendNewsActivity.class);
-                startActivity(intentSendNews);
+
+               // toActivity(SendNewsActivity.class);
+                Intent intent=new Intent(mContext,SendNewsActivity.class);
+                intent.putExtra("uId","1");
+                startActivity(intent);
                 break;
         }
     }

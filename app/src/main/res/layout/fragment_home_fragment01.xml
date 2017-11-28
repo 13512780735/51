@@ -21,8 +21,9 @@
         android:layout_alignBottom="@+id/user_head_img"
         android:layout_toLeftOf="@+id/account_manager_layout"
         android:layout_toStartOf="@+id/account_manager_layout"
-        android:src="@mipmap/news_icon_edit01"
-        android:visibility="gone" />
+        android:src="@mipmap/news_icon_edit02"
+        android:visibility="gone"
+       />
 
     <LinearLayout
         android:id="@+id/account_layout"
@@ -40,7 +41,6 @@
             android:layout_height="wrap_content"
             android:text="点击登录"
             android:textColor="@color/smssdk_black"
-
             android:textSize="14sp" />
 
         <TextView
@@ -65,7 +65,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_blue_bg"
-            android:padding="5dip"
+            android:padding="2dip"
+            android:textSize="12sp"
             android:textColor="@color/login_btn_bg_color"
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
@@ -121,7 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_main_userinfo_height"
             android:gravity="center_vertical"
-            android:visibility="gone"
+
             android:orientation="horizontal">
 
             <ImageView
@@ -192,7 +193,82 @@
                 android:textColor="@color/color_333"
                 android:textSize="12sp" />
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/issue_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_main_userinfo_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_issue01" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="我的发布"
+                android:textColor="@color/color_333"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/issue_red_v"
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/shape_round_yellow"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/issue_num_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text=""
+                android:textColor="@color/color_333"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/quiz_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_main_userinfo_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_quiz" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="我的提问"
+                android:textColor="@color/color_333"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/quiz_red_v"
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/shape_round_yellow"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/quiz_num_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text=""
+                android:textColor="@color/color_333"
+                android:textSize="12sp" />
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/spent_layout"
             android:layout_width="match_parent"
@@ -386,7 +462,44 @@
                 android:textSize="12sp"
                 android:visibility="invisible" />
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/change_pwd_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_main_userinfo_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_code" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="修改密码"
+                android:textColor="@color/color_333"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/shape_round_yellow"
+                android:visibility="invisible" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text=""
+                android:textColor="@color/color_333"
+                android:textSize="12sp"
+                android:visibility="invisible" />
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/about_layout"
             android:layout_width="match_parent"

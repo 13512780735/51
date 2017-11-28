@@ -1,15 +1,18 @@
 package com.likeit.as51scholarship.activitys.my_center;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -29,20 +32,17 @@ import com.likeit.as51scholarship.R;
 import com.likeit.as51scholarship.activitys.Container;
 import com.likeit.as51scholarship.configs.AppConfig;
 import com.likeit.as51scholarship.http.HttpUtil;
-import com.likeit.as51scholarship.utils.BitmapOption;
+import com.likeit.as51scholarship.utils.PhotoUtils;
 import com.likeit.as51scholarship.utils.StringUtil;
 import com.likeit.as51scholarship.utils.ToastUtil;
+import com.likeit.as51scholarship.utils.ToastUtils;
 import com.loopj.android.http.RequestParams;
-import com.pk4pk.baseappmoudle.utils.FileUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +73,15 @@ public class RealNameActivity extends Container {
     private String stats;
     private String pathId;
     private String pathId02;
+    private static final int CODE_GALLERY_REQUEST = 0xa0;
+    private static final int CODE_CAMERA_REQUEST = 0xa1;
+    private static final int CODE_RESULT_REQUEST = 0xa2;
+    private static final int CAMERA_PERMISSIONS_REQUEST_CODE = 0x03;
+    private static final int STORAGE_PERMISSIONS_REQUEST_CODE = 0x04;
+    private File fileUri = new File(Environment.getExternalStorageDirectory().getPath() + "/photo.jpg");
+    private File fileCropUri = new File(Environment.getExternalStorageDirectory().getPath() + "/crop_photo.jpg");
+    private Uri imageUri;
+    private Uri cropImageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,11 +144,31 @@ public class RealNameActivity extends Container {
             @Override
             public void success(String response) {
                 Log.d("TAG",response);
+                try {
+                    JSONObject object=new JSONObject(response);
+                    String code=object.optString("code");
+                    String message=object.optString("message");
+                    if("1".equals(code)){
+                        ToastUtil.showS(mContext,message);
+                        onBackPressed();
+                    }else{
+                        ToastUtil.showS(mContext,message);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void failed(Throwable e) {
+                disShowProgress();
+                showErrorMsg("网络异常请重新再试！");
+            }
 
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                disShowProgress();
             }
         });
 
@@ -177,10 +206,7 @@ public class RealNameActivity extends Container {
             @Override
             public void onClick(View v) {
                 mPopupWindow.dismiss();
-                Intent i = new Intent(
-                        Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);// 调用android的图库
-                startActivityForResult(i, 2);
+                autoObtainStoragePermission();
             }
         });
 
@@ -189,10 +215,7 @@ public class RealNameActivity extends Container {
             @Override
             public void onClick(View v) {
                 mPopupWindow.dismiss();
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);// 调用android自带的照相机
-                @SuppressWarnings("unused")
-                Uri photoUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                startActivityForResult(intent, 1);
+                autoObtainCameraPermission();
             }
         });
 
@@ -217,78 +240,139 @@ public class RealNameActivity extends Container {
             }
         });
     }
-    @SuppressLint("SdCardPath")
+
+    /**
+     * 自动获取相机权限
+     */
+    private void autoObtainCameraPermission() {
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                ToastUtils.showShort(this, "您已经拒绝过一次");
+            }
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CAMERA_PERMISSIONS_REQUEST_CODE);
+        } else {//有权限直接调用系统相机拍照
+            if (hasSdcard()) {
+                imageUri = Uri.fromFile(fileUri);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    imageUri = FileProvider.getUriForFile(mContext, "com.likeit.as51scholarship.fileprovider", fileUri);//通过FileProvider创建一个content类型的Uri
+                PhotoUtils.takePicture(this, imageUri, CODE_CAMERA_REQUEST);
+            } else {
+                ToastUtils.showShort(this, "设备没有SD卡！");
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case CAMERA_PERMISSIONS_REQUEST_CODE: {//调用系统相机申请拍照权限回调
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (hasSdcard()) {
+                        imageUri = Uri.fromFile(fileUri);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                            imageUri = FileProvider.getUriForFile(mContext, "com.likeit.as51scholarship.fileprovider", fileUri);//通过FileProvider创建一个content类型的Uri
+                        PhotoUtils.takePicture(this, imageUri, CODE_CAMERA_REQUEST);
+                    } else {
+                        ToastUtils.showShort(this, "设备没有SD卡！");
+                    }
+                } else {
+
+                    ToastUtils.showShort(this, "请允许打开相机！！");
+                }
+                break;
+
+
+            }
+            case STORAGE_PERMISSIONS_REQUEST_CODE://调用系统相册申请Sdcard权限回调
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    PhotoUtils.openPic(this, CODE_GALLERY_REQUEST);
+                } else {
+
+                    ToastUtils.showShort(this, "请允许打操作SDCard！！");
+                }
+                break;
+        }
+    }
+
+    private static final int output_X = 480;
+    private static final int output_Y = 480;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == 1) { // 拍照
-                Bundle extras = data.getExtras();
-                Bitmap photoBit = (Bitmap) extras.get("data");
-                Bitmap option = BitmapOption.bitmapOption(photoBit, 5);
-                if("1".equals(stats)){
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case CODE_CAMERA_REQUEST://拍照完成回调
+                    cropImageUri = Uri.fromFile(fileCropUri);
+                    PhotoUtils.cropImageUri(this, imageUri, cropImageUri, 1, 1, output_X, output_Y, CODE_RESULT_REQUEST);
+                    break;
+                case CODE_GALLERY_REQUEST://访问相册完成回调
+                    if (hasSdcard()) {
+                        cropImageUri = Uri.fromFile(fileCropUri);
+                        Uri newUri = Uri.parse(PhotoUtils.getPath(this, data.getData()));
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                            newUri = FileProvider.getUriForFile(this, "com.likeit.as51scholarship.fileprovider", new File(newUri.getPath()));
+                        PhotoUtils.cropImageUri(this, newUri, cropImageUri, 1, 1, output_X, output_Y, CODE_RESULT_REQUEST);
+                    } else {
+                        ToastUtils.showShort(this, "设备没有SD卡！");
+                    }
+                    break;
+                case CODE_RESULT_REQUEST:
+                    Bitmap bitmap = PhotoUtils.getBitmapFromUri(cropImageUri, this);
+                    Log.d("TAG555",cropImageUri.toString());
+                    if (bitmap != null) {
+                        showImages(bitmap);
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                        byte[] bytes = baos.toByteArray();
+                        String base64Token = Base64.encodeToString(bytes, Base64.DEFAULT);//  编码后
+                        Log.d("TAG666",base64Token);
+                        upload(base64Token);
+                    }
+                    break;
+            }
+        }
+    }
+
+
+    /**
+     * 自动获取sdk权限
+     */
+
+    private void autoObtainStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSIONS_REQUEST_CODE);
+        } else {
+            PhotoUtils.openPic(this, CODE_GALLERY_REQUEST);
+        }
+
+    }
+
+    private void showImages(Bitmap bitmap) {
+        if("1".equals(stats)){
                     rl01.setVisibility(View.GONE);
                     iv01.setVisibility(View.VISIBLE);
-                    iv01.setImageBitmap(option);
+                    iv01.setImageBitmap(bitmap);
                 }else{
                     rl02.setVisibility(View.GONE);
                     iv02.setVisibility(View.VISIBLE);
-                    iv02.setImageBitmap(option);
+                    iv02.setImageBitmap(bitmap);
                 }
-                Log.d("TAG",data.toString());
-                saveBitmap2file(option, "0001.jpg");
-                final File file = new File("/sdcard/" + "0001.jpg");
-                try {
-                    String base64Token = Base64.encodeToString(FileUtil.getFileToByte(file), Base64.DEFAULT);//  编码后
-                    upload(base64Token);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Log.e("TAG", "file333333333333333   " + file.getName());
-                // 开始联网上传的操作
+        //ivUserAvatar.setImageBitmap(bitmap);
+    }
 
-            } else if (requestCode == 2) { // 相册
-                try {
-                    Uri uri = data.getData();
-                    String[] pojo = { MediaStore.Images.Media.DATA };
-                    @SuppressWarnings("deprecation")
-                    Cursor cursor = managedQuery(uri, pojo, null, null, null);
-                    if (cursor != null) {
-                        ContentResolver cr = this.getContentResolver();
-                        int colunm_index = cursor
-                                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                        cursor.moveToFirst();
-                        String path = cursor.getString(colunm_index);
-                        final File file = new File(path);
-                        Bitmap bitmap = BitmapFactory.decodeStream(cr
-                                .openInputStream(uri));
-                        Bitmap option = BitmapOption.bitmapOption(bitmap, 5);
-                        if("1".equals(stats)){
-                            rl01.setVisibility(View.GONE);
-                            iv01.setVisibility(View.VISIBLE);
-                            iv01.setImageBitmap(option);
-                        }else{
-                            rl02.setVisibility(View.GONE);
-                            iv02.setVisibility(View.VISIBLE);
-                            iv02.setImageBitmap(option);
-                        }
-                      //  iv01.setImageBitmap(option);// 设置为头像的背景
-                        Log.e("TAG", "fiels11111  " + file.getName());
-                        try {
-                            String base64Token = Base64.encodeToString(FileUtil.getFileToByte(file), Base64.DEFAULT);//  编码后
-                            upload(base64Token);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        // 开始联网上传的操作
-
-                    }
-                } catch (Exception e) {
-
-                }
-            }
-        }
-
+    /**
+     * 检查设备是否存在SDCard的工具方法
+     */
+    public static boolean hasSdcard() {
+        String state = Environment.getExternalStorageState();
+        return state.equals(Environment.MEDIA_MOUNTED);
     }
 
     private void upload(String base64Token) {
@@ -311,7 +395,7 @@ public class RealNameActivity extends Container {
                         }else{
                             pathId02=data.optString("id");
                         }
-                        onBackPressed();
+                       // onBackPressed();
                         Log.d("TAG","pathId-->"+pathId);
                         Log.d("TAG","pathId02-->"+pathId02);
                     }else{
@@ -330,18 +414,18 @@ public class RealNameActivity extends Container {
         });
     }
 
-    @SuppressLint("SdCardPath")
-    static boolean saveBitmap2file(Bitmap bmp, String filename) {
-        Bitmap.CompressFormat format = Bitmap.CompressFormat.JPEG;
-        int quality = 100;
-        OutputStream stream = null;
-        try {
-            stream = new FileOutputStream("/sdcard/" + filename);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return bmp.compress(format, quality, stream);
-    }
+//    @SuppressLint("SdCardPath")
+//    static boolean saveBitmap2file(Bitmap bmp, String filename) {
+//        Bitmap.CompressFormat format = Bitmap.CompressFormat.JPEG;
+//        int quality = 100;
+//        OutputStream stream = null;
+//        try {
+//            stream = new FileOutputStream("/sdcard/" + filename);
+//        } catch (FileNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//        return bmp.compress(format, quality, stream);
+//    }
 }

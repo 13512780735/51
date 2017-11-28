@@ -10,6 +10,8 @@ import android.view.inputmethod.InputMethodManager;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
+import java.io.Serializable;
+
 public abstract class EaseBaseFragment extends Fragment{
     protected EaseTitleBar titleBar;
     protected InputMethodManager inputMethodManager;
@@ -50,4 +52,5 @@ public abstract class EaseBaseFragment extends Fragment{
     protected abstract void setUpView();
 
 
+    public abstract void setArguments(Serializable userId);
 }

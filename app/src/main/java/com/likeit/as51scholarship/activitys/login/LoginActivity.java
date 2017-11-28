@@ -1,5 +1,6 @@
 package com.likeit.as51scholarship.activitys.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
@@ -86,7 +88,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
     private boolean account_login = true;
     private String phoneNum, currentUsername, passwd;
     private String is_first;
-
+    private boolean check;
 
     private int time = 60;
     Handler myH = new Handler() {
@@ -116,6 +118,8 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
         }
     };
     private String passwd1;
+    private String is_bind;
+    private String third_ukey;
 
 
     @Override
@@ -125,12 +129,22 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
         MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
         passwd1 = "eed92abc0da569ad37b6e07b1d639400";
-        checkVersion();
+        // check = true;
+        check = UtilPreference.getBooleanValue(mContext, "check");
+        //checkVersion();
+        if (!check) {
+            // checkVersion();
+            check = false;
+            UtilPreference.saveBoolean(mContext, "check", check);
+        } else {
+            return;
+        }
         handler = new Handler(this);
     }
 
     private void checkVersion() {
         Beta.checkUpgrade();//检查版本号
+        //  Beta.autoCheckUpgrade = false;//设置不自动检查
     }
 
 
@@ -157,7 +171,11 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 phoneNumLayout.setVisibility(account_login ? View.GONE : View.VISIBLE);
                 break;
             case R.id.register_layout:
-                toActivity(RegisterActivity.class);
+                Intent intent=new Intent(mContext,RegisterActivity.class);
+                intent.putExtra("id","2");
+                startActivity(intent);
+                finish();
+               // toActivity(RegisterActivity.class);
                 break;
             case R.id.send_code_btn:
                 sendCode();
@@ -177,11 +195,11 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 ToastUtil.showL(this, "QQ登录");
                 break;
             case R.id.login_weibo:
-//                UtilPreference.saveString(mContext, "isLogin", "0");
-//                Platform sina = ShareSDK.getPlatform(SinaWeibo.NAME);
-//                authorize(sina);
-//                ToastUtil.showL(this, "微博登录");
-                ToastUtil.showL(this, "暂未开通");
+                UtilPreference.saveString(mContext, "isLogin", "0");
+                Platform sina = ShareSDK.getPlatform(SinaWeibo.NAME);
+                authorize(sina);
+                ToastUtil.showL(this, "微博登录");
+                // ToastUtil.showL(this, "暂未开通");
                 break;
         }
     }
@@ -190,13 +208,16 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
         EMClient.getInstance().login(currentUsername, passwd1, new EMCallBack() {
             @Override
             public void onSuccess() {
+                disShowProgress();
                 Log.d("TAG", "EM登录成功");
+                Log.d("TAG", "currentUsername-->" + currentUsername);
+                Log.d("TAG", "passwd1-->" + passwd1);
                 EMClient.getInstance().groupManager().loadAllGroups();
                 EMClient.getInstance().chatManager().loadAllConversations();
                 boolean updatenick = EMClient.getInstance().pushManager().updatePushNickname(
                         MyApplication.currentUserNick.trim());
                 DemoHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
-            //    toActivityFinish(UploadImgActivity.class);
+//                toActivityFinish(UploadImgActivity.class);
                 if ("0".equals(is_first)) {
                     toActivityFinish(MainActivity.class);
                 } else {
@@ -206,9 +227,13 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
 
             @Override
             public void onError(int i, String s) {
-              //  Toast.makeText(mContext,"EM登录失败",Toast.LENGTH_LONG).show();
-               // ToastUtil.showS(mContext, "EM登录失败");
-               Log.d("TAG", "EM登录失败");
+                disShowProgress();
+                //  Toast.makeText(mContext,"EM登录失败",Toast.LENGTH_LONG).show();
+                // ToastUtil.showS(mContext, "EM登录失败");
+                Log.d("TAG", "EM登录失败");
+                Log.d("TAG", s);
+                Log.d("TAG", "currentUsername-->" + currentUsername);
+                Log.d("TAG", "passwd1-->" + passwd1);
                 showErrorMsg("登录失败");
             }
 
@@ -295,7 +320,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
             @Override
             public void success(String response) {
                 Log.d("TAG", "Login-->" + response);
-                disShowProgress();
+
                 try {
                     JSONObject obj = new JSONObject(response);
                     String code = obj.optString("code");
@@ -308,21 +333,19 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                         UtilPreference.saveString(mContext, "is_first", is_first);
                         UtilPreference.saveString(mContext, "name", currentUsername);
                         UtilPreference.saveString(mContext, "passwd", passwd);
+                        logout();
+
                         DemoDBManager.getInstance().closeDB();
-
-                        // reset current user name before login
                         DemoHelper.getInstance().setCurrentUserName(currentUsername);
-
-                        //
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                //环信登录
-                                signin();
-                            }
-                        });
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                //环信登录
+//                                signin();
+//                            }
+//                        });
                     } else {
+                        disShowProgress();
                         ToastUtil.showS(mContext, message);
                     }
                 } catch (JSONException e) {
@@ -339,10 +362,47 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
             @Override
             public void onFinish() {
                 super.onFinish();
-               // disShowProgress();
+                // disShowProgress();
             }
         });
 
+    }
+
+    private void logout() {
+        DemoHelper.getInstance().logout(true, new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        // show login screen
+//                        toActivityFinish(GuideActivity.class);
+//                        MyActivityManager.getInstance().finishAllActivity();
+                        Log.d("TAG", "EM退出成功");
+                        signin();
+
+
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        Toast.makeText(mContext, "unbind devicetokens failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
 
@@ -420,7 +480,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 Object[] objs = (Object[]) msg.obj;
                 Log.d("数据2：", objs.toString());
                 String platform = (String) objs[0];
-             //   HashMap<String, Object> res1 = (HashMap<String, Object>) objs[1];
+                //   HashMap<String, Object> res1 = (HashMap<String, Object>) objs[1];
                 Platform res = (Platform) objs[1];
                 // Log.e("TAG", "授权返回的信息1：" + JSON.toJSONString(objs[1]));
                 Log.e("TAG", QQ.NAME + "授权返回的信息2：" + platform);
@@ -433,36 +493,33 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                     if (platform.equals(QQ.NAME)) {
                         // QQ认证回调
                         //  currentUsername=(String)res.get("nickname");
-                        currentUsername = res.getDb().getUserId();
                         String figureurl_qq_1 = res.getDb().getUserIcon();
                         String nickname = res.getDb().getUserName();
                         String uid = res.getDb().getUserId();
-                        Log.d("TAG", "currentUsername-->" + currentUsername);
                         Log.d("TAG", "nickname-->" + nickname);
+                        UtilPreference.saveString(mContext, "third_type", "third_qq");
                         Log.d("TAG", "figureurl_qq_1-->" + figureurl_qq_1);
                         userRegister(QQ.NAME, nickname, uid, figureurl_qq_1);
                         showProgress("Loading...");
 
                     } else if (platform.equals(SinaWeibo.NAME)) {
                         // 新浪微博认证回调
-                        currentUsername = res.getDb().getUserId();
                         String figureurl_qq_1 = res.getDb().getUserIcon();
                         String nickname = res.getDb().getUserName();
                         String uid = res.getDb().getUserId();
-                        Log.d("TAG", "currentUsername-->" + currentUsername);
                         Log.d("TAG", "nickname-->" + nickname);
                         Log.d("TAG", "figureurl_qq_1-->" + figureurl_qq_1);
+                        UtilPreference.saveString(mContext, "third_type", "third_weibo");
                         userRegister(SinaWeibo.NAME, nickname, uid, figureurl_qq_1);
                         showProgress("Loading...");
                     } else if (platform.equals(Wechat.NAME)) {
                         // 微信认证回调
-                        currentUsername = res.getDb().getUserId();
                         String figureurl_qq_1 = res.getDb().getUserIcon();
                         String nickname = res.getDb().getUserName();
                         String uid = res.getDb().getUserId();
-                        Log.d("TAG", "currentUsername-->" + currentUsername);
                         Log.d("TAG", "nickname-->" + nickname);
                         Log.d("TAG", "figureurl_qq_1-->" + figureurl_qq_1);
+                        UtilPreference.saveString(mContext, "third_type", "third_wechat");
                         userRegister(Wechat.NAME, nickname, uid, figureurl_qq_1);
                         showProgress("Loading...");
                     }
@@ -470,27 +527,6 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 } else {
                     ToastUtil.showL(this, "获取用户信息失败！");
                 }
-                // 授权成功
-//                ToastUtil.showS(mContext, "授权成功，正在跳转登录操作…");
-//                Object[] objs = (Object[]) msg.obj;
-//                String platform = (String) objs[0];
-//                HashMap<String, Object> res = (HashMap<String, Object>) objs[1];
-////                Logger.e("TAG", "授权返回的信息1：" + JSON.toJSONString(res));
-////                Logger.e("TAG", QQ.NAME+"授权返回的信息2：" + platform);
-//                if(res!=null){
-//                    if (platform.equals(QQ.NAME)) {
-//                        // QQ认证回调
-//                        userRegister(QQ.NAME, (String) res.get("nickname"), (String) res.get("nickname"), (String) res.get("figureurl_qq_1"));
-//                    } else if (platform.equals(SinaWeibo.NAME)) {
-//                        // 新浪微博认证回调
-//                        userRegister(SinaWeibo.NAME, (String) res.get("name"), (String) res.get("idstr"), (String) res.get("avatar_hd"));
-//                    } else if (platform.equals(Wechat.NAME)) {
-//                        // 微信认证回调
-//                        userRegister(Wechat.NAME, (String)res.get("nickname"), (String)res.get("unionid"), (String)res.get("headimgurl"));
-//                    }
-//                }else{
-//                    ToastUtil.showS(mContext, "获取用户信息失败！");
-//                }
             }
             break;
         }
@@ -541,23 +577,23 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
      * @param name
      * @param faceUrl
      */
-    private void userRegister(String type, final String name, String uid,
+    private void userRegister(final String type, final String name, final String uid,
                               final String faceUrl) {
         String url = AppConfig.LIKEIT_THIRD_LOGIN;
         if (NetUtils.isOnline()) {
             Log.e("TAG789624", "userRegister");
+            Log.e("TAG789624", "type-->" + type);
+            Log.e("TAG789624", "uid-->" + uid);
+            Log.e("TAG789624", "name-->" + name);
+            Log.e("TAG789624", "faceUrl-->" + faceUrl);
             RequestParams params = new RequestParams();
             // TreeMap<String, String> params = new TreeMap<String, String>();
-            params.put("third_type", type);
             params.put("third_uid", uid);
-            params.put("nickname", name);
-            params.put("avatar", faceUrl);
-            showErrorMsg("正在注册中");
+            // showErrorMsg("正在注册中");
             HttpUtil.post(url, params, new HttpUtil.RequestListener() {
 
                 @Override
                 public void success(String response) {
-                    Log.d("注册成功：", response);
                     disShowProgress();
                     // MyApplication.getInstance().doLogin(userInfo);
                     try {
@@ -566,30 +602,20 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                         String code = obj.optString("code");
                         String message = obj.optString("message");
                         if ("1".equals(code)) {
-                            String ukey = obj.optJSONObject("data").optString("ukey");
-                            is_first = obj.optJSONObject("data").optString("is_first");
-                            Log.d("TAG", "LoginQQ-->" + is_first);
-                            Log.d("TAG", "ukey-->" + ukey);
-                            UtilPreference.saveString(mContext, "is_first", is_first);
+                            third_ukey = obj.optJSONObject("data").optString("ukey");
+                            String is_first = obj.optJSONObject("data").optString("is_first");
+                            currentUsername = obj.optJSONObject("data").optString("easemob_id");
+                            is_bind = obj.optJSONObject("data").optString("is_bind");
                             UtilPreference.saveString(getApplicationContext(),
-                                    "ukey", ukey);
+                                    "ukey", third_ukey);
+                            UtilPreference.saveString(getApplicationContext(),
+                                    "is_first", "0");
+                            logout();
 
-//                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                            finish();
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //环信登录
-                                    signin();
-                                }
-                            });
-//                            if ("0".equals(is_first)) {
-//                                toActivityFinish(MainActivity.class);
-//                            } else {
-//                                toActivity(UploadImgActivity.class);
-//                            }
                         } else {
-                            ToastUtil.showS(LoginActivity.this, message);
+                            UtilPreference.saveString(mContext, "third_uid", uid);
+                            toActivity(BindAccountActivity.class);
+                            // ToastUtil.showS(LoginActivity.this, message);
                         }
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
@@ -607,6 +633,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 @Override
                 public void onFinish() {
                     // TODO Auto-generated method stub
+                    Log.d("TAG", "1234");
                     disShowProgress();
                 }
             });
@@ -614,5 +641,11 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
         } else {
             ToastUtil.showL(this, "当前无网络连接");
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        toActivity(GuideActivity.class);
     }
 }

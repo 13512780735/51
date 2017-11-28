@@ -5,10 +5,15 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.likeit.as51scholarship.R;
 import com.likeit.as51scholarship.model.SchoolAttributeVo;
+import com.likeit.as51scholarship.view.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,26 +25,25 @@ import java.util.List;
 public class SchoolFilterAttrAdapter extends BaseAdapter {
     private Context context;
     private List<SchoolAttributeVo> data = new ArrayList<SchoolAttributeVo>();
-
+   // private int selectPosition = -1;//用于记录用户选择的变量
+    private int clickTemp = -1;
     public SchoolFilterAttrAdapter(Context context) {
         this.context = context;
     }
-
 
 
     @Override
     public int getCount() {
         return data == null ? 0 : data.size();
     }
-
     @Override
     public Object getItem(int position) {
-        return null;
+        return position;
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -61,10 +65,12 @@ public class SchoolFilterAttrAdapter extends BaseAdapter {
             myView.attr.setBackgroundResource(R.drawable.goods_attr_selected_shape);
             data.get(position).setChecked(true);
             myView.attr.setTextColor(Color.WHITE);
+            EventBus.getDefault().post(new MessageEvent(data.toString()));
         } else {
             myView.attr.setBackgroundResource(R.drawable.goods_attr_unselected_shape);
             myView.attr.setTextColor(Color.DKGRAY);
             data.get(position).setChecked(false);
+            EventBus.getDefault().post(new MessageEvent(data.toString()));
         }
         return v;
 

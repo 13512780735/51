@@ -6,11 +6,11 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -48,11 +48,11 @@ public class SearchSchoolActivity extends Container {
     @BindView(R.id.message_img)
     ImageView messageImg;
     @BindView(R.id.hot_school)
-    RadioButton hotSchool;
+    CheckBox hotSchool;
     @BindView(R.id.recommend_school)
-    RadioButton recommendSchool;
+    CheckBox recommendSchool;
     @BindView(R.id.offer_school)
-    RadioButton offerSchool;
+    CheckBox offerSchool;
     @BindView(R.id.radio_group)
     RadioGroup radioGroup;
     @BindView(R.id.content_frame)
@@ -88,7 +88,7 @@ public class SearchSchoolActivity extends Container {
         toefl = intent.getStringExtra("toefl");
         toeic = intent.getStringExtra("toeic");
         yasi = intent.getStringExtra("yasi");
-        rank = "1";
+        rank = "0";
         rate = "0";
         scholarship = "0";
         schoolData = new ArrayList<SchoolListBean>();
@@ -139,6 +139,7 @@ public class SearchSchoolActivity extends Container {
                             schoolListBean.setScholarship(jsonObject.optString("scholarship"));
                             schoolListBean.setImg(jsonObject.optString("img"));
                             schoolListBean.setCountry_id(jsonObject.optString("country_id"));
+                            schoolListBean.setLogo(jsonObject.optString("logo"));
                             schoolData.add(schoolListBean);
                         }
                         Log.d("TAG", "HomeSchool-->" + schoolData);
@@ -165,16 +166,6 @@ public class SearchSchoolActivity extends Container {
         });
     }
 
-    //    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        refresh();
-//    }
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        refresh1();
-//    }
 
     private void refresh1() {
         adapter.addAll(schoolData, true);
@@ -261,7 +252,7 @@ public class SearchSchoolActivity extends Container {
                 intentSchoolDetail.putExtra("en_name", en_name);//中文名字
                 intentSchoolDetail.putExtra("img", img);//图片
                 intentSchoolDetail.putExtra("sid", sid);//图片
-                intentSchoolDetail.setClass(mContext, SchoolDetailActivity.class);
+                intentSchoolDetail.setClass(mContext, SchoolDetailActivity01.class);
                 startActivity(intentSchoolDetail);
             }
         });
@@ -270,10 +261,10 @@ public class SearchSchoolActivity extends Container {
             public void onApplyClick(int i) {
                 //ToastUtil.showS(mContext, "申请成功！");
                 Intent intent = new Intent(mContext, SchoolApplyActivity.class);
-                intent.putExtra("name", schoolData.get(i-1).getName());
-                intent.putExtra("address", schoolData.get(i-1).getCountry_name());
-                intent.putExtra("country_id", schoolData.get(i-1).getCountry_id());
-                intent.putExtra("sid", schoolData.get(i-1).getId());
+                intent.putExtra("name", schoolData.get(i).getName());
+                intent.putExtra("address", schoolData.get(i).getCountry_name());
+                intent.putExtra("country_id", schoolData.get(i).getCountry_id());
+                intent.putExtra("sid", schoolData.get(i).getId());
                 startActivity(intent);
             }
         });
@@ -320,6 +311,7 @@ public class SearchSchoolActivity extends Container {
                             schoolListBean.setScholarship(jsonObject.optString("scholarship"));
                             schoolListBean.setImg(jsonObject.optString("img"));
                             schoolListBean.setCountry_id(jsonObject.optString("country_id"));
+                            schoolListBean.setLogo(jsonObject.optString("logo"));
                             schoolData.add(schoolListBean);
                         }
                         Log.d("TAG", "HomeSchool-->" + schoolData);
@@ -360,18 +352,22 @@ public class SearchSchoolActivity extends Container {
                 break;
             case R.id.message_img:
                 //Intent intentFilter=new Intent(mContext,SchoolFilterActivity.class);
-                toActivity(SchoolFilterActivity.class);
+                //toActivity(SchoolFilterActivity.class);
                 Intent intentFilter = new Intent(mContext, SchoolFilterActivity.class);
                 intentFilter.putExtra("filterId", "2");
                 startActivity(intentFilter);
                 finish();
                 break;
             case R.id.hot_school:
+                recommendSchool.setChecked(false);
+                offerSchool.setChecked(false);
                 if ("0".equals(rank)) {
+                    hotSchool.setChecked(true);
                     rank = "1";
                     rate="0";
                     scholarship="0";
                 } else {
+                    hotSchool.setChecked(false);
                     rate="0";
                     rank = "0";
                     scholarship="0";
@@ -380,11 +376,15 @@ public class SearchSchoolActivity extends Container {
                 refresh();
                 break;
             case R.id.recommend_school:
+                hotSchool.setChecked(false);
+                offerSchool.setChecked(false);
                 if ("0".equals(rate)) {
+                    recommendSchool.setChecked(true);
                     rate = "1";
                     rank = "0";
                     scholarship="0";
                 } else {
+                    recommendSchool.setChecked(false);
                     rate = "0";
                     rank = "0";
                     scholarship="0";
@@ -393,11 +393,15 @@ public class SearchSchoolActivity extends Container {
                 refresh();
                 break;
             case R.id.offer_school:
+                recommendSchool.setChecked(false);
+                hotSchool.setChecked(false);
                 if ("0".equals(scholarship)) {
+                    offerSchool.setChecked(true);
                     scholarship = "1";
                     rate = "0";
                     rank = "0";
                 } else {
+                    offerSchool.setChecked(false);
                     scholarship = "0";
                     rate = "0";
                     rank = "0";

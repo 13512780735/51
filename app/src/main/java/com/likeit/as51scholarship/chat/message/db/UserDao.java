@@ -21,7 +21,7 @@ import com.likeit.as51scholarship.chat.message.model.RobotUser;
 import java.util.List;
 import java.util.Map;
 
-public class UserDao {
+public class 		UserDao {
 	public static final String TABLE_NAME = "uers";
 	public static final String COLUMN_NAME_ID = "username";
 	public static final String COLUMN_NAME_NICK = "nick";

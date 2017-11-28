@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 
 import com.likeit.as51scholarship.R;
+import com.likeit.as51scholarship.chat.message.ui.ChatActivity;
 import com.likeit.as51scholarship.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -60,6 +61,7 @@ public class KefuDialog extends Dialog {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.kefu_qq:
+                getContext().startActivity(new Intent(getContext(), ChatActivity.class).putExtra("userId", "13556789999"));
                 break;
             case R.id.kefu_phone:
                 Intent intent = new Intent(Intent.ACTION_CALL);

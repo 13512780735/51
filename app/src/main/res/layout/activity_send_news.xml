@@ -59,17 +59,6 @@
         android:scrollbars="none"
         android:verticalSpacing="5dp"></com.likeit.as51scholarship.imageutil.custom.CustomScrollGridView>
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/imgs_layout"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:orientation="horizontal"
-            android:visibility="gone" />
-    </HorizontalScrollView>
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
@@ -124,6 +113,8 @@
         android:verticalSpacing="10dip"
         android:numColumns="4"
         android:horizontalSpacing="10dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
         android:layout_height="wrap_content"></com.likeit.as51scholarship.view.GridViewForScrollView>
 
 

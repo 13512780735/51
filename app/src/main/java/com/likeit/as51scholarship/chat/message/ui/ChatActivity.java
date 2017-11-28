@@ -1,8 +1,8 @@
 package com.likeit.as51scholarship.chat.message.ui;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.util.EasyUtils;
@@ -16,6 +16,7 @@ public class ChatActivity extends ChatBaseActivity {
     public static ChatActivity activityInstance;
     private EaseChatFragment chatFragment;
     String toChatUsername;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,10 +25,12 @@ public class ChatActivity extends ChatBaseActivity {
         //get user id or group id
         toChatUsername = getIntent().getExtras().getString("userId");
         //use EaseChatFratFragment
-        chatFragment = new ChatFragment();
-        //pass parameters to chat fragment
-        chatFragment.setArguments(getIntent().getExtras());
-        getSupportFragmentManager().beginTransaction().add(R.id.container, chatFragment).commit();
+//        Intent intent=getIntent();
+//        Bundle bundle=intent.getBundleExtra("conversation");
+            chatFragment = new ChatFragment();
+            //pass parameters to chat fragment
+            chatFragment.setArguments(getIntent().getExtras());
+            getSupportFragmentManager().beginTransaction().add(R.id.container, chatFragment).commit();
 
     }
 
@@ -52,6 +55,11 @@ public class ChatActivity extends ChatBaseActivity {
 
     @Override
     public void onBackPressed() {
+ //       onBackPressed();
+        // chatFragment.onBackPressed();
+//        if("客服".equals(toChatUsername)){
+//            chatFragment.onBackPressed();
+//        }else {
         chatFragment.onBackPressed();
         if (EasyUtils.isSingleActivity(this)) {
             Intent intent = new Intent(this, MainActivity.class);
@@ -59,12 +67,13 @@ public class ChatActivity extends ChatBaseActivity {
         }
     }
 
-    public String getToChatUsername(){
+    public String getToChatUsername() {
         return toChatUsername;
     }
 
-    @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                                     @NonNull int[] grantResults) {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         PermissionsManager.getInstance().notifyPermissionsChange(permissions, grantResults);
     }
 }

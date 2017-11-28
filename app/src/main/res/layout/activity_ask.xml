@@ -18,27 +18,28 @@
         android:background="@null"
         android:gravity="top"
         android:hint="请提出你的留学问题"
-        android:textSize="14sp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="显示位置"
-        android:layout_margin="10dip"
-        android:drawablePadding="10dip"
-        android:textColor="@color/defualt_textcolor_d"
-        android:drawableLeft="@mipmap/answers_address"/>
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/imgs_layout"
+        android:textSize="14sp" />
+    <!--
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="显示位置"
+            android:layout_margin="10dip"
+            android:drawablePadding="10dip"
+            android:textColor="@color/defualt_textcolor_d"
+            android:drawableLeft="@mipmap/answers_address"/>
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:orientation="horizontal"
-            android:visibility="gone"/>
-    </HorizontalScrollView>
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/imgs_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:visibility="gone"/>
+        </HorizontalScrollView>
+    -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,25 +49,25 @@
         android:orientation="horizontal"
         android:paddingLeft="10dp">
 
-        <ImageView
-            android:id="@+id/photo_im"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/answers_add_default"/>
+        <!--       <ImageView
+                   android:id="@+id/photo_im"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@mipmap/answers_add_default"/>
 
-        <ImageView
-            android:id="@+id/camear_im"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:src="@mipmap/answers_face_default"/>
+               <ImageView
+                   android:id="@+id/camear_im"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="10dp"
+                   android:src="@mipmap/answers_face_default"/>-->
 
         <ImageView
             android:id="@+id/label_im"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/btn_icon_label_selected"/>
+            android:src="@mipmap/btn_icon_label_selected" />
     </LinearLayout>
 
     <TextView
@@ -76,19 +77,29 @@
         android:layout_marginTop="10dp"
         android:text="选择问题分类"
         android:textColor="@color/color_999"
-        android:textSize="12sp"/>
+        android:textSize="12sp" />
 
-    <ScrollView
+    <com.likeit.as51scholarship.view.MyGridView
+        android:id="@+id/question_catetory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:layout_marginTop="20dip"
+        android:verticalSpacing="10dip"
+        android:numColumns="4"></com.likeit.as51scholarship.view.MyGridView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="选择国家"
+        android:textColor="@color/color_999"
+        android:textSize="12sp" />
 
-        <LinearLayout
-            android:id="@+id/news_type_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        </LinearLayout>
-    </ScrollView>
+    <com.likeit.as51scholarship.view.MyGridView
+        android:id="@+id/question_country"
+        android:layout_width="match_parent"
+        android:verticalSpacing="10dip"
+        android:layout_marginTop="20dip"
+        android:layout_height="wrap_content"
+        android:numColumns="4"></com.likeit.as51scholarship.view.MyGridView>
 </LinearLayout>

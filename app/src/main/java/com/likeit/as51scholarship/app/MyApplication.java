@@ -3,25 +3,23 @@ package com.likeit.as51scholarship.app;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.text.TextUtils;
+import android.content.Intent;
+import android.widget.Toast;
 
-import com.easemob.redpacketsdk.RPInitRedPacketCallback;
-import com.easemob.redpacketsdk.RPValueCallback;
-import com.easemob.redpacketsdk.RedPacket;
-import com.easemob.redpacketsdk.bean.RedPacketInfo;
-import com.easemob.redpacketsdk.bean.TokenData;
-import com.easemob.redpacketsdk.constant.RPConstant;
+import com.hyphenate.EMConnectionListener;
+import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
-import com.hyphenate.easeui.domain.EaseUser;
-import com.hyphenate.easeui.utils.EaseUserUtils;
+import com.hyphenate.util.EMLog;
+import com.likeit.as51scholarship.R;
+import com.likeit.as51scholarship.activitys.login.GuideActivity;
+import com.likeit.as51scholarship.activitys.my_center.EditorCenterActivity;
+import com.likeit.as51scholarship.chat.message.widget.Constant;
 import com.likeit.as51scholarship.chat.message.widget.DemoHelper;
 import com.likeit.as51scholarship.model.UserInfo;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-
-import com.likeit.as51scholarship.R;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 
@@ -30,6 +28,8 @@ import java.util.List;
 
 import cn.sharesdk.framework.ShareSDK;
 import cn.smssdk.SMSSDK;
+
+import static com.hyphenate.chat.EMGCMListenerService.TAG;
 
 
 public class MyApplication extends Application {
@@ -41,6 +41,7 @@ public class MyApplication extends Application {
     private boolean isInit = false;
     public final String PREF_USERNAME = "username";
     public static String currentUserNick = "";
+    private EMConnectionListener connectionListener;
 
     public static MyApplication getInstance() {
         if (mContext == null) {
@@ -55,7 +56,8 @@ public class MyApplication extends Application {
         super.onCreate();
         mContext = this;
         instance = this;
-        DemoHelper.getInstance().init(mContext);
+
+        initHuanXin();
         initRedPacket();
         initMob();
         // 初始化环信SDK
@@ -74,44 +76,85 @@ public class MyApplication extends Application {
                 .writeDebugLogs().build();
         ImageLoader.getInstance().init(config);
 //        //初始化
+        Beta.defaultBannerId = R.mipmap.logo;
+        Beta.showInterruptedStrategy = true;
+
+        Beta.canShowUpgradeActs.add(EditorCenterActivity.class);
         Beta.autoCheckUpgrade = true;//设置自动检查
-        Bugly.init(mContext, "6441c3da7a", false);
+       // Bugly.init(mContext, "6441c3da7a", false);
+
+        Bugly.init(mContext, "5dd538b635", false);
+    }
+
+    private void initHuanXin() {
+        DemoHelper.getInstance().init(mContext);
+        //设置全局监听
+        //setGlobalListeners();
+    }
+
+    private void setGlobalListeners() {
+        connectionListener = new EMConnectionListener() {
+            @Override
+            public void onDisconnected(int error) {
+                EMLog.d("global listener", "onDisconnect" + error);
+                if (error == EMError.USER_REMOVED) {// 显示帐号已经被移除
+                    onUserException(Constant.ACCOUNT_REMOVED);
+                } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {// 显示帐号在其他设备登录
+                    onUserException(Constant.ACCOUNT_CONFLICT);
+                    EMClient.getInstance().logout(true);//退出登录
+                    Toast.makeText(getApplicationContext(),"退出成功",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), GuideActivity.class));
+
+                } else if (error == EMError.SERVER_SERVICE_RESTRICTED) {//
+                    onUserException(Constant.ACCOUNT_FORBIDDEN);
+                }
+            }
+
+            @Override
+            public void onConnected() {
+                // in case group and contact were already synced, we supposed to notify sdk we are ready to receive the events
+
+            }
+        };
+
+        //register connection listener
+        EMClient.getInstance().addConnectionListener(connectionListener);
     }
 
     private void initRedPacket() {
         //red packet code : 初始化红包SDK，开启日志输出开关
-        RedPacket.getInstance().initRedPacket(mContext, RPConstant.AUTH_METHOD_EASEMOB, new RPInitRedPacketCallback() {
-
-            @Override
-            public void initTokenData(RPValueCallback<TokenData> callback) {
-                TokenData tokenData = new TokenData();
-                tokenData.imUserId = EMClient.getInstance().getCurrentUser();
-                //此处使用环信id代替了appUserId 开发者可传入App的appUserId
-                tokenData.appUserId = EMClient.getInstance().getCurrentUser();
-                tokenData.imToken = EMClient.getInstance().getAccessToken();
-                //同步或异步获取TokenData 获取成功后回调onSuccess()方法
-                callback.onSuccess(tokenData);
-            }
-
-            @Override
-            public RedPacketInfo initCurrentUserSync() {
-                //这里需要同步设置当前用户id、昵称和头像url
-                String fromAvatarUrl = "";
-                String fromNickname = EMClient.getInstance().getCurrentUser();
-                EaseUser easeUser = EaseUserUtils.getUserInfo(fromNickname);
-                if (easeUser != null) {
-                    fromAvatarUrl = TextUtils.isEmpty(easeUser.getAvatar()) ? "none" : easeUser.getAvatar();
-                    fromNickname = TextUtils.isEmpty(easeUser.getNick()) ? easeUser.getUsername() : easeUser.getNick();
-                }
-                RedPacketInfo redPacketInfo = new RedPacketInfo();
-                redPacketInfo.fromUserId = EMClient.getInstance().getCurrentUser();
-                redPacketInfo.fromAvatarUrl = fromAvatarUrl;
-                redPacketInfo.fromNickName = fromNickname;
-                return redPacketInfo;
-            }
-        });
-        RedPacket.getInstance().setDebugMode(true);
-        //end of red packet code
+//        RedPacket.getInstance().initRedPacket(mContext, RPConstant.AUTH_METHOD_EASEMOB, new RPInitRedPacketCallback() {
+//
+//            @Override
+//            public void initTokenData(RPValueCallback<TokenData> callback) {
+//                TokenData tokenData = new TokenData();
+//                tokenData.imUserId = EMClient.getInstance().getCurrentUser();
+//                //此处使用环信id代替了appUserId 开发者可传入App的appUserId
+//                tokenData.appUserId = EMClient.getInstance().getCurrentUser();
+//                tokenData.imToken = EMClient.getInstance().getAccessToken();
+//                //同步或异步获取TokenData 获取成功后回调onSuccess()方法
+//                callback.onSuccess(tokenData);
+//            }
+//
+//            @Override
+//            public RedPacketInfo initCurrentUserSync() {
+//                //这里需要同步设置当前用户id、昵称和头像url
+//                String fromAvatarUrl = "";
+//                String fromNickname = EMClient.getInstance().getCurrentUser();
+//                EaseUser easeUser = EaseUserUtils.getUserInfo(fromNickname);
+//                if (easeUser != null) {
+//                    fromAvatarUrl = TextUtils.isEmpty(easeUser.getAvatar()) ? "none" : easeUser.getAvatar();
+//                    fromNickname = TextUtils.isEmpty(easeUser.getNick()) ? easeUser.getUsername() : easeUser.getNick();
+//                }
+//                RedPacketInfo redPacketInfo = new RedPacketInfo();
+//                redPacketInfo.fromUserId = EMClient.getInstance().getCurrentUser();
+//                redPacketInfo.fromAvatarUrl = fromAvatarUrl;
+//                redPacketInfo.fromNickName = fromNickname;
+//                return redPacketInfo;
+//            }
+//        });
+//        RedPacket.getInstance().setDebugMode(true);
+//        //end of red packet code
     }
 
 
@@ -209,7 +252,7 @@ public class MyApplication extends Application {
 
     private void initMob() {
         ShareSDK.initSDK(mContext);
-        SMSSDK.initSDK(mContext, "1b2bd24a56f24", "Secret:c6970e8b5b801e120f01656349a20e08");
+        SMSSDK.initSDK(mContext, "215c3a8166eb3", "Secret:ab800735232f039a271c73874269dbdc");
     }
 
 
@@ -228,6 +271,14 @@ public class MyApplication extends Application {
 //            init();
 //        return userInfo;
 //    }
+        protected void onUserException(String exception){
+            EMLog.e(TAG, "onUserException: " + exception);
+            Toast.makeText(getApplicationContext(),exception,Toast.LENGTH_LONG).show();
+//        Intent intent = new Intent(getBaseContext(), UserQrCodeActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.putExtra(exception, true);
+//        this.startActivity(intent);
+        }
     }
 //    private void init() {
 //        userInfo = Storage.getObject(AppConfig.USER_INFO, UserInfo.class);

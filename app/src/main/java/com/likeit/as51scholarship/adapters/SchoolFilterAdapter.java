@@ -40,6 +40,7 @@ public class SchoolFilterAdapter extends BaseAdapter {
     private MyView myView;
     private MyView2 myView2;
     private ArrayList<SchoolFilterEventBean> attrData;
+    private int selectPosition = -1;
 
 
     public SchoolFilterAdapter(Context context, List<SchoolAttributeNameVo> data) {
@@ -177,28 +178,35 @@ public class SchoolFilterAdapter extends BaseAdapter {
                     @Override
                     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                         //设置当前选中的位置的状态为非。
-                        data.get(position).getValues().get(arg2).setChecked(!data.get(position).getValues().get(arg2).isChecked());
-                        String attriId = data.get(position).getValues().get(arg2).getAttr_id();
-                        String name = data.get(position).getName();
-                        SchoolFilterEventBean mSchoolFilterEventBean = new SchoolFilterEventBean();
-                        mSchoolFilterEventBean.setAttrId(data.get(position).getValues().get(arg2).getAttr_id());
-                        mSchoolFilterEventBean.setAttrName(data.get(position).getName());
-                        attrData.add(mSchoolFilterEventBean);
-                        for (int i = 0; i < data.get(position).getValues().size(); i++) {
-                            //跳过已设置的选中的位置的状态
-                            if (i == arg2) {
-                                continue;
-                            }
+                        if (data.get(position).getValues().get(arg2).isChecked()) {
+                            return;
+                        } else {
+                            data.get(position).getValues().get(arg2).setChecked(!data.get(position).getValues().get(arg2).isChecked());
 
-                            data.get(position).getValues().get(i).setChecked(false);
+                            String attriId = data.get(position).getValues().get(arg2).getAttr_id();
+                            String name = data.get(position).getName();
+                            SchoolFilterEventBean mSchoolFilterEventBean = new SchoolFilterEventBean();
+                            mSchoolFilterEventBean.setAttrId(data.get(position).getValues().get(arg2).getAttr_id());
+                            mSchoolFilterEventBean.setAttrName(data.get(position).getName());
+                            attrData.add(mSchoolFilterEventBean);
+
+                            for (int i = 0; i < data.get(position).getValues().size(); i++) {
+                                //跳过已设置的选中的位置的状态
+                                if (i == arg2) {
+                                    continue;
+
+                                }
+                                data.get(position).getValues().get(i).setChecked(false);
+                                //  EventBus.getDefault().post(new MessageEvent(data.toString()));
 //                            mSchoolFilterEventBean.setAttrId(data.get(position).getValues().get(arg2).getAttr_id());
 //                            mSchoolFilterEventBean.setAttrName(data.get(position).getName());
 //                            attrData.remove(mSchoolFilterEventBean);
+                            }
+
+                            //  EventBus.getDefault().post(new MessageEvent(attrData.toString()));
+                            adapter.notifyDataSetChanged(!data.get(position).isNameIsChecked(), data.get(position).getValues());
+
                         }
-
-                        EventBus.getDefault().post(new MessageEvent(attrData.toString()));
-                        adapter.notifyDataSetChanged(!data.get(position).isNameIsChecked(), data.get(position).getValues());
-
                     }
                 });
                 break;

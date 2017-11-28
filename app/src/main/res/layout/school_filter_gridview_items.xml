@@ -13,4 +13,17 @@
         android:textColor="@color/defualt_textcolor_d"
         android:singleLine="true" />
 
+    <!-- <CheckBox
+            android:id="@+id/attr_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:button="@null"
+            android:checked="false"
+            android:padding="5dip"
+            android:clickable="false"
+            android:focusable="false"
+            android:textColor="@drawable/home_font_selector"
+            android:textSize="14sp"
+            android:focusableInTouchMode="false" />-->
 </LinearLayout>

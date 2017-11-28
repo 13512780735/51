@@ -6,8 +6,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.likeit.as51scholarship.R;
+import com.likeit.as51scholarship.app.MyApplication;
 import com.likeit.as51scholarship.model.circle_model.CircleEssayModel;
-import com.likeit.as51scholarship.utils.richtext.RichText;
+import com.likeit.as51scholarship.utils.StringUtil;
+import com.likeit.as51scholarship.utils.UtilPreference;
 import com.likeit.as51scholarship.view.CircleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -24,7 +26,7 @@ public class CircleDetailsEssayAdapter extends MyBaseAdapter<CircleEssayModel> {
 
     @Override
     public View getItemView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        final ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = getInflater().inflate(
@@ -39,8 +41,6 @@ public class CircleDetailsEssayAdapter extends MyBaseAdapter<CircleEssayModel> {
                     .findViewById(R.id.tv_add_friend);
             holder.tvTitle = (TextView) convertView
                     .findViewById(R.id.tv_title);
-            holder.rtContent = (RichText) convertView
-                    .findViewById(R.id.circle_essay_content);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -50,15 +50,26 @@ public class CircleDetailsEssayAdapter extends MyBaseAdapter<CircleEssayModel> {
         holder.tvEssayTime.setText(data1.getPost_time());
         ImageLoader.getInstance().displayImage(data1.getUserinfo().getHeadimg(), holder.ivAvatar);
         holder.tvTitle.setText(data1.getTitle());
-        holder.rtContent.setRichText(data1.getContent());
-        // 加好友
-        holder.tvAdd.setOnClickListener(new View.OnClickListener() {
+        String easemob_id = UtilPreference.getStringValue(MyApplication.mContext, "easemob_id");
+        if (StringUtil.isBlank(data1.getUserinfo().getEasemob_id())) {
+            holder.tvAdd.setVisibility(View.GONE);
+        } else if ("1".equals(data1.getUserinfo().getIsfriend())) {
+            holder.tvAdd.setText("已添加");
+            holder.tvAdd.setClickable(false);
+        }
+        else if (easemob_id.equals(data1.getUserinfo().getEasemob_id())) {
+            holder.tvAdd.setVisibility(View.GONE);
+        }
+        else{
+            holder.tvAdd.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                mOnAddClickListener.onAddClick(position);
-            }
-        });
+                @Override
+                public void onClick(View v) {
+                    mOnAddClickListener.onAddClick(position);
+
+                }
+            });
+        }
         return convertView;
     }
 
@@ -79,7 +90,6 @@ public class CircleDetailsEssayAdapter extends MyBaseAdapter<CircleEssayModel> {
     private class ViewHolder {
         CircleImageView ivAvatar;
         TextView tvEssayTime, tvAdd, tvTitle, tvEssayName;
-        RichText rtContent;
 
     }
 }

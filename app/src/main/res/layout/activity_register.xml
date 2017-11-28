@@ -187,7 +187,7 @@
             android:layout_marginLeft="8dp"
             android:layout_toEndOf="@+id/icon_user"
             android:layout_toRightOf="@+id/icon_user"
-            android:text="用户名"
+            android:text="昵称"
             android:textSize="14sp" />
 
         <EditText
@@ -198,7 +198,7 @@
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/icon_user"
             android:background="@null"
-            android:hint="请输入你的用户名"
+            android:hint="请输入你的昵称"
             android:textSize="12sp" />
 
 

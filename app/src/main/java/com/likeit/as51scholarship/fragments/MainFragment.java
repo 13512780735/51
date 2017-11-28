@@ -17,6 +17,7 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 
 import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -26,10 +27,12 @@ import com.likeit.as51scholarship.activitys.AnswersActivity;
 import com.likeit.as51scholarship.activitys.CourseListActivity;
 import com.likeit.as51scholarship.activitys.LiveListActivity;
 import com.likeit.as51scholarship.activitys.MainActivity;
+import com.likeit.as51scholarship.activitys.NewMessageActivity;
 import com.likeit.as51scholarship.activitys.NewsListActivity;
-import com.likeit.as51scholarship.activitys.SchoolDetailActivity;
+import com.likeit.as51scholarship.activitys.SchoolDetailActivity01;
 import com.likeit.as51scholarship.activitys.SchoolFilterActivity;
 import com.likeit.as51scholarship.activitys.SearchInfoActivity;
+import com.likeit.as51scholarship.activitys.WebADLActivity;
 import com.likeit.as51scholarship.activitys.newsfragment.NewsDetailsActivity;
 import com.likeit.as51scholarship.adapters.HomeItemNewsAdapter;
 import com.likeit.as51scholarship.adapters.HomeItemSchoolAdapter;
@@ -40,7 +43,6 @@ import com.likeit.as51scholarship.model.HomeADlistBean;
 import com.likeit.as51scholarship.model.HomeItemNewsBean;
 import com.likeit.as51scholarship.model.HomeItemSchoolBean;
 import com.likeit.as51scholarship.utils.ListScrollUtil;
-import com.likeit.as51scholarship.utils.ToastUtil;
 import com.likeit.as51scholarship.utils.UtilPreference;
 import com.likeit.as51scholarship.view.MyListview;
 import com.loopj.android.http.RequestParams;
@@ -183,13 +185,25 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
             DefaultSliderView defaultSliderView = new DefaultSliderView(getActivity());
             // textSliderView.description("");//设置标题
             defaultSliderView.image(ADListData.get(i).getPic());//设置图片的网络地址
+            final int finalI = i;
+            defaultSliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView slider) {
+                    String adlUrl = ADListData.get(finalI).getUrl();
+                    Intent intent = new Intent(getActivity(), WebADLActivity.class);
+                    intent.putExtra("adlUrl", adlUrl);
+                    startActivity(intent);
+                }
+            });
             //添加到布局中显示
             sliderShow.addSlider(defaultSliderView);
+
         }
         //其他设置
         sliderShow.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);//使用默认指示器，在底部显示
         sliderShow.setDuration(5000);//停留时间
-        sliderShow.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        //sliderShow.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        sliderShow.setPresetTransformer(SliderLayout.Transformer.Default);
         sliderShow.addOnPageChangeListener(new ViewPagerEx.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -209,7 +223,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         sliderShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showS(getActivity(), "1");
+
             }
         });
     }
@@ -269,7 +283,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
     @Override
     public void onDestroy() {
         super.onDestroy();
-        sliderShow.stopAutoCycle();
+        // sliderShow.stopAutoCycle();
         sliderShow.destroyDrawingCache();
     }
 
@@ -300,7 +314,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 intentSchoolDetail.putExtra("img", img);//图片
                 intentSchoolDetail.putExtra("sid", sid);//图片
                 intentSchoolDetail.putExtra("country_id", country_id);//图片
-                intentSchoolDetail.setClass(getActivity(), SchoolDetailActivity.class);
+                intentSchoolDetail.setClass(getActivity(), SchoolDetailActivity01.class);
                 Log.d("TAG555", "sid-->" + sid);
                 Log.d("TAG555", "en_name-->" + en_name);
                 startActivity(intentSchoolDetail);
@@ -310,8 +324,12 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String id1 = NewsData.get(position).getId();
+                String logo = NewsData.get(position).getCover();
+                String title = NewsData.get(position).getTitle();
                 Intent intentNewDetails = new Intent(getActivity(), NewsDetailsActivity.class);
                 intentNewDetails.putExtra("id", id1);
+                intentNewDetails.putExtra("title", title);
+                intentNewDetails.putExtra("logo", logo);
                 startActivity(intentNewDetails);
             }
         });
@@ -363,7 +381,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                         @Override
                         public void onGlobalLayout() {
                             addHightView();
-                            is_first="0";
+                            is_first = "0";
                             UtilPreference.saveString(getActivity(), "is_first", is_first);
                             iv_school_layout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                             backgroundAlpha(1f);
@@ -393,6 +411,8 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 startActivity(intentSearch);
                 break;
             case R.id.message_img:
+                Intent intentMessage = new Intent(getActivity(), NewMessageActivity.class);
+                startActivity(intentMessage);
                 break;
             case R.id.kefu_service:
                 KefuDialog kefuDialog = new KefuDialog(getContext());
@@ -480,12 +500,12 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         String url = AppConfig.LIKEIT_NEWS;
         RequestParams params = new RequestParams();
         // params.put("ukey", ukey);
-        params.put("page", "1");
+        //params.put("page", "1");
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
                 dialog.dismiss();
-                // Log.d("TAG", "HomeSchool-->" + response);
+                Log.d("TAG", "HomeSchool-->" + response);
                 try {
                     JSONObject obj = new JSONObject(response);
                     String code = obj.optString("code");
@@ -502,6 +522,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                             homeItemNewsBean.setInterval(jsonObject.optString("interval"));
                             homeItemNewsBean.setView(jsonObject.optString("view"));
                             homeItemNewsBean.setComment(jsonObject.optString("comment"));
+                            homeItemNewsBean.setCover(jsonObject.optString("cover"));
                             NewsData.add(homeItemNewsBean);
                         }
                         Log.d("TAG", "HomeSchool-->" + NewsData);
@@ -539,4 +560,10 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
         lp.alpha = bgAlpha; //0.0-1.0
         getActivity().getWindow().setAttributes(lp);
     }
+
+//    @Override
+//    public void onSliderClick(BaseSliderView slider) {
+//        Log.d("TAG", "sss");
+//        toActivity(WebADLActivity.class);
+//    }
 }

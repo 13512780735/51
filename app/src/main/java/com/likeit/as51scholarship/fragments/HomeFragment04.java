@@ -4,9 +4,11 @@ package com.likeit.as51scholarship.fragments;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -15,9 +17,17 @@ import com.likeit.as51scholarship.R;
 import com.likeit.as51scholarship.activitys.MainActivity;
 import com.likeit.as51scholarship.activitys.SearchInfoActivity;
 import com.likeit.as51scholarship.chat.message.adapter.Message_Chat_ViewPagerAdatper;
+import com.likeit.as51scholarship.chat.message.adapter.NewFriendsMsgAdapter;
+import com.likeit.as51scholarship.chat.message.db.DemoDBManager;
+import com.likeit.as51scholarship.chat.message.db.InviteMessgeDao;
+import com.likeit.as51scholarship.chat.message.model.InviteMessage;
 import com.likeit.as51scholarship.dialog.KefuDialog;
+import com.likeit.as51scholarship.view.BadgeView;
 import com.likeit.as51scholarship.view.MyListview;
 import com.likeit.as51scholarship.view.NoScrollViewPager;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +46,8 @@ public class HomeFragment04 extends BaseFragment implements View.OnClickListener
     private RadioGroup rg_message;
     private NoScrollViewPager viewpage_message;
     private Message_Chat_ViewPagerAdatper adapter;
+    private BadgeView badgeView2;
+    private BadgeView badgeView;
 
 
     @Override
@@ -50,13 +62,10 @@ public class HomeFragment04 extends BaseFragment implements View.OnClickListener
 
     }
 
-
-
-
     private void initView() {
 
-        rg_message=findViewById(R.id.message_rgTools);
-        viewpage_message=findViewById(R.id.message_viewpager);
+        rg_message = findViewById(R.id.message_rgTools);
+        viewpage_message = findViewById(R.id.message_viewpager);
         iv_header_left = findViewById(R.id.iv_header_left);
         iv_header_right = findViewById(R.id.iv_header_right);
         tv_header_right = findViewById(R.id.tv_header_right);
@@ -68,17 +77,6 @@ public class HomeFragment04 extends BaseFragment implements View.OnClickListener
         viewpage_message.setAdapter(adapter);
         viewpage_message.setOnPageChangeListener(this);
         rg_message.setOnCheckedChangeListener(this);
-//        /**
-//         * 消息
-//         */
-//        dataList = new ArrayList<Map<String, Object>>();
-//        getData();
-//        String[] from = {"img", "name", "message", "time"};
-//        int[] to = {R.id.iv_message_chat_avatar, R.id.iv_message_chat_name, R.id.iv_message_chat_message, R.id.tv_message_time};
-//        simpleAdapter = new SimpleAdapter(getActivity(), dataList, R.layout.message_listview_chat_items, from, to);
-//        //配置适配器
-//        mListview.setAdapter(simpleAdapter);
-//        ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
     }
 
     private void initListener() {
@@ -118,6 +116,7 @@ public class HomeFragment04 extends BaseFragment implements View.OnClickListener
     @Override
     public void onPageSelected(int position) {
         rg_message.check(rg_message.getChildAt(position).getId());
+
     }
 
     @Override
@@ -127,7 +126,36 @@ public class HomeFragment04 extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-        viewpage_message.setCurrentItem(group.indexOfChild(group.findViewById(checkedId)), false);
+        switch (checkedId) {
+            case R.id.bt_head_chat:
+                viewpage_message.setCurrentItem(0);
+                break;
+            case R.id.bt_head_notice:
+                viewpage_message.setCurrentItem(1);
+                findViewById(R.id.tv_header_right).setVisibility(View.VISIBLE);
+                //InviteMessgeDao inviteMessgeDao = new InviteMessgeDao(getActivity());
+                findViewById(R.id.tv_header_right).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //ToastUtil.showL(getActivity(),"111");
+                        // EventBus.getDefault().post(new MessageEvent("1"));
+                        ListView listView = (ListView) findViewById(R.id.message_list);
+                        InviteMessgeDao dao = new InviteMessgeDao(getActivity());
+                        List<InviteMessage> msgs = dao.getMessagesList();
+                        Collections.reverse(msgs);
+                        msgs.clear();
+                        DemoDBManager.getInstance().closeDB();
+                        dao.getMessagesList().clear();
+                        DemoDBManager.getInstance().deleteMessage(msgs.toString());
+                        NewFriendsMsgAdapter adapter = new NewFriendsMsgAdapter(getActivity(), 1, msgs);
+                        listView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+
+                        //dao.saveUnreadMessageCount(0);
+                    }
+                });
+                break;
+        }
     }
 
 //    @Override

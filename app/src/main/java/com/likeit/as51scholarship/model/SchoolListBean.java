@@ -19,6 +19,7 @@ public class SchoolListBean {
      * img : http://liuxueapp.wbteam.cn//Uploads/Picture/2017-03-28/58da293c5c9c1.png
      * img_width : 275
      * img_height : 137
+     * logo
      */
 
     private String id;
@@ -32,6 +33,15 @@ public class SchoolListBean {
     private String img;
     private String img_width;
     private String img_height;
+    private String logo;
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
 
     public String getId() {
         return id;

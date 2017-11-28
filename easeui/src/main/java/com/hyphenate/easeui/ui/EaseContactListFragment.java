@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,6 +42,7 @@ import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.widget.EaseContactList;
 import com.hyphenate.exceptions.HyphenateException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -152,6 +154,11 @@ public class EaseContactListFragment extends EaseBaseFragment {
         
     }
 
+    @Override
+    public void setArguments(Serializable userId) {
+
+    }
+
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -245,6 +252,7 @@ public class EaseContactListFragment extends EaseBaseFragment {
                     if(!blackList.contains(entry.getKey())){
                         //filter out users in blacklist
                         EaseUser user = entry.getValue();
+                        Log.d("TAG","user-->"+user);
                         EaseCommonUtils.setUserInitialLetter(user);
                         contactList.add(user);
                     }

@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DevInfor>
+
     <QQ
-        AppId="1106329709"
-        AppKey="SeZ2rDeTt65CvSeq"
+        AppId="1106336729"
+        AppKey="xAWY031dRvuE1PW3"
         Enable="true"
         Id="1"
         RedirectUrl="http://www.sharesdk.cn"
         ShareByAppClient="true"
         SortId="1" />
+
+   <!-- AppKey="1063815971"
+        AppSecret="299e859b76d306fd8ba4fc306e1a45bb"-->
     <SinaWeibo
-        AppKey="3415952877"
-        AppSecret="fade15a705f79b10ae0bfef16f71a663"
+        AppKey="1063815971"
+        AppSecret="299e859b76d306fd8ba4fc306e1a45bb"
         Enable="true"
         Id="2"
-        RedirectUrl="http://test.dd1760.com/DDHK/api/callback/weibo"
+        RedirectUrl="http://liuxueapp.wbteam.cn/index.php?s=/api/callback/weibo"
         ShareByAppClient="true"
         SortId="2" />
 

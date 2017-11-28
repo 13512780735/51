@@ -41,6 +41,7 @@ public abstract class MyBaseFragment extends Fragment {
         isInit = true;
         /**初始化的时候去加载数据**/
         isCanLoadData();
+
         MyActivityManager.getInstance().addActivity(getActivity());
         setMiuiStatusBarDarkMode(getActivity(), true);
         Window window = getActivity().getWindow();
@@ -92,7 +93,12 @@ public abstract class MyBaseFragment extends Fragment {
 
     }
 
-//    @Override
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
+    //    @Override
 //    public void onResume() {
 //        super.onResume();
 //        EaseUI.getInstance().getNotifier().reset();

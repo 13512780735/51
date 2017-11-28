@@ -100,6 +100,7 @@ public class NewFragment01 extends BaseFragment {
                             homeItemNewsBean.setInterval(jsonObject.optString("interval"));
                             homeItemNewsBean.setView(jsonObject.optString("view"));
                             homeItemNewsBean.setComment(jsonObject.optString("comment"));
+                            homeItemNewsBean.setCover(jsonObject.optString("cover"));
                             NewsData.add(homeItemNewsBean);
                         }
                         Log.d("TAG", "HomeSchool-->" + NewsData);
@@ -185,9 +186,13 @@ public class NewFragment01 extends BaseFragment {
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String id1 = NewsData.get(position).getId();
+                String id1 = NewsData.get(position-1).getId();
+                String logo = NewsData.get(position-1).getCover();
+                String title = NewsData.get(position-1).getTitle();
                 Intent intentNewDetails = new Intent(getActivity(), NewsDetailsActivity.class);
                 intentNewDetails.putExtra("id", id1);
+                intentNewDetails.putExtra("title", title);
+                intentNewDetails.putExtra("logo", logo);
                 startActivity(intentNewDetails);
             }
         });
@@ -221,6 +226,7 @@ public class NewFragment01 extends BaseFragment {
                             homeItemNewsBean.setInterval(jsonObject.optString("interval"));
                             homeItemNewsBean.setView(jsonObject.optString("view"));
                             homeItemNewsBean.setComment(jsonObject.optString("comment"));
+                            homeItemNewsBean.setCover(jsonObject.optString("cover"));
                             NewsData.add(homeItemNewsBean);
                         }
                         Log.d("TAG", "HomeSchool-->" + NewsData);

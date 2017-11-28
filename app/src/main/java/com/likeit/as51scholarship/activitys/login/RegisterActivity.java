@@ -57,14 +57,17 @@ public class RegisterActivity extends Container {
     @BindView(R.id.backBtn)
     Button btBack;
     TimeCount time = new TimeCount(60000, 1000);
+
     private String phoneNum, code, passwd, username, sex;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-            MyActivityManager.getInstance().addActivity(this);
+        MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
+        id = getIntent().getStringExtra("id");
         tvHeader.setText("注册");
         sexRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -112,7 +115,11 @@ public class RegisterActivity extends Container {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.backBtn:
-                toActivityFinish(LoginActivity.class);
+                if ("1".equals(id)) {
+                    toActivityFinish(GuideActivity.class);
+                } else {
+                    toActivityFinish(LoginActivity.class);
+                }
                 break;
             case R.id.send_code_btn:
                 sendCode();
@@ -122,6 +129,7 @@ public class RegisterActivity extends Container {
                 break;
             case R.id.web_layout:
                 //  toWebActivity("", "用户协议");
+                toActivity(ProtocolActivity.class);
                 break;
             case R.id.web_layout01:
                 toActivityFinish(LoginActivity.class);
@@ -152,13 +160,7 @@ public class RegisterActivity extends Container {
             ToastUtil.showS(mContext, "请输入姓名");
             return;
         }
-//        if (TextUtils.isEmpty(sex)) {
-//            ToastUtil.showS(mContext, "请选择性别");
-//            return;
-//        }
-
-      //  Register();
-        //signup();
+        Register();
     }
 
     private void Register() {
@@ -168,8 +170,9 @@ public class RegisterActivity extends Container {
         params.put("password", passwd);
         params.put("nickname", username);
         Log.d("TAG", phoneNum + passwd + username);
-//        params.put("sex", sex);
+        params.put("sex", sex);
 //        params.put("pid", "");
+        showProgress("");
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
@@ -183,8 +186,8 @@ public class RegisterActivity extends Container {
                         JSONObject data = obj.getJSONObject("data");
                         String ukey = data.optString("ukey");
                         ToastUtil.showS(mContext, message);
-                        UtilPreference.saveString(mContext,"name",phoneNum);
-                        UtilPreference.saveString(mContext,"passwd",passwd);
+                        UtilPreference.saveString(mContext, "name", phoneNum);
+                        UtilPreference.saveString(mContext, "passwd", passwd);
                         toActivityFinish(LoginActivity.class);
                     } else {
                         ToastUtil.showS(mContext, message);
@@ -269,8 +272,8 @@ public class RegisterActivity extends Container {
                         //短信注册成功后，返回MainActivity,然后提示新好友
                         if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//提交验证码成功
                             //Toast.makeText(getApplicationContext(), "提交验证码成功"+data.toString(), Toast.LENGTH_SHORT).show();
-                            Register();
-                            showProgress("Loading...");
+
+
                         } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                             //已经验证
                             Toast.makeText(getApplicationContext(), "验证码已经发送", Toast.LENGTH_SHORT).show();
@@ -300,4 +303,13 @@ public class RegisterActivity extends Container {
                 }
             };
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if ("1".equals(id)) {
+            toActivityFinish(GuideActivity.class);
+        } else {
+            toActivityFinish(LoginActivity.class);
+        }
+    }
 }

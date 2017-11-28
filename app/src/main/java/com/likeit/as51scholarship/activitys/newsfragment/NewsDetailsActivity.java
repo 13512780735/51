@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import com.likeit.as51scholarship.R;
 import com.likeit.as51scholarship.activitys.Container;
-import com.likeit.as51scholarship.activitys.SendNewsActivity;
 import com.likeit.as51scholarship.configs.AppConfig;
 import com.likeit.as51scholarship.http.HttpUtil;
+import com.likeit.as51scholarship.utils.DialogUtils;
 import com.likeit.as51scholarship.utils.ToastUtil;
 import com.likeit.as51scholarship.utils.richtext.RichText;
 import com.loopj.android.http.RequestParams;
@@ -22,7 +22,6 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.sharesdk.onekeyshare.OnekeyShare;
 
 
 public class NewsDetailsActivity extends Container {
@@ -46,6 +45,8 @@ public class NewsDetailsActivity extends Container {
     RichText richDetails;
     private String id;
     private String title,source,time,content,comment,view;
+    private String logo;
+    private String title1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +55,13 @@ public class NewsDetailsActivity extends Container {
         ButterKnife.bind(this);
         Intent intent=getIntent();
         id = intent.getStringExtra("id");
+        logo = intent.getStringExtra("logo");
+        title1 = intent.getStringExtra("title");
         //详情数据请求
         initData();
         showProgress("Loading...");
         tvHeader.setText("资讯详情页");
-        ivRight.setImageResource(R.mipmap.icon_edit);
+        ivRight.setImageResource(R.mipmap.icon_share);
         ivLeft.setImageResource(R.mipmap.icon_back);
     }
 
@@ -112,20 +115,15 @@ public class NewsDetailsActivity extends Container {
         richDetails.setRichText(content);
         tvPraise.setText(view);
         tvComment.setText(comment);
+
     }
-    @OnClick({R.id.iv_header_right,R.id.iv_header_left,R.id.new_details_share})
+    @OnClick({R.id.iv_header_right,R.id.iv_header_left})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.iv_header_left:
                 onBackPressed();
                 break;
             case R.id.iv_header_right:
-                toActivity(SendNewsActivity.class);
-                Intent intent=new Intent(mContext,SendNewsActivity.class);
-                intent.putExtra("uId","1");
-                startActivity(intent);
-                break;
-            case R.id.new_details_share:
                 newsShare();
                 break;
 
@@ -134,30 +132,8 @@ public class NewsDetailsActivity extends Container {
     }
 
     private void newsShare() {
-        OnekeyShare oks = new OnekeyShare();
-        //关闭sso授权
-        oks.disableSSOWhenAuthorize();
-
-        // 分享时Notification的图标和文字
-        //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
-        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
-        //oks.setTitle(getString(R.string.share));
-        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-        oks.setTitleUrl("http://sharesdk.cn");
-        // text是分享文本，所有平台都需要这个字段
-        oks.setText("我是分享文本");
-        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        oks.setImagePath("/sdcard/test.jpg");
-        // url仅在微信（包括好友和朋友圈）中使用
-        oks.setUrl("http://sharesdk.cn");
-        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
-        oks.setComment("我是测试评论文本");
-        // site是分享此内容的网站名称，仅在QQ空间使用
-        oks.setSite(getString(R.string.app_name));
-        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-        oks.setSiteUrl("http://sharesdk.cn");
-
-        // 启动分享GUI
-        oks.show(this);
+        String url = "http://liuxueapp.wbteam.cn/51SchoolShare/shareNew.html?id=";
+        String link = url + id;
+        DialogUtils.showShare(NewsDetailsActivity.this,logo, title1, "", link);
     }
 }

@@ -57,6 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:visibility="gone"
                 android:src="@mipmap/nav_icon_voice" />
         </LinearLayout>
 
@@ -86,15 +87,15 @@
             android:layout_height="1px"
             android:background="@android:color/transparent" />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/hot_school"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:button="@null"
-            android:checked="true"
             android:drawableRight="@drawable/school_tab_selector"
             android:gravity="center"
+            android:checked="true"
             android:paddingRight="20dip"
             android:text="排名"
             android:textColor="@drawable/home_font_selector"
@@ -105,7 +106,7 @@
             android:layout_marginTop="2dip"
             android:layout_marginBottom="2dip"
             android:background="@color/line_color"></View>
-        <RadioButton
+        <CheckBox
             android:id="@+id/recommend_school"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -125,7 +126,7 @@
             android:layout_marginTop="2dip"
             android:layout_marginBottom="2dip"
             android:background="@color/line_color"></View>
-        <RadioButton
+        <CheckBox
             android:id="@+id/offer_school"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -185,7 +186,6 @@
             android:layout_width="20dp"
             android:layout_height="1px"
             android:background="@android:color/transparent" />
-
     </LinearLayout>
 
     <View

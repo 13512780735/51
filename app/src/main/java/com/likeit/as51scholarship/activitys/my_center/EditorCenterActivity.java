@@ -1,18 +1,21 @@
 package com.likeit.as51scholarship.activitys.my_center;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.text.TextUtils;
+import android.os.Environment;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -28,6 +31,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,30 +43,28 @@ import com.likeit.as51scholarship.R;
 import com.likeit.as51scholarship.activitys.Container;
 import com.likeit.as51scholarship.activitys.login.GuideActivity;
 import com.likeit.as51scholarship.adapters.userapply.UserApplyDistrictAdapter;
+import com.likeit.as51scholarship.adapters.userapply.UserApplyEducationAdapter;
 import com.likeit.as51scholarship.chat.message.widget.DemoHelper;
 import com.likeit.as51scholarship.configs.AppConfig;
 import com.likeit.as51scholarship.http.HttpUtil;
-import com.likeit.as51scholarship.imageutil.custom.PhotoSystemOrShoot;
 import com.likeit.as51scholarship.model.UserInfoBean;
 import com.likeit.as51scholarship.model.userapply.UserDistrictBean;
-import com.likeit.as51scholarship.utils.BitmapOption;
+import com.likeit.as51scholarship.model.userapply.UserEducationBean;
 import com.likeit.as51scholarship.utils.MyActivityManager;
+import com.likeit.as51scholarship.utils.PhotoUtils;
 import com.likeit.as51scholarship.utils.ToastUtil;
+import com.likeit.as51scholarship.utils.ToastUtils;
 import com.likeit.as51scholarship.utils.UtilPreference;
 import com.likeit.as51scholarship.view.CircleImageView;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.pk4pk.baseappmoudle.utils.FileUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -72,7 +75,7 @@ import butterknife.OnClick;
 import cn.finalteam.rxgalleryfinal.utils.Logger;
 
 
-public class EditorCenterActivity extends Container {
+public class    EditorCenterActivity extends Container {
     @BindView(R.id.tv_header)
     TextView tvHeader;
     @BindView(R.id.tv_right)
@@ -94,23 +97,48 @@ public class EditorCenterActivity extends Container {
     @BindView(R.id.phone_et)
     EditText edPhone;
     @BindView(R.id.education_et)
-    EditText edEducation;
+    TextView edEducation;
     @BindView(R.id.rl_address)
     RelativeLayout rlAddress;
+    @BindView(R.id.rl_education)
+    RelativeLayout rlEducation;
     final int DATE_DIALOG = 1;
     int mYear, mMonth, mDay;
     private UserInfoBean userInfoBean;
-    private PhotoSystemOrShoot selectPhoto;
     private List<UserDistrictBean> areaData;
     //下拉
     private View layoutMenu;
     private ListView popMenuList;
-    private PopupWindow popMenu;
-    private UserApplyDistrictAdapter adapter1;
     private String areaId;
     private UserInfoBean userInfobean;
+    private PopupWindow popMenu;
     private PopupWindow mPopupWindow;
     private View mpopview;
+    private static final int CODE_GALLERY_REQUEST = 0xa0;
+    private static final int CODE_CAMERA_REQUEST = 0xa1;
+    private static final int CODE_RESULT_REQUEST = 0xa2;
+    private static final int CAMERA_PERMISSIONS_REQUEST_CODE = 0x03;
+    private static final int STORAGE_PERMISSIONS_REQUEST_CODE = 0x04;
+    private File fileUri = new File(Environment.getExternalStorageDirectory().getPath() + "/photo.jpg");
+    private File fileCropUri = new File(Environment.getExternalStorageDirectory().getPath() + "/crop_photo.jpg");
+    private Uri imageUri;
+    private Uri cropImageUri;
+
+
+    private String tag;
+
+    private List<UserEducationBean> educationData;
+    private List<UserDistrictBean> districtData;
+    private UserApplyEducationAdapter adapter1;
+    private UserApplyDistrictAdapter adapter2;
+    private String education_id;
+    @BindView(R.id.sex_radio_group)
+    RadioGroup sexRadioGroup;
+    @BindView(R.id.man_radio)
+    RadioButton man_radio;
+    @BindView(R.id.woman_radio)
+    RadioButton woman_radio;
+    private String sex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,14 +146,66 @@ public class EditorCenterActivity extends Container {
         setContentView(R.layout.activity_editor_center);
         MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
-        areaData=new ArrayList<UserDistrictBean>();
+        educationData = new ArrayList<UserEducationBean>();
+        districtData = new ArrayList<UserDistrictBean>();
         initUser();
         initData();//地区获取
         showProgress("Loading...");
+
       //  userInfoBean = (UserInfoBean) getIntent().getSerializableExtra("userInfoBean");
 
     }
+    private void initData() {
+        String url = AppConfig.LIKEIT_MEMBER_EDIT_TMPL;
+        RequestParams params = new RequestParams();
+        params.put("ukey", ukey);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
+            @Override
+            public void success(String response) {
+                disShowProgress();
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    String code = obj.optString("code");
+                    String message = obj.optString("message");
+                    if ("1".equals(code)) {
+                        JSONObject data = obj.optJSONObject("data");
+                        JSONArray educationArray = data.optJSONArray("education");
+                        for (int i = 0; i < educationArray.length(); i++) {
+                            JSONObject educationObj = educationArray.optJSONObject(i);
+                            UserEducationBean mUserEducationBean = new UserEducationBean();
+                            mUserEducationBean.setId(educationObj.optString("id"));
+                            mUserEducationBean.setName(educationObj.optString("name"));
+                            educationData.add(mUserEducationBean);
+                        }
+                        JSONArray districtArray = data.optJSONArray("district");
+                        for (int i = 0; i < districtArray.length(); i++) {
+                            JSONObject districtObj = districtArray.optJSONObject(i);
+                            UserDistrictBean mUserDistrictBean = new UserDistrictBean();
+                            mUserDistrictBean.setId(districtObj.optString("id"));
+                            mUserDistrictBean.setName(districtObj.optString("name"));
+                            districtData.add(mUserDistrictBean);
+                        }
+                    } else {
+                        ToastUtil.showS(mContext, message);
+                    }
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Throwable e) {
+                disShowProgress();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                disShowProgress();
+            }
+        });
+    }
     private void initUser() {
         String url = AppConfig.LIKEIT_GET_INFO;
         ukey = UtilPreference.getStringValue(mContext, "ukey");
@@ -170,40 +250,17 @@ public class EditorCenterActivity extends Container {
         });
     }
 
-    private void initData() {
-        String url=AppConfig.LIKEIT_MEMBER_EDIT_DISTRICT;
-        RequestParams params=new RequestParams();
-        params.put("ukey",ukey);
-        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
-            @Override
-            public void success(String response) {
-                try {
-                    JSONObject obj=new JSONObject(response);
-                    String code=obj.optString("code");
-                    if("1".equals(code)){
-                        JSONArray array=obj.optJSONArray("data");
-                        for(int i=0;i<array.length();i++){
-                            JSONObject object=array.optJSONObject(i);
-                            UserDistrictBean mUserDistrictBean=new UserDistrictBean();
-                            mUserDistrictBean.setId(object.optString("id"));
-                            mUserDistrictBean.setName(object.optString("name"));
-                            areaData.add(mUserDistrictBean);
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void failed(Throwable e) {
-
-            }
-        });
-
-    }
 
     private void initView() {
+        String sex1=userInfobean.getSex();
+        Log.d("TAG",sex1);
+        if("1".equals(sex1)){
+            woman_radio.setChecked(false);
+            man_radio.setChecked(true);
+        }else{
+            man_radio.setChecked(false);
+            woman_radio.setChecked(true);
+        }
         Log.d("TAG", "img22-->" + userInfobean.getHeadimg());
         tvHeader.setText("个人资料");
         tvRight.setText("保存");
@@ -215,16 +272,31 @@ public class EditorCenterActivity extends Container {
         edPhone.setText(userInfobean.getMobile());
         tvBirthday.setText(userInfobean.getBirthday());
         ImageLoader.getInstance().displayImage(userInfobean.getHeadimg(),ivUserAvatar);
-        tvAddress.setText(userInfobean.getPos_province()+userInfobean.getCountry());
+        tvAddress.setText(userInfobean.getCountry());
         edEducation.setText(userInfobean.getEducation());
+        sexRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                switch (checkedId) {
+                    case R.id.man_radio:
+                        sex = "1";
+                        break;
+                    case R.id.woman_radio:
+                        sex = "2";
+                        break;
+                }
+            }
+        });
+        Log.d("TAG",sex);
     }
 
-    @OnClick({R.id.backBtn, R.id.iv_birthday_arrow, R.id.editorCenter_iv_logout,R.id.select_photo,R.id.tv_right,R.id.rl_address})
+    @OnClick({R.id.backBtn, R.id.iv_birthday_arrow, R.id.editorCenter_iv_logout,R.id.select_photo,R.id.tv_right,R.id.rl_address,R.id.rl_education,R.id.rl_birthday})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.backBtn:
                 onBackPressed();
                 break;
+            case R.id.rl_birthday:
             case R.id.iv_birthday_arrow:
                 showDialog(DATE_DIALOG);
                 break;
@@ -232,7 +304,12 @@ public class EditorCenterActivity extends Container {
                 selectAvatar();
                 break;
             case R.id.rl_address:
-                selectMenu();
+                tag="2";
+                selectMenu(tag);
+                break;
+            case R.id.rl_education:
+                tag="1";
+                selectMenu(tag);
                 break;
             case R.id.tv_right:
                 saveData();
@@ -250,14 +327,16 @@ public class EditorCenterActivity extends Container {
     }
 
     private void saveData() {
+
         String url = AppConfig.LIKEIT_MEMBER_EDIT_INFO;
         RequestParams params = new RequestParams();
         params.put("ukey",ukey);
         params.put("country",areaId);
-       // params.put("education",education_id);
+        params.put("education",education_id);
         params.put("birthday",tvBirthday.getText().toString());
-        params.put("nickname_cn",edName.getText().toString());
+        params.put("nickname",edName.getText().toString());
         params.put("mobile",edPhone.getText().toString());
+        params.put("sex",sex);
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
@@ -267,7 +346,7 @@ public class EditorCenterActivity extends Container {
                     String code=obj.optString("code");
                     String message=obj.optString("message");
                     if("1".equals(code)){
-                        ToastUtil.showS(mContext,message);
+                        ToastUtil.showS(mContext,"保存成功");
                         UtilPreference.saveString(mContext,"isLogin","1");
                         finish();
                     }else{
@@ -285,7 +364,7 @@ public class EditorCenterActivity extends Container {
         });
     }
 
-    private void selectMenu() {
+    private void selectMenu(final String tag) {
         if (popMenu != null && popMenu.isShowing()) {
             popMenu.dismiss();
         } else {
@@ -296,11 +375,21 @@ public class EditorCenterActivity extends Container {
                     .findViewById(R.id.menulist);
 
             // 创建ArrayAdapter
-                adapter1 = new UserApplyDistrictAdapter(
+            if ("1".equals(tag) || "4".equals(tag)) {
+                adapter1 = new UserApplyEducationAdapter(
                         mContext,
-                        areaData);
+                        educationData);
                 popMenuList.setAdapter(adapter1);
                 adapter1.notifyDataSetChanged();
+            } else if ("2".equals(tag) || "3".equals(tag)) {
+                adapter2 = new UserApplyDistrictAdapter(
+                        mContext,
+                        districtData);
+                popMenuList.setAdapter(adapter2);
+                adapter2.notifyDataSetChanged();
+
+
+            }
 
             // 绑定适配器
             backgroundAlpha(0.5f);
@@ -317,9 +406,13 @@ public class EditorCenterActivity extends Container {
                                 popMenu.dismiss();
                                 backgroundAlpha(1f);
                             }
-                                areaId=areaData.get(position).getId();
-                                tvAddress.setText(areaData.get(position).getName());
-
+                            if ("1".equals(tag)) {
+                                education_id=educationData.get(position).getId();
+                                edEducation.setText(educationData.get(position).getName());
+                            } else if ("2".equals(tag)) {
+                                areaId = districtData.get(position).getId();
+                                tvAddress.setText(districtData.get(position).getName());
+                            }
                         }
                     });
 
@@ -386,10 +479,8 @@ public class EditorCenterActivity extends Container {
             @Override
             public void onClick(View v) {
                 mPopupWindow.dismiss();
-                Intent i = new Intent(
-                        Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);// 调用android的图库
-                startActivityForResult(i, 2);
+
+                autoObtainStoragePermission();
             }
         });
 
@@ -398,10 +489,7 @@ public class EditorCenterActivity extends Container {
             @Override
             public void onClick(View v) {
                 mPopupWindow.dismiss();
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);// 调用android自带的照相机
-                @SuppressWarnings("unused")
-                Uri photoUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                startActivityForResult(intent, 1);
+                autoObtainCameraPermission();
             }
         });
 
@@ -426,103 +514,190 @@ public class EditorCenterActivity extends Container {
             }
         });
     }
-    @SuppressLint("SdCardPath")
+    /**
+     * 自动获取相机权限
+     */
+    private void autoObtainCameraPermission() {
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                ToastUtils.showShort(this, "您已经拒绝过一次");
+            }
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CAMERA_PERMISSIONS_REQUEST_CODE);
+        } else {//有权限直接调用系统相机拍照
+            if (hasSdcard()) {
+                imageUri = Uri.fromFile(fileUri);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    imageUri = FileProvider.getUriForFile(mContext, "com.likeit.as51scholarship.fileprovider", fileUri);//通过FileProvider创建一个content类型的Uri
+                PhotoUtils.takePicture(this, imageUri, CODE_CAMERA_REQUEST);
+            } else {
+                ToastUtils.showShort(this, "设备没有SD卡！");
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case CAMERA_PERMISSIONS_REQUEST_CODE: {//调用系统相机申请拍照权限回调
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (hasSdcard()) {
+                        imageUri = Uri.fromFile(fileUri);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                            imageUri = FileProvider.getUriForFile(mContext, "com.likeit.as51scholarship.fileprovider", fileUri);//通过FileProvider创建一个content类型的Uri
+                        PhotoUtils.takePicture(this, imageUri, CODE_CAMERA_REQUEST);
+                    } else {
+                        ToastUtils.showShort(this, "设备没有SD卡！");
+                    }
+                } else {
+
+                    ToastUtils.showShort(this, "请允许打开相机！！");
+                }
+                break;
+
+
+            }
+            case STORAGE_PERMISSIONS_REQUEST_CODE://调用系统相册申请Sdcard权限回调
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    PhotoUtils.openPic(this, CODE_GALLERY_REQUEST);
+                } else {
+
+                    ToastUtils.showShort(this, "请允许打操作SDCard！！");
+                }
+                break;
+        }
+    }
+
+    private static final int output_X = 480;
+    private static final int output_Y = 480;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == 1) { // 拍照
-                Bundle extras = data.getExtras();
-                Bitmap photoBit = (Bitmap) extras.get("data");
-                Bitmap option = BitmapOption.bitmapOption(photoBit, 5);
-                ivUserAvatar.setImageBitmap(option);
-                Log.d("TAG",data.toString());
-                saveBitmap2file(option, "0001.jpg");
-                final File file = new File("/sdcard/" + "0001.jpg");
-                try {
-                    String base64Token = Base64.encodeToString(FileUtil.getFileToByte(file), Base64.DEFAULT);//  编码后
-                    upLoad(base64Token);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Log.e("TAG", "file333333333333333   " + file.getName());
-                // 开始联网上传的操作
 
-            } else if (requestCode == 2) { // 相册
-                try {
-                    Uri uri = data.getData();
-                    String[] pojo = { MediaStore.Images.Media.DATA };
-                    @SuppressWarnings("deprecation")
-                    Cursor cursor = managedQuery(uri, pojo, null, null, null);
-                    if (cursor != null) {
-                        ContentResolver cr = this.getContentResolver();
-                        int colunm_index = cursor
-                                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                        cursor.moveToFirst();
-                        String path = cursor.getString(colunm_index);
-                        final File file = new File(path);
-                        Bitmap bitmap = BitmapFactory.decodeStream(cr
-                                .openInputStream(uri));
-                        Bitmap option = BitmapOption.bitmapOption(bitmap, 5);
-                        ivUserAvatar.setImageBitmap(option);
-                        //  iv01.setImageBitmap(option);// 设置为头像的背景
-                        Log.e("TAG", "fiels11111  " + file.getName());
-                        try {
-                            String base64Token = Base64.encodeToString(FileUtil.getFileToByte(file), Base64.DEFAULT);//  编码后
-                            upLoad(base64Token);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        // 开始联网上传的操作
-
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case CODE_CAMERA_REQUEST://拍照完成回调
+                    cropImageUri = Uri.fromFile(fileCropUri);
+                    Log.d("TAG321",imageUri.getPath());
+                    PhotoUtils.cropImageUri(this, imageUri, cropImageUri, 1, 1, output_X, output_Y, CODE_RESULT_REQUEST);
+                    break;
+                case CODE_GALLERY_REQUEST://访问相册完成回调
+                    if (hasSdcard()) {
+                        cropImageUri = Uri.fromFile(fileCropUri);
+                        Uri newUri = Uri.parse(PhotoUtils.getPath(this, data.getData()));
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                            newUri = FileProvider.getUriForFile(this, "com.likeit.as51scholarship.fileprovider", new File(newUri.getPath()));
+                        PhotoUtils.cropImageUri(this, newUri, cropImageUri, 1, 1, output_X, output_Y, CODE_RESULT_REQUEST);
+                        Log.d("TAG123",newUri.getPath());
+                    } else {
+                        ToastUtils.showShort(this, "设备没有SD卡！");
                     }
-                } catch (Exception e) {
-
-                }
+                    break;
+                case CODE_RESULT_REQUEST:
+                    Bitmap bitmap = PhotoUtils.getBitmapFromUri(cropImageUri, this);
+                    Log.d("TAG555",cropImageUri.toString());
+                    if (bitmap != null) {
+                        showImages(bitmap);
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                        byte[] bytes = baos.toByteArray();
+                        String base64Token = Base64.encodeToString(bytes, Base64.DEFAULT);//  编码后
+                        Log.d("TAG666",base64Token);
+                         upLoad(base64Token);
+                    }
+                    break;
             }
+        }
+    }
+
+
+    /**
+     * 自动获取sdk权限
+     */
+
+    private void autoObtainStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSIONS_REQUEST_CODE);
+        } else {
+            PhotoUtils.openPic(this, CODE_GALLERY_REQUEST);
         }
 
     }
 
+    private void showImages(Bitmap bitmap) {
+        ivUserAvatar.setImageBitmap(bitmap);
+    }
+
+    /**
+     * 检查设备是否存在SDCard的工具方法
+     */
+    public static boolean hasSdcard() {
+        String state = Environment.getExternalStorageState();
+        return state.equals(Environment.MEDIA_MOUNTED);
+    }
+
+
+
+
+
     private void logout() {
-        DemoHelper.getInstance().logout(true, new EMCallBack() {
+        if(DemoHelper.getInstance().isLoggedIn()){
+            DemoHelper.getInstance().logout(true, new EMCallBack() {
 
-            @Override
-            public void onSuccess() {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        // show login screen
-                        toActivityFinish(GuideActivity.class);
-                        MyActivityManager.getInstance().finishAllActivity();
+                @Override
+                public void onSuccess() {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            // show login screen
+                            toActivityFinish(GuideActivity.class);
+                            MyActivityManager.getInstance().finishAllActivity();
 
-                    }
-                });
-            }
+                        }
+                    });
+                }
 
-            @Override
-            public void onProgress(int progress, String status) {
+                @Override
+                public void onProgress(int progress, String status) {
 
-            }
+                }
 
-            @Override
-            public void onError(int code, String message) {
-                runOnUiThread(new Runnable() {
+                @Override
+                public void onError(int code, String message) {
+                    runOnUiThread(new Runnable() {
 
-                    @Override
-                    public void run() {
-                        // TODO Auto-generated method stub
-                        Toast.makeText(mContext, "unbind devicetokens failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
+                        @Override
+                        public void run() {
+                            // TODO Auto-generated method stub
+                            Toast.makeText(mContext, "unbind devicetokens failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+        }else{
+            toActivityFinish(GuideActivity.class);
+            MyActivityManager.getInstance().finishAllActivity();
+        }
+
     }
 
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case DATE_DIALOG:
-                return new DatePickerDialog(this, mdateListener, mYear, mMonth, mDay);
+                return new DatePickerDialog(EditorCenterActivity.this, R.style.MyDatePickerDialogTheme, new DatePickerDialog.OnDateSetListener()  {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        mYear = year;
+                        mMonth = month;
+                        mDay = dayOfMonth;
+                        display();
+                    }
+                }, 2017, 01, 01);
         }
         return null;
     }
@@ -534,40 +709,40 @@ public class EditorCenterActivity extends Container {
         tvBirthday.setText(new StringBuffer().append(mYear).append("-").append(mMonth + 1).append("-").append(mDay).append(" "));
     }
 
-    private DatePickerDialog.OnDateSetListener mdateListener = new DatePickerDialog.OnDateSetListener() {
+//    private DatePickerDialog.OnDateSetListener mdateListener = new DatePickerDialog.OnDateSetListener() {
+//
+//        @Override
+//        public void onDateSet(DatePicker view, int year, int monthOfYear,
+//                              int dayOfMonth) {
+//            mYear = year;
+//            mMonth = monthOfYear;
+//            mDay = dayOfMonth;
+//            display();
+//        }
+//    };
 
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            mYear = year;
-            mMonth = monthOfYear;
-            mDay = dayOfMonth;
-            display();
-        }
-    };
-
-    private void uploadFileBase64(String photoPath) {
-        if (photoPath == null || TextUtils.isEmpty(photoPath)) {
-            showToast("圖片不存在");
-            return;
-        }
-        Logger.d("filePath  :" + photoPath);
-        File file = new File(photoPath);
-        if (!file.exists()) {
-            showToast("圖片不存在");
-            return;
-        }
-
-        try {
-            String base64Token = Base64.encodeToString(FileUtil.getFileToByte(file), Base64.DEFAULT);//  编码后
-//            String  base64Token = Base64.encodeToString(bytes, Base64.DEFAULT);//  编码后
-            Log.d("TAG", "base64Token-->>" + base64Token);
-            upLoad(base64Token);
-            showProgress("Loading...");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    private void uploadFileBase64(String photoPath) {
+//        if (photoPath == null || TextUtils.isEmpty(photoPath)) {
+//            showToast("圖片不存在");
+//            return;
+//        }
+//        Logger.d("filePath  :" + photoPath);
+//        File file = new File(photoPath);
+//        if (!file.exists()) {
+//            showToast("圖片不存在");
+//            return;
+//        }
+//
+//        try {
+//            String base64Token = Base64.encodeToString(FileUtil.getFileToByte(file), Base64.DEFAULT);//  编码后
+////            String  base64Token = Base64.encodeToString(bytes, Base64.DEFAULT);//  编码后
+//            Log.d("TAG", "base64Token-->>" + base64Token);
+//            upLoad(base64Token);
+//            showProgress("Loading...");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void upLoad(String base64Token) {
         String url = AppConfig.LIKEIT_UPIMG;
@@ -626,19 +801,6 @@ public class EditorCenterActivity extends Container {
         getWindow().setAttributes(lp);
 
     }
-    @SuppressLint("SdCardPath")
-    static boolean saveBitmap2file(Bitmap bmp, String filename) {
-        Bitmap.CompressFormat format = Bitmap.CompressFormat.JPEG;
-        int quality = 100;
-        OutputStream stream = null;
-        try {
-            stream = new FileOutputStream("/sdcard/" + filename);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 
-        return bmp.compress(format, quality, stream);
-    }
 }
 

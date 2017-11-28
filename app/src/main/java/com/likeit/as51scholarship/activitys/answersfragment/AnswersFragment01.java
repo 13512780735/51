@@ -1,6 +1,7 @@
 package com.likeit.as51scholarship.activitys.answersfragment;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,13 +17,20 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.as51scholarship.R;
 import com.likeit.as51scholarship.activitys.newsfragment.NewsDetailsActivity;
+import com.likeit.as51scholarship.configs.AppConfig;
 import com.likeit.as51scholarship.fragments.BaseFragment;
+import com.likeit.as51scholarship.http.HttpUtil;
 import com.likeit.as51scholarship.utils.ListScrollUtil;
+import com.likeit.as51scholarship.utils.ToastUtil;
 import com.likeit.as51scholarship.view.MyListview;
 import com.likeit.as51scholarship.view.expandtabview.ExpandTabView;
 import com.likeit.as51scholarship.view.expandtabview.ViewLeft;
 import com.likeit.as51scholarship.view.expandtabview.ViewLeft01;
 import com.likeit.as51scholarship.view.expandtabview.ViewLeft02;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,25 +46,9 @@ public class AnswersFragment01 extends BaseFragment implements PullToRefreshBase
 
     private PullToRefreshScrollView mPullToRefreshScrollView;
     private MyListview mListview;
-    private List<Map<String, Object>> dataList;
-    private SimpleAdapter simpleAdapter;
-    // 图片封装为一个数组
-    private int[] icon = {R.mipmap.message_chat_avatar, R.mipmap.message_chat_avatar,
-            R.mipmap.message_chat_avatar, R.mipmap.message_chat_avatar, R.mipmap.message_chat_avatar};
-    private String[] iconName = {"Lana", "Tom", "Jim", "Lucy", "LiLy"};
-    private String[] iconTime = {"50分钟前", "50分钟前", "50分钟前", "50分钟前", "50分钟前"};
-    private String[] iconDetails = {"目前大四，留学加拿大需要准备什么呢？", "目前大四，留学加拿大需要准备什么呢？",
-            "目前大四，留学加拿大需要准备什么呢？", "目前大四，留学加拿大需要准备什么呢？", "目前大四，留学加拿大需要准备什么呢？"};
-    private String[] iconLikeNumber = {"9,999", "9,999", "9,999", "9,999", "9,999"};
-    private String[] iconCommnentNumber = {"15", "15", "15", "15", "15"};
-    private RadioGroup mRadioGroup;
-    private RadioButton mRadioButton01,mRadioButton02,mRadioButton03;
-    private ViewLeft viewLeft;
-    private ArrayList<View> mViewArray = new ArrayList<View>();
-    ExpandTabView expandTabView;
-    private ViewLeft01 viewLeft01;
-    private ViewLeft02 viewLeft02;
-
+   // private RadioGroup mRadioGroup;
+    //private RadioButton mRadioButton01,mRadioButton02,mRadioButton03;
+    private ProgressDialog dialog;
     @Override
     protected int setContentView() {
         return R.layout.fragment_answers_fragment01;
@@ -64,32 +56,43 @@ public class AnswersFragment01 extends BaseFragment implements PullToRefreshBase
 
     @Override
     protected void lazyLoad() {
+        dialog = new ProgressDialog(getActivity());
+        dialog.setMessage("Loading...");
+        initData();
+        dialog.show();
         initView();
-      initVaule();
-       initListener();
     }
 
-    private void initListener() {
-        viewLeft.setOnSelectListener(new ViewLeft.OnSelectListener() {
+    private void initData() {
+        String url= AppConfig.LIKEIT_QUESTION_GETLIST;
+        RequestParams param=new RequestParams();
+        param.put("ukey",ukey);
+        HttpUtil.post(url, param, new HttpUtil.RequestListener() {
             @Override
-            public void getValue(String distance, String showText) {
-                onRefresh(viewLeft,showText);
+            public void success(String response) {
+                dialog.dismiss();
+                Log.d("TAG",response);
+                try {
+                    JSONObject object=new JSONObject(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        });
-        viewLeft01.setOnSelectListener(new ViewLeft01.OnSelectListener() {
-            @Override
-            public void getValue(String distance, String showText) {
-                onRefresh(viewLeft01,showText);
-            }
-        });
-        viewLeft02.setOnSelectListener(new ViewLeft02.OnSelectListener() {
-            @Override
-            public void getValue(String distance, String showText) {
-                onRefresh(viewLeft02,showText);
-            }
-        });
 
+            @Override
+            public void failed(Throwable e) {
+                dialog.dismiss();
+                ToastUtil.showS(getActivity(),"网络异常请重新再试！");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dialog.dismiss();
+            }
+        });
     }
+
 
     @Override
     public void onDestroy() {
@@ -97,35 +100,7 @@ public class AnswersFragment01 extends BaseFragment implements PullToRefreshBase
 
     }
 
-    private void initVaule() {
-        ArrayList<String> mTextArray = new ArrayList<String>();
-        expandTabView.removeAllViews();
-        mViewArray.clear();
-        mTextArray.clear();
-        mViewArray.add(viewLeft);
-        mViewArray.add(viewLeft01);
-        mViewArray.add(viewLeft02);
-        // mViewArray.add(viewLeft);
-
-        mTextArray.add("国家");
-        mTextArray.add("热度");
-        mTextArray.add("分类");
-
-        expandTabView.setValue(mTextArray, mViewArray);
-//        expandTabView.setTitle(viewLeft.getShowText(), 0);
-//        expandTabView.setTitle(viewLeft01.getShowText(), 1);
-//        expandTabView.setTitle(viewLeft02.getShowText(), 2);
-    }
-
     private void initView() {
-        viewLeft = new ViewLeft(getActivity());
-        viewLeft01 = new ViewLeft01(getActivity());
-        viewLeft02 = new ViewLeft02(getActivity());
-        expandTabView=findViewById(R.id.expandtab_view);
-//        mRadioGroup=findViewById(R.id.radio_group_answers_issue);
-//        mRadioButton01=findViewById(R.id.country_answers_issue);
-//        mRadioButton02=findViewById(R.id.heat_answers_issue);
-//        mRadioButton03=findViewById(R.id.sort_answers_issue);
         mPullToRefreshScrollView = findViewById(R.id.answer_issue_scrollview);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setOnRefreshListener(this);
@@ -133,22 +108,20 @@ public class AnswersFragment01 extends BaseFragment implements PullToRefreshBase
                 "上次刷新时间");
         mPullToRefreshScrollView.getLoadingLayoutProxy()
                 .setPullLabel("下拉刷新");
-//          mPullRefreshScrollView.getLoadingLayoutProxy().setRefreshingLabel(
-//                      "refreshingLabel");
         mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
                 "松开即可刷新");
         mListview = findViewById(R.id.answer_issue_listview);
-        /**
-         * 消息
-         */
-        dataList = new ArrayList<Map<String, Object>>();
-        getData();
-        String[] from = {"img", "name", "time", "details", "like_number", "commnent_number"};
-        int[] to = {R.id.answers_issue_avatar, R.id.answers_issue_name, R.id.answers_issue_time,
-                R.id.answers_issue_details, R.id.answers_issue_like_number, R.id.answers_issue_commnent_number};
-        simpleAdapter = new SimpleAdapter(getActivity(), dataList, R.layout.answer_issue_listview_item, from, to);
-        //配置适配器
-        mListview.setAdapter(simpleAdapter);
+//        /**
+//         * 消息
+//         */
+//        dataList = new ArrayList<Map<String, Object>>();
+//        getData();
+//        String[] from = {"img", "name", "time", "details", "like_number", "commnent_number"};
+//        int[] to = {R.id.answers_issue_avatar, R.id.answers_issue_name, R.id.answers_issue_time,
+//                R.id.answers_issue_details, R.id.answers_issue_like_number, R.id.answers_issue_commnent_number};
+//        simpleAdapter = new SimpleAdapter(getActivity(), dataList, R.layout.answer_issue_listview_item, from, to);
+//        //配置适配器
+//        mListview.setAdapter(simpleAdapter);
         ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -157,35 +130,8 @@ public class AnswersFragment01 extends BaseFragment implements PullToRefreshBase
                 startActivity(intentNewDetails);
             }
         });
-//        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-//                switch (checkedId){
-//                    case R.id.country_answers_issue:
-//                        break;
-//                    case R.id.heat_answers_issue:
-//                        break;
-//                    case R.id.sort_answers_issue:
-//                        break;
-//                }
-//            }
-//        });
     }
 
-    private List<Map<String, Object>> getData() {
-        for (int i = 0; i < icon.length; i++) {
-            Log.d("TAG", "" + icon.length);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("img", icon[i]);
-            map.put("name", iconName[i]);
-            map.put("time", iconTime[i]);
-            map.put("details", iconDetails[i]);
-            map.put("like_number", iconLikeNumber[i]);
-            map.put("commnent_number", iconCommnentNumber[i]);
-            dataList.add(map);
-        }
-        return dataList;
-    }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
@@ -198,32 +144,6 @@ public class AnswersFragment01 extends BaseFragment implements PullToRefreshBase
         ListScrollUtil.setListViewHeightBasedOnChildren(mListview);
         mPullToRefreshScrollView.onRefreshComplete();
     }
-    private void onRefresh(View view, String showText) {
 
-        expandTabView.onPressBack();
-//        int position = getPositon(view);
-//        if (position >= 0 && !expandTabView.getTitle(position).equals(showText)) {
-//            expandTabView.setTitle(showText, position);
-//        }
-        Toast.makeText(getActivity(), showText, Toast.LENGTH_SHORT).show();
-
-    }
-
-    private int getPositon(View tView) {
-        for (int i = 0; i < mViewArray.size(); i++) {
-            if (mViewArray.get(i) == tView) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-//    @Override
-//    public void onBackPressed() {
-//
-//        if (!expandTabView.onPressBack()) {
-//            finish();
-//        }
-//    }
 
 }

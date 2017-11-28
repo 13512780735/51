@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">51奖学金</string>
     <string name="user_name">用户名</string>
-    <string name="user_input_hint">请输入你的手机号或用户名</string>
+    <string name="user_input_hint">请输入你的手机号</string>
 
     <string name="user_passwd">密码</string>
     <string name="user_passwd_input_hint">请输入登陆密码</string>

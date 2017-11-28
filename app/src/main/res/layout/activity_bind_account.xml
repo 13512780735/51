@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.likeit.as51scholarship.activitys.login.BindAccountActivity">
+    <include layout="@layout/layout_header_with_back"></include>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="欢迎来到留学APP"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="50dip"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="使用手机号作为登录账号"
+        android:textSize="14sp"
+        android:textColor="@color/defualt_textcolor_c"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dip"/>
+
+    <TextView
+        android:id="@+id/bind_btn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_round_login_btn_"
+        android:gravity="center"
+        android:text="绑定已有账号"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+    <TextView
+        android:id="@+id/register_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:padding="10dip"
+        android:textColor="@color/login_btn_bg_color"
+        android:gravity="center_horizontal"
+        android:text="新用户注册>"/>
+</LinearLayout>

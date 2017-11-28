@@ -16,6 +16,15 @@ public class CircleMemberModel {
     private String nickname;
     private String headimg;
     private String easemob_id;
+    private String isfriend;
+
+    public String getIsfriend() {
+        return isfriend;
+    }
+
+    public void setIsfriend(String isfriend) {
+        this.isfriend = isfriend;
+    }
 
     public String getNickname() {
         return nickname;

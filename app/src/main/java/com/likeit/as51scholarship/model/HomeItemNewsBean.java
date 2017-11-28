@@ -24,6 +24,15 @@ public class HomeItemNewsBean {
     private String interval;
     private String view;
     private String comment;
+    private String cover;
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
 
     public String getId() {
         return id;

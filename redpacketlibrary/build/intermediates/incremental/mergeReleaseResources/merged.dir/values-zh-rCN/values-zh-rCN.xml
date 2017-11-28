@@ -70,7 +70,7 @@
     <string name="Open_group_members_invited">开放群成员邀请</string>
     <string name="Open_the_equipment_failure">打开设备失败!</string>
     <string name="Password_cannot_be_empty">密码不能为空！</string>
-    <string name="Please_enter_a_username">请输入用户名</string>
+    <string name="Please_enter_a_username">请输入手机号</string>
     <string name="Recording_without_permission">无录音权限</string>
     <string name="Refused">已拒绝</string>
     <string name="Registered_successfully">注册成功</string>
@@ -156,7 +156,7 @@
     <string name="button_logout">退出登录</string>
     <string name="button_pushtotalk">按住说话</string>
     <string name="button_save">保存</string>
-    <string name="button_search">查找</string>
+    <string name="button_search">搜索</string>
     <string name="button_send">发送</string>
     <string name="button_uploadlog">上传运行日志</string>
     <string name="call_duration">通话时长</string>
@@ -313,7 +313,7 @@
     <string name="update_groups">更新群聊</string>
     <string name="update_groups_failed">更新群聊失败</string>
     <string name="user_card">名片</string>
-    <string name="user_name">用户名</string>
+    <string name="user_name">手机号</string>
     <string name="video">[视频]</string>
     <string name="video_call">[视频通话]</string>
     <string name="voice">声音</string>

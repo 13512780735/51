@@ -193,7 +193,7 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
                         }
                         mFollowCircleAdapter.notifyDataSetChanged();
                     } else {
-                        ToastUtil.showS(getActivity(), message);
+                        //ToastUtil.showS(getActivity(), message);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -348,7 +348,7 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
             @Override
             public void onEnFollowClick(int i) {
                 gid = groupListData.get(i).getId();
-                ToastUtil.showS(getActivity(), i + "");
+               // ToastUtil.showS(getActivity(), i + "");
                 refreshList();
             }
         });
@@ -356,7 +356,7 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
             @Override
             public void onFollowClick(int i) {
                 gid = groupListData.get(i).getId();
-                ToastUtil.showS(getActivity(), i + "");
+              //  ToastUtil.showS(getActivity(), i + "");
                 refreshList();
             }
         });
@@ -414,7 +414,9 @@ public class HomeFragment02 extends BaseFragment implements View.OnClickListener
                 mainActivity.refresh();
                 break;
             case R.id.iv_header_right:
-                toActivity(SearchInfoActivity.class);
+                Intent intentSearchInfo = new Intent(getActivity(), SearchInfoActivity.class);
+                intentSearchInfo.putExtra("key", "5");
+                startActivity(intentSearchInfo);
                 break;
             case R.id.ll_circle_filter:
                 selectMenu();

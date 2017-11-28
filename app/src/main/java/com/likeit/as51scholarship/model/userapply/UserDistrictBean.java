@@ -13,6 +13,15 @@ public class UserDistrictBean {
 
     private String id;
     private String name;
+    private boolean isChecked;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public String getId() {
         return id;

@@ -33,8 +33,7 @@
                     android:layout_width="60dip"
                     android:layout_height="60dip"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dip"
-                    android:src="@mipmap/icon_01_3x" />
+                    android:layout_marginTop="10dip" />
 
                 <TextView
                     android:id="@+id/circle_details_name"
@@ -123,32 +122,26 @@
                 android:layout_height="1dip"
                 android:background="@color/line_color"></View>
 
-            <LinearLayout
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dip"
+                android:text="圈子简介" />
+
+            <jaydenxiao.com.expandabletextview.ExpandableTextView
+                android:id="@+id/circle_details_desc_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dip"
-                    android:text="圈子简介" />
-
-                <jaydenxiao.com.expandabletextview.ExpandableTextView
-                    android:id="@+id/circle_details_desc_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    app:animDuration="200"
-                    app:collapseDrawable="@drawable/icon_down_arrow"
-                    app:collapseExpandGrarity="right"
-                    app:collapseExpandTextColor="@color/main_color"
-                    app:contentTextColor="@color/gray"
-                    app:contentTextSize="14sp"
-                    app:expandDrawable="@drawable/icon_up_arrow"
-                    app:maxCollapsedLines="1"
-                    app:textCollapse="@string/collapse"></jaydenxiao.com.expandabletextview.ExpandableTextView>
-            </LinearLayout>
+                android:padding="8dp"
+                app:animDuration="200"
+                app:collapseDrawable="@drawable/icon_down_arrow"
+                app:collapseExpandGrarity="right"
+                app:collapseExpandTextColor="@color/main_color"
+                app:contentTextColor="@color/gray"
+                app:contentTextSize="14sp"
+                app:expandDrawable="@drawable/icon_up_arrow"
+                app:textCollapse="@string/collapse"></jaydenxiao.com.expandabletextview.ExpandableTextView>
 
             <View
                 android:layout_width="match_parent"
@@ -230,10 +223,12 @@
                         android:textSize="14sp" />
                 </RadioGroup>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dip"
                 android:background="@color/line_color"></View>
+
             <com.likeit.as51scholarship.view.MyListview
                 android:id="@+id/listView01"
                 android:layout_width="match_parent"
@@ -241,7 +236,7 @@
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
                 android:layout_marginTop="10dip"
-                android:divider="@color/smssdk_white"
+                android:divider="@color/line_color"
                 android:dividerHeight="5dip"
                 android:focusable="false"
 
@@ -266,14 +261,15 @@
                 android:dividerHeight="2dip"
                 android:focusable="false"
                 android:visibility="gone"></com.likeit.as51scholarship.view.MyListview>
+
             <TextView
                 android:id="@+id/nodata"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:text="暂无数据"
                 android:textColor="@color/defualt_textcolor_d"
-                android:visibility="gone"
-                android:gravity="center"/>
+                android:visibility="gone" />
         </LinearLayout>
 
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>

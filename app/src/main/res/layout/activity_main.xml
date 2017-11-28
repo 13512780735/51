@@ -3,28 +3,27 @@
     android:id="@+id/id_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/defualt_window_background"
+    android:orientation="vertical"
     tools:context=".activitys.MainActivity">
 
     <com.likeit.as51scholarship.view.NoScrollViewPager
         android:id="@+id/home_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/defualt_window_background"
-        android:layout_weight="1"></com.likeit.as51scholarship.view.NoScrollViewPager>
+        android:layout_weight="1"
+        android:background="@color/defualt_window_background"></com.likeit.as51scholarship.view.NoScrollViewPager>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/base_edit_input"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <RadioGroup
             android:id="@+id/rgTools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="55dip"
             android:background="@null"
             android:gravity="center"
             android:orientation="horizontal">
@@ -60,37 +59,40 @@
                 android:textColor="@drawable/home_font_selector"
                 android:textSize="12sp" />
 
-            <RadioButton
-                android:id="@+id/rbFind"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:checked="false"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/find_selector"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:text="发现"
-                android:textColor="@drawable/home_font_selector"
-                android:textSize="12sp" />
+                <RadioButton
+                    android:id="@+id/rbFind"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/find_selector"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:text="发现"
+                    android:textColor="@drawable/home_font_selector"
+                    android:textSize="12sp" />
 
-            <RadioButton
-                android:id="@+id/rbMessage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:checked="false"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/message_selector"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:text="消息"
-                android:textColor="@drawable/home_font_selector"
-                android:textSize="12sp" />
 
-    <!--   <RadioButton
+
+                <RadioButton
+                    android:id="@+id/rbMessage"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/message_selector"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:text="消息"
+                    android:textColor="@drawable/home_font_selector"
+                    android:textSize="12sp" />
+
+
+       <!--     <RadioButton
                 android:id="@+id/rbTool"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -106,7 +108,52 @@
                 android:textColor="@drawable/home_font_selector"
                 android:textSize="12sp" />-->
         </RadioGroup>
-    </LinearLayout>
+        <!-- 实现提醒信息用的 -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="55dip"
+            android:orientation="horizontal"
+            android:background="#00000000"
+
+            >
+            <!-- 显示提醒信息的button android:layout_weight=1  是3个butto，平分手机界面的宽度-->
+            <Button
+                android:visibility="invisible"
+                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                />
+            <!-- 占位置的button，以便适应不同分辨率手机 -->
+            <Button
+                android:visibility="invisible"
+                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                />
+            <!-- 占位置的button，以便适应不同分辨率手机 -->
+            <Button
+                android:id="@+id/bt"
+                android:visibility="invisible"
+                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                />
+            <Button
+                android:id="@+id/bt1"
+                android:visibility="invisible"
+                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                />
+            <Button
+                android:visibility="gone"
+                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

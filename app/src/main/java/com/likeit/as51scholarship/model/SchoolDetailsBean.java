@@ -76,6 +76,8 @@ public class SchoolDetailsBean {
         private String img_width;
         private String img_height;
         private String is_collect;
+        private String logo;
+        private List<GalleryBean> gallery;
 
         @Override
         public String toString() {
@@ -100,7 +102,60 @@ public class SchoolDetailsBean {
                     ", img_width='" + img_width + '\'' +
                     ", img_height='" + img_height + '\'' +
                     ", is_collect='" + is_collect + '\'' +
+                    ", logo='" + logo + '\'' +
+                    ", gallery=" + gallery +
                     '}';
+        }
+
+        public List<GalleryBean> getGallery() {
+            return gallery;
+        }
+
+        public void setGallery(List<GalleryBean> gallery) {
+            this.gallery = gallery;
+        }
+
+        public String getLogo() {
+            return logo;
+
+        }
+        public static class GalleryBean {
+            /**
+             * img : http://liuxueapp.wbteam.cn//Uploads/Picture/2017-11-22/5a14edd56a8a6.jpg
+             * img_width : 354
+             * img_height : 354
+             */
+
+            private String img;
+            private String img_width;
+            private String img_height;
+
+            public String getImg() {
+                return img;
+            }
+
+            public void setImg(String img) {
+                this.img = img;
+            }
+
+            public String getImg_width() {
+                return img_width;
+            }
+
+            public void setImg_width(String img_width) {
+                this.img_width = img_width;
+            }
+
+            public String getImg_height() {
+                return img_height;
+            }
+
+            public void setImg_height(String img_height) {
+                this.img_height = img_height;
+            }
+        }
+        public void setLogo(String logo) {
+            this.logo = logo;
         }
 
         public String getIs_collect() {

@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/cricle_gridview_iv_Avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dip"
+        android:layout_height="80dip"
         android:layout_centerHorizontal="true"
         android:src="@mipmap/icon_01_3x" />
 

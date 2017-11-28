@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dip"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="10dip">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="3"
+        android:orientation="horizontal">
+
+        <com.likeit.as51scholarship.view.CircleImageView
+            android:id="@+id/answers_issue_avatar"
+            android:layout_width="@dimen/width45"
+            android:layout_height="@dimen/width45"
+            android:layout_margin="10dip"
+            android:src="@mipmap/message_chat_avatar" />
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_margin="10dip"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/answers_issue_name"
+                android:layout_width="wrap_content"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="xxxx"
+                android:textColor="@color/login_btn_bg_color" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dip"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/tv_floor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/defualt_textcolor_d"
+                    android:text="xxxx"
+                    />
+                <TextView
+                    android:layout_toRightOf="@+id/tv_floor"
+                    android:id="@+id/answers_issue_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="20dip"
+                    android:text="xxxx"
+                    android:textColor="@color/defualt_textcolor_d" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/answers_issue_details"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="xxxx" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

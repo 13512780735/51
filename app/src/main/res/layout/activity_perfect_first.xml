@@ -517,8 +517,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="分数"
-                    android:textColor="@color/color_333"
+                    android:text="分数"
+                    android:textColor="@color/black_deep"
                     android:textSize="14sp"/>
 
                 <EditText
@@ -528,7 +528,6 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:gravity="right|center_vertical"
-                    android:text=""
                     android:hint="输入GPA分数"
                     android:textColor="#02b7fb"
                     android:textSize="14sp"/>
@@ -588,7 +587,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="托福"
-                        android:textColor="@color/defualt_textcolor_f"
+                        android:textColor="@color/black_deep"
                         android:textSize="14sp" />
 
                     <EditText
@@ -599,7 +598,6 @@
                         android:background="@null"
                         android:gravity="right|center_vertical"
                         android:hint="输入托福的分数"
-                        android:text=""
                         android:textColor="#02b7fb"
                         android:textSize="14sp" />
 
@@ -624,7 +622,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="雅思"
-                        android:textColor="@color/defualt_textcolor_f"
+                        android:textColor="@color/black_deep"
                         android:textSize="14sp" />
 
                     <EditText
@@ -635,7 +633,6 @@
                         android:background="@null"
                         android:gravity="right|center_vertical"
                         android:hint="输入雅思的分数"
-                        android:text=""
                         android:textColor="#02b7fb"
                         android:textSize="14sp" />
 
@@ -660,7 +657,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="托业"
-                        android:textColor="@color/defualt_textcolor_f"
+                        android:textColor="@color/black_deep"
                         android:textSize="14sp" />
 
                     <EditText
@@ -671,7 +668,6 @@
                         android:background="@null"
                         android:gravity="right|center_vertical"
                         android:hint="输入托业的分数"
-                        android:text=""
                         android:textColor="#02b7fb"
                         android:textSize="14sp" />
 
@@ -696,7 +692,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="其他"
-                        android:textColor="@color/defualt_textcolor_f"
+                        android:textColor="@color/black_deep"
                         android:textSize="14sp" />
 
                     <EditText
@@ -707,7 +703,6 @@
                         android:background="@null"
                         android:gravity="right|center_vertical"
                         android:hint="输入成绩类型、分数"
-                        android:text=""
                         android:textColor="#02b7fb"
                         android:textSize="14sp" />
 
@@ -981,17 +976,7 @@
                 android:scrollbars="none"
                 android:verticalSpacing="5dp"></com.likeit.as51scholarship.imageutil.custom.CustomScrollGridView>
 
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:id="@+id/imgs_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:orientation="horizontal"
-                    android:visibility="gone" />
-            </HorizontalScrollView>
 
 
             <TextView
