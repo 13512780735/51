@@ -33,6 +33,7 @@ import com.likeit.as51scholarship.configs.AppConfig;
 import com.likeit.as51scholarship.http.HttpUtil;
 import com.likeit.as51scholarship.model.CourseSectionBean;
 import com.likeit.as51scholarship.utils.ListScrollUtil;
+import com.likeit.as51scholarship.utils.StringUtil;
 import com.likeit.as51scholarship.utils.richtext.RichText;
 import com.likeit.as51scholarship.view.MyListview;
 import com.loopj.android.http.RequestParams;
@@ -91,6 +92,7 @@ public class CourseDetailsActivity extends Container implements View.OnClickList
     private String vid;
     private List<CourseSectionBean> NewsData;
     private CourseSectionAdatpter mAdapter;
+    private Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,13 +161,28 @@ public class CourseDetailsActivity extends Container implements View.OnClickList
         mPullToRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel(
                 "松开即可刷新");
         main_radio_group.setOnCheckedChangeListener(this);
-        mAdapter=new CourseSectionAdatpter(mContext,NewsData);
+        mAdapter = new CourseSectionAdatpter(mContext, NewsData);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mAdapter.setDefSelect(position);
                 //Person p = (Person) mListView.getItemAtPosition(position);
-               // Toast.makeText(MainActivity.this, p.toString(), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, p.toString(), Toast.LENGTH_SHORT).show();
+                String video_url = NewsData.get(position).getVideo_url();
+                String file_url = NewsData.get(position).getFile_url();
+                String file_name = NewsData.get(position).getFile_name();
+                Log.d("TAG858", "video_url:" + video_url);
+                Log.d("TAG858", "file_url:" + file_url);
+                Log.d("TAG858", "file_name:" + file_name);
+                if (!StringUtil.isBlank(video_url)) {
+                    uri = Uri.parse(video_url);
+                    mSuperVideoPlayer.loadAndPlay(uri, 0);
+                } else if (StringUtil.isBlank(video_url) || !StringUtil.isBlank(file_url)) {
+                    Intent intent = new Intent(mContext, PDFActivity.class);
+                    intent.putExtra("file_url", file_url);
+                    intent.putExtra("file_name", file_name);
+                    startActivity(intent);
+                } else return;
             }
         });
     }
@@ -181,7 +198,7 @@ public class CourseDetailsActivity extends Container implements View.OnClickList
                 mPlayBtnView.setVisibility(View.GONE);
                 mSuperVideoPlayer.setVisibility(View.VISIBLE);
                 mSuperVideoPlayer.setAutoHideController(false);
-                Uri uri = Uri.parse(video_url);
+                uri = Uri.parse(video_url);
                 mSuperVideoPlayer.loadAndPlay(uri, 0);
                 break;
         }
@@ -285,26 +302,22 @@ public class CourseDetailsActivity extends Container implements View.OnClickList
                 mListView.setVisibility(View.GONE);
                 status = "1";
                 initData();
-                line_news.setVisibility(View.GONE);
+                line_news.setVisibility(View.INVISIBLE);
                 line_details.setVisibility(View.VISIBLE);
                 mPullToRefreshScrollView.onRefreshComplete();
                 rbDetails.setChecked(true);
                 rbNews.setChecked(false);
                 break;
             case R.id.radio_news:
-                if(NewsData.size()==0){
-                    return;
-                }else{
-                    NewsData.clear();
-                }
-                getListNew();
-                status = "2";
-                mListView.setVisibility(View.VISIBLE);
                 ll_detail.setVisibility(View.GONE);
                 line_news.setVisibility(View.VISIBLE);
-                line_details.setVisibility(View.GONE);
-//                newAdapter.addAll(NewsData, true);
-//                newAdapter.notifyDataSetChanged();
+                line_details.setVisibility(View.INVISIBLE);
+                mAdapter.addAll(NewsData, true);
+                mAdapter.notifyDataSetChanged();
+                status = "2";
+                getListNew();
+                mListView.setVisibility(View.VISIBLE);
+
                 mPullToRefreshScrollView.onRefreshComplete();
                 rbNews.setChecked(true);
                 rbDetails.setChecked(false);
@@ -365,6 +378,7 @@ public class CourseDetailsActivity extends Container implements View.OnClickList
             }
         });
     }
+
     class CourseSectionAdatpter extends BaseAdapter {
 
         private Context context;
@@ -392,8 +406,9 @@ public class CourseDetailsActivity extends Container implements View.OnClickList
         public long getItemId(int position) {
             return position;
         }
+
         /**
-         适配器中添加这个方法
+         * 适配器中添加这个方法
          */
         public void setDefSelect(int position) {
             this.defItem = position;
@@ -420,8 +435,17 @@ public class CourseDetailsActivity extends Container implements View.OnClickList
             }
             //绑定数据
             CourseSectionBean courseSectionBean = mCourseSectionBean.get(position);
-            holder.item1.setText("第"+courseSectionBean.getTime()+"课 "+courseSectionBean.getTitle());
+            holder.item1.setText("第" + courseSectionBean.getTime() + "课 " + courseSectionBean.getTitle());
             return convertView;
+        }
+
+        public void addAll(List<CourseSectionBean> list, boolean isClearDatasource) {
+            if (isClearDatasource) {
+                mCourseSectionBean.clear();
+            }
+            mCourseSectionBean.addAll(list);
+            notifyDataSetChanged();
+
         }
 
         class ViewHolder {

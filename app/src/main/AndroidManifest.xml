@@ -558,7 +558,8 @@
         <activity android:name=".activitys.login.BindAccountActivity" />
         <activity android:name=".activitys.login.BindAccount02Activity" />
         <activity android:name=".activitys.my_center.IssueActivity" />
-        <activity android:name=".activitys.my_center.QuizActivity"></activity>
+        <activity android:name=".activitys.my_center.QuizActivity" />
+        <activity android:name=".activitys.PDFActivity"></activity>
     </application>
 
 </manifest>

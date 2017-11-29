@@ -7,8 +7,8 @@ android {
         applicationId "com.likeit.as51scholarship"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 7
-        versionName "1.7"
+        versionCode 8
+        versionName "1.8"
         multiDexEnabled true
         aaptOptions.cruncherEnabled = false
         aaptOptions.useNewCruncher = false
@@ -101,6 +101,7 @@ android {
 
 
 
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -160,7 +161,7 @@ dependencies {
     compile 'com.parse:parse-android:1.13.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.joanzapata.pdfview:android-pdfview:1.0.4@aar'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.joanzapata.pdfview:android-pdfview:1.0.4@aar'
 }

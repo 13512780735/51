@@ -101,8 +101,7 @@
                     <View
                         android:id="@+id/line_details"
                         android:layout_width="0dip"
-                        android:layout_height="1dp"
-                        android:layout_toLeftOf="@+id/line"
+                        android:layout_height="2dp"
                         android:layout_weight="1"
                         android:background="@color/main_tab_selected_color" />
 
@@ -110,8 +109,7 @@
                     <View
                         android:id="@+id/line_news"
                         android:layout_width="0dip"
-                        android:layout_height="1dp"
-                        android:layout_toRightOf="@+id/line"
+                        android:layout_height="2dp"
                         android:layout_weight="1"
                         android:background="@color/main_tab_selected_color"
                         android:visibility="invisible" />
@@ -204,8 +202,7 @@
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
                 android:layout_marginTop="10dip"
-                android:divider="@color/smssdk_white"
-                android:dividerHeight="5dip"
+                android:divider="@color/white"
                 android:focusable="false"></com.likeit.as51scholarship.view.MyListview>
         </LinearLayout>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>

@@ -465,9 +465,6 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 getListData();
                 line_news.setVisibility(View.GONE);
                 line_school.setVisibility(View.VISIBLE);
-//                schoolAdater.notifyDataSetChanged();
-//                schoolAdater.addAll(SchoolData, true);
-//                Log.d("TAG", "SchoolData-->" + SchoolData);
                 ListScrollUtil.setListViewHeightBasedOnChildren(mListView);
                 mPullToRefreshScrollView.onRefreshComplete();
                 radio_school.setChecked(true);

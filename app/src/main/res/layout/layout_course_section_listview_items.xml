@@ -22,4 +22,9 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/padding_normal"
         android:background="@mipmap/icon_selcet_play"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/line_color"
+        android:layout_alignParentBottom="true"></View>
 </RelativeLayout>
