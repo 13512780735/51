@@ -292,11 +292,11 @@ public class CourseDetailsActivity extends Container implements View.OnClickList
                 rbNews.setChecked(false);
                 break;
             case R.id.radio_news:
-//                if(NewsData.size()==0){
-//                    return;
-//                }else{
-//                    NewsData.clear();
-//                }
+                if(NewsData.size()==0){
+                    return;
+                }else{
+                    NewsData.clear();
+                }
                 getListNew();
                 status = "2";
                 mListView.setVisibility(View.VISIBLE);
