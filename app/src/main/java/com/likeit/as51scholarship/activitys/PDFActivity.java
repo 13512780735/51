@@ -1,20 +1,24 @@
 package com.likeit.as51scholarship.activitys;
 
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.joanzapata.pdfview.PDFView;
-import com.joanzapata.pdfview.listener.OnLoadCompleteListener;
-import com.joanzapata.pdfview.listener.OnPageChangeListener;
+import com.lidong.pdf.PDFView;
+import com.lidong.pdf.listener.OnDrawListener;
+import com.lidong.pdf.listener.OnLoadCompleteListener;
+import com.lidong.pdf.listener.OnPageChangeListener;
 import com.likeit.as51scholarship.R;
-import com.likeit.as51scholarship.utils.UtilPreference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class PDFActivity extends Container {
+public class PDFActivity extends Container implements OnPageChangeListener
+        , OnLoadCompleteListener, OnDrawListener {
     @BindView(R.id.backBtn)
     Button btBack;
     @BindView(R.id.tv_header)
@@ -34,37 +38,72 @@ public class PDFActivity extends Container {
         Intent intent = getIntent();
         file_url = intent.getStringExtra("file_url");
         file_name = intent.getStringExtra("file_name");
-        myPage = (int) UtilPreference.getIntValue(mContext, "page", 0);
         initView();
     }
 
     private void initView() {
         tvHeader.setText(file_name);
-        pdfView.fromAsset(file_url)
-//                .pages(0, 2, 3, 4, 5); // 把0 , 2 , 3 , 4 , 5 过滤掉
-                //是否允许翻页，默认是允许翻页
-                .enableSwipe(true)
-                //pdf文档翻页是否是垂直翻页，默认是左右滑动翻页
-                //设置默认显示第0页
-                .defaultPage(myPage)
-                //允许在当前页面上绘制一些内容，通常在屏幕中间可见。
-//                .onDraw(onDrawListener)
-//                // 允许在每一页上单独绘制一个页面。只调用可见页面
-//                .onDrawAll(onDrawListener)
-                //设置加载监听
-                .onLoad(new OnLoadCompleteListener() {
-                    @Override
-                    public void loadComplete(int nbPages) {
-                    }
-                })
-                //设置翻页监听
-                .onPageChange(new OnPageChangeListener() {
+        displayFromFile1(file_url, file_name);
 
-                    @Override
-                    public void onPageChanged(int page, int pageCount) {
-                        p = page;
-                    }
-                })
-                .load();
+    }
+
+    /**
+     * 获取打开网络的pdf文件
+     *
+     * @param fileUrl
+     * @param fileName
+     */
+    private void displayFromFile1(String fileUrl, String fileName) {
+        showProgress();
+        pdfView.fileFromLocalStorage(this, this, this, fileUrl, fileName);   //设置pdf文件地址
+
+    }
+
+    /**
+     * 翻页回调
+     *
+     * @param page
+     * @param pageCount
+     */
+    @Override
+    public void onPageChanged(int page, int pageCount) {
+//        Toast.makeText(mContext, "page= " + page +
+//                " pageCount= " + pageCount, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 加载完成回调
+     *
+     * @param nbPages 总共的页数
+     */
+    @Override
+    public void loadComplete(int nbPages) {
+        // Toast.makeText(mContext, "加载完成" + nbPages, Toast.LENGTH_SHORT).show();
+        hideProgress();
+    }
+
+    @Override
+    public void onLayerDrawn(Canvas canvas, float pageWidth, float pageHeight, int displayedPage) {
+        // Toast.makeText( MainActivity.this ,  "pageWidth= " + pageWidth + "
+        // pageHeight= " + pageHeight + " displayedPage="  + displayedPage , Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 显示对话框
+     */
+    private void showProgress() {
+        //LoadingUIHelper.showDialogForLoading(this, "报告加载中,请等待。。。", false);
+    }
+
+    /**
+     * 关闭等待框
+     */
+    private void hideProgress() {
+        //LoadingUIHelper.hideDialogForLoading();
+    }
+
+    @OnClick(R.id.backBtn)
+    public void onClick(View v) {
+        onBackPressed();
     }
 }
