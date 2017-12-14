@@ -52,12 +52,12 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\1efd45bae7d51c7892a67163e4d8dc44f7056d48\\output\\res\\layout\\notification_template_media.xml"
     },
     {
-        "merged": "F:\\1009\\0903\\51\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_widget_title_bar.xml",
-        "source": "F:\\1009\\0903\\51\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_widget_title_bar.xml"
-    },
-    {
         "merged": "F:\\1009\\0903\\51\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_activity_show_big_image.xml",
         "source": "F:\\1009\\0903\\51\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_activity_show_big_image.xml"
+    },
+    {
+        "merged": "F:\\1009\\0903\\51\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_widget_title_bar.xml",
+        "source": "F:\\1009\\0903\\51\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_widget_title_bar.xml"
     },
     {
         "merged": "F:\\1009\\0903\\51\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",

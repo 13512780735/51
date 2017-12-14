@@ -10,11 +10,13 @@
         android:id="@+id/live_header_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.likeit.as51scholarship.view.MyListview
             android:id="@+id/live_header_listview"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:divider="@color/background_b"
-            android:dividerHeight="10dip"
-            android:layout_height="match_parent"></com.likeit.as51scholarship.view.MyListview>
+            android:dividerHeight="10dip"></com.likeit.as51scholarship.view.MyListview>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
 </LinearLayout>

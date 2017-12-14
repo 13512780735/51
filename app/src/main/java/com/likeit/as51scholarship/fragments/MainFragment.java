@@ -25,7 +25,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.as51scholarship.R;
 import com.likeit.as51scholarship.activitys.AnswersActivity;
 import com.likeit.as51scholarship.activitys.CourseListActivity;
-import com.likeit.as51scholarship.activitys.LiveListActivity;
+import com.likeit.as51scholarship.activitys.LiveList01Activity;
 import com.likeit.as51scholarship.activitys.MainActivity;
 import com.likeit.as51scholarship.activitys.NewMessageActivity;
 import com.likeit.as51scholarship.activitys.NewsListActivity;
@@ -429,7 +429,7 @@ public class MainFragment extends MyBaseFragment implements View.OnClickListener
                 toActivity(NewsListActivity.class);
                 break;
             case R.id.look_live:
-                toActivity(LiveListActivity.class);
+                toActivity(LiveList01Activity.class);
                 break;
             case R.id.online_layout:
                 toActivity(CourseListActivity.class);

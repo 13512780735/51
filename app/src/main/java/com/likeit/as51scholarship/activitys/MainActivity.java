@@ -286,26 +286,26 @@ public class MainActivity extends SlidingFragmentActivity implements ViewPager.O
 
     EMMessageListener messageListener = new EMMessageListener() {
 
-        @Override
-        public void onMessageReceived(List<EMMessage> messages) {
-            // notify new message
-            for (EMMessage message : messages) {
-                // 先将头像和昵称保存在本地缓存
-                try {
-                    String chatUserId = message.getStringAttribute(SharePrefConstant.ChatUserId);
-                    String avatarUrl = message.getStringAttribute(SharePrefConstant.ChatUserPic);
-                    String nickName = message.getStringAttribute(SharePrefConstant.ChatUserNick);
-                    Log.d("TAG", "chatUserId-->" + chatUserId + "avatarUrl-->" + avatarUrl + "nickName-->" + nickName);
-                    UserInfoCacheSvc.createOrUpdate(chatUserId, nickName, avatarUrl);
+            @Override
+            public void onMessageReceived(List<EMMessage> messages) {
+                // notify new message
+                for (EMMessage message : messages) {
+                    // 先将头像和昵称保存在本地缓存
+                    try {
+                        String chatUserId = message.getStringAttribute(SharePrefConstant.ChatUserId);
+                        String avatarUrl = message.getStringAttribute(SharePrefConstant.ChatUserPic);
+                        String nickName = message.getStringAttribute(SharePrefConstant.ChatUserNick);
+                        Log.d("TAG", "chatUserId-->" + chatUserId + "avatarUrl-->" + avatarUrl + "nickName-->" + nickName);
+                        UserInfoCacheSvc.createOrUpdate(chatUserId, nickName, avatarUrl);
 
-                } catch (HyphenateException e) {
-                    e.printStackTrace();
+                    } catch (HyphenateException e) {
+                        e.printStackTrace();
+                    }
+
+                    DemoHelper.getInstance().getNotifier().onNewMsg(message);
                 }
-
-                DemoHelper.getInstance().getNotifier().onNewMsg(message);
+                refreshUIWithMessage();
             }
-            refreshUIWithMessage();
-        }
 
         @Override
         public void onCmdMessageReceived(List<EMMessage> messages) {

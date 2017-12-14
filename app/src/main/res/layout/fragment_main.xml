@@ -3,9 +3,9 @@
     android:id="@+id/id_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/defualt_window_background"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
-    android:background="@color/defualt_window_background"
     tools:context=".fragments.MainFragment">
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
@@ -13,10 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/smssdk_white"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:dividerHeight="5dp"
-        android:dividerPadding="2dip">
+        android:dividerPadding="2dip"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <LinearLayout
             android:id="@+id/layout"
@@ -24,6 +24,7 @@
             android:layout_height="fill_parent"
             android:background="#a0ffffff"
             android:orientation="vertical">
+
             <include layout="@layout/fragment_home_head" />
 
 
@@ -32,20 +33,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dip"
-                android:layout_marginTop="10dip"
-                android:focusable="false"
                 android:layout_marginRight="10dip"
+                android:layout_marginTop="10dip"
                 android:divider="@color/smssdk_white"
-                android:dividerHeight="5dip"></com.likeit.as51scholarship.view.MyListview>
+                android:dividerHeight="5dip"
+                android:focusable="false"></com.likeit.as51scholarship.view.MyListview>
+
             <com.likeit.as51scholarship.view.MyListview
                 android:id="@+id/listView02"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dip"
-                android:focusable="false"
-                android:visibility="gone"
                 android:divider="@color/line_color"
-                android:dividerHeight="2dip"></com.likeit.as51scholarship.view.MyListview>
+                android:dividerHeight="2dip"
+                android:focusable="false"
+                android:visibility="gone"></com.likeit.as51scholarship.view.MyListview>
         </LinearLayout>
 
 
@@ -102,8 +104,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:visibility="gone"
-                android:src="@mipmap/nav_icon_voice" />
+                android:src="@mipmap/nav_icon_voice"
+                android:visibility="gone" />
         </LinearLayout>
 
         <ImageView

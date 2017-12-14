@@ -252,7 +252,7 @@ public class MyApplication extends Application {
 
     private void initMob() {
         ShareSDK.initSDK(mContext);
-        SMSSDK.initSDK(mContext, "215c3a8166eb3", "Secret:ab800735232f039a271c73874269dbdc");
+            SMSSDK.initSDK(mContext, "215c3a8166eb3", "Secret:ab800735232f039a271c73874269dbdc");
     }
 
 
